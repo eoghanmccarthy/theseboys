@@ -1,0 +1,122 @@
+/* font */
+
+@import 'https://fonts.googleapis.com/css?family=Open+Sans';
+@import 'https://fonts.googleapis.com/css?family=Ubuntu+Mono';
+@import 'https://fonts.googleapis.com/css?family=Roboto+Mono:100,300';
+
+/* global */
+
+body {
+	background-color: #333333;
+	font-family: 'Roboto Mono', monospace;
+	color: #ffffff !important;
+}
+
+.no-padding {
+	padding: 0;
+}
+
+/* type */
+
+h1 {
+	font-size: 2em;
+	font-weight: 100;
+	color: black;
+}
+
+h1 span {
+	background-color: yellow;
+}
+
+h2 {
+	font-size: 2.6em;
+	font-weight: 100;
+}
+
+@media (min-width: 544px) {
+	h2 {
+		font-size: 2.2em;
+	}
+}
+
+@media (min-width: 768px) {
+	h2 {
+		font-size: 3em;
+	}
+}
+
+@media (min-width: 992px) {
+	h2 {
+		font-size: 3.2em;
+	}
+}
+
+p {
+	font-size: 1em;
+	color: black;
+}
+
+/* colour */
+
+.bg-brand {
+	background-color: #00ffff;
+}
+
+.bg-grey {
+	background-color: #333;
+}
+
+.bg-blue {
+	background-color: blue;
+}
+
+.bg-red {
+	background-color: red;
+}
+
+/* column height */
+
+.col-height-sm {
+	height: 10em;
+}
+
+.col-height-md {
+	height: 15em;
+}
+
+.col-height-lg {
+	height: 20em;
+}
+
+/* header */
+
+header img {
+	width: 75%;
+	opacity: 0.5;
+}
+
+header img:hover {
+	opacity: 1.0;
+}
+
+.panel-content h1,h2,p {
+	margin: 1.8rem 1.2rem;
+}
+
+@media (min-width: 544px) {
+	.panel-content h1,h2,p {
+		margin: 1.8rem 1.8rem;
+	}
+}
+
+.panel-image img {
+	width: 100%;
+	height: auto;
+	opacity: 0.5;
+	-webkit-transition: opacity 1s; /* Safari */
+  transition: opacity 1s;
+}
+
+.panel-image img:hover {
+	opacity: 1.0;
+}
