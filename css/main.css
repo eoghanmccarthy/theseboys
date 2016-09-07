@@ -155,3 +155,24 @@ video {
 	max-height: 100%;
 	opacity: 0.4;
 }
+
+/* deskyop only */
+
+.desktop-only {
+	display: none;
+}
+.desktop-hide {
+	display: block;
+}
+
+@media (min-width: 992px) {
+	.desktop-only {
+		display: block;
+	}
+}
+
+@media (min-width: 992px) {
+	.desktop-hide {
+		display: none;
+	}
+}
