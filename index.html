@@ -50,7 +50,8 @@
         <img src="images/img_4013.jpg">
       </div>
       <div class="col-xs-12 col-sm-6 col-lg-3 no-padding panel">
-        <img src="images/img_3564.jpg">
+        <img class="show-desktop" src="images/img_3564.jpg">
+        <img class="hide-desktop" src="images/img_3568.jpg">
       </div>
     </div>
     <div class="row">
@@ -88,6 +89,17 @@
   <!-- ++++ Container ends -->
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function () {
+    if (screen.width < 1024) {
+        $(".hide-desktop").hide();
+    }
+    else {
+        $(".show-desktop").show();
+    }
+});
+</script>
 
 </body>
 </html>
