@@ -16,6 +16,10 @@ body {
 	padding: 0;
 }
 
+.no-margin {
+	margin: 0;
+}
+
 /* type */
 
 h1 {
@@ -127,7 +131,7 @@ p {
 .panel img {
 	width: 100%;
 	height: auto;
-	opacity: 0.5;
+	opacity: 0.4;
 	-webkit-transition: opacity 1s; /* Safari */
   transition: opacity 1s;
 }
@@ -150,10 +154,18 @@ p {
 	border-top: 1px dashed #000000;
 }
 
+/* video */
+
 video {
 	max-width: 100%;
 	max-height: 100%;
 	opacity: 0.4;
+	-webkit-transition: opacity 1s; /* Safari */
+  transition: opacity 1s;
+}
+
+video:hover {
+	opacity: 1.0;
 }
 
 /* deskyop only */
@@ -165,13 +177,13 @@ video {
 	display: block;
 }
 
-@media (min-width: 992px) {
+@media (min-width: 1200px) {
 	.desktop-only {
 		display: block;
 	}
 }
 
-@media (min-width: 992px) {
+@media (min-width: 1200px) {
 	.desktop-hide {
 		display: none;
 	}
