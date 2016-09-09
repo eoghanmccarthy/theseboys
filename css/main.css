@@ -63,7 +63,7 @@ h2 {
 }
 
 h3 {
-	font-size: 2.2em;
+	font-size: 1.8em;
 	font-weight: 100;
 }
 
@@ -84,7 +84,7 @@ a:hover {
 	color: white;
 }
 
-/* colour */
+/* background colour */
 
 .bg-brand {
 	background-color: #00ffff;
