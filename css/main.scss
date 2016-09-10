@@ -25,12 +25,16 @@ $margin-sm: 0.8rem;
 $margin-md: 1.2rem;
 $margin-lg: 1.6rem;
 $margin-xl: 2.0rem;
+$margin-xxl: 2.4rem;
+$margin-xxxl: 2.8rem;
 
 $padding-xs: 0.4rem;
 $padding-sm: 0.8rem;
 $padding-md: 1.2rem;
 $padding-lg: 1.6rem;
 $padding-xl: 2.0rem;
+$padding-xxl: 2.4rem;
+$padding-xxxl: 2.8rem;
 
 /* global */
 
@@ -111,7 +115,6 @@ header {
 
 .sub-header {
 	height: $col-lg;
-	background-color: $dark-grey;
 	h2 {
 		margin: $margin-lg $margin-md;
 			@media (min-width: 544px) {
@@ -132,10 +135,9 @@ header {
 }
 
 .scloud-panel {
-	height: $col-lg;
 	padding: $padding-xl $padding-md;
 		@media (min-width: 544px) {
-			padding: $padding-xl;
+			padding: $padding-xxxl $padding-xxl;
 		}
 }
 
