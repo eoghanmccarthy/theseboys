@@ -94,11 +94,11 @@ hr {
   .media-panel video:hover {
     opacity: 1.0; }
 
-/* about */
-.about {
+/* logo panel */
+.logo {
   height: 20em;
   background-color: blue; }
-  .about img {
+  .logo img {
     position: absolute;
     top: -50px;
     max-width: 11rem;
@@ -108,27 +108,27 @@ hr {
     -webkit-transition: opacity 1s;
     /* Safari */
     transition: opacity 1s; }
-    .about img:hover {
-      opacity: 1.0; }
+    .logo img:hover {
+      opacity: 0.5; }
 
 /* pre-footer */
-.pre-footer {
+.about {
   height: 20em; }
-  .pre-footer .credit {
+  .about .about-main {
     height: 15em; }
-    .pre-footer .credit h3 {
+    .about .about-main p {
       margin: 1.6rem 1.2rem;
-      font-size: 1.8em;
+      font-size: 1em;
       color: #000; }
       @media (min-width: 544px) {
-        .pre-footer .credit h3 {
+        .about .about-main p {
           margin: 1.6rem; } }
-  .pre-footer .credit-offset {
+  .about .about-offset {
     height: 5em;
     background-color: #3d3d3d;
     margin-top: 28px; }
     @media (min-width: 768px) {
-      .pre-footer .credit-offset {
+      .about .about-offset {
         margin-top: 57px; } }
 
 /* footer */

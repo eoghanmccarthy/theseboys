@@ -5,6 +5,7 @@
 /* variables */
 
 $font-stack: 'Roboto Mono', monospace;
+
 $brand: cyan;
 $white: #fff;
 $black: #000;
@@ -140,9 +141,9 @@ hr {
 	}
 }
 
-/* about */
+/* logo panel */
 
-.about {
+.logo {
 	height: $col-lg;
 	background-color: $blue;
 	img {
@@ -155,7 +156,7 @@ hr {
 		-webkit-transition: opacity 1s; /* Safari */
 		transition: opacity 1s;
 		&:hover {
-			opacity: 1.0;
+			opacity: 0.5;
 		}
 	}
 }
@@ -163,20 +164,20 @@ hr {
 
 /* pre-footer */
 
-.pre-footer {
+.about {
 	height: $col-lg;
-	.credit {
+	.about-main {
 		height: $col-md;
-		h3 {
+		p {
 			margin: $margin-lg $margin-md;
 				@media (min-width: 544px) {
 					margin: $margin-lg;
 				}
-			font-size: 1.8em;
+			font-size: 1em;
 			color: $black;
 		}
 	}
-	.credit-offset {
+	.about-offset {
 		height: $col-xs;
 		background-color: $light-grey;
 		margin-top: 28px;
