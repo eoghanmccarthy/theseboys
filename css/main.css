@@ -30,9 +30,20 @@ hr {
       display: none; } }
 
 /* header */
+header {
+  background-color: cyan;
+  -webkit-animation-name: example;
+  /* Chrome, Safari, Opera */
+  -webkit-animation-duration: 12s;
+  /* Chrome, Safari, Opera */
+  -webkit-animation-iteration-count: infinite;
+  /* Chrome, Safari, Opera */
+  animation-name: header;
+  animation-duration: 12s;
+  animation-iteration-count: infinite; }
+
 .header {
-  height: 20rem;
-  background-color: cyan; }
+  height: 20rem; }
   .header h1 {
     margin: 1.6rem 1.2rem;
     font-size: 2em;
@@ -140,5 +151,23 @@ footer p {
   @media (min-width: 544px) {
     footer p {
       margin: 1.6rem; } }
+
+/* animation */
+/* Chrome, Safari, Opera */
+@-webkit-keyframes header {
+  0% {
+    background-color: cyan; }
+  50% {
+    background-color: yellow; }
+  100% {
+    background-color: cyan; } }
+/* Standard syntax */
+@keyframes header {
+  0% {
+    background-color: cyan; }
+  50% {
+    background-color: yellow; }
+  100% {
+    background-color: cyan; } }
 
 /*# sourceMappingURL=main.css.map */

@@ -64,9 +64,18 @@ hr {
 
 /* header */
 
+header {
+	background-color: $brand;
+	-webkit-animation-name: example; /* Chrome, Safari, Opera */
+    -webkit-animation-duration: 12s; /* Chrome, Safari, Opera */
+	-webkit-animation-iteration-count: infinite; /* Chrome, Safari, Opera */
+    animation-name: header;
+    animation-duration: 12s;
+    animation-iteration-count: infinite;
+}
+
 .header {
 	height: $col-lg;
-	background-color: $brand;
 	h1 {
 		margin: $margin-lg $margin-md;
 			@media (min-width: 544px) {
@@ -199,4 +208,20 @@ footer {
 			}
 		font-size: 1em;
 	}
+}
+
+/* animation */
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes header {
+    0% {background-color: $brand;}
+    50% {background-color: yellow;}
+	100% {background-color: $brand;}
+}
+
+/* Standard syntax */
+@keyframes header {
+	0% {background-color: $brand;}
+    50% {background-color: yellow;}
+	100% {background-color: $brand;}
 }
