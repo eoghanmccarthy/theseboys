@@ -14,11 +14,11 @@ $dark-grey: #333;
 $blue: blue;
 $yellow: yellow;
 
-$col-xs: 5em;
-$col-sm: 10em;
-$col-md: 15em;
-$col-lg: 20em;
-$col-xl: 25em;
+$col-xs: 5rem;
+$col-sm: 10rem;
+$col-md: 15rem;
+$col-lg: 20rem;
+$col-xl: 25rem;
 
 $margin-xs: 0.4rem;
 $margin-sm: 0.8rem;
@@ -100,10 +100,11 @@ hr {
 	h2 {
 		margin: $margin-lg $margin-md;
 			@media (min-width: 544px) {
-				margin: $margin-lg;
+				margin: $margin-lg $margin-lg;
 			}
 		font-size: 2.6em;
 		font-weight: 100;
+		word-wrap: break-word;
 		@media (min-width: 544px) {
 			font-size: 2.2em;
 		}
@@ -111,7 +112,7 @@ hr {
 			font-size: 3em;
 		}
 		@media (min-width: 992px) {
-			font-size: 3.2em;
+			font-size: 4.8em;
 		}
 	}
 }
@@ -162,7 +163,7 @@ hr {
 }
 
 
-/* pre-footer */
+/* about */
 
 .about {
 	height: $col-lg;

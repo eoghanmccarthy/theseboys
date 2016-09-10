@@ -31,7 +31,7 @@ hr {
 
 /* header */
 .header {
-  height: 20em;
+  height: 20rem;
   background-color: cyan; }
   .header h1 {
     margin: 1.6rem 1.2rem;
@@ -55,15 +55,16 @@ hr {
 
 /* sub-header */
 .sub-header {
-  height: 20em;
+  height: 20rem;
   background-color: #333; }
   .sub-header h2 {
     margin: 1.6rem 1.2rem;
     font-size: 2.6em;
-    font-weight: 100; }
+    font-weight: 100;
+    word-wrap: break-word; }
     @media (min-width: 544px) {
       .sub-header h2 {
-        margin: 1.6rem; } }
+        margin: 1.6rem 1.6rem; } }
     @media (min-width: 544px) {
       .sub-header h2 {
         font-size: 2.2em; } }
@@ -72,7 +73,7 @@ hr {
         font-size: 3em; } }
     @media (min-width: 992px) {
       .sub-header h2 {
-        font-size: 3.2em; } }
+        font-size: 4.8em; } }
 
 /* media */
 .media-panel img {
@@ -96,7 +97,7 @@ hr {
 
 /* logo panel */
 .logo {
-  height: 20em;
+  height: 20rem;
   background-color: blue; }
   .logo img {
     position: absolute;
@@ -111,11 +112,11 @@ hr {
     .logo img:hover {
       opacity: 0.5; }
 
-/* pre-footer */
+/* about */
 .about {
-  height: 20em; }
+  height: 20rem; }
   .about .about-main {
-    height: 15em; }
+    height: 15rem; }
     .about .about-main p {
       margin: 1.6rem 1.2rem;
       font-size: 1em;
@@ -124,7 +125,7 @@ hr {
         .about .about-main p {
           margin: 1.6rem; } }
   .about .about-offset {
-    height: 5em;
+    height: 5rem;
     background-color: #3d3d3d;
     margin-top: 28px; }
     @media (min-width: 768px) {
