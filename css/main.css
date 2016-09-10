@@ -100,7 +100,7 @@ hr {
   background-color: blue; }
   .about img {
     position: absolute;
-    bottom: 0.8rem;
+    top: -50px;
     max-width: 11rem;
     height: auto;
     margin: 1.6rem;
