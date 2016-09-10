@@ -1,0 +1,190 @@
+/* font */
+
+@import 'https://fonts.googleapis.com/css?family=Ubuntu+Mono';
+@import 'https://fonts.googleapis.com/css?family=Roboto+Mono:100,300';
+
+/* variables */
+
+$font-stack: 'Roboto Mono', monospace;
+$brand: cyan;
+$white: #fff;
+$black: #000;
+$light-grey: #3d3d3d;
+$dark-grey: #333;
+$blue: blue;
+$yellow: yellow;
+
+
+$col-xs: 5em;
+$col-sm: 10em;
+$col-md: 15em;
+$col-lg: 20em;
+$col-xl: 25em;
+
+/* global */
+
+body {
+	background-color: $dark-grey;
+ 	font: 100% $font-stack;
+	font-weight: 100;
+ 	color: $white;
+}
+
+.no-padding {
+	padding: 0;
+}
+
+.no-margin {
+	margin: 0;
+}
+
+h1,h2,h3,p {
+	margin: 1.8rem 1.2rem;
+}
+
+@media (min-width: 544px) {
+	h1,h2,h3,p {
+		margin: 1.8rem 1.8rem;
+	}
+}
+
+/* header */
+
+.header {
+	height: $col-lg;
+	background-color: $brand;
+	h1 {
+		font-size: 2em;
+		font-weight: 100;
+		color: $black;
+		span {
+			background-color: $yellow;
+		}
+	}
+	.icon-twitter {
+		margin-left: 0.8rem;
+		color: $black;
+		:hover {
+			color: $white;
+		}
+	}
+	img {
+		max-width: 10em;
+		height: auto;
+		margin: 1.8rem 1.8rem;
+		opacity: 0.6;
+		-webkit-transition: opacity 1s; /* Safari */
+	  	transition: opacity 1s;
+		:hover {
+			opacity: 1.0;
+		}
+	}
+}
+
+/* sub-header */
+
+.sub-header {
+	height: $col-lg;
+	background-color: $dark-grey;
+	h2 {
+		font-size: 2.6em;
+		font-weight: 100;
+		@media (min-width: 544px) {
+			font-size: 2.2em;
+		}
+		@media (min-width: 768px) {
+			font-size: 3em;
+		}
+		@media (min-width: 992px) {
+			font-size: 3.2em;
+		}
+	}
+}
+
+/* media */
+
+.media-panel {
+	img {
+		width: 100%;
+		height: auto;
+		opacity: 0.4;
+		-webkit-transition: opacity 1s; /* Safari */
+	  	transition: opacity 1s;
+	  	:hover {
+	  		opacity: 1.0;
+		}
+	}
+	video {
+		width: 100%;
+		height: auto;
+	 	opacity: 0.4;
+	 	-webkit-transition: opacity 1s; /* Safari */
+	   	transition: opacity 1s;
+		:hover {
+   	 		opacity: 1.0;
+		}
+	}
+}
+
+/* about */
+
+.about {
+	height: $col-lg;
+	background-color: $blue;
+	p {
+		font-size: 1em;
+		color: $white;
+	}
+}
+
+/* credit */
+
+.credit {
+	height: $col-md;
+	background-color: $light-grey;
+	h3 {
+		font-size: 1.8em;
+		color: $black;
+	}
+}
+
+.credit-offset {
+	height: $col-xs;
+	margin-top: 28px;
+	@media (min-width: 768px) {
+		margin-top: 57px;
+	}
+}
+
+.dashed {
+	border-top: 1px dashed #000000;
+}
+
+/* deskyop only */
+
+.desktop-only {
+	display: none;
+}
+.desktop-hide {
+	display: block;
+}
+
+@media (min-width: 1200px) {
+	.desktop-only {
+		display: block;
+	}
+}
+
+@media (min-width: 1200px) {
+	.desktop-hide {
+		display: none;
+	}
+}
+
+/* footer */
+
+footer {
+	p {
+		font-size: 1em;
+	}
+}
