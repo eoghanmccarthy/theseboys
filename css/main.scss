@@ -1,6 +1,5 @@
 /* font */
 
-@import 'https://fonts.googleapis.com/css?family=Ubuntu+Mono';
 @import 'https://fonts.googleapis.com/css?family=Roboto+Mono:100,300';
 
 /* variables */
@@ -48,6 +47,26 @@ h1,h2,h3,p {
 	}
 }
 
+hr {
+	border-top: 1px dashed #000000;
+}
+
+/* deskyop only */
+
+.desktop-only {
+	display: none;
+	@media (min-width: 1200px) {
+		display: block;
+	}
+}
+
+.desktop-hide {
+	display: block;
+	@media (min-width: 1200px) {
+		display: none;
+	}
+}
+
 /* header */
 
 .header {
@@ -64,7 +83,7 @@ h1,h2,h3,p {
 	.icon-twitter {
 		margin-left: 0.8rem;
 		color: $black;
-		:hover {
+		&:hover {
 			color: $white;
 		}
 	}
@@ -75,7 +94,7 @@ h1,h2,h3,p {
 		opacity: 0.6;
 		-webkit-transition: opacity 1s; /* Safari */
 	  	transition: opacity 1s;
-		:hover {
+		&:hover {
 			opacity: 1.0;
 		}
 	}
@@ -110,8 +129,8 @@ h1,h2,h3,p {
 		opacity: 0.4;
 		-webkit-transition: opacity 1s; /* Safari */
 	  	transition: opacity 1s;
-	  	:hover {
-	  		opacity: 1.0;
+		&:hover {
+			opacity: 1.0;
 		}
 	}
 	video {
@@ -120,8 +139,8 @@ h1,h2,h3,p {
 	 	opacity: 0.4;
 	 	-webkit-transition: opacity 1s; /* Safari */
 	   	transition: opacity 1s;
-		:hover {
-   	 		opacity: 1.0;
+		&:hover {
+			opacity: 1.0;
 		}
 	}
 }
@@ -137,47 +156,25 @@ h1,h2,h3,p {
 	}
 }
 
-/* credit */
 
-.credit {
-	height: $col-md;
-	background-color: $light-grey;
-	h3 {
-		font-size: 1.8em;
-		color: $black;
+/* pre-footer */
+
+.pre-footer {
+	height: $col-lg;
+	.credit {
+		height: $col-md;
+		h3 {
+			font-size: 1.8em;
+			color: $black;
+		}
 	}
-}
-
-.credit-offset {
-	height: $col-xs;
-	margin-top: 28px;
-	@media (min-width: 768px) {
-		margin-top: 57px;
-	}
-}
-
-.dashed {
-	border-top: 1px dashed #000000;
-}
-
-/* deskyop only */
-
-.desktop-only {
-	display: none;
-}
-.desktop-hide {
-	display: block;
-}
-
-@media (min-width: 1200px) {
-	.desktop-only {
-		display: block;
-	}
-}
-
-@media (min-width: 1200px) {
-	.desktop-hide {
-		display: none;
+	.credit-offset {
+		height: $col-xs;
+		background-color: $light-grey;
+		margin-top: 28px;
+		@media (min-width: 768px) {
+			margin-top: 57px;
+		}
 	}
 }
 

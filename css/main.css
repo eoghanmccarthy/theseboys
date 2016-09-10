@@ -1,5 +1,4 @@
 /* font */
-@import "https://fonts.googleapis.com/css?family=Ubuntu+Mono";
 @import "https://fonts.googleapis.com/css?family=Roboto+Mono:100,300";
 /* variables */
 /* global */
@@ -21,6 +20,22 @@ h1, h2, h3, p {
 @media (min-width: 544px) {
   h1, h2, h3, p {
     margin: 1.8rem 1.8rem; } }
+hr {
+  border-top: 1px dashed #000000; }
+
+/* deskyop only */
+.desktop-only {
+  display: none; }
+  @media (min-width: 1200px) {
+    .desktop-only {
+      display: block; } }
+
+.desktop-hide {
+  display: block; }
+  @media (min-width: 1200px) {
+    .desktop-hide {
+      display: none; } }
+
 /* header */
 .header {
   height: 20em;
@@ -34,7 +49,7 @@ h1, h2, h3, p {
   .header .icon-twitter {
     margin-left: 0.8rem;
     color: #000; }
-    .header .icon-twitter :hover {
+    .header .icon-twitter:hover {
       color: #fff; }
   .header img {
     max-width: 10em;
@@ -44,7 +59,7 @@ h1, h2, h3, p {
     -webkit-transition: opacity 1s;
     /* Safari */
     transition: opacity 1s; }
-    .header img :hover {
+    .header img:hover {
       opacity: 1.0; }
 
 /* sub-header */
@@ -72,7 +87,7 @@ h1, h2, h3, p {
   -webkit-transition: opacity 1s;
   /* Safari */
   transition: opacity 1s; }
-  .media-panel img :hover {
+  .media-panel img:hover {
     opacity: 1.0; }
 .media-panel video {
   width: 100%;
@@ -81,7 +96,7 @@ h1, h2, h3, p {
   -webkit-transition: opacity 1s;
   /* Safari */
   transition: opacity 1s; }
-  .media-panel video :hover {
+  .media-panel video:hover {
     opacity: 1.0; }
 
 /* about */
@@ -92,37 +107,22 @@ h1, h2, h3, p {
     font-size: 1em;
     color: #fff; }
 
-/* credit */
-.credit {
-  height: 15em;
-  background-color: #3d3d3d; }
-  .credit h3 {
-    font-size: 1.8em;
-    color: #000; }
+/* pre-footer */
+.pre-footer {
+  height: 20em; }
+  .pre-footer .credit {
+    height: 15em; }
+    .pre-footer .credit h3 {
+      font-size: 1.8em;
+      color: #000; }
+  .pre-footer .credit-offset {
+    height: 5em;
+    background-color: #3d3d3d;
+    margin-top: 28px; }
+    @media (min-width: 768px) {
+      .pre-footer .credit-offset {
+        margin-top: 57px; } }
 
-.credit-offset {
-  height: 5em;
-  margin-top: 28px; }
-  @media (min-width: 768px) {
-    .credit-offset {
-      margin-top: 57px; } }
-
-.dashed {
-  border-top: 1px dashed #000000; }
-
-/* deskyop only */
-.desktop-only {
-  display: none; }
-
-.desktop-hide {
-  display: block; }
-
-@media (min-width: 1200px) {
-  .desktop-only {
-    display: block; } }
-@media (min-width: 1200px) {
-  .desktop-hide {
-    display: none; } }
 /* footer */
 footer p {
   font-size: 1em; }
