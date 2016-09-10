@@ -1,11 +1,10 @@
 /* font */
-@import "https://fonts.googleapis.com/css?family=Roboto+Mono:100,300";
+@import "https://fonts.googleapis.com/css?family=Roboto+Mono:100";
 /* variables */
 /* global */
 body {
   background-color: #333;
   font: 100% "Roboto Mono", monospace;
-  font-weight: 100;
   color: #fff; }
 
 .no-padding {
@@ -45,20 +44,14 @@ hr {
     .header h1 span {
       background-color: yellow; }
   .header .icon-twitter {
-    margin-left: 0.8rem;
+    margin: 0 1.2rem;
+    font-size: 2em;
     color: #000; }
+    @media (min-width: 544px) {
+      .header .icon-twitter {
+        margin: 0 1.6rem; } }
     .header .icon-twitter:hover {
       color: #fff; }
-  .header img {
-    max-width: 11rem;
-    height: auto;
-    margin: 1.6rem;
-    opacity: 0.6;
-    -webkit-transition: opacity 1s;
-    /* Safari */
-    transition: opacity 1s; }
-    .header img:hover {
-      opacity: 1.0; }
 
 /* sub-header */
 .sub-header {
@@ -105,13 +98,18 @@ hr {
 .about {
   height: 20em;
   background-color: blue; }
-  .about p {
-    margin: 1.6rem 1.2rem;
-    font-size: 1em;
-    color: #fff; }
-    @media (min-width: 544px) {
-      .about p {
-        margin: 1.6rem; } }
+  .about img {
+    position: absolute;
+    bottom: 0.8rem;
+    max-width: 11rem;
+    height: auto;
+    margin: 1.6rem;
+    opacity: 0.2;
+    -webkit-transition: opacity 1s;
+    /* Safari */
+    transition: opacity 1s; }
+    .about img:hover {
+      opacity: 1.0; }
 
 /* pre-footer */
 .pre-footer {

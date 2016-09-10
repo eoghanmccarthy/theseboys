@@ -1,6 +1,6 @@
 /* font */
 
-@import 'https://fonts.googleapis.com/css?family=Roboto+Mono:100,300';
+@import 'https://fonts.googleapis.com/css?family=Roboto+Mono:100';
 
 /* variables */
 
@@ -30,7 +30,6 @@ $margin-xl: 2.0rem;
 body {
 	background-color: $dark-grey;
  	font: 100% $font-stack;
-	font-weight: 100;
  	color: $white;
 }
 
@@ -80,21 +79,14 @@ hr {
 		}
 	}
 	.icon-twitter {
-		margin-left: 0.8rem;
+		margin: 0 $margin-md;
+			@media (min-width: 544px) {
+				margin: 0 $margin-lg;
+			}
+		font-size: 2em;
 		color: $black;
 		&:hover {
 			color: $white;
-		}
-	}
-	img {
-		max-width: 11rem;
-		height: auto;
-		margin: $margin-lg;
-		opacity: 0.6;
-		-webkit-transition: opacity 1s; /* Safari */
-	  	transition: opacity 1s;
-		&:hover {
-			opacity: 1.0;
 		}
 	}
 }
@@ -153,13 +145,18 @@ hr {
 .about {
 	height: $col-lg;
 	background-color: $blue;
-	p {
-		margin: $margin-lg $margin-md;
-			@media (min-width: 544px) {
-				margin: $margin-lg;
-			}
-		font-size: 1em;
-		color: $white;
+	img {
+		position: absolute;
+    	bottom: $margin-sm;
+		max-width: 11rem;
+		height: auto;
+		margin: $margin-lg;
+		opacity: 0.2;
+		-webkit-transition: opacity 1s; /* Safari */
+		transition: opacity 1s;
+		&:hover {
+			opacity: 1.0;
+		}
 	}
 }
 
