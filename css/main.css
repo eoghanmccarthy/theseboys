@@ -85,6 +85,13 @@ header {
       .sub-header h2 {
         font-size: 4.8em; } }
 
+.scloud-panel {
+  height: 20rem;
+  padding: 2rem 1.2rem; }
+  @media (min-width: 544px) {
+    .scloud-panel {
+      padding: 2rem; } }
+
 /* media */
 .media-panel img {
   width: 100%;

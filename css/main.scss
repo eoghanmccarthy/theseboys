@@ -26,6 +26,12 @@ $margin-md: 1.2rem;
 $margin-lg: 1.6rem;
 $margin-xl: 2.0rem;
 
+$padding-xs: 0.4rem;
+$padding-sm: 0.8rem;
+$padding-md: 1.2rem;
+$padding-lg: 1.6rem;
+$padding-xl: 2.0rem;
+
 /* global */
 
 body {
@@ -123,6 +129,14 @@ header {
 			font-size: 4.8em;
 		}
 	}
+}
+
+.scloud-panel {
+	height: $col-lg;
+	padding: $padding-xl $padding-md;
+		@media (min-width: 544px) {
+			padding: $padding-xl;
+		}
 }
 
 /* media */
