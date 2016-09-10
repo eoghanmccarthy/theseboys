@@ -13,12 +13,17 @@ $dark-grey: #333;
 $blue: blue;
 $yellow: yellow;
 
-
 $col-xs: 5em;
 $col-sm: 10em;
 $col-md: 15em;
 $col-lg: 20em;
 $col-xl: 25em;
+
+$margin-xs: 0.4rem;
+$margin-sm: 0.8rem;
+$margin-md: 1.2rem;
+$margin-lg: 1.6rem;
+$margin-xl: 2.0rem;
 
 /* global */
 
@@ -35,13 +40,6 @@ body {
 
 .no-margin {
 	margin: 0;
-}
-
-h1,h2,h3,p {
-	margin: 1.8rem 1.2rem;
-	@media (min-width: 544px) {
-		margin: 1.8rem 1.8rem;
-	}
 }
 
 hr {
@@ -70,6 +68,10 @@ hr {
 	height: $col-lg;
 	background-color: $brand;
 	h1 {
+		margin: $margin-lg $margin-md;
+			@media (min-width: 544px) {
+				margin: $margin-lg;
+			}
 		font-size: 2em;
 		font-weight: 100;
 		color: $black;
@@ -85,9 +87,9 @@ hr {
 		}
 	}
 	img {
-		max-width: 10em;
+		max-width: 11rem;
 		height: auto;
-		margin: 1.8rem 1.8rem;
+		margin: $margin-lg;
 		opacity: 0.6;
 		-webkit-transition: opacity 1s; /* Safari */
 	  	transition: opacity 1s;
@@ -103,6 +105,10 @@ hr {
 	height: $col-lg;
 	background-color: $dark-grey;
 	h2 {
+		margin: $margin-lg $margin-md;
+			@media (min-width: 544px) {
+				margin: $margin-lg;
+			}
 		font-size: 2.6em;
 		font-weight: 100;
 		@media (min-width: 544px) {
@@ -148,6 +154,10 @@ hr {
 	height: $col-lg;
 	background-color: $blue;
 	p {
+		margin: $margin-lg $margin-md;
+			@media (min-width: 544px) {
+				margin: $margin-lg;
+			}
 		font-size: 1em;
 		color: $white;
 	}
@@ -161,6 +171,10 @@ hr {
 	.credit {
 		height: $col-md;
 		h3 {
+			margin: $margin-lg $margin-md;
+				@media (min-width: 544px) {
+					margin: $margin-lg;
+				}
 			font-size: 1.8em;
 			color: $black;
 		}
@@ -179,6 +193,10 @@ hr {
 
 footer {
 	p {
+		margin: $margin-lg $margin-md;
+			@media (min-width: 544px) {
+				margin: $margin-lg;
+			}
 		font-size: 1em;
 	}
 }

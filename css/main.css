@@ -14,12 +14,6 @@ body {
 .no-margin {
   margin: 0; }
 
-h1, h2, h3, p {
-  margin: 1.8rem 1.2rem; }
-  @media (min-width: 544px) {
-    h1, h2, h3, p {
-      margin: 1.8rem 1.8rem; } }
-
 hr {
   border-top: 1px dashed #000000; }
 
@@ -41,9 +35,13 @@ hr {
   height: 20em;
   background-color: cyan; }
   .header h1 {
+    margin: 1.6rem 1.2rem;
     font-size: 2em;
     font-weight: 100;
     color: #000; }
+    @media (min-width: 544px) {
+      .header h1 {
+        margin: 1.6rem; } }
     .header h1 span {
       background-color: yellow; }
   .header .icon-twitter {
@@ -52,9 +50,9 @@ hr {
     .header .icon-twitter:hover {
       color: #fff; }
   .header img {
-    max-width: 10em;
+    max-width: 11rem;
     height: auto;
-    margin: 1.8rem 1.8rem;
+    margin: 1.6rem;
     opacity: 0.6;
     -webkit-transition: opacity 1s;
     /* Safari */
@@ -67,8 +65,12 @@ hr {
   height: 20em;
   background-color: #333; }
   .sub-header h2 {
+    margin: 1.6rem 1.2rem;
     font-size: 2.6em;
     font-weight: 100; }
+    @media (min-width: 544px) {
+      .sub-header h2 {
+        margin: 1.6rem; } }
     @media (min-width: 544px) {
       .sub-header h2 {
         font-size: 2.2em; } }
@@ -104,8 +106,12 @@ hr {
   height: 20em;
   background-color: blue; }
   .about p {
+    margin: 1.6rem 1.2rem;
     font-size: 1em;
     color: #fff; }
+    @media (min-width: 544px) {
+      .about p {
+        margin: 1.6rem; } }
 
 /* pre-footer */
 .pre-footer {
@@ -113,8 +119,12 @@ hr {
   .pre-footer .credit {
     height: 15em; }
     .pre-footer .credit h3 {
+      margin: 1.6rem 1.2rem;
       font-size: 1.8em;
       color: #000; }
+      @media (min-width: 544px) {
+        .pre-footer .credit h3 {
+          margin: 1.6rem; } }
   .pre-footer .credit-offset {
     height: 5em;
     background-color: #3d3d3d;
@@ -125,6 +135,10 @@ hr {
 
 /* footer */
 footer p {
+  margin: 1.6rem 1.2rem;
   font-size: 1em; }
+  @media (min-width: 544px) {
+    footer p {
+      margin: 1.6rem; } }
 
 /*# sourceMappingURL=main.css.map */
