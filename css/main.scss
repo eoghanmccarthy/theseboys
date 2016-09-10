@@ -105,7 +105,7 @@ hr {
 		font-size: 3.6em;
 		word-wrap: break-word;
 		@media (min-width: 544px) {
-			font-size: 3.2em;
+			font-size: 3.0em;
 		}
 		@media (min-width: 768px) {
 			font-size: 4.0em;
@@ -175,11 +175,13 @@ hr {
 				}
 			font-size: 1em;
 			color: $black;
+			text-decoration: underline;
 		}
 	}
 	.about-offset {
 		height: $col-xs;
 		background-color: $light-grey;
+		opacity: 0.6;
 		margin-top: 28px;
 		@media (min-width: 768px) {
 			margin-top: 57px;
