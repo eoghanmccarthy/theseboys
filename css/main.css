@@ -134,6 +134,9 @@ header {
       @media (min-width: 544px) {
         .about .about-main p {
           margin: 1.6rem; } }
+      .about .about-main p a {
+        color: inherit;
+        text-decoration: inherit; }
   .about .about-offset {
     height: 5rem;
     background-color: #3d3d3d;
@@ -170,7 +173,7 @@ footer p {
     background-color: cyan; } }
 /* button */
 .button {
-  background-color: blue;
+  background-color: cyan;
   margin: 1.6rem 1.2rem;
   height: 80px;
   width: 80px;
@@ -182,7 +185,7 @@ footer p {
   text-decoration: none;
   display: inline-block;
   cursor: pointer;
-  opacity: 0.6;
+  opacity: 0.8;
   -webkit-transition: opacity 1s;
   /* Safari */
   transition: opacity 1s; }
