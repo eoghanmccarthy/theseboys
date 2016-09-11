@@ -64,7 +64,7 @@
                     <div class="row">
                         <div class="col-md-12 about-main">
                             <p>all sounds, images and code by eoghan</p>
-                            <button id="button-state" class="button btn-off" onclick="aud_play_pause()"><i id="icon-state" class="fa fa-play" aria-hidden="true"></i></button>
+                            <button class="button btn-off" onclick="aud_play_pause()"><i id="icon-state" class="fa fa-play" aria-hidden="true"></i></button>
                             <audio id="tense-times">
                               <source src="audio/test.m4a" type="audio/mp4">
                             </audio>
@@ -99,14 +99,10 @@
                 if (myAudio.paused) {
                     $('#icon-state').removeClass('fa fa-play');
                     $('#icon-state').addClass('fa fa-pause');
-                    $('#button-state').removeClass('btn-off');
-                    $('#button-state').addClass('btn-on');
                     myAudio.play();
                 } else {
                     $('#icon-state').removeClass('fa fa-pause');
                     $('#icon-state').addClass('fa fa-play');
-                    $('#button-state').removeClass('btn-on');
-                    $('#button-state').addClass('btn-off');
                     myAudio.pause();
                 }
             }
