@@ -168,5 +168,40 @@ footer p {
     background-color: yellow; }
   100% {
     background-color: cyan; } }
+/* button */
+.button {
+  background-color: cyan;
+  margin: 1.6rem 1.2rem;
+  height: 80px;
+  width: 80px;
+  border: none;
+  border-radius: 50%;
+  font-size: 24px;
+  color: #000;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer; }
+  @media (min-width: 544px) {
+    .button {
+      margin: 1.6rem; } }
+
+.btn-off {
+  opacity: 0.4;
+  -webkit-transition: opacity 1s;
+  /* Safari */
+  transition: opacity 1s; }
+  .btn-off:hover {
+    opacity: 0.6; }
+  .btn-off:active {
+    opacity: 0.8; }
+
+.btn-on {
+  opacity: 0.6;
+  -webkit-transition: opacity 1s;
+  /* Safari */
+  transition: opacity 1s; }
+  .btn-on:hover {
+    opacity: 0.8; }
 
 /*# sourceMappingURL=main.css.map */

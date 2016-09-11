@@ -234,3 +234,44 @@ footer {
     50% {background-color: yellow;}
 	100% {background-color: $brand;}
 }
+
+/* button */
+
+.button {
+	background-color: $brand;
+	margin: $margin-lg $margin-md;
+		@media (min-width: 544px) {
+			margin: $margin-lg;
+		}
+	height: 80px;
+	width: 80px;
+    border: none;
+	border-radius: 50%;
+	font-size: 24px;
+	color: $black;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+	cursor: pointer;
+}
+
+.btn-off {
+	opacity: 0.4;
+	-webkit-transition: opacity 1s; /* Safari */
+	transition: opacity 1s;
+	&:hover {
+		opacity: 0.6;
+	}
+	&:active {
+		opacity: 0.8;
+	}
+}
+
+.btn-on {
+	opacity: 0.6;
+	-webkit-transition: opacity 1s; /* Safari */
+	transition: opacity 1s;
+	&:hover {
+		opacity: 0.8;
+	}
+}
