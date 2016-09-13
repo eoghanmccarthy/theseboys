@@ -16,6 +16,9 @@ body {
 hr {
   border-top: 1px dashed #000000; }
 
+.dbl-underline {
+  border-bottom: double 1px; }
+
 /* deskyop only */
 .desktop-only {
   display: none; }
