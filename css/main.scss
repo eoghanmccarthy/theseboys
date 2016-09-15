@@ -139,6 +139,18 @@ header {
 	}
 }
 
+/* play list & player */
+
+.play-list {
+	.player {
+		background-color: $light-grey;
+		border-radius: 5px;
+		height: $col-sm;
+		padding: $padding-sm;
+		margin: $margin-sm;
+	}
+}
+
 /* media */
 
 .media-panel {
@@ -244,28 +256,41 @@ footer {
 	100% {background-color: $brand;}
 }
 
-/* button */
+/* audio player */
 
-.button {
-	background-color: $brand;
-	margin: $margin-lg $margin-md;
-		@media (min-width: 544px) {
-			margin: $margin-lg;
+.player {
+	.btn-play {
+		background-color: $brand;
+		height: 80px;
+		width: 80px;
+		float: left;
+	    border: none;
+		border-radius: 50%;
+		font-size: 24px;
+		color: $black;
+	    text-align: center;
+	    text-decoration: none;
+	    display: inline-block;
+		cursor: pointer;
+		opacity: 0.8;
+		-webkit-transition: opacity 1s; /* Safari */
+		transition: opacity 1s;
+		&:hover {
+			opacity: 1.0;
 		}
-	height: 80px;
-	width: 80px;
-    border: none;
-	border-radius: 50%;
-	font-size: 24px;
-	color: $black;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-	cursor: pointer;
-	opacity: 0.8;
-	-webkit-transition: opacity 1s; /* Safari */
-	transition: opacity 1s;
-	&:hover {
-		opacity: 1.0;
+	}
+	.track-name {
+		float: left;
+		font-size: 12px;
+		color: $white;
+	    text-decoration: none;
+	    display: block;
+	}
+	.track-time {
+		float: left;
+		font-size: 12px;
+		color: $white;
+	    text-decoration: none;
+	    display: block;
 	}
 }

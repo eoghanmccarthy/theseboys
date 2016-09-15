@@ -87,6 +87,14 @@ header {
       .sub-header h2 {
         font-size: 4.8em; } }
 
+/* play list & player */
+.play-list .player {
+  background-color: #3d3d3d;
+  border-radius: 5px;
+  height: 10rem;
+  padding: 0.8rem;
+  margin: 0.8rem; }
+
 /* media */
 .media-panel img {
   width: 100%;
@@ -174,12 +182,12 @@ footer p {
     background-color: yellow; }
   100% {
     background-color: cyan; } }
-/* button */
-.button {
+/* audio player */
+.player .btn-play {
   background-color: cyan;
-  margin: 1.6rem 1.2rem;
   height: 80px;
   width: 80px;
+  float: left;
   border: none;
   border-radius: 50%;
   font-size: 24px;
@@ -192,10 +200,19 @@ footer p {
   -webkit-transition: opacity 1s;
   /* Safari */
   transition: opacity 1s; }
-  @media (min-width: 544px) {
-    .button {
-      margin: 1.6rem; } }
-  .button:hover {
+  .player .btn-play:hover {
     opacity: 1.0; }
+.player .track-name {
+  float: left;
+  font-size: 12px;
+  color: #fff;
+  text-decoration: none;
+  display: block; }
+.player .track-time {
+  float: left;
+  font-size: 12px;
+  color: #fff;
+  text-decoration: none;
+  display: block; }
 
 /*# sourceMappingURL=main.css.map */
