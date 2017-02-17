@@ -1,0 +1,199 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto+Mono:100");
+html {
+  font-size: 62.5%; }
+
+.header__nav, .media, .header, .footer {
+  font-size: 1rem; }
+
+.footer {
+  text-align: center; }
+
+html {
+  text-size-adjust: 100%;
+  box-sizing: border-box; }
+
+body {
+  font-family: "Roboto Mono", Courier, monospace, sans-serif;
+  font-weight: 400;
+  line-height: 1;
+  color: #000;
+  background: #fff; }
+
+main {
+  padding: 0 0 2em; }
+
+.logo-svg path {
+  fill: #00ffff;
+  -webkit-transition: fill, 0.2s, ease;
+  -moz-transition: fill, 0.2s, ease;
+  -o-transition: fill, 0.2s, ease;
+  transition: fill, 0.2s, ease; }
+  .logo-svg path:hover {
+    fill: #00adad; }
+
+h1 {
+  font-size: 2rem;
+  line-height: 1.3; }
+  @media screen and (min-width: 576px) {
+    h1 {
+      font-size: 3rem; } }
+  @media screen and (min-width: 768px) {
+    h1 {
+      font-size: 4rem; } }
+  @media screen and (min-width: 992px) {
+    h1 {
+      font-size: 5rem; } }
+  @media screen and (min-width: 1200px) {
+    h1 {
+      font-size: 6rem; } }
+  h1 span {
+    background-color: #ffff00; }
+
+h2 {
+  font-size: 4rem;
+  line-height: 1.3; }
+  @media screen and (min-width: 576px) {
+    h2 {
+      font-size: 5rem; } }
+  @media screen and (min-width: 768px) {
+    h2 {
+      font-size: 7rem; } }
+  @media screen and (min-width: 992px) {
+    h2 {
+      font-size: 8rem; } }
+  @media screen and (min-width: 1200px) {
+    h2 {
+      font-size: 9rem; } }
+
+p {
+  font-size: 1.6rem;
+  line-height: 1.5; }
+
+.mark {
+  padding: 0.2em 0; }
+  .mark--brand {
+    background-color: #00ffff; }
+  .mark--white {
+    background-color: #fff; }
+
+/*
+ * Navigation
+ */
+.header__nav {
+  text-align: center; }
+
+/*
+ * Main nav bar styles
+ */
+.nav-bar {
+  display: inline-block;
+  list-style-type: none;
+  overflow: hidden;
+  margin: 0;
+  padding: 0; }
+  .nav-bar li {
+    display: none; }
+    @media screen and (min-width: 768px) {
+      .nav-bar li {
+        display: inline; } }
+    .nav-bar li.nav-bar__icon {
+      display: inline;
+      cursor: pointer; }
+      @media screen and (min-width: 768px) {
+        .nav-bar li.nav-bar__icon {
+          display: none; } }
+    .nav-bar li a {
+      font-size: 1.6rem;
+      line-height: 1.8;
+      color: #000;
+      text-align: center;
+      text-decoration: none;
+      padding: 0.5em 1em;
+      -webkit-transition: color, 0.2s, ease;
+      -moz-transition: color, 0.2s, ease;
+      -o-transition: color, 0.2s, ease;
+      transition: color, 0.2s, ease; }
+      @media screen and (min-width: 768px) {
+        .nav-bar li a {
+          font-size: 2.2rem; } }
+      .nav-bar li a:hover {
+        text-decoration: none;
+        color: #00ffff; }
+  .nav-bar--xs li {
+    display: block; }
+    @media screen and (min-width: 768px) {
+      .nav-bar--xs li {
+        display: inline; } }
+
+.media {
+  margin: 0 0 2em; }
+  @media screen and (min-width: 768px) {
+    .media {
+      margin: 0 0 3em; } }
+  .media__content {
+    display: block;
+    width: 100%;
+    margin-bottom: 1.5em;
+    opacity: 1;
+    -webkit-transition: opacity, 0.2s, ease;
+    -moz-transition: opacity, 0.2s, ease;
+    -o-transition: opacity, 0.2s, ease;
+    transition: opacity, 0.2s, ease; }
+    .media__content:hover {
+      opacity: 0.9; }
+  .media__meta {
+    font-size: 1.6rem;
+    line-height: 2;
+    margin-bottom: 1em;
+    border-bottom: 1px solid #737373; }
+
+.header {
+  padding: 3em 0 3em;
+  height: 100%;
+  background-color: #00ffff;
+  -webkit-animation: header 12s linear 0 infinite;
+  animation: header 12s linear 0 infinite; }
+  .header .icon-twitter {
+    font-size: 2em;
+    color: #000; }
+    .header .icon-twitter:hover {
+      color: #fff; }
+  .header .header__logo {
+    padding-bottom: 3em; }
+    .header .header__logo .logo-svg {
+      display: block;
+      margin: 0 auto;
+      width: 50px; }
+      @media screen and (min-width: 576px) {
+        .header .header__logo .logo-svg {
+          width: 100px; } }
+      @media screen and (min-width: 768px) {
+        .header .header__logo .logo-svg {
+          width: 120px; } }
+
+/* animation */
+/* Chrome, Safari, Opera */
+@-webkit-keyframes header {
+  0% {
+    background-color: #00ffff; }
+  50% {
+    background-color: #ffff00; }
+  100% {
+    background-color: #00ffff; } }
+
+/* Standard syntax */
+@keyframes header {
+  0% {
+    background-color: #00ffff; }
+  50% {
+    background-color: #ffff00; }
+  100% {
+    background-color: #00ffff; } }
+
+.footer {
+  margin: 3em 0; }
+
+.home {
+  border-radius: 50%;
+  margin: 0 auto;
+  width: 50%; }

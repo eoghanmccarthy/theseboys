@@ -1,0 +1,30 @@
+// Base
+html {
+    @extend %px-root;
+    text-size-adjust: 100%;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: $stack-mono;
+    font-weight: $font-weight-normal;
+    line-height: $base-line-height;
+    color: $black;
+    background: $white;
+}
+
+main {
+    padding: 0 0 p(lg);
+}
+
+.logo-svg {
+
+    path {
+        fill: palette(brand);
+        @include transition(fill, $speed, ease);
+
+        &:hover {
+            fill: palette(brand, x-dark);
+        }
+    }
+}

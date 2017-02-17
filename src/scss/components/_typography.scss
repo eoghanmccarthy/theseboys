@@ -1,0 +1,46 @@
+// Typography
+
+// Type maps
+$type-h1: (
+    null: $base-font-size * 2,
+    $bp-sm: $base-font-size * 3,
+    $bp-md: $base-font-size * 4,
+    $bp-lg: $base-font-size * 5,
+    $bp-xl: $base-font-size * 6
+);
+
+$type-h2: (
+    null: $base-font-size * 4,
+    $bp-sm: $base-font-size * 5,
+    $bp-md: $base-font-size * 7,
+    $bp-lg: $base-font-size * 8,
+    $bp-xl: $base-font-size * 9
+);
+
+$type-p: (
+    null: $base-font-size * 1.6
+);
+
+h1 {
+    @include font-size($type-h1);
+    line-height: $base-line-height * 1.3;
+    span {
+      background-color: $yellow;
+    }
+}
+
+h2 {
+    @include font-size($type-h2);
+    line-height: $base-line-height * 1.3;
+}
+
+p {
+    @include font-size($type-p);
+    line-height: $base-line-height * 1.5;
+}
+
+// Mark
+.mark {
+    padding: p(xxs) 0;
+    @include mod-bgcolor($ui-colors);
+}

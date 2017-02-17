@@ -1,0 +1,48 @@
+// Header
+.header {
+    @extend %px-base;
+    padding: p(xl) 0 p(xl);
+    height: 100%;
+    background-color: $primary;
+    @include animation(header 12s linear 0 infinite);
+
+	.icon-twitter {
+		font-size: 2em;
+		color: $black;
+		&:hover {
+			color: $white;
+		}
+	}
+
+    .header__logo {
+        padding-bottom: p(xl);
+
+        .logo-svg {
+            display: block;
+            margin: 0 auto;
+            width: 50px;
+            @include breakpoint(sm) {
+                width: 100px;
+            }
+            @include breakpoint(md) {
+                width: 120px;
+            }
+        }
+    }
+}
+
+/* animation */
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes header {
+    0% {background-color: $primary;}
+    50% {background-color: $yellow;}
+	100% {background-color: $primary;}
+}
+
+/* Standard syntax */
+@keyframes header {
+	0% {background-color: $primary;}
+    50% {background-color: $yellow;}
+	100% {background-color: $primary;}
+}

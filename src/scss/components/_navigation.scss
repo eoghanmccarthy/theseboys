@@ -1,0 +1,62 @@
+/*
+ * Navigation
+ */
+
+.header__nav {
+    @extend %px-base;
+    text-align: center;
+}
+
+/*
+ * Main nav bar styles
+ */
+.nav-bar {
+    display: inline-block;
+    list-style-type: none;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+
+    li {
+        display: none;
+        @include breakpoint(md) {
+            display: inline;
+        }
+
+        &.nav-bar__icon {
+            display: inline;
+            cursor: pointer;
+            @include breakpoint(md) {
+                display: none;
+            }
+        }
+
+        a {
+            font-size: $base-font-size * 1.6;
+            line-height: $base-line-height * 1.8;
+            color: $black;
+            text-align: center;
+            text-decoration: none;
+            padding: p(xs) p(sm);
+            @include transition(color, $speed, ease);
+            @include breakpoint(md) {
+                font-size: $base-font-size * 2.2;
+            }
+
+            &:hover {
+                text-decoration: none;
+                color: palette(brand);
+            }
+        }
+    }
+
+    &--xs {
+
+        li {
+            display: block;
+            @include breakpoint(md) {
+                display: inline;
+            }
+        }
+    }
+}

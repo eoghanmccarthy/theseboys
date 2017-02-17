@@ -1,0 +1,6 @@
+// Footer
+.footer {
+    @extend %px-base;
+    @extend %text-center;
+    margin: p(xl) 0;
+}

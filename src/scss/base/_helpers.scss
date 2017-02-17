@@ -1,0 +1,16 @@
+// Clearfix
+%clearfix {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+// Reset margin to zero
+%margin-reset {
+    margin: 0;
+}
+
+// Text align center
+%text-center {
+    text-align: center;
+}

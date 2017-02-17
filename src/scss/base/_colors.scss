@@ -1,0 +1,39 @@
+// Colors
+
+// Descriptive colors
+$white: #fff;
+$black: #000;
+$grey: #333;
+$mine-shaft: #3d3d3d;
+$cyan: #00ffff;
+$blue: #0000ff;
+$yellow: #ffff00;
+$web-orange: #ffa500;
+
+// Brand colors
+$primary: $cyan;
+$secondary: $yellow;
+
+// UI colors map
+$ui-colors: (
+    brand: $primary,
+    white: $white,
+);
+
+// Color palette modifiers
+$palettes: (
+    grey: (
+        x-light: lighten($grey, 25%),
+        light: lighten($grey, 12%),
+        base: $grey,
+        dark: darken($grey, 8%),
+        x-dark: darken($grey, 16%)
+    ),
+    brand: (
+        x-light: lighten($primary, 25%),
+        light: lighten($primary, 12%),
+        base: $primary,
+        dark: darken($primary, 8%),
+        x-dark: darken($primary, 16%)
+    )
+);
