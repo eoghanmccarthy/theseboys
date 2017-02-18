@@ -17,13 +17,15 @@ body {
   font-weight: 400;
   line-height: 1;
   color: #000;
-  background: #00adad; }
+  background: #00ffff;
+  -webkit-animation: header 12s linear 0 infinite;
+  animation: header 12s linear 0 infinite; }
 
 main {
   padding: 0 0 2em; }
 
 .logo-svg path {
-  fill: #00ffff;
+  fill: #00d6d6;
   -webkit-transition: fill, 0.2s, ease;
   -moz-transition: fill, 0.2s, ease;
   -o-transition: fill, 0.2s, ease;
@@ -33,7 +35,8 @@ main {
 
 h1 {
   font-size: 2rem;
-  line-height: 1.3; }
+  line-height: 1.3;
+  text-align: center; }
   @media screen and (min-width: 576px) {
     h1 {
       font-size: 3rem; } }
@@ -164,10 +167,7 @@ p {
     background-color: #00ffff; } }
 
 .header {
-  padding: 3em 0 3em;
-  background-color: #00ffff;
-  -webkit-animation: header 12s linear 0 infinite;
-  animation: header 12s linear 0 infinite; }
+  padding: 3em 0 3em; }
   .header .icon-twitter {
     font-size: 2em;
     color: #000; }
