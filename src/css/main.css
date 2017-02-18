@@ -25,13 +25,13 @@ main {
   padding: 0 0 2em; }
 
 .logo-svg path {
-  fill: #00d6d6;
+  fill: #80ffff;
   -webkit-transition: fill, 0.2s, ease;
   -moz-transition: fill, 0.2s, ease;
   -o-transition: fill, 0.2s, ease;
   transition: fill, 0.2s, ease; }
   .logo-svg path:hover {
-    fill: #80ffff; }
+    fill: #00adad; }
 
 h1 {
   font-size: 2rem;

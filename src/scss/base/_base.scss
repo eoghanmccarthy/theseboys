@@ -21,11 +21,11 @@ main {
 .logo-svg {
 
     path {
-        fill: palette(brand, dark);
+        fill: palette(brand, x-light);
         @include transition(fill, $speed, ease);
 
         &:hover {
-            fill: palette(brand, x-light);
+            fill: palette(brand, x-dark);
         }
     }
 }
