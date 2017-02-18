@@ -169,17 +169,17 @@ p {
     color: #000; }
     .header .icon-twitter:hover {
       color: #fff; }
-  .header .header__logo {
+  .header__logo {
     padding-bottom: 3em; }
-    .header .header__logo .logo-svg {
+    .header__logo .logo-svg {
       display: block;
       margin: 0 auto;
       width: 50px; }
       @media screen and (min-width: 576px) {
-        .header .header__logo .logo-svg {
+        .header__logo .logo-svg {
           width: 100px; } }
       @media screen and (min-width: 768px) {
-        .header .header__logo .logo-svg {
+        .header__logo .logo-svg {
           width: 120px; } }
 
 .footer {

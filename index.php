@@ -8,11 +8,11 @@
     </head>
 
     <body>
-        <div class="container-fluid">
+        <div class="container">
             <!-- Header -->
             <?php include 'partials/header.php';?>
             <main>
-                <section>
+                <section class="band band__gallery">
                 </section>
             </main>
             <!-- Footer -->
