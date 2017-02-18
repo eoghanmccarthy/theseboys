@@ -2,7 +2,6 @@
 .header {
     @extend %px-base;
     padding: p(xl) 0 p(xl);
-    height: 100%;
     background-color: $primary;
     @include animation(header 12s linear 0 infinite);
 
@@ -29,20 +28,4 @@
             }
         }
     }
-}
-
-/* animation */
-
-/* Chrome, Safari, Opera */
-@-webkit-keyframes header {
-    0% {background-color: $primary;}
-    50% {background-color: $yellow;}
-	100% {background-color: $primary;}
-}
-
-/* Standard syntax */
-@keyframes header {
-	0% {background-color: $primary;}
-    50% {background-color: $yellow;}
-	100% {background-color: $primary;}
 }

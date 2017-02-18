@@ -147,9 +147,24 @@ p {
     margin-bottom: 1em;
     border-bottom: 1px solid #737373; }
 
+@-webkit-keyframes header {
+  0% {
+    background-color: #00ffff; }
+  50% {
+    background-color: #ffff00; }
+  100% {
+    background-color: #00ffff; } }
+
+@keyframes header {
+  0% {
+    background-color: #00ffff; }
+  50% {
+    background-color: #ffff00; }
+  100% {
+    background-color: #00ffff; } }
+
 .header {
   padding: 3em 0 3em;
-  height: 100%;
   background-color: #00ffff;
   -webkit-animation: header 12s linear 0 infinite;
   animation: header 12s linear 0 infinite; }
@@ -170,25 +185,6 @@ p {
       @media screen and (min-width: 768px) {
         .header .header__logo .logo-svg {
           width: 120px; } }
-
-/* animation */
-/* Chrome, Safari, Opera */
-@-webkit-keyframes header {
-  0% {
-    background-color: #00ffff; }
-  50% {
-    background-color: #ffff00; }
-  100% {
-    background-color: #00ffff; } }
-
-/* Standard syntax */
-@keyframes header {
-  0% {
-    background-color: #00ffff; }
-  50% {
-    background-color: #ffff00; }
-  100% {
-    background-color: #00ffff; } }
 
 .footer {
   margin: 3em 0; }
