@@ -46,8 +46,6 @@ h1 {
   @media screen and (min-width: 992px) {
     h1 {
       font-size: 5rem; } }
-  h1 span {
-    background-color: #ffff00; }
 
 h2 {
   font-size: 4rem;

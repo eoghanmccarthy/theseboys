@@ -5,7 +5,7 @@
                 <div class="header__logo">
                     <?php include 'partials/logo.php';?>
                 </div>
-                <h1><span>theseboys</span></h1>
+                <h1>theseboys</h1>
                 <a href="http://www.twitter.com/theseboys" target="_blank"><i class="fa fa-twitter icon-twitter" aria-hidden="true"></i></a>
                 <h2>everything (we do) is a work-in-progress</h2>
             </div>
