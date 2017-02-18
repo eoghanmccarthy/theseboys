@@ -1,9 +1,10 @@
 // Header
 .header {
     @extend %px-base;
-    padding: p(xl) 0 p(xl);
+    padding: p(xxl) 0 p(xl);
 
 	.icon-twitter {
+        margin: 0 auto;
 		font-size: 2em;
 		color: $black;
 		&:hover {

@@ -46,9 +46,6 @@ h1 {
   @media screen and (min-width: 992px) {
     h1 {
       font-size: 5rem; } }
-  @media screen and (min-width: 1200px) {
-    h1 {
-      font-size: 6rem; } }
   h1 span {
     background-color: #ffff00; }
 
@@ -167,8 +164,9 @@ p {
     background-color: #00ffff; } }
 
 .header {
-  padding: 3em 0 3em; }
+  padding: 4em 0 3em; }
   .header .icon-twitter {
+    margin: 0 auto;
     font-size: 2em;
     color: #000; }
     .header .icon-twitter:hover {
