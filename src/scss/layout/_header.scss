@@ -2,8 +2,6 @@
 .header {
     @extend %px-base;
     padding: p(xl) 0 p(xl);
-    background-color: $primary;
-    @include animation(header 12s linear 0 infinite);
 
 	.icon-twitter {
 		font-size: 2em;

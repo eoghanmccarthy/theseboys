@@ -24,6 +24,7 @@ $type-p: (
 h1 {
     @include font-size($type-h1);
     line-height: $base-line-height * 1.3;
+    text-align: center;
     span {
       background-color: $yellow;
     }

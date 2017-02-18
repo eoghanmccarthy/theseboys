@@ -10,7 +10,8 @@ body {
     font-weight: $font-weight-normal;
     line-height: $base-line-height;
     color: $black;
-    background: palette(brand, x-dark) ;
+    background: palette(brand) ;
+    @include animation(header 12s linear 0 infinite);
 }
 
 main {
@@ -20,7 +21,7 @@ main {
 .logo-svg {
 
     path {
-        fill: palette(brand);
+        fill: palette(brand, dark);
         @include transition(fill, $speed, ease);
 
         &:hover {
