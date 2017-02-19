@@ -3,15 +3,6 @@
     @extend %px-base;
     padding: p(xxl) 0 p(xl);
 
-	.icon-twitter {
-        margin: 0 auto;
-		font-size: 2em;
-		color: $black;
-		&:hover {
-			color: $white;
-		}
-	}
-
     &__logo {
         padding-bottom: p(xl);
 
