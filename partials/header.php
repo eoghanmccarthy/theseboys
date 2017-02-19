@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-8 offset-md-2">
                 <div class="header">
-                    <div class="header__logo">
+                    <div class="logo">
                         <?php include 'partials/logo.php';?>
                     </div>
                     <h1>theseboys</h1>

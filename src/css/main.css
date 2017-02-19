@@ -20,6 +20,8 @@ body {
   color: #000;
   background: #00ffff;
   -webkit-animation: header 12s linear 0 infinite;
+  -moz-transition: header 12s linear 0 infinite;
+  -o-transition: header 12s linear 0 infinite;
   animation: header 12s linear 0 infinite; }
 
 main {
@@ -113,8 +115,7 @@ p {
         display: inline; } }
 
 .logo {
-  text-align: center;
-  font-size: 2em; }
+  padding: 2em 0; }
   .logo .logo__image {
     display: block;
     margin: 0 auto; }
