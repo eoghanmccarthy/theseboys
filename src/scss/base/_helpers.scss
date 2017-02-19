@@ -10,7 +10,8 @@
     margin: 0;
 }
 
-// Text align center
-%text-center {
-    text-align: center;
+// Remove left right padding
+.no-padding {
+    padding-right: 0;
+    padding-left: 0;
 }

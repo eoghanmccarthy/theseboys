@@ -1,15 +1,11 @@
 // Media
 .media {
     @extend %px-base;
-    margin: 0 0 m(lg);
-    @include breakpoint(md) {
-        margin: 0 0 m(xl);
-    }
+    margin: 0;
 
     &__content {
         display: block;
         width: 100%;
-        margin-bottom: m(md);
         opacity: 1;
         @include transition(opacity, $speed, ease);
 

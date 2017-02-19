@@ -5,6 +5,10 @@ html {
 .header__nav, .media, .header, footer {
   font-size: 1rem; }
 
+.no-padding {
+  padding-right: 0;
+  padding-left: 0; }
+
 html {
   text-size-adjust: 100%;
   box-sizing: border-box; }
@@ -126,14 +130,10 @@ p {
       color: #fff; }
 
 .media {
-  margin: 0 0 2em; }
-  @media screen and (min-width: 768px) {
-    .media {
-      margin: 0 0 3em; } }
+  margin: 0; }
   .media__content {
     display: block;
     width: 100%;
-    margin-bottom: 1.5em;
     opacity: 1;
     -webkit-transition: opacity, 0.2s, ease;
     -moz-transition: opacity, 0.2s, ease;
