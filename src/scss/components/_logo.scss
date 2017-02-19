@@ -1,0 +1,32 @@
+.logo {
+    text-align: center;
+    font-size: 2em;
+
+    .logo__image {
+        display: block;
+        margin: 0 auto;
+
+        path {
+            fill: palette(brand, x-light);
+            @include transition(fill, $speed, ease);
+
+            &:hover {
+                fill: palette(brand, x-dark);
+            }
+        }
+
+        header > & {
+            width: 100px;
+            @include breakpoint(md) {
+                width: 120px;
+            }
+        }
+
+        footer > & {
+            width: 50px;
+            @include breakpoint(md) {
+                width: 80px;
+            }
+        }
+    }
+}

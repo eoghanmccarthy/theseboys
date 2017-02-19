@@ -5,17 +5,5 @@
 
     &__logo {
         padding-bottom: p(xl);
-
-        .logo-svg {
-            display: block;
-            margin: 0 auto;
-            width: 50px;
-            @include breakpoint(sm) {
-                width: 100px;
-            }
-            @include breakpoint(md) {
-                width: 120px;
-            }
-        }
     }
 }
