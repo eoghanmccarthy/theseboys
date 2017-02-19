@@ -1,5 +1,5 @@
 .logo {
-    padding: p(lg) 0; 
+    padding: p(lg) 0;
 
     .logo__image {
         display: block;
@@ -15,9 +15,9 @@
         }
 
         header > & {
-            width: 100px;
+            width: 120px;
             @include breakpoint(md) {
-                width: 120px;
+                width: 150px;
             }
         }
 

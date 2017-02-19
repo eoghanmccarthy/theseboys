@@ -128,10 +128,10 @@ p {
       .logo .logo__image path:hover {
         fill: #00adad; }
     header > .logo .logo__image {
-      width: 100px; }
+      width: 120px; }
       @media screen and (min-width: 768px) {
         header > .logo .logo__image {
-          width: 120px; } }
+          width: 150px; } }
     footer > .logo .logo__image {
       width: 50px; }
       @media screen and (min-width: 768px) {
