@@ -2,41 +2,36 @@
 
 // Type maps
 $type-h1: (
-    null: $base-font-size * 2,
-    $bp-sm: $base-font-size * 3,
-    $bp-md: $base-font-size * 4
+    null:  * 2,
+    $bp-sm: $base__font-size * 3,
+    $bp-md: $base__font-size * 4
 );
 
 $type-h2: (
-    null: $base-font-size * 4,
-    $bp-sm: $base-font-size * 5,
-    $bp-md: $base-font-size * 7,
-    $bp-lg: $base-font-size * 8,
-    $bp-xl: $base-font-size * 9
+    null: $base__font-size * 4,
+    $bp-sm: $base__font-size * 5,
+    $bp-md: $base__font-size * 7,
+    $bp-lg: $base__font-size * 8,
+    $bp-xl: $base__font-size * 9
 );
 
 $type-p: (
-    null: $base-font-size * 1.6
+    null: $base__font-size * 1.6
 );
 
 h1 {
     @include font-size($type-h1);
-    line-height: $base-line-height * 1.3;
+    line-height: $base__line-height * 1.3;
     text-align: center;
 }
 
 h2 {
     @include font-size($type-h2);
-    line-height: $base-line-height * 1.3;
+    line-height: $base__line-height * 1.3;
+    @extend highlight;
 }
 
 p {
     @include font-size($type-p);
-    line-height: $base-line-height * 1.5;
-}
-
-// Mark
-.mark {
-    padding: p(xxs) 0;
-    @include mod-bgcolor($ui-colors);
+    line-height: $base__line-height * 1.5;
 }

@@ -15,3 +15,9 @@
     padding-right: 0;
     padding-left: 0;
 }
+
+%highlight {
+    box-decoration-break: clone;
+    padding: 0.5rem 0;
+    background: $yellow;
+}

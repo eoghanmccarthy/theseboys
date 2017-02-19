@@ -1,16 +1,21 @@
 // Functions
 
-// Call the color palette modifiers
+// Font weight
+@function f-weight($weight: 'normal') {
+    @return map-get($font-weight, $weight);
+}
+
+// Color palette modifiers
 @function palette($color, $shade: 'base') {
     @return map-get(map-get($palettes, $color), $shade);
 }
 
-// Call margin size
+// Margin
 @function m($value) {
     @return map-get($margin, $value);
 }
 
-// Call padding size
+// Padding
 @function p($value) {
     @return map-get($padding, $value);
 }

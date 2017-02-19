@@ -2,8 +2,4 @@
 .header {
     @extend %px-base;
     padding: p(xxl) 0 p(xl);
-
-    &__logo {
-        padding-bottom: p(xl);
-    }
 }
