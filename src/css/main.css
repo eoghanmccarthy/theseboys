@@ -11,7 +11,7 @@ html {
 
 h2 {
   box-decoration-break: clone;
-  padding: 0.5rem 0;
+  padding: 3em 0;
   background: #ffff00; }
 
 html {
@@ -19,7 +19,7 @@ html {
   box-sizing: border-box; }
 
 body {
-  font-family: "Roboto Mono", monospace;
+  font-family: "Roboto Mono", Courier, monospace;
   font-weight: 100;
   line-height: 1;
   color: #000;

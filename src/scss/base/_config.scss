@@ -1,4 +1,4 @@
-  // Named breakpoints
+   // Named breakpoints
 $mobile-landscape: 576px;
 $tablet-portrait: 768px;
 $tablet-landscape: 992px;
@@ -39,7 +39,7 @@ $base__line-height: 1;
 @import url('https://fonts.googleapis.com/css?family=Roboto+Mono:100,100i,300,300i,400,400i');
 
 // Font stacks
-$base__font: 'Roboto Mono', monospace;
+$base__font: 'Roboto Mono', Courier, monospace;
 
 // Font weight
 $font-weight: (
