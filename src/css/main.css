@@ -25,15 +25,6 @@ body {
 main {
   padding: 0 0 2em; }
 
-.logo-svg path {
-  fill: #80ffff;
-  -webkit-transition: fill, 0.2s, ease;
-  -moz-transition: fill, 0.2s, ease;
-  -o-transition: fill, 0.2s, ease;
-  transition: fill, 0.2s, ease; }
-  .logo-svg path:hover {
-    fill: #00adad; }
-
 h1 {
   font-size: 2rem;
   line-height: 1.3;
@@ -121,6 +112,31 @@ p {
       .nav-bar--xs li {
         display: inline; } }
 
+.logo {
+  text-align: center;
+  font-size: 2em; }
+  .logo .logo__image {
+    display: block;
+    margin: 0 auto; }
+    .logo .logo__image path {
+      fill: #80ffff;
+      -webkit-transition: fill, 0.2s, ease;
+      -moz-transition: fill, 0.2s, ease;
+      -o-transition: fill, 0.2s, ease;
+      transition: fill, 0.2s, ease; }
+      .logo .logo__image path:hover {
+        fill: #00adad; }
+    header > .logo .logo__image {
+      width: 100px; }
+      @media screen and (min-width: 768px) {
+        header > .logo .logo__image {
+          width: 120px; } }
+    footer > .logo .logo__image {
+      width: 50px; }
+      @media screen and (min-width: 768px) {
+        footer > .logo .logo__image {
+          width: 80px; } }
+
 .social {
   text-align: center;
   font-size: 2em; }
@@ -167,16 +183,6 @@ p {
   padding: 4em 0 3em; }
   .header__logo {
     padding-bottom: 3em; }
-    .header__logo .logo-svg {
-      display: block;
-      margin: 0 auto;
-      width: 50px; }
-      @media screen and (min-width: 576px) {
-        .header__logo .logo-svg {
-          width: 100px; } }
-      @media screen and (min-width: 768px) {
-        .header__logo .logo-svg {
-          width: 120px; } }
 
 footer {
   margin: 3em 0; }

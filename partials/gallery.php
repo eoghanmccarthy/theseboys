@@ -15,7 +15,7 @@
                     </div>
                     <div class="col-md-6 no-padding">
                         <figure class="media">
-                            <img class="media__content" src="img/img_4006.jpg" onclick="topSlide(3)">
+                            <img class="media__content" src="img/img_4237.jpg" onclick="topSlide(3)">
                         </figure>
                     </div>
                     <div class="col-md-6 no-padding">

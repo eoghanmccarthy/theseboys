@@ -17,15 +17,3 @@ body {
 main {
     padding: 0 0 p(lg);
 }
-
-.logo-svg {
-
-    path {
-        fill: palette(brand, x-light);
-        @include transition(fill, $speed, ease);
-
-        &:hover {
-            fill: palette(brand, x-dark);
-        }
-    }
-}

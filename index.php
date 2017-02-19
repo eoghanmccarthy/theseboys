@@ -12,6 +12,7 @@
             <!-- Header -->
             <?php include 'partials/header.php';?>
             <main>
+                <?php include 'partials/audio.php';?>
                 <?php include 'partials/gallery.php';?>
             </main>
             <!-- Footer -->
