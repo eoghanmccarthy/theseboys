@@ -10,7 +10,7 @@ body {
     font-weight: f-weight(thin);
     line-height: $base__line-height;
     color: $black;
-    background: palette(brand) ;
+    background: palette(brand);
     @include animation(header 12s linear 0 infinite);
 }
 
