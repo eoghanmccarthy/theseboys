@@ -9,6 +9,11 @@ html {
   padding-right: 0;
   padding-left: 0; }
 
+h2 {
+  box-decoration-break: clone;
+  padding: 0.2em 0;
+  background: #ffff00; }
+
 html {
   text-size-adjust: 100%;
   box-sizing: border-box; }
@@ -27,6 +32,12 @@ body {
 main {
   padding: 0 0 2em; }
 
+h1,
+h2,
+p {
+  font-family: "Roboto Mono", Courier, monospace;
+  font-weight: 100; }
+
 h1 {
   font-size: 2rem;
   line-height: 1.3;
@@ -39,8 +50,6 @@ h1 {
       font-size: 4rem; } }
 
 h2 {
-  font-family: "Roboto Mono", Courier, monospace;
-  font-weight: 100;
   font-size: 4rem;
   line-height: 1.3; }
   @media screen and (min-width: 576px) {
