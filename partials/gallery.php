@@ -1,4 +1,4 @@
-<section class="band__gallery">
+<section class="band band__gallery">
     <div class="container">
         <div class="row">
             <div class="col-md-8 offset-md-2">

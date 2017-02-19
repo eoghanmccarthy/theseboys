@@ -12,9 +12,7 @@
             <!-- Header -->
             <?php include 'partials/header.php';?>
             <main>
-                <div class="band">
-                    <?php include 'partials/gallery.php';?>
-                </div>
+                <?php include 'partials/gallery.php';?>
             </main>
             <!-- Footer -->
             <?php include 'partials/footer.php';?>
