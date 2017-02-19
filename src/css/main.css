@@ -188,4 +188,4 @@ footer {
 .band {
   padding: 4em 0; }
   .band__gallery {
-    background: repeating-linear-gradient(135deg, #fff, #00ffff 1px, #fff 10px, #00ffff 11px); }
+    background: repeating-linear-gradient(-45deg, #fff, #fff 1px, #00ffff 10px, #00ffff 11px); }
