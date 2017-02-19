@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Roboto+Mono:100");
+@import url("https://fonts.googleapis.com/css?family=Roboto+Mono:100,100i,300,300i,400,400i");
 html {
   font-size: 62.5%; }
 
@@ -9,13 +9,18 @@ html {
   padding-right: 0;
   padding-left: 0; }
 
+h2 {
+  box-decoration-break: clone;
+  padding: 0.5rem 0;
+  background: #ffff00; }
+
 html {
   text-size-adjust: 100%;
   box-sizing: border-box; }
 
 body {
-  font-family: "Roboto Mono", Courier, monospace, sans-serif;
-  font-weight: 400;
+  font-family: "Roboto Mono", monospace;
+  font-weight: 100;
   line-height: 1;
   color: #000;
   background: #00ffff;
@@ -57,15 +62,6 @@ h2 {
 p {
   font-size: 1.6rem;
   line-height: 1.5; }
-
-.mark {
-  padding: 0.2em 0; }
-  .mark--nav {
-    background-color: #00ffff; }
-  .mark--button {
-    background-color: #ffff00; }
-  .mark--mark {
-    background-color: #0000ff; }
 
 /*
  * Navigation
@@ -184,8 +180,6 @@ p {
 
 .header {
   padding: 4em 0 3em; }
-  .header__logo {
-    padding-bottom: 3em; }
 
 footer {
   margin: 3em 0; }

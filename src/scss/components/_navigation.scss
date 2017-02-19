@@ -32,15 +32,15 @@
         }
 
         a {
-            font-size: $base-font-size * 1.6;
-            line-height: $base-line-height * 1.8;
+            font-size: $base__font-size * 1.6;
+            line-height: $base__line-height * 1.8;
             color: $black;
             text-align: center;
             text-decoration: none;
             padding: p(xs) p(sm);
             @include transition(color, $speed, ease);
             @include breakpoint(md) {
-                font-size: $base-font-size * 2.2;
+                font-size: $base__font-size * 2.2;
             }
 
             &:hover {
