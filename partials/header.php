@@ -1,7 +1,7 @@
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 offset-md-2">
-            <header>
+<header>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
                 <div class="header">
                     <div class="header__logo">
                         <?php include 'partials/logo.php';?>
@@ -12,7 +12,7 @@
                     </div>
                     <h2>everything (we do) is a work-in-progress</h2>
                 </div>
-            </header>
+            </div>
         </div>
     </div>
-</div>
+</header>
