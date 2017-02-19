@@ -60,10 +60,12 @@ p {
 
 .mark {
   padding: 0.2em 0; }
-  .mark--brand {
+  .mark--nav {
     background-color: #00ffff; }
-  .mark--white {
-    background-color: #fff; }
+  .mark--button {
+    background-color: #ffff00; }
+  .mark--mark {
+    background-color: #0000ff; }
 
 /*
  * Navigation

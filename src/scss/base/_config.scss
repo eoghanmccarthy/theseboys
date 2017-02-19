@@ -27,50 +27,51 @@ $path-lbox: 'img';
 }
 
 // Base font size and line height
-$base-font-size: 1rem;
-$base-line-height: 1;
+$base__font-size: 1rem;
+$base__line-height: 1;
 
 // Local font size
 %px-base {
-    font-size: $base-font-size;
+    font-size: $base__font-size;
 }
 
 // Webfonts
-@import url('https://fonts.googleapis.com/css?family=Roboto+Mono:100');
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono:100,100i,300,300i,400,400i');
 
 // Font stacks
-$stack-mono: 'Roboto Mono', Courier, monospace, sans-serif;
+$base__font: 'Roboto Mono', monospace;
 
 // Font weight
-$font-weight-light: 300;
-$font-weight-normal: 400;
-$font-weight-semibold: 500;
-$font-weight-bold: 700;
+$font-weight: (
+    thin: 100,
+    light: 300,
+    normal: 400
+);
 
 // Margin
-$base-margin: 1em;
+$base__margin: 1em;
 
 $margin: (
-    xxs: $base-margin / 5,
-    xs: $base-margin / 2,
-    sm: $base-margin,
-    md: $base-margin * 1.5,
-    lg: $base-margin * 2,
-    xl: $base-margin * 3,
-    xxl: $base-margin * 4
+    xxs: $base__margin / 5,
+    xs: $base__margin / 2,
+    sm: $base__margin,
+    md: $base__margin * 1.5,
+    lg: $base__margin * 2,
+    xl: $base__margin * 3,
+    xxl: $base__margin * 4
 );
 
 // Padding
-$base-padding: 1em;
+$base__padding: 1em;
 
 $padding: (
-    xxs: $base-padding / 5,
-    xs: $base-padding / 2,
-    sm: $base-padding,
-    md: $base-padding * 1.5,
-    lg: $base-padding * 2,
-    xl: $base-padding * 3,
-    xxl: $base-padding * 4
+    xxs: $base__padding / 5,
+    xs: $base__padding / 2,
+    sm: $base__padding,
+    md: $base__padding * 1.5,
+    lg: $base__padding * 2,
+    xl: $base__padding * 3,
+    xxl: $base__padding * 4
 );
 
 // Transitions

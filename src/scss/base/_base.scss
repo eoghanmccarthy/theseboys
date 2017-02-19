@@ -6,9 +6,9 @@ html {
 }
 
 body {
-    font-family: $stack-mono;
-    font-weight: $font-weight-normal;
-    line-height: $base-line-height;
+    font-family: $base__font;
+    font-weight: f-weight(thin);
+    line-height: $base__line-height;
     color: $black;
     background: palette(brand) ;
     @include animation(header 12s linear 0 infinite);
