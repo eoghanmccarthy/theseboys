@@ -9,6 +9,12 @@ html {
   padding-right: 0;
   padding-left: 0; }
 
+h2 {
+  display: inline;
+  box-decoration-break: clone;
+  padding: 0.2em 0;
+  background: #fff; }
+
 html {
   text-size-adjust: 100%;
   box-sizing: border-box; }
@@ -187,5 +193,3 @@ footer {
 
 .band {
   padding: 4em 0; }
-  .band__gallery {
-    background: repeating-linear-gradient(-45deg, #fff, #fff 1px, #00ffff 10px, #00ffff 11px); }
