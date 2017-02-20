@@ -13,8 +13,8 @@
             <?php include 'partials/header.php';?>
             <main>
                 <?php include 'partials/audio.php';?>
-                <?php include 'partials/tagline.php';?>
                 <?php include 'partials/gallery.php';?>
+                <?php include 'partials/tagline.php';?>
             </main>
             <!-- Footer -->
             <?php include 'partials/footer.php';?>
