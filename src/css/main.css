@@ -9,12 +9,6 @@ html {
   padding-right: 0;
   padding-left: 0; }
 
-h2 {
-  display: inline;
-  box-decoration-break: clone;
-  padding: 0.2em 0;
-  background: #fff; }
-
 html {
   text-size-adjust: 100%;
   box-sizing: border-box; }
