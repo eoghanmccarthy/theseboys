@@ -24,8 +24,13 @@ $type__p: (
 );
 
 h1,
-h2,
+h3,
 p {
+    font-family: $base__font;
+    font-weight: f-weight(light);
+}
+
+h2 {
     font-family: $base__font;
     font-weight: f-weight(thin);
 }
