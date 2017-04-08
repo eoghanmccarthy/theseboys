@@ -22,13 +22,3 @@
     padding: p(xxs) 0;
     background: $white;
 }
-
-%stripe {
-    background: repeating-linear-gradient(
-        -45deg,
-        $white,
-        $white 1px,
-        $primary 1px,
-        $primary 20px
-        );
-}
