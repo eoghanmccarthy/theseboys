@@ -15,14 +15,21 @@
 			<main>
 				<div id="app"></div>
 				<script type="text/jsx">
-					let Player = React.createClass({
-						render: function() { return (
-							<h2>hey</h2>
-						)}
-					});
+					import React from 'react';
+					import ReactDOM from 'react-dom';
+
 					ReactDOM.render(
-						<Player />, document.getElementById('app')
+					<h1>Hello, world!</h1>,
+					document.getElementById('app')
 					);
+					// let Player = React.createClass({
+					// 	render: function() { return (
+					// 		<h2>hey</h2>
+					// 	)}
+					// });
+					// ReactDOM.render(
+					// 	<Player />, document.getElementById('app')
+					// );
 				</script>
 			</main>
 			<!-- Footer -->
