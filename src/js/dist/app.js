@@ -5,7 +5,7 @@ let Player = React.createClass({
 		return React.createElement(
 			'h2',
 			null,
-			'hey you!'
+			'hey you! hi'
 		);
 	}
 });
