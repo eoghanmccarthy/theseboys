@@ -6,9 +6,10 @@ const babel = require('gulp-babel');
 
 // Gulp dependencies go here
 gulp.task('default', () => {
-	return gulp.src('src/js/es6/**/*.js')
+	return gulp.src('src/js/es6/**/**')
 		.pipe(babel({
-			presets: ['es2015']
+			presets: ['es2015'],
+			presets: ['react']
 		}))
 		.pipe(gulp.dest('src/js/dist'));
 });
