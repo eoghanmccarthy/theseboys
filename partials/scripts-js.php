@@ -9,6 +9,6 @@
 <!-- Font Awesome -->
 <script src="https://use.fontawesome.com/e6985d2f93.js"></script>
 <!-- Custom JavaScript -->
-<script type="text/jsx" src="src/js/dist/app.jsx"></script>
+<script type="text/jsx" src="src/js/dist/app.js"></script>
 <!-- <script src="src/js/dist/main.js"></script>
 <script src="src/js/dist/app.js"></script> -->
