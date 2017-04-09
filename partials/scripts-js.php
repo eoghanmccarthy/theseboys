@@ -5,10 +5,8 @@
 <!-- React -->
 <script src="https://unpkg.com/react@15/dist/react.min.js"></script>
 <script src="https://unpkg.com/react-dom@15/dist/react-dom.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script> -->
 <!-- Font Awesome -->
 <script src="https://use.fontawesome.com/e6985d2f93.js"></script>
 <!-- Custom JavaScript -->
-<script type="text/jsx" src="src/js/dist/app.js"></script>
-<!-- <script src="src/js/dist/main.js"></script>
-<script src="src/js/dist/app.js"></script> -->
+<script src="src/js/dist/app.js"></script>
