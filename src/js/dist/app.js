@@ -11,7 +11,7 @@ let Greeting = React.createClass({
 });
 
 setInterval(function () {
-	var messages = ['Hello, World', 'Hello, Planet', 'Hello, Universe'];
+	var messages = ['Hello, London', 'Hello, Planet', 'Hello, Universe'];
 	var randomMessage = messages[Math.floor(Math.random() * 3)];
 
 	ReactDOM.render(React.createElement(Greeting, { message: randomMessage }), document.getElementById('app'));
