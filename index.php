@@ -14,7 +14,7 @@
 			<!-- Main -->
 			<main>
 				<div id="app"></div>
-				<script type="text/jsx">
+				<!-- <script type="text/jsx">
 					let Player = React.createClass({
 						render: function() { return (
 							<h2>hey</h2>
@@ -24,7 +24,7 @@
 						<Player />,
 						document.getElementById('app')
 					);
-				</script>
+				</script> -->
 			</main>
 			<!-- Footer -->
 			<?php include 'partials/footer.php';?>
