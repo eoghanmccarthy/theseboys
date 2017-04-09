@@ -1,3 +1,6 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+
 let Player = React.createClass({
 	displayName: 'Player',
 
@@ -5,7 +8,7 @@ let Player = React.createClass({
 		return React.createElement(
 			'h2',
 			null,
-			'hey you! hi hey'
+			'hey you! hi hey eoghan'
 		);
 	}
 });
