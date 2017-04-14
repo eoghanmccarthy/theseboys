@@ -124,28 +124,28 @@ p {
         display: inline; } }
 
 .logo {
-  padding: 3em 0; }
-  .logo .svg {
-    display: inline-block;
-    margin: 0 auto; }
-    .logo .svg path {
-      fill: #80ffff;
+  padding: 3em 0;
+  margin: 0 auto; }
+  .logo svg {
+    display: inline-block; }
+    .logo svg path {
+      fill: #00ffff;
       -webkit-transition: fill, 0.3s, ease;
       -moz-transition: fill, 0.3s, ease;
       -o-transition: fill, 0.3s, ease;
       transition: fill, 0.3s, ease; }
-      .logo .svg path:hover {
+      .logo svg path:hover {
         fill: #00adad; }
-    header > .logo .svg {
-      width: 120px; }
-      @media screen and (min-width: 768px) {
-        header > .logo .svg {
-          width: 150px; } }
-    footer > .logo .svg {
-      width: 50px; }
-      @media screen and (min-width: 768px) {
-        footer > .logo .svg {
-          width: 80px; } }
+  header .logo {
+    width: 120px; }
+    @media screen and (min-width: 768px) {
+      header .logo {
+        width: 150px; } }
+  footer .logo {
+    width: 50px; }
+    @media screen and (min-width: 768px) {
+      footer .logo {
+        width: 80px; } }
 
 .social {
   margin-bottom: 0.5em;
