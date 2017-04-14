@@ -1,13 +1,19 @@
 // Animation
 
 @-webkit-keyframes header {
-    0% {background-color: $primary;}
-    50% {background-color: $yellow;}
-	100% {background-color: $primary;}
+	0% {
+		background-color: $primary;
+	}
+	50% {
+		background-color: $yellow;
+	}
+	100% {
+		background-color: $primary;
+	}
 }
 
 @keyframes header {
 	0% {background-color: $primary;}
-    50% {background-color: $yellow;}
+	50% {background-color: $yellow;}
 	100% {background-color: $primary;}
 }
