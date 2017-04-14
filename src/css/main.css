@@ -2,7 +2,7 @@
 html {
   font-size: 62.5%; }
 
-.header__nav, .media, .header, footer {
+.header__nav, .media, header, footer {
   font-size: 1rem; }
 
 .no-padding {
@@ -190,7 +190,7 @@ p {
   100% {
     background-color: #00ffff; } }
 
-.header {
+header {
   padding: 4em 0 3em; }
 
 footer {
