@@ -1,31 +1,31 @@
 .logo {
-    padding: p(xl) 0;
+	padding: p(xl) 0;
 
-    .logo__image {
-        display: block;
-        margin: 0 auto;
+	svg {
+		display: inline-block;
+		margin: 0 auto;
 
-        path {
-            fill: palette(brand, x-light);
-            @include transition(fill, $speed, ease);
+		path {
+			fill: palette(brand, x-light);
+			@include transition(fill, $speed, ease);
 
-            &:hover {
-                fill: palette(brand, x-dark);
-            }
-        }
+			&:hover {
+				fill: palette(brand, x-dark);
+			}
+		}
 
-        header > & {
-            width: 120px;
-            @include breakpoint(md) {
-                width: 150px;
-            }
-        }
+		header > & {
+			width: 120px;
+			@include breakpoint(md) {
+				width: 150px;
+			}
+		}
 
-        footer > & {
-            width: 50px;
-            @include breakpoint(md) {
-                width: 80px;
-            }
-        }
-    }
+		footer > & {
+			width: 50px;
+			@include breakpoint(md) {
+				width: 80px;
+			}
+		}
+	}
 }

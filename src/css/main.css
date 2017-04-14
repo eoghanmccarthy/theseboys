@@ -125,26 +125,26 @@ p {
 
 .logo {
   padding: 3em 0; }
-  .logo .logo__image {
-    display: block;
+  .logo svg {
+    display: inline-block;
     margin: 0 auto; }
-    .logo .logo__image path {
+    .logo svg path {
       fill: #80ffff;
       -webkit-transition: fill, 0.3s, ease;
       -moz-transition: fill, 0.3s, ease;
       -o-transition: fill, 0.3s, ease;
       transition: fill, 0.3s, ease; }
-      .logo .logo__image path:hover {
+      .logo svg path:hover {
         fill: #00adad; }
-    header > .logo .logo__image {
+    header > .logo svg {
       width: 120px; }
       @media screen and (min-width: 768px) {
-        header > .logo .logo__image {
+        header > .logo svg {
           width: 150px; } }
-    footer > .logo .logo__image {
+    footer > .logo svg {
       width: 50px; }
       @media screen and (min-width: 768px) {
-        footer > .logo .logo__image {
+        footer > .logo svg {
           width: 80px; } }
 
 .social {
