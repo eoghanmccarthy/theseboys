@@ -1,19 +1,25 @@
 // Animation
 
-@-webkit-keyframes header {
-	0% {
-		background-color: $primary;
-	}
-	50% {
-		background-color: $yellow;
-	}
-	100% {
-		background-color: $primary;
-	}
+@-webkit-keyframes background {
+	  0% { background-color: $primary; }
+	 50% { background-color: $yellow; }
+	100% { background-color: $primary; }
 }
 
-@keyframes header {
-	0% {background-color: $primary;}
-	50% {background-color: $yellow;}
-	100% {background-color: $primary;}
+@-moz-keyframes background {
+	  0% { background-color: $primary; }
+	 50% { background-color: $yellow; }
+	100% { background-color: $primary; }
+}
+
+@-o-keyframes background {
+	  0% { background-color: $primary; }
+	 50% { background-color: $yellow; }
+	100% { background-color: $primary; }
+}
+
+@keyframes background {
+	  0% { background-color: $primary; }
+	 50% { background-color: $yellow; }
+	100% { background-color: $primary; }
 }

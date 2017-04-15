@@ -1,18 +1,39 @@
-let Greeting = React.createClass({
-	displayName: 'Greeting',
+let RandomMessage = React.createClass({
+	displayName: 'RandomMessage',
+
+	getInitialState: function () {
+		return { message: 'Hello, Universe' };
+	},
+	onClick: function () {
+		let messages = ['Hello, World', 'Hello, Planet', 'Hello, Universe'];
+		let randomMessage = messages[Math.floor(Math.random() * 3)];
+
+		this.setState({ message: randomMessage });
+	},
+	render: function () {
+		return React.createElement(
+			'div',
+			null,
+			React.createElement(MessageView, { message: this.state.message }),
+			React.createElement(
+				'p',
+				null,
+				React.createElement('input', { type: 'button', onClick: this.onClick, value: 'Change Message' })
+			)
+		);
+	}
+});
+
+let MessageView = React.createClass({
+	displayName: 'MessageView',
 
 	render: function () {
 		return React.createElement(
-			'h2',
+			'p',
 			null,
 			this.props.message
 		);
 	}
 });
 
-setInterval(function () {
-	var messages = ['boom', 'bip', 'clap'];
-	var randomMessage = messages[Math.floor(Math.random() * 3)];
-
-	ReactDOM.render(React.createElement(Greeting, { message: randomMessage }), document.getElementById('app'));
-}, 2000);
+ReactDOM.render(React.createElement(RandomMessage, null), document.getElementById('app'));
