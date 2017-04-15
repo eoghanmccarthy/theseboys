@@ -6,11 +6,11 @@
 		display: inline-block;
 
 		path {
-			fill: $white;
+			fill: $black;
 			@include transition(fill, $speed, ease);
 
 			&:hover {
-				fill: palette(brand, x-dark);
+				fill: $white;
 			}
 		}
 	}
