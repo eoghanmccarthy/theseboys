@@ -1,17 +1,16 @@
 .social {
-    margin-bottom: m(xs);
-    font-size: 2em;
-    text-align: center;
+	margin-bottom: m(xs);
+	font-size: 2em;
+	text-align: center;
 
-    &__twitter {
+	&__twitter {
 
-    }
+		a {
+			color: $yellow;
 
-    a {
-        color: $yellow;
-
-        &:hover {
-            color: $white;
-        }
-    }
+			&:hover {
+				color: $white;
+			}
+		}
+	}
 }

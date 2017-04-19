@@ -1,8 +1,9 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto+Mono:100,100i,300,300i,400,400i");
+@import 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700';
 html {
   font-size: 62.5%; }
 
-.header__nav, .media, header, footer {
+header, footer {
   font-size: 1rem; }
 
 .no-padding {
@@ -58,55 +59,6 @@ p {
   font-size: 1.6rem;
   line-height: 1.5; }
 
-/*
- * Navigation
- */
-.header__nav {
-  text-align: center; }
-
-/*
- * Main nav bar styles
- */
-.nav-bar {
-  display: inline-block;
-  list-style-type: none;
-  overflow: hidden;
-  margin: 0;
-  padding: 0; }
-  .nav-bar li {
-    display: none; }
-    @media screen and (min-width: 768px) {
-      .nav-bar li {
-        display: inline; } }
-    .nav-bar li.nav-bar__icon {
-      display: inline;
-      cursor: pointer; }
-      @media screen and (min-width: 768px) {
-        .nav-bar li.nav-bar__icon {
-          display: none; } }
-    .nav-bar li a {
-      font-size: 1.6rem;
-      line-height: 1.8;
-      color: #000;
-      text-align: center;
-      text-decoration: none;
-      padding: 0.5em 1em;
-      -webkit-transition: color, 0.3s, ease;
-      -moz-transition: color, 0.3s, ease;
-      -o-transition: color, 0.3s, ease;
-      transition: color, 0.3s, ease; }
-      @media screen and (min-width: 768px) {
-        .nav-bar li a {
-          font-size: 2.2rem; } }
-      .nav-bar li a:hover {
-        text-decoration: none;
-        color: #00ffff; }
-  .nav-bar--xs li {
-    display: block; }
-    @media screen and (min-width: 768px) {
-      .nav-bar--xs li {
-        display: inline; } }
-
 .logo {
   padding: 3em 0;
   margin: 0 auto; }
@@ -135,66 +87,77 @@ p {
   margin-bottom: 0.5em;
   font-size: 2em;
   text-align: center; }
-  .social a {
+  .social__twitter a {
     color: #ffff00; }
-    .social a:hover {
+    .social__twitter a:hover {
       color: #fff; }
 
-.media {
-  margin: 0; }
-  .media__content {
-    display: block;
-    width: 100%;
-    opacity: 1;
-    -webkit-transition: opacity, 0.3s, ease;
-    -moz-transition: opacity, 0.3s, ease;
-    -o-transition: opacity, 0.3s, ease;
-    transition: opacity, 0.3s, ease; }
-    .media__content:hover {
-      opacity: 0.9; }
-  .media__meta {
-    font-size: 1.6rem;
-    line-height: 2;
-    margin-bottom: 1em;
-    border-bottom: 1px solid #737373; }
+.Player {
+  background: #182530;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0 5px 10px -5px #121212;
+  height: 667px;
+  position: relative;
+  width: 375px; }
+  .Player .Controls {
+    position: absolute;
+    bottom: 8%;
+    pointer-events: none;
+    margin: auto;
+    left: 0;
+    right: 0; }
+    .Player .Controls .Button {
+      height: 75px;
+      width: 75px;
+      border: 2px solid rgba(255, 255, 255, 0.5);
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 75px;
+      box-shadow: 0 5px 10px 0px rgba(18, 18, 18, 0.125);
+      margin: auto;
+      pointer-events: all; }
+      .Player .Controls .Button:active {
+        transform: scale(0.98);
+        background: #FFFFFF; }
+        .Player .Controls .Button:active .fa {
+          color: #FF4700;
+          opacity: 1; }
+      .Player .Controls .Button .fa {
+        color: #FFFFFF;
+        opacity: .5;
+        font-size: 24px; }
+        .Player .Controls .Button .fa.fa-play {
+          margin-left: 5px; }
 
 @-webkit-keyframes background {
-  0% {
+  0%, 100% {
     background-color: #00ffff; }
   50% {
-    background-color: #00ff80; }
-  100% {
-    background-color: #00ffff; } }
+    background-color: #00ff80; } }
 
 @-moz-keyframes background {
-  0% {
+  0%, 100% {
     background-color: #00ffff; }
   50% {
-    background-color: #00ff80; }
-  100% {
-    background-color: #00ffff; } }
+    background-color: #00ff80; } }
 
 @-o-keyframes background {
-  0% {
+  0%, 100% {
     background-color: #00ffff; }
   50% {
-    background-color: #00ff80; }
-  100% {
-    background-color: #00ffff; } }
+    background-color: #00ff80; } }
 
 @keyframes background {
-  0% {
+  0%, 100% {
     background-color: #00ffff; }
   50% {
-    background-color: #00ff80; }
-  100% {
-    background-color: #00ffff; } }
+    background-color: #00ff80; } }
 
 header {
-  padding: 4em 0 3em; }
+  padding: 3em 0 3em; }
 
 footer {
   margin: 3em 0; }
-
-.band {
-  padding: 4em 0; }

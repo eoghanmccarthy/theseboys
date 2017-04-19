@@ -1,0 +1,61 @@
+@import 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700';
+
+// Colors
+$black: #121212;
+$white: #FFFFFF;
+$orange: #FF4700;
+$blue: #1D2D3A;
+
+// Styles
+.Player {
+	background: darken($blue, 3);
+	border-radius: 5px;
+	overflow: hidden;
+	box-shadow: 0 5px 10px -5px rgba($black, 1);
+	height: 667px;
+	position: relative;
+	width: 375px;
+
+	.Controls {
+		position: absolute;
+		bottom: 8%;
+		pointer-events: none;
+		margin: auto;
+		left: 0;
+		right: 0;
+
+		.Button {
+			height: 75px;
+			width: 75px;
+			border: 2px solid rgba($white, .5);
+			box-sizing: border-box;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			border-radius: 75px;
+			box-shadow: 0 5px 10px 0px rgba($black, .125);
+			margin: auto;
+			pointer-events: all;
+
+			&:active {
+				transform: scale(.98);
+				background: $white;
+
+				.fa {
+					color: $orange;
+					opacity: 1;
+				}
+			}
+
+			.fa {
+				color: $white;
+				opacity: .5;
+				font-size: 24px;
+
+				&.fa-play {
+					margin-left: 5px;
+				}
+			}
+		}
+	}
+}
