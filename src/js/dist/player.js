@@ -171,4 +171,4 @@ var Controls = React.createClass({
 
 
 // Render the UI
-ReactDOM.render(React.createElement(Player, null), document.getElementById('app'));
+ReactDOM.render(React.createElement(Player, null), document.getElementById('Player'));

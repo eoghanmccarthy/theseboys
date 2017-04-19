@@ -13,7 +13,7 @@
 			<?php include 'partials/header.php';?>
 			<!-- Main -->
 			<main>
-				<div id="app"></div>
+				<div id="Player"></div>
 			</main>
 			<!-- Footer -->
 			<?php include 'partials/footer.php';?>

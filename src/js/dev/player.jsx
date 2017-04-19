@@ -135,5 +135,5 @@ var Controls = React.createClass({
 // Render the UI
 ReactDOM.render(
 	<Player />,
-	document.getElementById('app')
+	document.getElementById('Player')
 );
