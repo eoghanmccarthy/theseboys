@@ -1,4 +1,4 @@
-// Player
+// Player component
 var Player = React.createClass({
 	displayName: 'Player',
 
