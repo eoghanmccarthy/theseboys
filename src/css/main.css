@@ -1,5 +1,4 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto+Mono:100,100i,300,300i,400,400i");
-@import 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700';
 html {
   font-size: 62.5%; }
 
@@ -93,10 +92,10 @@ p {
       color: #fff; }
 
 .Player {
-  background: #182530;
+  background: #0078f0;
   border-radius: 5px;
   overflow: hidden;
-  box-shadow: 0 5px 10px -5px #121212;
+  box-shadow: 0 5px 10px -5px black;
   height: 667px;
   position: relative;
   width: 375px; }
@@ -116,17 +115,17 @@ p {
       align-items: center;
       justify-content: center;
       border-radius: 75px;
-      box-shadow: 0 5px 10px 0px rgba(18, 18, 18, 0.125);
+      box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.125);
       margin: auto;
       pointer-events: all; }
       .Player .Controls .Button:active {
         transform: scale(0.98);
-        background: #FFFFFF; }
+        background: #fff; }
         .Player .Controls .Button:active .fa {
           color: #FF4700;
           opacity: 1; }
       .Player .Controls .Button .fa {
-        color: #FFFFFF;
+        color: #fff;
         opacity: .5;
         font-size: 24px; }
         .Player .Controls .Button .fa.fa-play {

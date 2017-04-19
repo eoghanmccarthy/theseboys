@@ -12,18 +12,15 @@ $bp-xl: #{$desktop};
 
 // Breakpoints map
 $breakpoints: (
-    sm: $bp-sm,
-    md: $bp-md,
-    lg: $bp-lg,
-    xl: $bp-xl
+	sm: $bp-sm,
+	md: $bp-md,
+	lg: $bp-lg,
+	xl: $bp-xl
 );
-
-// Asset paths
-$path-lbox: 'img';
 
 // Root font size
 %px-root {
-    font-size: 62.5%;
+	font-size: 62.5%;
 }
 
 // Base font size and line height
@@ -32,7 +29,7 @@ $base__line-height: 1;
 
 // Local font size
 %px-base {
-    font-size: $base__font-size;
+	font-size: $base__font-size;
 }
 
 // Webfonts
@@ -43,35 +40,35 @@ $base__font: 'Roboto Mono', Courier, monospace;
 
 // Font weight
 $font-weight: (
-    thin: 100,
-    light: 300,
-    normal: 400
+	thin: 100,
+	light: 300,
+	normal: 400
 );
 
 // Margin
 $base__margin: 1em;
 
 $margin: (
-    xxs: $base__margin / 5,
-    xs: $base__margin / 2,
-    sm: $base__margin,
-    md: $base__margin * 1.5,
-    lg: $base__margin * 2,
-    xl: $base__margin * 3,
-    xxl: $base__margin * 4
+	xxs: $base__margin / 5,
+	xs: $base__margin / 2,
+	sm: $base__margin,
+	md: $base__margin * 1.5,
+	lg: $base__margin * 2,
+	xl: $base__margin * 3,
+	xxl: $base__margin * 4
 );
 
 // Padding
 $base__padding: 1em;
 
 $padding: (
-    xxs: $base__padding / 5,
-    xs: $base__padding / 2,
-    sm: $base__padding,
-    md: $base__padding * 1.5,
-    lg: $base__padding * 2,
-    xl: $base__padding * 3,
-    xxl: $base__padding * 4
+	xxs: $base__padding / 5,
+	xs: $base__padding / 2,
+	sm: $base__padding,
+	md: $base__padding * 1.5,
+	lg: $base__padding * 2,
+	xl: $base__padding * 3,
+	xxl: $base__padding * 4
 );
 
 // Transitions
