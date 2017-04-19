@@ -134,6 +134,6 @@ var Controls = React.createClass({
 
 // Render the UI
 ReactDOM.render(
-	<RandomMessage />,
+	<Player />,
 	document.getElementById('app')
 );
