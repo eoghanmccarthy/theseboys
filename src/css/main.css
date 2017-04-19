@@ -122,7 +122,7 @@ p {
         transform: scale(0.98);
         background: #fff; }
         .Player .Controls .Button:active .fa {
-          color: #FF4700;
+          color: #ff0000;
           opacity: 1; }
       .Player .Controls .Button .fa {
         color: #fff;

@@ -1,7 +1,4 @@
-// Colors
-$orange: #FF4700;
-
-// Styles
+// Player
 .Player {
 	background: darken($blue, 3);
 	border-radius: 5px;
@@ -37,7 +34,7 @@ $orange: #FF4700;
 				background: $white;
 
 				.fa {
-					color: $orange;
+					color: $red;
 					opacity: 1;
 				}
 			}
