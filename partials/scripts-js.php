@@ -9,3 +9,4 @@
 <script src="https://use.fontawesome.com/e6985d2f93.js"></script>
 <!-- Custom JavaScript -->
 <script src="src/js/dist/player.js"></script>
+<script src="src/js/dist/controls.js"></script>
