@@ -96,9 +96,10 @@ p {
   border-radius: 5px;
   overflow: hidden;
   box-shadow: 0 5px 10px -5px black;
-  height: 667px;
+  height: 320px;
   position: relative;
-  width: 375px; }
+  width: 280px;
+  margin: 0 auto; }
   .Player .Controls {
     position: absolute;
     bottom: 8%;
