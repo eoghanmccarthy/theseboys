@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Roboto+Mono:100,100i,300,300i,400,400i");
+@import url("https://fonts.googleapis.com/css?family=Roboto+Mono:100,100i,300,300i");
 html {
   font-size: 62.5%; }
 
@@ -31,7 +31,7 @@ h1,
 h3,
 p {
   font-family: "Roboto Mono", Courier, monospace;
-  font-weight: 300; }
+  font-weight: 100; }
 
 h2 {
   font-family: "Roboto Mono", Courier, monospace;

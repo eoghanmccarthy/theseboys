@@ -1,3 +1,11 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+/// Audio player
+
+// Import components
+import Controls from './controls.jsx';
+
 // Player component
 var Player = React.createClass({
 	getInitialState: function() {
@@ -8,7 +16,7 @@ var Player = React.createClass({
 	getDefaultProps: function() {
 		return {
 			track: {
-				source: "https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/wwy.mp3"
+				source: "./audio/test.m4a"
 			}
 		}
 	},
@@ -32,26 +40,6 @@ var Player = React.createClass({
 				<audio id="audio">
 					<source src={this.props.track.source} />
 				</audio>
-			</div>
-		)
-	}
-});
-
-var Controls = React.createClass({
-	render: function() {
-
-		let classNames;
-		if (this.props.isPlaying == 'pause') {
-			classNames = 'fa fa-fw fa-pause';
-		} else {
-			classNames = 'fa fa-fw fa-play';
-		}
-
-		return (
-			<div className="Controls">
-				<div onClick={this.props.onClick} className="Button">
-					<i className={classNames}></i>
-				</div>
 			</div>
 		)
 	}
