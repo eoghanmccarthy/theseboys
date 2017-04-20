@@ -1,6 +1,3 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-
 // Controls component
 var Controls = React.createClass({
 	displayName: 'Controls',
