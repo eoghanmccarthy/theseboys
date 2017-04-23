@@ -1,5 +1,3 @@
-// Keep working example
-
 var TRACKLIST = [
 	{
 		id: 1,
@@ -30,15 +28,15 @@ function Track(props) {
 	)
 }
 
-function Controls(props) {
-	return (
-		<div className="controls">
-			<audio controls>
-				<source src={props.source} />
-			</audio>
-		</div>
-	)
-}
+// function Controls(props) {
+// 	return (
+// 		<div className="controls">
+// 			<audio controls>
+// 				<source src={props.source} />
+// 			</audio>
+// 		</div>
+// 	)
+// }
 
 var Application = React.createClass({
 
@@ -50,10 +48,6 @@ var Application = React.createClass({
 
 	onTrackChange: function(source) {
 		this.setState({ isPlaying: source })
-	},
-
-	componentDidUpdate() {
-		console.log('Component DID UPDATE!')
 	},
 
 	render: function() {
@@ -68,7 +62,11 @@ var Application = React.createClass({
 									onChange={this.onTrackChange} />
 					}.bind(this))}
 				</div>
-				<Controls source={this.state.isPlaying} />
+				<div className="controls">
+					<audio controls>
+						<source src={this.state.isPlaying} />
+					</audio>
+				</div>
 			</div>
 		)
 	}

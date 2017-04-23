@@ -1,23 +1,23 @@
 // Player
-.Player {
-	background: darken($blue, 3);
+.player {
+	position: relative;
+	background: $grey;
 	border-radius: 5px;
 	overflow: hidden;
 	box-shadow: 0 5px 10px -5px rgba($black, 1);
-	height: 320px;
-	position: relative;
 	width: 280px;
+	height: 320px;
+	padding-top: p(xxl);
 	margin: 0 auto;
 
-	.Controls {
+	.controls {
 		position: absolute;
-		bottom: 8%;
-		pointer-events: none;
+		bottom: 15%;
 		margin: auto;
 		left: 0;
 		right: 0;
 
-		.Button {
+		.button {
 			height: 75px;
 			width: 75px;
 			border: 2px solid rgba($white, .5);
