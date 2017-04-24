@@ -36,28 +36,22 @@ function Track(props) {
 	);
 }
 
-// function Controls(props) {
-// 	return (
-// 		<div className="controls">
-// 			<audio controls>
-// 				<source src={props.source} />
-// 			</audio>
-// 		</div>
-// 	)
-// }
-
 var Application = React.createClass({
 	displayName: "Application",
 
 
 	getInitialState: function () {
 		return {
-			isPlaying: "./audio/test.m4a"
+			currentTrack: "./audio/test.m4a"
 		};
 	},
 
 	onTrackChange: function (source) {
-		this.setState({ isPlaying: source });
+		this.setState({ currentTrack: source }, function () {
+			this.refs.audio.pause();
+			this.refs.audio.load();
+			this.refs.audio.play();
+		});
 	},
 
 	render: function () {
@@ -80,8 +74,8 @@ var Application = React.createClass({
 				{ className: "controls" },
 				React.createElement(
 					"audio",
-					{ controls: true },
-					React.createElement("source", { src: this.state.isPlaying })
+					{ controls: true, ref: "audio" },
+					React.createElement("source", { src: this.state.currentTrack })
 				)
 			)
 		);

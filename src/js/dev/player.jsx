@@ -1,6 +1,6 @@
-/// Audio player
+// COMPONENTS
 
-// Player component
+// Player
 var Player = React.createClass({
 	getInitialState: function() {
 		return {
@@ -11,15 +11,24 @@ var Player = React.createClass({
 	getDefaultProps: function() {
 		return {
 			track: {
-				name: "everything we do is a work in progress",
-				source: "./audio/test.m4a",
-				duration: 57
+				name: "We Were Young",
+				artist: "Odesza",
+				album: "Summer's Gone",
+				year: 2012,
+				artwork: "https://funkadelphia.files.wordpress.com/2012/09/odesza-summers-gone-lp.jpg",
+				duration: 192,
+				source: "https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/wwy.mp3"
 			}
 		}
 	},
 	updateTime: function(timestamp) {
 		timestamp = Math.floor(timestamp);
 		this.setState({ currentTime: timestamp });
+	},
+	updateScrubber: function(percent) {
+		// Set scrubber width
+		let innerScrubber = document.querySelector('.Scrubber-Progress');
+		innerScrubber.style['width'] = percent;
 	},
 	togglePlay: function() {
 		let status = this.state.playStatus;
@@ -30,6 +39,11 @@ var Player = React.createClass({
 			let that = this;
 			setInterval(function() {
 				let currentTime = audio.currentTime;
+				let duration = that.props.track.duration;
+
+				// Calculate percent of song
+				let percent = (currentTime / duration) * 100 + '%';
+				that.updateScrubber(percent);
 				that.updateTime(currentTime);
 			}, 100);
 		} else {
@@ -42,8 +56,12 @@ var Player = React.createClass({
 	render: function() {
 		return (
 			<div className="Player">
-				<Controls isPlaying={this.state.playStatus} onClick={this.togglePlay} />
+				<div className="Background" style={{'backgroundImage': 'url(' + this.props.track.artwork + ')'}}></div>
+				<div className="Header"><div className="Title">Now playing</div></div>
+				<div className="Artwork" style={{'backgroundImage': 'url(' + this.props.track.artwork + ')'}}></div>
 				<TrackInformation track={this.props.track} />
+				<Scrubber />
+				<Controls isPlaying={this.state.playStatus} onClick={this.togglePlay} />
 				<Timestamps duration={this.props.track.duration} currentTime={this.state.currentTime} />
 				<audio id="audio">
 					<source src={this.props.track.source} />
@@ -57,7 +75,19 @@ var TrackInformation = React.createClass({
 	render: function() {
 		return (
 			<div className="TrackInformation">
-				<div className="Name"><h3>{this.props.track.name}</h3></div>
+				<div className="Name">{this.props.track.name}</div>
+				<div className="Artist">{this.props.track.artist}</div>
+				<div className="Album">{this.props.track.album} ({this.props.track.year})</div>
+			</div>
+		)
+	}
+});
+
+var Scrubber = React.createClass({
+	render: function() {
+		return (
+			<div className="Scrubber">
+				<div className="Scrubber-Progress"></div>
 			</div>
 		)
 	}
@@ -103,8 +133,9 @@ var Timestamps = React.createClass({
 	}
 });
 
+
 // Render the UI
 ReactDOM.render(
 	<Player />,
-	document.getElementById('Player')
+	document.querySelector('body')
 );
