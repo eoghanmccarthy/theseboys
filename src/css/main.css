@@ -71,10 +71,10 @@ p {
       header .logo {
         width: 150px; } }
   footer .logo {
-    width: 50px; }
+    width: 45px; }
     @media screen and (min-width: 768px) {
       footer .logo {
-        width: 80px; } }
+        width: 60px; } }
 
 .social {
   margin-bottom: 0.5em;

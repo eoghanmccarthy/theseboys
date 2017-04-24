@@ -18,9 +18,9 @@
 	}
 
 	footer & {
-		width: 50px;
+		width: 45px;
 		@include breakpoint(md) {
-			width: 80px;
+			width: 60px;
 		}
 	}
 }
