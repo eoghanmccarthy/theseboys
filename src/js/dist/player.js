@@ -1,134 +1,118 @@
-/// Audio player
+var TRACKLIST = [{
+	id: 1,
+	name: "#a",
+	source: "./audio/test.m4a"
+}, {
+	id: 2,
+	name: "#b",
+	source: "https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/wwy.mp3"
+}];
 
-// Player component
-var Player = React.createClass({
-	displayName: "Player",
+function Track(props) {
+	return React.createElement(
+		"div",
+		{ className: "track" },
+		React.createElement(
+			"div",
+			{ className: "meta" },
+			React.createElement(
+				"h3",
+				{ className: "name" },
+				props.name
+			),
+			React.createElement(
+				"audio",
+				null,
+				React.createElement("source", { src: props.source })
+			)
+		),
+		React.createElement("div", { className: "select", onClick: function () {
+				props.onChange(props.source);
+			} })
+	);
+}
+
+function Controls(props) {
+
+	let classNames;
+	if (props.isPlaying == "play") {
+		classNames = "fa fa-fw fa-pause";
+	} else {
+		classNames = "fa fa-fw fa-play";
+	}
+
+	return React.createElement(
+		"div",
+		{ className: "controls" },
+		React.createElement(
+			"div",
+			{ onClick: props.onClick, className: "button" },
+			React.createElement("i", { className: classNames })
+		)
+	);
+}
+
+var Application = React.createClass({
+	displayName: "Application",
+
 
 	getInitialState: function () {
 		return {
-			playStatus: 'play',
-			currentTime: 0
+			playStatus: "pause",
+			currentTrack: "./audio/test.m4a"
 		};
 	},
-	getDefaultProps: function () {
-		return {
-			track: {
-				name: "everything we do is a work in progress",
-				source: "./audio/test.m4a",
-				duration: 57
-			}
-		};
+
+	onTrackChange: function (source) {
+		this.setState({ playStatus: "play" });
+		this.setState({ currentTrack: source }, function () {
+			this.refs.audio.pause();
+			this.refs.audio.load();
+			this.refs.audio.play();
+		});
 	},
-	updateTime: function (timestamp) {
-		timestamp = Math.floor(timestamp);
-		this.setState({ currentTime: timestamp });
-	},
+
 	togglePlay: function () {
 		let status = this.state.playStatus;
-		let audio = document.getElementById('audio');
-		if (status === 'play') {
-			status = 'pause';
+		let audio = this.refs.audio;
+		if (status === "pause") {
+			status = "play";
 			audio.play();
-			let that = this;
-			setInterval(function () {
-				let currentTime = audio.currentTime;
-				that.updateTime(currentTime);
-			}, 100);
 		} else {
-			status = 'play';
+			status = "pause";
 			audio.pause();
 		}
 		this.setState({ playStatus: status });
 	},
-	render: function () {
-		return React.createElement(
-			"div",
-			{ className: "Player" },
-			React.createElement(Controls, { isPlaying: this.state.playStatus, onClick: this.togglePlay }),
-			React.createElement(TrackInformation, { track: this.props.track }),
-			React.createElement(Timestamps, { duration: this.props.track.duration, currentTime: this.state.currentTime }),
-			React.createElement(
-				"audio",
-				{ id: "audio" },
-				React.createElement("source", { src: this.props.track.source })
-			)
-		);
-	}
-});
-
-var TrackInformation = React.createClass({
-	displayName: "TrackInformation",
 
 	render: function () {
 		return React.createElement(
 			"div",
-			{ className: "TrackInformation" },
+			{ className: "player" },
 			React.createElement(
 				"div",
-				{ className: "Name" },
+				{ className: "tracklist" },
+				this.props.tracklist.map(function (track) {
+					return React.createElement(Track, {
+						key: track.id,
+						name: track.name,
+						source: track.source,
+						onChange: this.onTrackChange });
+				}.bind(this))
+			),
+			React.createElement(
+				"div",
+				{ className: "controller" },
+				React.createElement(Controls, { isPlaying: this.state.playStatus, onClick: this.togglePlay }),
 				React.createElement(
-					"h3",
-					null,
-					this.props.track.name
+					"audio",
+					{ id: "audio", ref: "audio" },
+					React.createElement("source", { src: this.state.currentTrack })
 				)
 			)
 		);
 	}
 });
 
-var Controls = React.createClass({
-	displayName: "Controls",
-
-	render: function () {
-
-		let classNames;
-		if (this.props.isPlaying == 'pause') {
-			classNames = 'fa fa-fw fa-pause';
-		} else {
-			classNames = 'fa fa-fw fa-play';
-		}
-
-		return React.createElement(
-			"div",
-			{ className: "Controls" },
-			React.createElement(
-				"div",
-				{ onClick: this.props.onClick, className: "Button" },
-				React.createElement("i", { className: classNames })
-			)
-		);
-	}
-});
-
-var Timestamps = React.createClass({
-	displayName: "Timestamps",
-
-	convertTime: function (timestamp) {
-		let minutes = Math.floor(timestamp / 60);
-		let seconds = timestamp - minutes * 60;
-		if (seconds < 10) {
-			seconds = '0' + seconds;
-		}
-		timestamp = minutes + ':' + seconds;
-		return timestamp;
-	},
-	render: function () {
-		return React.createElement(
-			"div",
-			{ className: "Timestamps" },
-			React.createElement(
-				"div",
-				{ className: "Time Time--current" },
-				this.convertTime(this.props.currentTime)
-			),
-			React.createElement(
-				"div",
-				{ className: "Time Time--total" },
-				this.convertTime(this.props.duration)
-			)
-		);
-	}
-});
-
 // Render the UI
-ReactDOM.render(React.createElement(Player, null), document.getElementById('Player'));
+ReactDOM.render(React.createElement(Application, { tracklist: TRACKLIST }), document.getElementById('Player'));

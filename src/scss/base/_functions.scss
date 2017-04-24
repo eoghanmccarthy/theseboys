@@ -2,20 +2,20 @@
 
 // Font weight
 @function f-weight($weight: 'normal') {
-    @return map-get($font-weight, $weight);
+	@return map-get($font-weight, $weight);
 }
 
 // Color palette modifiers
 @function palette($color, $shade: 'base') {
-    @return map-get(map-get($palettes, $color), $shade);
+	@return map-get(map-get($palettes, $color), $shade);
 }
 
 // Margin
 @function m($value) {
-    @return map-get($margin, $value);
+	@return map-get($margin, $value);
 }
 
 // Padding
 @function p($value) {
-    @return map-get($padding, $value);
+	@return map-get($padding, $value);
 }

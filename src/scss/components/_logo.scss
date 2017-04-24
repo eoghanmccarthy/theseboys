@@ -7,11 +7,6 @@
 
 		path {
 			fill: $black;
-			@include transition(fill, $speed, ease);
-
-			&:hover {
-				fill: $white;
-			}
 		}
 	}
 

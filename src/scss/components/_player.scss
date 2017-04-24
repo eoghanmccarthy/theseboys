@@ -1,52 +1,85 @@
 // Player
 .player {
 	position: relative;
-	background: $grey;
 	border-radius: 5px;
 	overflow: hidden;
 	box-shadow: 0 5px 10px -5px rgba($black, 1);
 	width: 280px;
 	height: 320px;
-	padding-top: p(xxl);
 	margin: 0 auto;
 
-	.controls {
-		position: absolute;
-		bottom: 15%;
-		margin: auto;
-		left: 0;
-		right: 0;
+	.tracklist {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		box-sizing: border-box;
+		width: 100%;
+		height: 200px;
+		padding: p(sm);
+		background: url(../../img/img_4013.jpg);
+		background-position: center;
+		background-size: cover;
 
-		.button {
-			height: 75px;
-			width: 75px;
-			border: 2px solid rgba($white, .5);
-			box-sizing: border-box;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			border-radius: 75px;
-			box-shadow: 0 5px 10px 0px rgba($black, .125);
-			margin: auto;
-			pointer-events: all;
+		.track {
+			padding: p(sm) p(lg);
 
-			&:active {
-				transform: scale(.98);
-				background: $white;
+			.meta {
+				padding: p(sm) 0;
 
-				.fa {
-					color: $red;
-					opacity: 1;
+				.name {
+					font-size: 16px;
+					font-weight: f-weight(light);
+					text-align: center;
+					color: $black;
 				}
 			}
 
-			.fa {
-				color: $white;
-				opacity: .5;
-				font-size: 24px;
+			.select {
+				height: 50px;
+				width: 50px;
+				border-radius: 50px;
+				box-shadow: 0 5px 10px 0px rgba($black, .2);
+				outline: none;
+				background-color: $lime-green;
+				opacity: .6;
+				@include transition(opacity, $speed, ease);
 
-				&.fa-play {
-					margin-left: 5px;
+				&:hover {
+					opacity: 1;
+				}
+			}
+		}
+	}
+
+	.controller {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		padding: p(sm);
+		width: 100%;
+		height: 120px;
+		background-color: #2f4f4f;
+
+		.controls {
+
+			.button {
+				height: 75px;
+				width: 75px;
+				border: 2px solid $white;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				border-radius: 75px;
+				box-shadow: 0 5px 10px 0px rgba($black, .125);
+				pointer-events: all;
+
+				.fa {
+					color: $white;
+					font-size: 24px;
+
+					&.fa-play {
+						margin-left: 5px;
+					}
 				}
 			}
 		}

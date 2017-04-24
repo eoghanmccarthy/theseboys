@@ -1,141 +1,105 @@
-// COMPONENTS
+var TRACKLIST = [
+	{
+		id: 1,
+		name: "#a",
+		source: "./audio/test.m4a"
+	},
+	{
+		id: 2,
+		name: "#b",
+		source: "https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/wwy.mp3"
+	}
+]
 
-// Player
-var Player = React.createClass({
-	getInitialState: function() {
-		return {
-			playStatus: 'play',
-			currentTime: 0
-		}
-	},
-	getDefaultProps: function() {
-		return {
-			track: {
-				name: "We Were Young",
-				artist: "Odesza",
-				album: "Summer's Gone",
-				year: 2012,
-				artwork: "https://funkadelphia.files.wordpress.com/2012/09/odesza-summers-gone-lp.jpg",
-				duration: 192,
-				source: "https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/wwy.mp3"
-			}
-		}
-	},
-	updateTime: function(timestamp) {
-		timestamp = Math.floor(timestamp);
-		this.setState({ currentTime: timestamp });
-	},
-	updateScrubber: function(percent) {
-		// Set scrubber width
-		let innerScrubber = document.querySelector('.Scrubber-Progress');
-		innerScrubber.style['width'] = percent;
-	},
-	togglePlay: function() {
-		let status = this.state.playStatus;
-		let audio = document.getElementById('audio');
-		if(status === 'play') {
-			status = 'pause';
-			audio.play();
-			let that = this;
-			setInterval(function() {
-				let currentTime = audio.currentTime;
-				let duration = that.props.track.duration;
-
-				// Calculate percent of song
-				let percent = (currentTime / duration) * 100 + '%';
-				that.updateScrubber(percent);
-				that.updateTime(currentTime);
-			}, 100);
-		} else {
-			status = 'play';
-			audio.pause();
-		}
-		this.setState({ playStatus: status });
-
-	},
-	render: function() {
-		return (
-			<div className="Player">
-				<div className="Background" style={{'backgroundImage': 'url(' + this.props.track.artwork + ')'}}></div>
-				<div className="Header"><div className="Title">Now playing</div></div>
-				<div className="Artwork" style={{'backgroundImage': 'url(' + this.props.track.artwork + ')'}}></div>
-				<TrackInformation track={this.props.track} />
-				<Scrubber />
-				<Controls isPlaying={this.state.playStatus} onClick={this.togglePlay} />
-				<Timestamps duration={this.props.track.duration} currentTime={this.state.currentTime} />
-				<audio id="audio">
-					<source src={this.props.track.source} />
+function Track(props) {
+	return (
+		<div className="track">
+			<div className="meta">
+				<h3 className="name">{props.name}</h3>
+				<audio>
+					<source src={props.source} />
 				</audio>
 			</div>
-		)
-	}
-});
-
-var TrackInformation = React.createClass({
-	render: function() {
-		return (
-			<div className="TrackInformation">
-				<div className="Name">{this.props.track.name}</div>
-				<div className="Artist">{this.props.track.artist}</div>
-				<div className="Album">{this.props.track.album} ({this.props.track.year})</div>
+			<div className="select" onClick={function() {props.onChange(props.source);}} >
 			</div>
-		)
-	}
-});
+		</div>
+	)
+}
 
-var Scrubber = React.createClass({
-	render: function() {
-		return (
-			<div className="Scrubber">
-				<div className="Scrubber-Progress"></div>
+function Controls(props) {
+
+	let classNames;
+	if (props.isPlaying == "play") {
+		classNames = "fa fa-fw fa-pause";
+	} else {
+		classNames = "fa fa-fw fa-play";
+	}
+
+	return (
+		<div className="controls">
+			<div onClick={props.onClick} className="button">
+				<i className={classNames}></i>
 			</div>
-		)
-	}
-});
+		</div>
+	)
+}
 
-var Controls = React.createClass({
-	render: function() {
+var Application = React.createClass({
 
-		let classNames;
-		if (this.props.isPlaying == 'pause') {
-			classNames = 'fa fa-fw fa-pause';
+	getInitialState: function() {
+		return {
+			playStatus: "pause",
+			currentTrack: "./audio/test.m4a"
+		};
+	},
+
+	onTrackChange: function(source) {
+		this.setState({ playStatus: "play" });
+		this.setState({ currentTrack: source },function(){
+			this.refs.audio.pause();
+			this.refs.audio.load();
+			this.refs.audio.play();
+		})
+	},
+
+	togglePlay: function() {
+		let status = this.state.playStatus;
+		let audio = this.refs.audio;
+		if(status === "pause") {
+			status = "play";
+			audio.play();
 		} else {
-			classNames = 'fa fa-fw fa-play';
+			status = "pause";
+			audio.pause();
 		}
+		this.setState({ playStatus: status })
+	},
 
+	render: function() {
 		return (
-			<div className="Controls">
-				<div onClick={this.props.onClick} className="Button">
-					<i className={classNames}></i>
+			<div className="player">
+				<div className="tracklist">
+					{this.props.tracklist.map(function(track){
+						return <Track
+									key={track.id}
+									name={track.name}
+									source={track.source}
+									onChange={this.onTrackChange } />
+					}.bind(this))}
+				</div>
+				<div className="controller">
+					<Controls isPlaying={this.state.playStatus} onClick={this.togglePlay} />
+					<audio id="audio" ref="audio">
+						<source src={this.state.currentTrack} />
+					</audio>
 				</div>
 			</div>
 		)
 	}
 });
 
-var Timestamps = React.createClass({
-	convertTime: function(timestamp) {
-		let minutes = Math.floor(timestamp / 60);
-		let seconds = timestamp - (minutes * 60);
-		if(seconds < 10) {
-			seconds = '0' + seconds;
-		}
-		timestamp = minutes + ':' + seconds;
-		return timestamp;
-	},
-	render: function() {
-		return (
-			<div className="Timestamps">
-				<div className="Time Time--current">{this.convertTime(this.props.currentTime)}</div>
-				<div className="Time Time--total">{this.convertTime(this.props.duration)}</div>
-			</div>
-		)
-	}
-});
-
-
 // Render the UI
 ReactDOM.render(
-	<Player />,
-	document.querySelector('body')
+	<Application tracklist={TRACKLIST} />,
+	document.getElementById('Player')
 );
