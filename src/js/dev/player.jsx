@@ -2,12 +2,12 @@ var TRACKLIST = [
 	{
 		id: 1,
 		name: "#a",
-		source: "./audio/test.m4a"
+		source: "./audio/track_a.m4a"
 	},
 	{
 		id: 2,
 		name: "#b",
-		source: "https://s3-us-west-2.amazonaws.com/s.cdpn.io/557257/wwy.mp3"
+		source: "./audio/track_b.m4a"
 	}
 ]
 
@@ -49,7 +49,7 @@ var Application = React.createClass({
 	getInitialState: function() {
 		return {
 			playStatus: "pause",
-			currentTrack: "./audio/test.m4a"
+			currentTrack: "./audio/track_a.m4a"
 		};
 	},
 
