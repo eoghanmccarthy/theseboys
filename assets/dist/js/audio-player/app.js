@@ -1,11 +1,11 @@
 var TRACKLIST = [{
 	id: 1,
 	name: "#a",
-	source: "./audio/track_a.m4a"
+	source: "./audio/shibuya_src.m4a"
 }, {
 	id: 2,
 	name: "#b",
-	source: "./audio/track_b.m4a"
+	source: "./audio/shinjuku_src.m4a"
 }];
 
 function Track(props) {
@@ -35,7 +35,9 @@ function Track(props) {
 function Controls(props) {
 
 	let classNames;
-	if (props.isPlaying == "play") {
+	if (props.isPlaying == "standby") {
+		classNames = "fa fa-fw fa-play standby";
+	} else if (props.isPlaying == "play") {
 		classNames = "fa fa-fw fa-pause";
 	} else {
 		classNames = "fa fa-fw fa-play";
@@ -46,20 +48,19 @@ function Controls(props) {
 		{ className: "controls" },
 		React.createElement(
 			"div",
-			{ onClick: props.onClick, className: "button" },
+			{ className: "button", onClick: props.onClick },
 			React.createElement("i", { className: classNames })
 		)
 	);
 }
 
-var Application = React.createClass({
-	displayName: "Application",
+var App = React.createClass({
+	displayName: "App",
 
 
 	getInitialState: function () {
 		return {
-			playStatus: "pause",
-			currentTrack: "./audio/track_a.m4a"
+			playStatus: "standby"
 		};
 	},
 
@@ -78,7 +79,7 @@ var Application = React.createClass({
 		if (status === "pause") {
 			status = "play";
 			audio.play();
-		} else {
+		} else if (status === "play") {
 			status = "pause";
 			audio.pause();
 		}
@@ -115,4 +116,4 @@ var Application = React.createClass({
 });
 
 // Render the UI
-ReactDOM.render(React.createElement(Application, { tracklist: TRACKLIST }), document.getElementById('Player'));
+ReactDOM.render(React.createElement(App, { tracklist: TRACKLIST }), document.getElementById('Player'));

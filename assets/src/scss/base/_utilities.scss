@@ -42,8 +42,8 @@
 // Shorthand animation with vendor prefixes
 @mixin animation($args...) {
 	-webkit-animation: $args;
-	-moz-transition: $args;
-	-o-transition: $args;
+	-moz-animation: $args;
+	-o-animation: $args;
 	animation: $args;
 }
 

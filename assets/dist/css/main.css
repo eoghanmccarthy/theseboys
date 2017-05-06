@@ -20,8 +20,8 @@ body {
   color: #000;
   background: #00ffff;
   -webkit-animation: background 12s linear 0 infinite;
-  -moz-transition: background 12s linear 0 infinite;
-  -o-transition: background 12s linear 0 infinite;
+  -moz-animation: background 12s linear 0 infinite;
+  -o-animation: background 12s linear 0 infinite;
   animation: background 12s linear 0 infinite; }
 
 main {
@@ -101,7 +101,7 @@ p {
     width: 100%;
     height: 200px;
     padding: 1em;
-    background: url(../../img/img_4013.jpg);
+    background: url(../img/img_4013.jpg);
     background-position: center;
     background-size: cover; }
     .player .tracklist .track {
@@ -151,26 +151,19 @@ p {
         .player .controller .controls .button .fa.fa-play {
           margin-left: 5px; }
 
-@-webkit-keyframes background {
-  0%, 100% {
-    background-color: #00ffff; }
-  50% {
-    background-color: #00ff80; } }
-
-@-moz-keyframes background {
-  0%, 100% {
-    background-color: #00ffff; }
-  50% {
-    background-color: #00ff80; } }
-
-@-o-keyframes background {
-  0%, 100% {
-    background-color: #00ffff; }
-  50% {
-    background-color: #00ff80; } }
-
+/*
+ * Animation
+ */
 @keyframes background {
-  0%, 100% {
+  0%,
+  100% {
+    background-color: #00ffff; }
+  50% {
+    background-color: #00ff80; } }
+
+@-webkit-keyframes background {
+  0%,
+  100% {
     background-color: #00ffff; }
   50% {
     background-color: #00ff80; } }

@@ -1,0 +1,27 @@
+/*
+ * Animation
+ */
+
+@keyframes background {
+
+	0%,
+	100% {
+		background-color: $primary;
+	}
+
+	50% {
+		background-color: $lime-green;
+	}
+}
+
+@-webkit-keyframes background {
+
+	0%,
+	100% {
+		background-color: $primary;
+	}
+
+	50% {
+		background-color: $lime-green;
+	}
+}

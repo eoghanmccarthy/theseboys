@@ -1,81 +1,56 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+// Import components
+import Track from './components/track';
+import Controls from './components/controls';
+
 var TRACKLIST = [
 	{
 		id: 1,
 		name: "#a",
-		source: "./audio/track_a.m4a"
+		source: "./assets/dist/audio/shibuya_src.m4a"
 	},
 	{
 		id: 2,
 		name: "#b",
-		source: "./audio/track_b.m4a"
+		source: "./assets/dist/audio/shinjuku_src.m4a"
 	}
 ]
 
-function Track(props) {
-	return (
-		<div className="track">
-			<div className="meta">
-				<h3 className="name">{props.name}</h3>
-				<audio>
-					<source src={props.source} />
-				</audio>
-			</div>
-			<div className="select" onClick={function() {props.onChange(props.source);}} >
-			</div>
-		</div>
-	)
-}
-
-function Controls(props) {
-
-	let classNames;
-	if (props.isPlaying == "play") {
-		classNames = "fa fa-fw fa-pause";
-	} else {
-		classNames = "fa fa-fw fa-play";
-	}
-
-	return (
-		<div className="controls">
-			<div onClick={props.onClick} className="button">
-				<i className={classNames}></i>
-			</div>
-		</div>
-	)
-}
-
-var Application = React.createClass({
-
-	getInitialState: function() {
-		return {
-			playStatus: "pause",
-			currentTrack: "./audio/track_a.m4a"
+class App extends React.Component {
+	constructor(props) {
+		super(props);
+		this.onTrackChange = this.onTrackChange.bind(this);
+		this.togglePlay = this.togglePlay.bind(this);
+		this.state = {
+			playStatus: "standby"
 		};
-	},
-
-	onTrackChange: function(source) {
+	}
+	// Re-load audio on track change
+	onTrackChange(source) {
 		this.setState({ playStatus: "play" });
 		this.setState({ currentTrack: source },function(){
 			this.refs.audio.pause();
 			this.refs.audio.load();
 			this.refs.audio.play();
 		})
-	},
-
-	togglePlay: function() {
+	}
+	// Toggle audio
+	togglePlay() {
 		let status = this.state.playStatus;
 		let audio = this.refs.audio;
 		if(status === "pause") {
 			status = "play";
 			audio.play();
-		} else {
+		} else if(status === "play") {
 			status = "pause";
 			audio.pause();
 		}
 		this.setState({ playStatus: status })
-	},
+	}
 
-	render: function() {
+	render() {
 		return (
 			<div className="player">
 				<div className="tracklist">
@@ -84,7 +59,7 @@ var Application = React.createClass({
 									key={track.id}
 									name={track.name}
 									source={track.source}
-									onChange={this.onTrackChange } />
+									onChange={this.onTrackChange} />
 					}.bind(this))}
 				</div>
 				<div className="controller">
@@ -96,10 +71,10 @@ var Application = React.createClass({
 			</div>
 		)
 	}
-});
+}
 
 // Render the UI
 ReactDOM.render(
-	<Application tracklist={TRACKLIST} />,
+	<App tracklist={TRACKLIST} />,
 	document.getElementById('Player')
 );
