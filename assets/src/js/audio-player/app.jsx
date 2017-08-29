@@ -1,30 +1,21 @@
-import React from 'react';
+import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 
 // Import components
-import Track from './components/track';
+import Tracklist from './components/tracklist';
 import Controls from './components/controls';
 
-var TRACKLIST = [
-	{
-		id: 1,
-		name: "#a",
-		source: "./assets/dist/audio/shibuya_src.m4a"
-	},
-	{
-		id: 2,
-		name: "#b",
-		source: "./assets/dist/audio/shinjuku_src.m4a"
-	}
-]
+// Import data
+import trackdata from 'json-loader!../../data/trackdata.json';
 
 class App extends React.Component {
 	constructor(props) {
 		super(props);
 		this.onTrackChange = this.onTrackChange.bind(this);
-		this.togglePlay = this.togglePlay.bind(this);
+		this.toggleAudio = this.toggleAudio.bind(this);
 		this.state = {
-			playStatus: "standby"
+			playStatus: "standby",
+			tracklist: trackdata.data
 		};
 	}
 	// Re-load audio on track change
@@ -37,7 +28,7 @@ class App extends React.Component {
 		})
 	}
 	// Toggle audio
-	togglePlay() {
+	toggleAudio() {
 		let status = this.state.playStatus;
 		let audio = this.refs.audio;
 		if(status === "pause") {
@@ -53,17 +44,9 @@ class App extends React.Component {
 	render() {
 		return (
 			<div className="player">
-				<div className="tracklist">
-					{this.props.tracklist.map(function(track){
-						return <Track
-									key={track.id}
-									name={track.name}
-									source={track.source}
-									onChange={this.onTrackChange} />
-					}.bind(this))}
-				</div>
+				<Tracklist tracklist={this.state.tracklist} onTrackChange={this.onTrackChange} />
 				<div className="controller">
-					<Controls isPlaying={this.state.playStatus} onClick={this.togglePlay} />
+					<Controls isPlaying={this.state.playStatus} toggleAudio={this.toggleAudio} />
 					<audio id="audio" ref="audio">
 						<source src={this.state.currentTrack} />
 					</audio>
@@ -75,6 +58,6 @@ class App extends React.Component {
 
 // Render the UI
 ReactDOM.render(
-	<App tracklist={TRACKLIST} />,
+	<App />,
 	document.getElementById('Player')
 );

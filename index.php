@@ -8,7 +8,7 @@
 	</head>
 
 	<body>
-		<div class="container-fluid">
+		<div>
 			<!-- Header -->
 			<?php include 'partials/header.php';?>
 			<!-- Main -->
