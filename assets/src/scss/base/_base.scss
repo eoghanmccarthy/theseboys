@@ -11,7 +11,10 @@ body {
 	line-height: $base__line-height;
 	color: $black;
 	background: palette(brand);
-	@include animation(background 12s linear 0 infinite);
+}
+
+* {
+	box-sizing: border-box;
 }
 
 main {
