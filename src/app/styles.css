@@ -1,0 +1,21 @@
+.me {
+	display: grid;
+	grid-template-rows: 80px auto 80px;
+	grid-template-areas:
+			"header"
+			"main"
+			"footer";
+	height: 100%;
+	min-height: 100vh;
+	overflow: hidden;
+}
+
+.me.index {
+	grid-template-rows: 1fr;
+	grid-template-areas: "header"
+}
+
+.me__content {
+	grid-area: main;
+	padding: 0 30px;
+}

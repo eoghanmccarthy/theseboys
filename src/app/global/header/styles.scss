@@ -1,0 +1,18 @@
+.me__header {
+  grid-area: header;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: var(--spacing-md);
+}
+
+.me__header svg {
+  width: auto;
+  height: auto;
+  cursor: pointer;
+}
+
+.me__header svg path {
+  fill: white;
+}

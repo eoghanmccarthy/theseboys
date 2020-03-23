@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist/",
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "allowSyntheticDefaultImports": true,
+    "module": "commonjs",
+    "allowJs": true,
+    "lib": ["es2015", "dom"],
+    "target": "es6",
+    "jsx": "react",
+    "baseUrl": ".",
+    "paths": {
+      "assets/*": ["src/assets/*"],
+      "app/*": ["src/js/app/*"],
+      "actions/*": ["src/js/app/actions/*"],
+      "shared/*": ["src/js/app/shared/*"],
+      "components/*": ["src/js/app/components/*"],
+      "containers/*": ["src/js/app/containers/*"],
+      "epics/*": ["src/js/app/epics/*"],
+      "pages/*": ["src/js/app/pages/*"],
+      "reducers/*": ["src/js/app/reducers/*"],
+      "routes/*": ["src/js/app/routes/*"],
+      "selectors/*": ["src/js/app/selectors/*"],
+      "types/*": ["src/js/app/types/*"]
+    }
+  }
+}

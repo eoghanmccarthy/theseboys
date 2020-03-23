@@ -1,0 +1,49 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto+Mono:100,100i,300,300i");
+
+:root {
+	--font-primary: "Roboto Mono", sans-serif;
+}
+
+:root {
+	--color-primary: #00ffff;
+	--color-mid-grey: #333333;
+}
+
+:root {
+	--spacing-sm: .94rem;
+	--spacing-md: 1.88rem;
+	--spacing-lg: 2.82rem;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+	min-height: 100vh;
+}
+
+html {
+	background: var(--color-primary)
+}
+
+body {
+	margin: 0;
+	color: #000000;
+	font-family: var(--font-primary);
+	font-weight: 100;
+	line-height: 1;
+}
+
+a {
+	outline: none;
+	cursor: pointer;
+	color: var(--color-mid-grey);
+	text-decoration: none;
+	letter-spacing: 0.1em;
+	&:hover {
+		text-decoration: none;
+	}
+}

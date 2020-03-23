@@ -1,5 +1,3 @@
 .sass-cache/*
-assets/src/img/*
 node_modules/*
-gulpfile.js
-package.json
+.idea/*
