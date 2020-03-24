@@ -2,17 +2,16 @@
   grid-area: header;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
-  padding: var(--spacing-md);
+  padding: 15px;
 }
 
 .me__header svg {
-  width: auto;
-  height: auto;
+  height: 100%;
   cursor: pointer;
 }
 
 .me__header svg path {
-  fill: white;
+  fill: black;
 }

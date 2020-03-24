@@ -134,26 +134,34 @@ const StepSequencer = () => {
 
   return (
     <div className={"step-sequencer"}>
-      <input
-        type="range"
-        min="0"
-        max="100"
-        value={Tone.Master.volume.value}
-        className="slider"
-        id="myRange"
-        onChange={e => (Tone.Master.volume.value = e.target.value)}
-      />
-      <div>
-        <span>
-          <em>bpm: </em>
-          {bpm},
-        </span>
-        <span>{start ? "playing" : "stopped"},</span>
-        <span>step: {currentStep + 1},</span>
-        <span>volume: {Tone.Master.volume.value}</span>
-        <button onClick={() => (Tone.Master.mute = !Tone.Master.mute)}>
-          mute
-        </button>
+      <div className={"master"}>
+        <div className={"volume"}>
+          <div>
+            <input
+              type="range"
+              min="-60"
+              max="12"
+              value={Tone.Master.volume.value}
+              className="slider"
+              id="myRange"
+              onChange={e => (Tone.Master.volume.value = e.target.value)}
+            />
+          </div>
+          <span>volume: {Tone.Master.volume.value}</span>
+          <button onClick={() => (Tone.Master.mute = !Tone.Master.mute)}>
+            mute
+          </button>
+        </div>
+        <div>
+          <span>
+            <em>bpm: </em>
+            {bpm}
+          </span>
+        </div>
+        <div>
+          <span>{start ? "playing" : "stopped"},</span>
+          <span>step: {currentStep + 1}</span>
+        </div>
       </div>
       <div className={"steps"}>
         {Object.entries(stepState).map(([track, steps], i) => (

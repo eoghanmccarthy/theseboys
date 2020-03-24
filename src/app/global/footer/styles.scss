@@ -2,7 +2,16 @@
   grid-area: footer;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  padding: var( --spacing-md);
+  padding: var( --spacing-sm);
+}
+
+.me__footer svg {
+  height: 100%;
+  cursor: pointer;
+}
+
+.me__footer svg path {
+  fill: black;
 }
