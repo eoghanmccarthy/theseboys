@@ -1,10 +1,4 @@
-import React, {
-  Fragment,
-  useEffect,
-  useRef,
-  useState,
-  useLayoutEffect
-} from "react";
+import React, { Fragment, useEffect, useRef, useState } from "react";
 import Tone from "tone";
 
 import "./styles.scss";
@@ -12,6 +6,7 @@ import "./styles.scss";
 import Slider from "componentLib/slider";
 import useKeyDownEvent from "componentLib/useKeyDownEvent";
 import Volume from "../volume";
+import Tempo from "../tempo";
 
 const initialStepState = {
   kick: [0, 0, 0, 0, 0, 0, 0, 0],
@@ -46,7 +41,6 @@ const StepSequencer = () => {
   // const pannerRef = useRef(pannerState);
   // pannerRef.current = pannerState;
 
-  const [bpm, setBpm] = useState(120);
   const [start, setStart] = useState(false);
 
   const [stepState, setStepState] = useState(initialStepState);
@@ -61,12 +55,6 @@ const StepSequencer = () => {
     switch (e.code) {
       case "Space":
         setStart(s => !s);
-        break;
-      case "ArrowUp":
-        !e.shiftKey && setBpm(b => b + 1);
-        break;
-      case "ArrowDown":
-        !e.shiftKey && setBpm(b => b - 1);
         break;
       default:
         break;
@@ -87,10 +75,6 @@ const StepSequencer = () => {
       setCurrentStep(0);
     }
   }, [start]);
-
-  useEffect(() => {
-    Tone.Transport.bpm.value = bpm;
-  }, [bpm]);
 
   useEffect(() => {
     synths.current = {
@@ -161,12 +145,7 @@ const StepSequencer = () => {
     <div className={"step-sequencer"}>
       <div className={"master"}>
         <Volume />
-        <div>
-          <span>
-            <em>bpm: </em>
-            {bpm}
-          </span>
-        </div>
+        <Tempo />
         <div>
           <span>{start ? "playing" : "stopped"},</span>
           <span>step: {currentStep + 1}</span>
