@@ -9,7 +9,6 @@ import Tone from "tone";
 
 import "./styles.scss";
 
-import Slider from "componentLib/slider";
 import useKeyDownEvent from "componentLib/useKeyDownEvent";
 import Volume from "../volume";
 
@@ -236,10 +235,12 @@ const StepSequencer = () => {
                 }}
               />
             ))}
-            <Slider
-              min={-10}
-              max={10}
+            <input
+              type="range"
+              min="-10"
+              max="10"
               value={channels[track].pan.value * 10}
+              className="slider"
               onChange={e => {
                 let value = e.target.value / 10;
                 setChannels({

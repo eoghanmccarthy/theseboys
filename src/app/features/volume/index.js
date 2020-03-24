@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Tone from "tone";
 
+import Slider from "componentLib/slider";
 import useKeyDownEvent from "componentLib/useKeyDownEvent";
 
 const VOLUME_MIN = -60;
@@ -32,6 +33,11 @@ const Volume = () => {
           });
         }
         break;
+      case "KeyM":
+        if (e.shiftKey) {
+          toggleMute(m => !m);
+        }
+        break;
       default:
         break;
     }
@@ -48,17 +54,20 @@ const Volume = () => {
   return (
     <div className={"volume"}>
       <div>
-        <input
-          type="range"
+        <Slider
           min={VOLUME_MIN}
           max={VOLUME_MAX}
           value={volume}
-          className="slider"
           onChange={e => setVolume(e.target.value)}
         />
       </div>
       <span>volume: {volume}</span>
-      <button onClick={() => toggleMute(m => !m)}>mute</button>
+      <button
+        style={{ backgroundColor: mute && "red" }}
+        onClick={() => toggleMute(m => !m)}
+      >
+        mute
+      </button>
     </div>
   );
 };
