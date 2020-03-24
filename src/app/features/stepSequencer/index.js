@@ -1,9 +1,16 @@
-import React, { Fragment, useEffect, useRef, useState } from "react";
+import React, {
+  Fragment,
+  useEffect,
+  useRef,
+  useState,
+  useLayoutEffect
+} from "react";
 import Tone from "tone";
 
 import "./styles.scss";
 
 import useKeyDownEvent from "componentLib/useKeyDownEvent";
+import Volume from "../volume";
 
 const initialStepState = {
   kick: [0, 0, 0, 0, 0, 0, 0, 0],
@@ -12,8 +19,9 @@ const initialStepState = {
 };
 
 const StepSequencer = () => {
-  const gain = useRef(new Tone.Gain(0.4).toMaster());
-  const distortion = useRef(new Tone.Distortion(0.6).toMaster());
+  const gain = useRef(new Tone.Gain(0.8));
+  const dist = useRef(new Tone.Distortion(0.0));
+  const JCReverb = useRef(new Tone.JCReverb(0.6));
   const filter = useRef(
     new Tone.Filter({
       type: "bandpass",
@@ -21,15 +29,21 @@ const StepSequencer = () => {
     }).toMaster()
   );
 
+  const [channels, setChannels] = useState({
+    kick: new Tone.Channel(-12, -0.25).toMaster(),
+    snare: new Tone.Channel(-12, -1).toMaster(),
+    clap: new Tone.Channel(-12, 0).toMaster()
+  });
+
   const synths = useRef(null);
 
-  const [pannerState, setPannerState] = useState({
-    kick: new Tone.Panner(-1),
-    snare: new Tone.Panner(0),
-    clap: new Tone.Panner(1)
-  });
-  const pannerRef = useRef(pannerState);
-  pannerRef.current = pannerState;
+  // const [pannerState, setPannerState] = useState({
+  //   kick: new Tone.Panner(-1).toMaster(),
+  //   snare: new Tone.Panner(0).toMaster(),
+  //   clap: new Tone.Panner(1).toMaster()
+  // });
+  // const pannerRef = useRef(pannerState);
+  // pannerRef.current = pannerState;
 
   const [bpm, setBpm] = useState(120);
   const [start, setStart] = useState(false);
@@ -48,10 +62,10 @@ const StepSequencer = () => {
         setStart(s => !s);
         break;
       case "ArrowUp":
-        setBpm(b => b + 1);
+        !e.shiftKey && setBpm(b => b + 1);
         break;
       case "ArrowDown":
-        setBpm(b => b - 1);
+        !e.shiftKey && setBpm(b => b - 1);
         break;
       default:
         break;
@@ -79,10 +93,20 @@ const StepSequencer = () => {
 
   useEffect(() => {
     synths.current = {
-      kick: new Tone.MembraneSynth().chain(
-        pannerRef.current["kick"],
-        Tone.Master
-      ),
+      kick: new Tone.MembraneSynth({
+        pitchDecay: 0.05,
+        octaves: 10,
+        oscillator: {
+          type: "sine"
+        },
+        envelope: {
+          attack: 0.001,
+          decay: 0.4,
+          sustain: 0.01,
+          release: 1.4,
+          attackCurve: "exponential"
+        }
+      }).chain(gain.current, Tone.Master),
       snare: new Tone.Synth({
         oscillator: { type: "sine" },
         envelope: {
@@ -91,7 +115,7 @@ const StepSequencer = () => {
           sustain: 0.3,
           release: 1
         }
-      }).chain(pannerRef.current["snare"], Tone.Master),
+      }).chain(gain.current, dist.current),
       clap: new Tone.MetalSynth({
         frequency: 200,
         envelope: {
@@ -103,7 +127,7 @@ const StepSequencer = () => {
         modulationIndex: 2,
         resonance: 1277,
         octaves: 1.2
-      }).chain(pannerRef.current["clap"], Tone.Master)
+      }).chain(gain.current, JCReverb.current)
     };
   }, []);
 
@@ -135,23 +159,7 @@ const StepSequencer = () => {
   return (
     <div className={"step-sequencer"}>
       <div className={"master"}>
-        <div className={"volume"}>
-          <div>
-            <input
-              type="range"
-              min="-60"
-              max="12"
-              value={Tone.Master.volume.value}
-              className="slider"
-              id="myRange"
-              onChange={e => (Tone.Master.volume.value = e.target.value)}
-            />
-          </div>
-          <span>volume: {Tone.Master.volume.value}</span>
-          <button onClick={() => (Tone.Master.mute = !Tone.Master.mute)}>
-            mute
-          </button>
-        </div>
+        <Volume />
         <div>
           <span>
             <em>bpm: </em>
@@ -161,6 +169,30 @@ const StepSequencer = () => {
         <div>
           <span>{start ? "playing" : "stopped"},</span>
           <span>step: {currentStep + 1}</span>
+        </div>
+      </div>
+      <div className={"master"}>
+        <div>
+          <input
+            type="range"
+            min="0"
+            max="10"
+            value={dist.current.distortion * 10}
+            className="slider"
+            id="myRange"
+            onChange={e => (dist.current.distortion = e.target.value / 10)}
+          />
+        </div>
+        <div>
+          <input
+            type="range"
+            min="0"
+            max="10"
+            value={gain.current.gain.value * 10}
+            className="slider"
+            id="myRange"
+            onChange={e => (gain.current.gain.value = e.target.value / 10)}
+          />
         </div>
       </div>
       <div className={"steps"}>
@@ -209,14 +241,20 @@ const StepSequencer = () => {
               type="range"
               min="-10"
               max="10"
-              value={pannerState[track].pan.value * 10}
+              value={channels[track].pan.value * 10}
               className="slider"
               id="myRange"
               onChange={e => {
                 let value = e.target.value / 10;
-                setPannerState({
-                  ...pannerState,
-                  [track]: value
+                setChannels({
+                  ...channels,
+                  [track]: {
+                    ...channels[track],
+                    pan: {
+                      ...channels[track].pan,
+                      value: value
+                    }
+                  }
                 });
               }}
             />
