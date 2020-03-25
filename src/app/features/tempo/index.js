@@ -3,7 +3,7 @@ import Tone from "tone";
 
 import "./styles.scss";
 
-import Slider from "componentLib/slider";
+import { SliderWithValues } from "componentLib/slider";
 import useKeyDownEvent from "componentLib/useKeyDownEvent";
 
 const TEMPO_MIN = 60;
@@ -27,7 +27,7 @@ const Tempo = () => {
       case "ArrowDown":
         if (!e.shiftKey) {
           setBpm(b => {
-            if (b - 1 <= TEMPO_MIN) {
+            if (b - 1 >= TEMPO_MIN) {
               return b - 1;
             }
             return b;
@@ -45,11 +45,8 @@ const Tempo = () => {
 
   return (
     <div>
-      <span>
-        <em>bpm: </em>
-        {bpm}
-      </span>
-      <Slider
+      <SliderWithValues
+        title={"bpm"}
         min={TEMPO_MIN}
         max={TEMPO_MAX}
         value={bpm}

@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Tone from "tone";
 
-import Slider from "componentLib/slider";
+import "./styles.scss";
+
+import { SliderWithValues } from "componentLib/slider";
 import useKeyDownEvent from "componentLib/useKeyDownEvent";
 
 const VOLUME_MIN = -60;
@@ -54,14 +56,14 @@ const Volume = () => {
   return (
     <div className={"volume"}>
       <div>
-        <Slider
+        <SliderWithValues
+          title={"volume"}
           min={VOLUME_MIN}
           max={VOLUME_MAX}
           value={volume}
           onChange={e => setVolume(e.target.value)}
         />
       </div>
-      <span>volume: {volume}</span>
       <button
         style={{ backgroundColor: mute && "red" }}
         onClick={() => toggleMute(m => !m)}

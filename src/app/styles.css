@@ -1,6 +1,6 @@
 .me {
 	display: grid;
-	grid-template-rows: 80px auto 80px;
+	grid-template-rows: 60px auto 80px;
 	grid-template-areas:
 			"header"
 			"main"

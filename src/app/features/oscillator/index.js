@@ -46,12 +46,6 @@ const Home = () => {
       case "Space":
         setStart(s => !s);
         break;
-      case "ArrowUp":
-        setBpm(b => b + 1);
-        break;
-      case "ArrowDown":
-        setBpm(b => b - 1);
-        break;
       default:
         break;
     }

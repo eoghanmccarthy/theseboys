@@ -1,12 +1,14 @@
-import React, { Fragment, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Tone from "tone";
 
 import "./styles.scss";
 
-import Slider from "componentLib/slider";
+import { Slider, SliderWithValues } from "componentLib/slider";
+
 import useKeyDownEvent from "componentLib/useKeyDownEvent";
 import Volume from "../volume";
 import Tempo from "../tempo";
+import { Step } from "../steps";
 
 const initialStepState = {
   kick: [0, 0, 0, 0, 0, 0, 0, 0],
@@ -17,7 +19,7 @@ const initialStepState = {
 const StepSequencer = () => {
   const gain = useRef(new Tone.Gain(0.8));
   const dist = useRef(new Tone.Distortion(0.0));
-  const JCReverb = useRef(new Tone.JCReverb(0.6));
+  const JCReverb = useRef(new Tone.JCReverb(0.5));
   const filter = useRef(
     new Tone.Filter({
       type: "bandpass",
@@ -100,7 +102,7 @@ const StepSequencer = () => {
           sustain: 0.3,
           release: 1
         }
-      }).chain(gain.current, dist.current),
+      }).chain(gain.current, dist.current, JCReverb.current, Tone.Master),
       clap: new Tone.MetalSynth({
         frequency: 200,
         envelope: {
@@ -112,7 +114,7 @@ const StepSequencer = () => {
         modulationIndex: 2,
         resonance: 1277,
         octaves: 1.2
-      }).chain(gain.current, JCReverb.current)
+      }).chain(gain.current, JCReverb.current, Tone.Master)
     };
   }, []);
 
@@ -148,30 +150,25 @@ const StepSequencer = () => {
         <Tempo />
         <div>
           <span>{start ? "playing" : "stopped"},</span>
-          <span>step: {currentStep + 1}</span>
         </div>
       </div>
       <div className={"master"}>
-        <div>
-          <input
-            type="range"
-            min="0"
-            max="10"
-            value={dist.current.distortion * 10}
-            className="slider"
-            onChange={e => (dist.current.distortion = e.target.value / 10)}
-          />
-        </div>
-        <div>
-          <input
-            type="range"
-            min="0"
-            max="10"
-            value={gain.current.gain.value * 10}
-            className="slider"
-            onChange={e => (gain.current.gain.value = e.target.value / 10)}
-          />
-        </div>
+        <SliderWithValues
+          title={"dist"}
+          min={"0"}
+          max={"10"}
+          value={dist.current.distortion * 10}
+          onChange={e => (dist.current.distortion = e.target.value / 10)}
+        />
+        <SliderWithValues
+          title={"reverb"}
+          min={"0"}
+          max={"10"}
+          value={JCReverb.current.roomSize.value * 10}
+          onChange={e =>
+            (JCReverb.current.roomSize.value = e.target.value / 10)
+          }
+        />
       </div>
       <div className={"steps"}>
         {Object.entries(stepState).map(([track, steps], i) => (
@@ -183,36 +180,15 @@ const StepSequencer = () => {
                 triggers(track);
               }}
             />
-            {steps.map((s, i) => (
-              <button
+            {steps.map((step, i) => (
+              <Step
                 key={i}
-                className={"step"}
-                style={{
-                  backgroundColor: `${
-                    s === 1 ? "red" : s === 2 ? "green" : "white"
-                  }`,
-                  opacity: `${start && currentStep === i ? 0.5 : 1}`
-                }}
-                onClick={e => {
-                  e.preventDefault();
-                  let shiftEnabled = e.shiftKey === true;
-                  let steps = [...stepState[track]];
-                  let val =
-                    steps[i] === 0
-                      ? shiftEnabled
-                        ? 2
-                        : 1
-                      : steps[i] === 1 && shiftEnabled
-                      ? 2
-                      : steps[i] === 2 && shiftEnabled
-                      ? 1
-                      : 0;
-                  steps[i] = val;
-                  setStepState({
-                    ...stepState,
-                    [track]: steps
-                  });
-                }}
+                index={i}
+                step={step}
+                currentStep={currentStep}
+                stepState={stepState}
+                setStepState={setStepState}
+                track={track}
               />
             ))}
             <Slider

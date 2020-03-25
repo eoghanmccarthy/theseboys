@@ -1,16 +1,4 @@
-import React from "react";
+import Slider from "./slider";
+import SliderWithValues from "./sliderWithValues";
 
-const Slider = ({ min, max, value, onChange }) => {
-  return (
-    <input
-      type={"range"}
-      min={min}
-      max={max}
-      value={value}
-      className={"slider"}
-      onChange={onChange}
-    />
-  );
-};
-
-export default Slider;
+export { Slider, SliderWithValues };
