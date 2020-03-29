@@ -8,7 +8,7 @@ const Step = ({ index, value, stepState, setStepState, track }) => {
       className={`step`}
       style={{
         backgroundColor: `${
-          value === 1 ? "red" : value === 2 ? "green" : "white"
+          value === 1 ? "rgba(255, 189, 0,1)" : value === 2 ? "green" : "white"
         }`
       }}
       onClick={e => {

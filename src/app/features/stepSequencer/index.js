@@ -54,7 +54,7 @@ const StepSequencer = () => {
   // const pannerRef = useRef(pannerState);
   // pannerRef.current = pannerState;
 
-  const [start, setStart] = useState(false);
+  const [transportState, setTransportState] = useState("stopped");
 
   const [stepState, setStepState] = useState(initialStepState);
   const stepsRef = useRef(stepState);
@@ -63,7 +63,14 @@ const StepSequencer = () => {
   useKeyDownEvent(e => {
     switch (e.code) {
       case "Space":
-        setStart(s => !s);
+        setTransportState(s => {
+          if (s === "playing") {
+            return "paused";
+          }
+          if (s === "paused" || s === "stopped") {
+            return "playing";
+          }
+        });
         break;
       default:
         break;
@@ -77,29 +84,29 @@ const StepSequencer = () => {
   }, [Tone.context]);
 
   useEffect(() => {
-    if (start) {
+    if (transportState === "playing") {
       Tone.Transport.start();
-    } else {
+    } else if (transportState === "paused") {
+      Tone.Transport.pause();
+    } else if (transportState === "stopped") {
+      document.getElementById(`progress-indicator`).style.left = "0%";
       Tone.Transport.stop();
-      //setCurrentStep(null);
     }
-  }, [start]);
+  }, [transportState]);
 
   useEffect(() => {
     synths.current = {
       kick: new Tone.MembraneSynth({
-        pitchDecay: 0.05,
-        octaves: 10,
-        oscillator: {
-          type: "sine"
-        },
+        pitchDecay: 0.02,
         envelope: {
           attack: 0.001,
-          decay: 0.4,
-          sustain: 0.01,
-          release: 1.4,
-          attackCurve: "exponential"
-        }
+          decay: 0.1,
+          sustain: 0
+        },
+        oscillator: {
+          type: "square4"
+        },
+        volume: 10
       }).chain(Tone.Master),
       snare: new Tone.Synth({
         oscillator: { type: "sine" },
@@ -159,36 +166,52 @@ const StepSequencer = () => {
   return (
     <div className={"step-sequencer"}>
       <div className={"master"}>
-        <Volume />
-        <Tempo />
         <div>
-          <span>{start ? "playing" : "stopped"},</span>
+          <Volume />
+          <Tempo />
         </div>
-      </div>
-      <div className={"master"}>
-        <SliderWithValues
-          title={"dist"}
-          min={"0"}
-          max={"10"}
-          value={dist.current.distortion * 10}
-          onChange={e => (dist.current.distortion = e.target.value / 10)}
-        />
-        <SliderWithValues
-          title={"reverb"}
-          min={"0"}
-          max={"10"}
-          value={JCReverb.current.roomSize.value * 10}
-          onChange={e =>
-            (JCReverb.current.roomSize.value = e.target.value / 10)
-          }
-        />
+        <div>
+          <span>{transportState}</span>
+          <button
+            onClick={() =>
+              setTransportState(s => {
+                if (s === "playing") {
+                  return "paused";
+                }
+                if (s === "paused" || s === "stopped") {
+                  return "playing";
+                }
+              })
+            }
+          >
+            {transportState === "playing" ? "pause" : "play"}
+          </button>
+          <button onClick={() => setTransportState("stopped")}>stop</button>
+        </div>
+        <div className={"master"}>
+          <SliderWithValues
+            title={"dist"}
+            min={"0"}
+            max={"10"}
+            value={dist.current.distortion * 10}
+            onChange={e => (dist.current.distortion = e.target.value / 10)}
+          />
+          <SliderWithValues
+            title={"reverb"}
+            min={"0"}
+            max={"10"}
+            value={JCReverb.current.roomSize.value * 10}
+            onChange={e =>
+              (JCReverb.current.roomSize.value = e.target.value / 10)
+            }
+          />
+        </div>
       </div>
       <div className={"tracks-container"}>
         <div className={"sampler"}>
           {Object.entries(stepState).map(([track, steps], i) => (
-            <div className={"track"}>
+            <div key={i} className={"track"}>
               <button
-                key={i}
                 className={"step"}
                 style={{ backgroundColor: "darkslategrey" }}
                 onClick={() => {
@@ -219,9 +242,8 @@ const StepSequencer = () => {
         </div>
         <div className={"sampler"}>
           {Object.entries(stepState).map(([track, steps], i) => (
-            <div className={"track"}>
+            <div key={i} className={"track"}>
               <Slider
-                key={i}
                 min={-10}
                 max={10}
                 value={channels[track].pan.value * 10}
