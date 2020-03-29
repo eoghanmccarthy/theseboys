@@ -4,11 +4,13 @@ import Tone from "tone";
 import "./styles.scss";
 
 import { Slider, SliderWithValues } from "componentLib/slider";
-
 import useKeyDownEvent from "componentLib/useKeyDownEvent";
 import Volume from "../volume";
 import Tempo from "../tempo";
 import { Step } from "../steps";
+import useKick01 from "features/sounds/useKick";
+import useSnare01 from "features/sounds/useSnare";
+import useClap01 from "features/sounds/useClap";
 
 const STEP_COUNT = 8;
 
@@ -19,18 +21,13 @@ const initialStepState = {
 };
 
 const StepSequencer = () => {
-  const cxt = useRef(
-    new Tone.Context({
-      clockSource: "worker",
-      latencyHint: "“interactive”",
-      lookAhead: 0.1,
-      updateInterval: 0.03
-    })
-  );
   const gain = useRef(new Tone.Gain(0.8));
+  const kick = useKick01();
+  const snare = useSnare01();
+  const clap = useClap01();
 
-  const dist = useRef(new Tone.Distortion(0.0));
-  const JCReverb = useRef(new Tone.JCReverb(0.5));
+  const dist = useRef(new Tone.Distortion(0.8).toMaster());
+  const JCReverb = useRef(new Tone.JCReverb(0.8).toMaster());
   const filter = useRef(
     new Tone.Filter({
       type: "lowpass",
@@ -96,39 +93,9 @@ const StepSequencer = () => {
 
   useEffect(() => {
     synths.current = {
-      kick: new Tone.MembraneSynth({
-        pitchDecay: 0.02,
-        envelope: {
-          attack: 0.001,
-          decay: 0.1,
-          sustain: 0
-        },
-        oscillator: {
-          type: "square4"
-        },
-        volume: 10
-      }).chain(Tone.Master),
-      snare: new Tone.Synth({
-        oscillator: { type: "sine" },
-        envelope: {
-          attack: 0.005,
-          decay: 0.1,
-          sustain: 0.3,
-          release: 1
-        }
-      }).chain(Tone.Master),
-      clap: new Tone.MetalSynth({
-        frequency: 200,
-        envelope: {
-          attack: 0.08,
-          decay: 0.25,
-          release: 0.49
-        },
-        harmonicity: 1,
-        modulationIndex: 2,
-        resonance: 1277,
-        octaves: 1.2
-      }).chain(Tone.Master)
+      kick: kick.current.chain(filter.current, Tone.Master),
+      snare: snare.current.chain(Tone.Master),
+      clap: clap.current.chain(dist.current, JCReverb.current, Tone.Master)
     };
   }, []);
 
