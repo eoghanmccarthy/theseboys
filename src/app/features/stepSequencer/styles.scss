@@ -12,4 +12,27 @@
     justify-content: space-between;
     margin-bottom: 30px;
   }
+  .tracks-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .track {
+      display: flex;
+      margin-bottom: 5px;
+      //border-bottom: 1px solid green;
+      &:last-child {
+        margin-bottom: 0;
+        //border-bottom-width: 0;
+      }
+    }
+    .sampler {
+      display: flex;
+      flex-direction: column;
+      margin-right: 5px;
+      overflow: hidden;
+      border-top-left-radius: 8px;
+      border-bottom-left-radius: 8px;
+    }
+  }
 }

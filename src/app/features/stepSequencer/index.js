@@ -183,49 +183,65 @@ const StepSequencer = () => {
           }
         />
       </div>
-      <div id={"steps"}>
-        <div id={"progress-indicator"} />
-        {Object.entries(stepState).map(([track, steps], i) => (
-          <div key={i} className={"row"}>
-            <button
-              className={"step"}
-              style={{ backgroundColor: "blue" }}
-              onClick={() => {
-                triggers(track);
-              }}
-            />
-            {steps.map((value, i) => {
-              return (
-                <Step
-                  key={i}
-                  index={i}
-                  value={value}
-                  stepState={stepState}
-                  setStepState={setStepState}
-                  track={track}
-                />
-              );
-            })}
-            <Slider
-              min={-10}
-              max={10}
-              value={channels[track].pan.value * 10}
-              onChange={e => {
-                let value = e.target.value / 10;
-                setChannels({
-                  ...channels,
-                  [track]: {
-                    ...channels[track],
-                    pan: {
-                      ...channels[track].pan,
-                      value: value
+      <div className={"tracks-container"}>
+        <div className={"sampler"}>
+          {Object.entries(stepState).map(([track, steps], i) => (
+            <div className={"track"}>
+              <button
+                key={i}
+                className={"step"}
+                style={{ backgroundColor: "darkslategrey" }}
+                onClick={() => {
+                  triggers(track);
+                }}
+              />
+            </div>
+          ))}
+        </div>
+        <div id={"steps"}>
+          <div id={"progress-indicator"} />
+          {Object.entries(stepState).map(([track, steps], i) => (
+            <div key={i} className={"track"}>
+              {steps.map((value, i) => {
+                return (
+                  <Step
+                    key={i}
+                    index={i}
+                    value={value}
+                    stepState={stepState}
+                    setStepState={setStepState}
+                    track={track}
+                  />
+                );
+              })}
+            </div>
+          ))}
+        </div>
+        <div className={"sampler"}>
+          {Object.entries(stepState).map(([track, steps], i) => (
+            <div className={"track"}>
+              <Slider
+                key={i}
+                min={-10}
+                max={10}
+                value={channels[track].pan.value * 10}
+                onChange={e => {
+                  let value = e.target.value / 10;
+                  setChannels({
+                    ...channels,
+                    [track]: {
+                      ...channels[track],
+                      pan: {
+                        ...channels[track].pan,
+                        value: value
+                      }
                     }
-                  }
-                });
-              }}
-            />
-          </div>
-        ))}
+                  });
+                }}
+              />
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

@@ -14,25 +14,21 @@ const Tempo = () => {
 
   useKeyDownEvent(e => {
     switch (e.code) {
-      case "ArrowUp":
-        if (!e.shiftKey) {
-          setBpm(b => {
-            if (b + 1 <= TEMPO_MAX) {
-              return b + 1;
-            }
-            return b;
-          });
-        }
+      case "ArrowRight":
+        setBpm(b => {
+          if (b + 1 <= TEMPO_MAX) {
+            return b + 1;
+          }
+          return b;
+        });
         break;
-      case "ArrowDown":
-        if (!e.shiftKey) {
-          setBpm(b => {
-            if (b - 1 >= TEMPO_MIN) {
-              return b - 1;
-            }
-            return b;
-          });
-        }
+      case "ArrowLeft":
+        setBpm(b => {
+          if (b - 1 >= TEMPO_MIN) {
+            return b - 1;
+          }
+          return b;
+        });
         break;
       default:
         break;

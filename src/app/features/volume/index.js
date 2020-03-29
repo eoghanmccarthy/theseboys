@@ -16,24 +16,20 @@ const Volume = () => {
   useKeyDownEvent(e => {
     switch (e.code) {
       case "ArrowUp":
-        if (e.shiftKey) {
-          setVolume(v => {
-            if (v + 1 <= VOLUME_MAX) {
-              return v + 1;
-            }
-            return v;
-          });
-        }
+        setVolume(v => {
+          if (v + 1 <= VOLUME_MAX) {
+            return v + 1;
+          }
+          return v;
+        });
         break;
       case "ArrowDown":
-        if (e.shiftKey) {
-          setVolume(v => {
-            if (v - 1 >= VOLUME_MIN) {
-              return v - 1;
-            }
-            return v;
-          });
-        }
+        setVolume(v => {
+          if (v - 1 >= VOLUME_MIN) {
+            return v - 1;
+          }
+          return v;
+        });
         break;
       case "KeyM":
         if (e.shiftKey) {
