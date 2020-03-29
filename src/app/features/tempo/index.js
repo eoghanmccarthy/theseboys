@@ -6,8 +6,8 @@ import "./styles.scss";
 import { SliderWithValues } from "componentLib/slider";
 import useKeyDownEvent from "componentLib/useKeyDownEvent";
 
-const TEMPO_MIN = 60;
-const TEMPO_MAX = 180;
+const TEMPO_MIN = 30;
+const TEMPO_MAX = 240;
 
 const Tempo = () => {
   const [bpm, setBpm] = useState(120);

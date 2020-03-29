@@ -10,6 +10,8 @@ import Volume from "../volume";
 import Tempo from "../tempo";
 import { Step } from "../steps";
 
+const STEP_COUNT = 8;
+
 const initialStepState = {
   kick: [0, 0, 0, 0, 0, 0, 0, 0],
   snare: [0, 0, 0, 0, 0, 0, 0, 0],
@@ -17,14 +19,23 @@ const initialStepState = {
 };
 
 const StepSequencer = () => {
+  const cxt = useRef(
+    new Tone.Context({
+      clockSource: "worker",
+      latencyHint: "“interactive”",
+      lookAhead: 0.1,
+      updateInterval: 0.03
+    })
+  );
   const gain = useRef(new Tone.Gain(0.8));
+
   const dist = useRef(new Tone.Distortion(0.0));
   const JCReverb = useRef(new Tone.JCReverb(0.5));
   const filter = useRef(
     new Tone.Filter({
-      type: "bandpass",
-      Q: 12
-    }).toMaster()
+      type: "lowpass",
+      frequency: 200
+    })
   );
 
   const [channels, setChannels] = useState({
@@ -49,10 +60,6 @@ const StepSequencer = () => {
   const stepsRef = useRef(stepState);
   stepsRef.current = stepState;
 
-  const [currentStep, setCurrentStep] = useState(0);
-  const currentStepRef = useRef(currentStep);
-  currentStepRef.current = currentStep;
-
   useKeyDownEvent(e => {
     switch (e.code) {
       case "Space":
@@ -74,7 +81,7 @@ const StepSequencer = () => {
       Tone.Transport.start();
     } else {
       Tone.Transport.stop();
-      setCurrentStep(0);
+      //setCurrentStep(null);
     }
   }, [start]);
 
@@ -93,7 +100,7 @@ const StepSequencer = () => {
           release: 1.4,
           attackCurve: "exponential"
         }
-      }).chain(gain.current, Tone.Master),
+      }).chain(Tone.Master),
       snare: new Tone.Synth({
         oscillator: { type: "sine" },
         envelope: {
@@ -102,7 +109,7 @@ const StepSequencer = () => {
           sustain: 0.3,
           release: 1
         }
-      }).chain(gain.current, dist.current, JCReverb.current, Tone.Master),
+      }).chain(Tone.Master),
       clap: new Tone.MetalSynth({
         frequency: 200,
         envelope: {
@@ -114,7 +121,7 @@ const StepSequencer = () => {
         modulationIndex: 2,
         resonance: 1277,
         octaves: 1.2
-      }).chain(gain.current, JCReverb.current, Tone.Master)
+      }).chain(Tone.Master)
     };
   }, []);
 
@@ -127,20 +134,26 @@ const StepSequencer = () => {
   };
 
   useEffect(() => {
-    Tone.Transport.scheduleRepeat(time => {
-      Object.keys(stepsRef.current).forEach(track => {
-        let targetStep = stepsRef.current[track][currentStepRef.current];
-        if (targetStep === 1) {
-          triggers(track, time);
-        } else if (targetStep === 2) {
-          triggers(track, time);
-          triggers(track, "+32n");
-        }
-      });
-      setCurrentStep(step => {
-        return step > 6 ? 0 : step + 1;
-      });
-    }, "8n");
+    new Tone.Sequence(
+      (time, step) => {
+        Object.keys(stepsRef.current).forEach(track => {
+          let targetStep = stepsRef.current[track][step];
+          if (targetStep === 1) {
+            triggers(track, time);
+          } else if (targetStep === 2) {
+            triggers(track, time);
+            triggers(track, "+32n");
+          }
+        });
+        document.getElementById(`progress-indicator`).style.left = `${(parseInt(
+          step
+        ) /
+          STEP_COUNT) *
+          100}%`;
+      },
+      [0, 1, 2, 3, 4, 5, 6, 7],
+      "8n"
+    ).start(0);
   }, []);
 
   return (
@@ -170,7 +183,8 @@ const StepSequencer = () => {
           }
         />
       </div>
-      <div className={"steps"}>
+      <div id={"steps"}>
+        <div id={"progress-indicator"} />
         {Object.entries(stepState).map(([track, steps], i) => (
           <div key={i} className={"row"}>
             <button
@@ -180,17 +194,18 @@ const StepSequencer = () => {
                 triggers(track);
               }}
             />
-            {steps.map((step, i) => (
-              <Step
-                key={i}
-                index={i}
-                step={step}
-                currentStep={currentStep}
-                stepState={stepState}
-                setStepState={setStepState}
-                track={track}
-              />
-            ))}
+            {steps.map((value, i) => {
+              return (
+                <Step
+                  key={i}
+                  index={i}
+                  value={value}
+                  stepState={stepState}
+                  setStepState={setStepState}
+                  track={track}
+                />
+              );
+            })}
             <Slider
               min={-10}
               max={10}

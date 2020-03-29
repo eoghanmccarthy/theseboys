@@ -2,15 +2,14 @@ import React from "react";
 
 import "./styles.scss";
 
-const Step = ({ index, currentStep, step, stepState, setStepState, track }) => {
+const Step = ({ index, value, stepState, setStepState, track }) => {
   return (
     <button
-      className={"step"}
+      className={`step`}
       style={{
         backgroundColor: `${
-          step === 1 ? "red" : step === 2 ? "green" : "white"
-        }`,
-        opacity: `${index === currentStep ? 0.5 : 1}`
+          value === 1 ? "red" : value === 2 ? "green" : "white"
+        }`
       }}
       onClick={e => {
         e.preventDefault();

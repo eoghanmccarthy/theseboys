@@ -1,13 +1,40 @@
 :root {
+	--step-size: 45px;
 	--step-gap: 10px;
 }
 
+#steps {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+	margin: 30px 0;
+	#progress-indicator {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: var(--step-size);
+		height: 100%;
+		background-color: red;
+	}
+	.row {
+		display: flex;
+		margin-bottom: var(--step-gap);
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+}
+
 .step {
-	width: 45px;
-	height: 45px;
+	width: var(--step-size);
+	height: var(--step-size);
 	border-width: 0;
 	border-radius: 100%;
 	margin-right: var(--step-gap);
+	opacity: 1;
 	outline: none;
 	&:last-child {
 		margin-right: 0;
