@@ -21,6 +21,9 @@
 }
 
 .step {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	z-index: 1;
 	width: var(--step-size);
 	height: var(--step-size);

@@ -15,41 +15,48 @@ import useClap01 from "features/sounds/useClap";
 const STEP_COUNT = 8;
 
 const initialStepState = {
-  kick: [0, 0, 0, 0, 0, 0, 0, 0],
-  snare: [0, 0, 0, 0, 0, 0, 0, 0],
-  clap: [0, 0, 0, 0, 0, 0, 0, 0]
+  track01: [1, 0, 1, 0, 1, 0, 1, 0],
+  track02: [0, 0, 0, 0, 0, 0, 0, 0],
+  track03: [1, 1, 1, 1, 1, 0, 1, 1]
 };
 
 const StepSequencer = () => {
   const gain = useRef(new Tone.Gain(0.8));
+
+  const [distState, setDistState] = useState(0.8);
+  const distRef = useRef({
+    distortion: distState
+  });
+
+  useEffect(() => {
+    distRef.current = new Tone.Distortion();
+  }, []);
+
+  useEffect(() => {
+    if (distRef.current) {
+      distRef.current.distortion = distState;
+    }
+  }, [distState]);
+
+  const JCReverb = useRef(new Tone.JCReverb(0.8));
+  // const filter = useRef(
+  //   new Tone.Filter({
+  //     type: "lowpass",
+  //     frequency: 200
+  //   })
+  // );
+
+  const [channels, setChannels] = useState({
+    track01: new Tone.Channel(-12, 0).toMaster(),
+    track02: new Tone.Channel(-12, -0.8).toMaster(),
+    track03: new Tone.Channel(-12, 0.88).toMaster()
+  });
+
   const kick = useKick01();
   const snare = useSnare01();
   const clap = useClap01();
 
-  const dist = useRef(new Tone.Distortion(0.8).toMaster());
-  const JCReverb = useRef(new Tone.JCReverb(0.8).toMaster());
-  const filter = useRef(
-    new Tone.Filter({
-      type: "lowpass",
-      frequency: 200
-    })
-  );
-
-  const [channels, setChannels] = useState({
-    kick: new Tone.Channel(-12, -0.25).toMaster(),
-    snare: new Tone.Channel(-12, -1).toMaster(),
-    clap: new Tone.Channel(-12, 0).toMaster()
-  });
-
   const synths = useRef(null);
-
-  // const [pannerState, setPannerState] = useState({
-  //   kick: new Tone.Panner(-1).toMaster(),
-  //   snare: new Tone.Panner(0).toMaster(),
-  //   clap: new Tone.Panner(1).toMaster()
-  // });
-  // const pannerRef = useRef(pannerState);
-  // pannerRef.current = pannerState;
 
   const [transportState, setTransportState] = useState("stopped");
 
@@ -61,11 +68,10 @@ const StepSequencer = () => {
     switch (e.code) {
       case "Space":
         setTransportState(s => {
-          if (s === "playing") {
-            return "paused";
-          }
           if (s === "paused" || s === "stopped") {
             return "playing";
+          } else {
+            return "paused";
           }
         });
         break;
@@ -93,18 +99,22 @@ const StepSequencer = () => {
 
   useEffect(() => {
     synths.current = {
-      kick: kick.current.chain(filter.current, Tone.Master),
-      snare: snare.current.chain(Tone.Master),
-      clap: clap.current.chain(dist.current, JCReverb.current, Tone.Master)
+      track01: kick.current.chain(channels.track01, Tone.Master),
+      track02: snare.current.chain(channels.track02, Tone.Master),
+      track03: clap.current.chain(
+        channels.track03,
+        distRef.current,
+        Tone.Master
+      )
     };
   }, []);
 
   const triggers = (track, time) => {
     let synth = synths.current[track];
 
-    track === "kick" && synth.triggerAttackRelease("c2", "8n", time);
-    track === "snare" && synth.triggerAttackRelease("a3", "8n", time);
-    track === "clap" && synth.triggerAttackRelease("8n", time);
+    track === "track01" && synth.triggerAttackRelease("c2", "8n", time);
+    track === "track02" && synth.triggerAttackRelease("a3", "8n", time);
+    track === "track03" && synth.triggerAttackRelease("8n", time);
   };
 
   useEffect(() => {
@@ -142,11 +152,10 @@ const StepSequencer = () => {
           <button
             onClick={() =>
               setTransportState(s => {
-                if (s === "playing") {
-                  return "paused";
-                }
                 if (s === "paused" || s === "stopped") {
                   return "playing";
+                } else {
+                  return "paused";
                 }
               })
             }
@@ -160,8 +169,8 @@ const StepSequencer = () => {
             title={"dist"}
             min={"0"}
             max={"10"}
-            value={dist.current.distortion * 10}
-            onChange={e => (dist.current.distortion = e.target.value / 10)}
+            value={distState * 10}
+            onChange={e => setDistState(e.target.value / 10)}
           />
           <SliderWithValues
             title={"reverb"}
@@ -184,7 +193,9 @@ const StepSequencer = () => {
                 onClick={() => {
                   triggers(track);
                 }}
-              />
+              >
+                <span>{i}</span>
+              </button>
             </div>
           ))}
         </div>

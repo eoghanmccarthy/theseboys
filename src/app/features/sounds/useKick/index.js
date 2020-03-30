@@ -6,16 +6,18 @@ const useKick = () => {
 
   useEffect(() => {
     kick.current = new Tone.MembraneSynth({
-      pitchDecay: 0.02,
+      pitchDecay: 0.04,
+      octaves: 2,
       envelope: {
-        attack: 0.001,
-        decay: 0.1,
-        sustain: 0
+        attack: 0.64,
+        decay: 0.4,
+        sustain: 0,
+        release: 1.4
       },
       oscillator: {
-        type: "square4"
+        type: "sine2"
       },
-      volume: 10
+      volume: 12
     });
   }, []);
 
