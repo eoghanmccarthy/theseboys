@@ -14,9 +14,7 @@ import useKeyDownEvent from "componentLib/useKeyDownEvent";
 import Volume from "../volume";
 import Tempo from "../tempo";
 import { Step } from "../steps";
-import useKick from "features/soundBank/useKick";
-import useSnare from "features/soundBank/useSnare";
-import useClap from "features/soundBank/useClap";
+import { useAudio001, useAudio002, useAudio003 } from "features/soundBank";
 
 const STEP_COUNT = 8;
 
@@ -57,15 +55,15 @@ const StepSequencer = () => {
   });
   const channels = useRef(channelsState);
 
-  const kick = useKick(channels.current.track01);
-  const snare = useSnare(channels.current.track02);
-  const clap = useClap(channels.current.track03);
+  const track01Audio = useAudio001(channels.current.track01);
+  const track02Audio = useAudio002(channels.current.track02);
+  const track03Audio = useAudio003(channels.current.track03);
 
   const soundBank = useMemo(() => {
     return {
-      track01: kick,
-      track02: snare,
-      track03: clap
+      track01: track01Audio,
+      track02: track02Audio,
+      track03: track03Audio
     };
   }, []);
 
