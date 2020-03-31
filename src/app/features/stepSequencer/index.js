@@ -1,4 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, {
+  useEffect,
+  useRef,
+  useState,
+  useMemo,
+  useLayoutEffect
+} from "react";
 import Tone from "tone";
 
 import "./styles.scss";
@@ -8,20 +14,24 @@ import useKeyDownEvent from "componentLib/useKeyDownEvent";
 import Volume from "../volume";
 import Tempo from "../tempo";
 import { Step } from "../steps";
-import useKick01 from "features/sounds/useKick";
-import useSnare01 from "features/sounds/useSnare";
-import useClap01 from "features/sounds/useClap";
+import useKick from "features/soundBank/useKick";
+import useSnare from "features/soundBank/useSnare";
+import useClap from "features/soundBank/useClap";
 
 const STEP_COUNT = 8;
 
 const initialStepState = {
-  track01: [1, 0, 1, 0, 1, 0, 1, 0],
-  track02: [0, 0, 0, 0, 0, 0, 0, 0],
-  track03: [1, 1, 1, 1, 1, 0, 1, 1]
+  track01: [1, 1, 0, 0, 0, 0, 0, 0],
+  track02: [1, 0, 0, 0, 0, 1, 0, 0],
+  track03: [0, 0, 0, 0, 0, 0, 0, 0]
 };
 
 const StepSequencer = () => {
-  const gain = useRef(new Tone.Gain(0.8));
+  const [transportState, setTransportState] = useState("stopped");
+
+  const [stepState, setStepState] = useState(initialStepState);
+  const stepsRef = useRef(stepState);
+  stepsRef.current = stepState;
 
   const [distState, setDistState] = useState(0.8);
   const distRef = useRef({
@@ -39,30 +49,25 @@ const StepSequencer = () => {
   }, [distState]);
 
   const JCReverb = useRef(new Tone.JCReverb(0.8));
-  // const filter = useRef(
-  //   new Tone.Filter({
-  //     type: "lowpass",
-  //     frequency: 200
-  //   })
-  // );
 
-  const [channels, setChannels] = useState({
-    track01: new Tone.Channel(-12, 0).toMaster(),
-    track02: new Tone.Channel(-12, -0.8).toMaster(),
-    track03: new Tone.Channel(-12, 0.88).toMaster()
+  const [channelsState, setChannelsState] = useState({
+    track01: new Tone.Channel(4, 0),
+    track02: new Tone.Channel(4, 1),
+    track03: new Tone.Channel(4, -1)
   });
+  const channels = useRef(channelsState);
 
-  const kick = useKick01();
-  const snare = useSnare01();
-  const clap = useClap01();
+  const kick = useKick(channels.current.track01);
+  const snare = useSnare(channels.current.track02);
+  const clap = useClap(channels.current.track03);
 
-  const synths = useRef(null);
-
-  const [transportState, setTransportState] = useState("stopped");
-
-  const [stepState, setStepState] = useState(initialStepState);
-  const stepsRef = useRef(stepState);
-  stepsRef.current = stepState;
+  const soundBank = useMemo(() => {
+    return {
+      track01: kick,
+      track02: snare,
+      track03: clap
+    };
+  }, []);
 
   useKeyDownEvent(e => {
     switch (e.code) {
@@ -98,35 +103,15 @@ const StepSequencer = () => {
   }, [transportState]);
 
   useEffect(() => {
-    synths.current = {
-      track01: kick.current.chain(channels.track01, Tone.Master),
-      track02: snare.current.chain(channels.track02, Tone.Master),
-      track03: clap.current.chain(
-        channels.track03,
-        distRef.current,
-        Tone.Master
-      )
-    };
-  }, []);
-
-  const triggers = (track, time) => {
-    let synth = synths.current[track];
-
-    track === "track01" && synth.triggerAttackRelease("c2", "8n", time);
-    track === "track02" && synth.triggerAttackRelease("a3", "8n", time);
-    track === "track03" && synth.triggerAttackRelease("8n", time);
-  };
-
-  useEffect(() => {
     new Tone.Sequence(
       (time, step) => {
         Object.keys(stepsRef.current).forEach(track => {
           let targetStep = stepsRef.current[track][step];
           if (targetStep === 1) {
-            triggers(track, time);
+            soundBank[track].play(time);
           } else if (targetStep === 2) {
-            triggers(track, time);
-            triggers(track, "+32n");
+            soundBank[track].play(time);
+            soundBank[track].play("+64n");
           }
         });
         document.getElementById(`progress-indicator`).style.left = `${(parseInt(
@@ -190,9 +175,7 @@ const StepSequencer = () => {
               <button
                 className={"step"}
                 style={{ backgroundColor: "darkslategrey" }}
-                onClick={() => {
-                  triggers(track);
-                }}
+                onClick={() => soundBank[track].play()}
               >
                 <span>{i}</span>
               </button>
@@ -224,18 +207,16 @@ const StepSequencer = () => {
               <Slider
                 min={-10}
                 max={10}
-                value={channels[track].pan.value * 10}
+                value={channelsState[track].pan.value * 10}
                 onChange={e => {
                   let value = e.target.value / 10;
-                  setChannels({
-                    ...channels,
-                    [track]: {
-                      ...channels[track],
-                      pan: {
-                        ...channels[track].pan,
-                        value: value
-                      }
-                    }
+                  setChannelsState(s => {
+                    let t = s[track];
+                    t.pan.value = value;
+                    return {
+                      ...s,
+                      [track]: t
+                    };
                   });
                 }}
               />

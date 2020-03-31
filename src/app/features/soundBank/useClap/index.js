@@ -1,11 +1,12 @@
 import React, { useEffect, useRef } from "react";
 import Tone from "tone";
 
-const useClap = () => {
-  const clap = useRef(null);
+const useClap = channel => {
+  const hit = useRef(null);
 
   useEffect(() => {
-    clap.current = new Tone.MetalSynth({
+    let chorus = new Tone.Chorus(4, 3, 1).toMaster();
+    hit.current = new Tone.MetalSynth({
       frequency: 400,
       envelope: {
         attack: 0.002,
@@ -17,10 +18,16 @@ const useClap = () => {
       resonance: 620,
       octaves: 1.2,
       volume: -20
-    });
+    }).chain(channel, chorus, Tone.Master);
   }, []);
 
-  return clap;
+  const play = time => {
+    hit.current.triggerAttackRelease("2n", time);
+  };
+
+  return {
+    play: play
+  };
 };
 
 export default useClap;

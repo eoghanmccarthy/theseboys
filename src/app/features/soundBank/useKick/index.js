@@ -1,11 +1,12 @@
 import React, { useEffect, useRef } from "react";
 import Tone from "tone";
 
-const useKick = () => {
-  const kick = useRef(null);
+const useKick = channel => {
+  const hit = useRef(null);
 
   useEffect(() => {
-    kick.current = new Tone.MembraneSynth({
+    let chorus = new Tone.Chorus(4, 3, 1).toMaster();
+    hit.current = new Tone.MembraneSynth({
       pitchDecay: 0.04,
       octaves: 2,
       envelope: {
@@ -17,11 +18,17 @@ const useKick = () => {
       oscillator: {
         type: "sine2"
       },
-      volume: 12
-    });
+      volume: 10
+    }).chain(channel, chorus, Tone.Master);
   }, []);
 
-  return kick;
+  const play = time => {
+    hit.current.triggerAttackRelease("c2", "16n", time, 1);
+  };
+
+  return {
+    play: play
+  };
 };
 
 export default useKick;
