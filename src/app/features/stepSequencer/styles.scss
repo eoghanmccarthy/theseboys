@@ -1,3 +1,7 @@
+:root {
+  --step-size: 60px;
+}
+
 .step-sequencer {
   display: flex;
   flex-direction: column;
@@ -24,24 +28,62 @@
   .tracks-container {
     flex: 1;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     .track {
       display: flex;
       margin-bottom: 5px;
-      //border-bottom: 1px solid green;
       &:last-child {
         margin-bottom: 0;
-        //border-bottom-width: 0;
+      }
+      button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: var(--step-size);
+        height: var(--step-size);
+        border-width: 0;
+        outline: none;
       }
     }
-    .sampler {
+    .sample {
       display: flex;
-      flex-direction: column;
       margin-right: 5px;
+      > button {
+        background-color: darkslategrey;
+      }
+    }
+    .steps {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
       overflow: hidden;
-      border-top-left-radius: 8px;
-      border-bottom-left-radius: 8px;
+      .progress-indicator {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: var(--step-size);
+        height: 100%;
+        background-color: rgb(255, 189, 0);
+      }
+      > button.step {
+        z-index: 1;
+        border-right: 1px solid black;
+        opacity: 0.92;
+        &:last-child {
+          border-right-width: 0;
+        }
+      }
+    }
+    .channel {
+      display: flex;
+      margin-left: 5px;
+      > button {
+        margin-left: 5px;
+        background-color: darkslategrey;
+      }
     }
   }
 }

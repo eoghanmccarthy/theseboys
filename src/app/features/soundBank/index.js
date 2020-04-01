@@ -35,24 +35,25 @@ const useAudio002 = channel => {
   const hit = useRef(null);
 
   useEffect(() => {
-    let chorus = new Tone.Chorus(4, 3, 1).toMaster();
-    hit.current = new Tone.MetalSynth({
-      frequency: 400,
+    let bitCrusher = new Tone.BitCrusher(1).toMaster();
+    let chorus = new Tone.Chorus(4, 3, 6).toMaster();
+    hit.current = new Tone.FMSynth({
       envelope: {
-        attack: 0.002,
-        decay: 0.09,
-        release: 0.62
+        attack: 0.01,
+        decay: 0.1,
+        release: 0.4,
+        sustain: 0.5
       },
-      harmonicity: 2,
-      modulationIndex: 1,
-      resonance: 620,
-      octaves: 1.2,
-      volume: -20
-    }).chain(channel, chorus, Tone.Master);
+      oscillator: {
+        type: "sawtooth8",
+        partialCount: 0,
+        phase: 135
+      }
+    }).chain(channel, bitCrusher, chorus, Tone.Master);
   }, []);
 
   const play = time => {
-    hit.current.triggerAttackRelease("2n", time);
+    hit.current.triggerAttackRelease("c3", "8n", time);
   };
 
   return {
@@ -78,7 +79,7 @@ const useAudio003 = channel => {
   }, []);
 
   useEffect(() => {
-    let rattleEffect = new Tone.BitCrusher(1).toMaster();
+    let bitCrusher = new Tone.BitCrusher(1).toMaster();
     rattle.current = new Tone.NoiseSynth({
       type: "brown",
       envelope: {
@@ -88,7 +89,7 @@ const useAudio003 = channel => {
         release: 0.05
       },
       volume: -16
-    }).chain(channel, rattleEffect, Tone.Master);
+    }).chain(channel, bitCrusher, Tone.Master);
   }, []);
 
   const play = time => {

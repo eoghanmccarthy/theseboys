@@ -20,8 +20,8 @@ const STEP_COUNT = 8;
 
 const initialStepState = {
   track01: [1, 1, 0, 0, 0, 0, 0, 0],
-  track02: [1, 0, 0, 0, 0, 1, 0, 0],
-  track03: [0, 0, 0, 0, 0, 0, 0, 0]
+  track02: [0, 0, 0, 0, 0, 0, 0, 0],
+  track03: [0, 0, 0, 1, 1, 1, 1, 0]
 };
 
 const StepSequencer = () => {
@@ -49,15 +49,14 @@ const StepSequencer = () => {
   const JCReverb = useRef(new Tone.JCReverb(0.8));
 
   const [channelsState, setChannelsState] = useState({
-    track01: new Tone.Channel(4, 0),
-    track02: new Tone.Channel(4, 1),
-    track03: new Tone.Channel(4, -1)
+    track01: new Tone.Channel(0, 0),
+    track02: new Tone.Channel(0, 0.3),
+    track03: new Tone.Channel(4, 0.7)
   });
-  const channels = useRef(channelsState);
 
-  const track01Audio = useAudio001(channels.current.track01);
-  const track02Audio = useAudio002(channels.current.track02);
-  const track03Audio = useAudio003(channels.current.track03);
+  const track01Audio = useAudio001(channelsState.track01);
+  const track02Audio = useAudio003(channelsState.track02);
+  const track03Audio = useAudio002(channelsState.track03);
 
   const soundBank = useMemo(() => {
     return {
@@ -95,7 +94,9 @@ const StepSequencer = () => {
     } else if (transportState === "paused") {
       Tone.Transport.pause();
     } else if (transportState === "stopped") {
-      document.getElementById(`progress-indicator`).style.left = "0%";
+      document
+        .querySelectorAll(`.progress-indicator`)
+        .forEach(el => (el.style.left = "0%"));
       Tone.Transport.stop();
     }
   }, [transportState]);
@@ -112,11 +113,11 @@ const StepSequencer = () => {
             soundBank[track].play("+64n");
           }
         });
-        document.getElementById(`progress-indicator`).style.left = `${(parseInt(
-          step
-        ) /
-          STEP_COUNT) *
-          100}%`;
+        document
+          .querySelectorAll(`.progress-indicator`)
+          .forEach(
+            el => (el.style.left = `${(parseInt(step) / STEP_COUNT) * 100}%`)
+          );
       },
       [0, 1, 2, 3, 4, 5, 6, 7],
       "8n"
@@ -167,60 +168,69 @@ const StepSequencer = () => {
         </div>
       </div>
       <div className={"tracks-container"}>
-        <div className={"sampler"}>
-          {Object.entries(stepState).map(([track, steps], i) => (
+        {Object.entries(stepState).map(([track, steps], i) => {
+          return (
             <div key={i} className={"track"}>
-              <button
-                className={"step"}
-                style={{ backgroundColor: "darkslategrey" }}
-                onClick={() => soundBank[track].play()}
-              >
-                <span>{i}</span>
-              </button>
+              <div className={"sample"}>
+                <button onClick={() => soundBank[track].play()}>
+                  <span>{i}</span>
+                </button>
+              </div>
+              <div className={"steps"}>
+                <div className={"progress-indicator"} />
+                {steps.map((value, i) => {
+                  return (
+                    <Step
+                      key={i}
+                      index={i}
+                      value={value}
+                      stepState={stepState}
+                      setStepState={setStepState}
+                      track={track}
+                    />
+                  );
+                })}
+              </div>
+              <div className={"channel"}>
+                <Slider
+                  min={-10}
+                  max={10}
+                  value={channelsState[track].pan.value * 10}
+                  onChange={e => {
+                    let value = e.target.value / 10;
+                    setChannelsState(s => {
+                      let t = s[track];
+                      t.pan.value = value;
+                      return {
+                        ...s,
+                        [track]: t
+                      };
+                    });
+                  }}
+                />
+                <button
+                  style={{
+                    backgroundColor: channelsState[track].muted
+                      ? "green"
+                      : "darkslategrey"
+                  }}
+                  onClick={() => {
+                    setChannelsState(s => {
+                      let t = s[track];
+                      t.mute = !t.mute;
+                      return {
+                        ...s,
+                        [track]: t
+                      };
+                    });
+                  }}
+                >
+                  mute
+                </button>
+              </div>
             </div>
-          ))}
-        </div>
-        <div id={"steps"}>
-          <div id={"progress-indicator"} />
-          {Object.entries(stepState).map(([track, steps], i) => (
-            <div key={i} className={"track"}>
-              {steps.map((value, i) => {
-                return (
-                  <Step
-                    key={i}
-                    index={i}
-                    value={value}
-                    stepState={stepState}
-                    setStepState={setStepState}
-                    track={track}
-                  />
-                );
-              })}
-            </div>
-          ))}
-        </div>
-        <div className={"sampler"}>
-          {Object.entries(stepState).map(([track, steps], i) => (
-            <div key={i} className={"track"}>
-              <Slider
-                min={-10}
-                max={10}
-                value={channelsState[track].pan.value * 10}
-                onChange={e => {
-                  let value = e.target.value / 10;
-                  setChannelsState(s => {
-                    let t = s[track];
-                    t.pan.value = value;
-                    return {
-                      ...s,
-                      [track]: t
-                    };
-                  });
-                }}
-              />
-            </div>
-          ))}
-        </div>
+          );
+        })}
       </div>
     </div>
   );

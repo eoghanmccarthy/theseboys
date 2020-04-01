@@ -1,7 +1,5 @@
 import React from "react";
 
-import "./styles.scss";
-
 const Step = ({ index, value, stepState, setStepState, track }) => {
   return (
     <button
