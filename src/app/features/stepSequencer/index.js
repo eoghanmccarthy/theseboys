@@ -53,10 +53,12 @@ const StepSequencer = () => {
     track02: new Tone.Channel(0, 0.3),
     track03: new Tone.Channel(4, 0.7)
   });
+  const channels = useRef(channelsState);
+  channels.current = channelsState;
 
-  const track01Audio = useAudio001(channelsState.track01);
-  const track02Audio = useAudio003(channelsState.track02);
-  const track03Audio = useAudio002(channelsState.track03);
+  const track01Audio = useAudio001(channels.current.track01);
+  const track02Audio = useAudio003(channels.current.track02);
+  const track03Audio = useAudio002(channels.current.track03);
 
   const soundBank = useMemo(() => {
     return {
@@ -195,7 +197,7 @@ const StepSequencer = () => {
                 <Slider
                   min={-10}
                   max={10}
-                  value={channelsState[track].pan.value * 10}
+                  value={channels.current[track].pan.value * 10}
                   onChange={e => {
                     let value = e.target.value / 10;
                     setChannelsState(s => {
@@ -210,7 +212,7 @@ const StepSequencer = () => {
                 />
                 <button
                   style={{
-                    backgroundColor: channelsState[track].muted
+                    backgroundColor: channels.current[track].muted
                       ? "green"
                       : "darkslategrey"
                   }}
