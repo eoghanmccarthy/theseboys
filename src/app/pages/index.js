@@ -1,12 +1,21 @@
-import React, { Fragment } from "react";
+import React from "react";
 
+import "./styles.scss";
+
+import TransportProvider from "features/transportProvider";
+import Master from "features/master";
 import StepSequencer from "features/stepSequencer";
 
 const Home = () => {
   return (
-    <main className={"me__content"}>
-      <StepSequencer />
-    </main>
+    <TransportProvider>
+      <main className={"me__content"}>
+        <div className={"console"}>
+          <Master />
+          <StepSequencer />
+        </div>
+      </main>
+    </TransportProvider>
   );
 };
 

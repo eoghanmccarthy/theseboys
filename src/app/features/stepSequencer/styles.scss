@@ -3,87 +3,64 @@
 }
 
 .step-sequencer {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  height: 100%;
-  .master {
+  justify-content: center;
+  align-items: center;
+  .track {
     display: flex;
-    justify-content: space-between;
-    margin-bottom: 30px;
-    > div {
-      display: flex;
-      > div {
-        margin-right: 15px;
-        &:last-child {
-          margin-right: 0;
-        }
-      }
+    margin-bottom: 5px;
+    &:last-child {
+      margin-bottom: 0;
     }
-  }
-  .effects {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 30px;
-  }
-  .tracks-container {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    .track {
-      display: flex;
-      margin-bottom: 5px;
-      &:last-child {
-        margin-bottom: 0;
-      }
-      button {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: var(--step-size);
-        height: var(--step-size);
-        border-width: 0;
-        outline: none;
-      }
-    }
-    .sample {
-      display: flex;
-      margin-right: 5px;
-      > button {
-        background-color: darkslategrey;
-      }
-    }
-    .steps {
+    button {
       display: flex;
       justify-content: center;
       align-items: center;
-      position: relative;
-      overflow: hidden;
-      .progress-indicator {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: var(--step-size);
-        height: 100%;
-        background-color: rgb(255, 189, 0);
-      }
-      > button.step {
-        z-index: 1;
-        border-right: 1px solid black;
-        opacity: 0.92;
-        &:last-child {
-          border-right-width: 0;
-        }
-      }
+      width: var(--step-size);
+      height: var(--step-size);
+      border-width: 0;
+      outline: none;
     }
-    .channel {
-      display: flex;
-      margin-left: 5px;
-      > button {
-        margin-left: 5px;
-        background-color: darkslategrey;
+  }
+  .sample {
+    display: flex;
+    margin-right: 5px;
+    > button {
+      background-color: darkslategrey;
+    }
+  }
+  .steps {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    .progress-indicator {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: var(--step-size);
+      height: 100%;
+      background-color: rgb(255, 189, 0);
+    }
+    > button.step {
+      z-index: 1;
+      border-right: 1px solid black;
+      opacity: 0.92;
+      &:last-child {
+        border-right-width: 0;
       }
     }
   }
+  .channel {
+    display: flex;
+    margin-left: 5px;
+    > button {
+      margin-left: 5px;
+      background-color: darkslategrey;
+    }
+  }
 }
+

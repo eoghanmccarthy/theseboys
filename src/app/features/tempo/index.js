@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Tone from "tone";
 
-import "./styles.scss";
-
 import { SliderWithValues } from "componentLib/slider";
 import useKeyDownEvent from "componentLib/useKeyDownEvent";
 
