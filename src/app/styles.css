@@ -1,8 +1,7 @@
 .me {
 	display: grid;
-	grid-template-rows: 60px auto 80px;
+	grid-template-rows: auto 80px;
 	grid-template-areas:
-			"header"
 			"main"
 			"footer";
 	height: 100%;
@@ -10,12 +9,7 @@
 	overflow: hidden;
 }
 
-.me.index {
-	grid-template-rows: 1fr;
-	grid-template-areas: "header"
-}
-
 .me__content {
 	grid-area: main;
-	padding: 0 30px;
+	padding: 30px;
 }

@@ -1,5 +1,5 @@
 :root {
-  --step-size: 60px;
+  --step-size: 56px;
 }
 
 .step-sequencer {
@@ -28,7 +28,7 @@
     display: flex;
     margin-right: 5px;
     > button {
-      background-color: darkslategrey;
+      background-color: var(--color-secondary);
     }
   }
   .steps {
@@ -47,10 +47,17 @@
     }
     > button.step {
       z-index: 1;
+      background-color: white;
       border-right: 1px solid black;
       opacity: 0.92;
       &:last-child {
         border-right-width: 0;
+      }
+      &.on {
+        background-color: var(--color-primary);
+      }
+      &.double {
+        background-color: var(--color-secondary);
       }
     }
   }
@@ -59,7 +66,10 @@
     margin-left: 5px;
     > button {
       margin-left: 5px;
-      background-color: darkslategrey;
+      background-color: var(--color-tertiary);
+      &.muted {
+        background-color: var(--color-mid-grey);
+      }
     }
   }
 }

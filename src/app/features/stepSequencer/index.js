@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState, useMemo, useContext } from "react";
+import cx from "classnames";
 import Tone from "tone";
 
 import "./styles.scss";
@@ -6,7 +7,7 @@ import "./styles.scss";
 import { TransportContext } from "features/transportProvider";
 
 import { Slider, SliderWithValues } from "componentLib/slider";
-import { Step } from "../steps";
+import Step from "./step";
 import { useAudio001, useAudio002, useAudio003 } from "features/soundBank";
 
 const STEP_COUNT = 8;
@@ -43,9 +44,9 @@ const StepSequencer = () => {
   const JCReverb = useRef(new Tone.JCReverb(0.8));
 
   const [channelsState, setChannelsState] = useState({
-    track01: new Tone.Channel(0, 0),
+    track01: new Tone.Channel(-15, 0),
     track02: new Tone.Channel(0, 0.3),
-    track03: new Tone.Channel(4, 0.7)
+    track03: new Tone.Channel(-2, 0.7)
   });
   const channels = useRef(channelsState);
   channels.current = channelsState;
@@ -136,11 +137,7 @@ const StepSequencer = () => {
                 }}
               />
               <button
-                style={{
-                  backgroundColor: channels.current[track].muted
-                    ? "green"
-                    : "darkslategrey"
-                }}
+                className={cx({ muted: channels.current[track].muted })}
                 onClick={() => {
                   setChannelsState(s => {
                     let t = s[track];

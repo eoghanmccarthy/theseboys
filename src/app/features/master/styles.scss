@@ -2,12 +2,17 @@
   display: flex;
   justify-content: space-between;
   margin-bottom: 30px;
-  > div {
+  .transport-state {
     display: flex;
+    flex-direction: column;
     > div {
-      margin-right: 15px;
-      &:last-child {
-        margin-right: 0;
+      display: flex;
+      justify-content: center;
+      > button {
+        margin-right: 15px;
+        &:last-child {
+          margin-right: 0;
+        }
       }
     }
   }

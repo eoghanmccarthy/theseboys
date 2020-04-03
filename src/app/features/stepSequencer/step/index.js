@@ -1,14 +1,10 @@
 import React from "react";
+import cx from "classnames";
 
 const Step = ({ index, value, stepState, setStepState, track }) => {
   return (
     <button
-      className={`step`}
-      style={{
-        backgroundColor: `${
-          value === 1 ? "rgba(255, 189, 0, 1)" : value === 2 ? "green" : "white"
-        }`
-      }}
+      className={cx("step", { on: value === 1, double: value === 2 })}
       onClick={e => {
         e.preventDefault();
         let shiftEnabled = e.shiftKey === true;
