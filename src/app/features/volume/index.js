@@ -6,11 +6,12 @@ import "./styles.scss";
 import { SliderWithValues } from "componentLib/slider";
 import useKeyDownEvent from "componentLib/useKeyDownEvent";
 
-const VOLUME_MIN = -60;
-const VOLUME_MAX = 12;
+const VOLUME_MIN = 0;
+const VOLUME_MAX = 72;
+const VOLUME_OFFSET = 60;
 
 const Volume = () => {
-  const [volume, setVolume] = useState(0);
+  const [volume, setVolume] = useState(60);
   const [mute, toggleMute] = useState(false);
 
   useKeyDownEvent(e => {
@@ -42,7 +43,7 @@ const Volume = () => {
   });
 
   useEffect(() => {
-    Tone.Master.volume.value = volume;
+    Tone.Master.volume.value = volume - VOLUME_OFFSET;
   }, [volume]);
 
   useEffect(() => {
@@ -54,10 +55,15 @@ const Volume = () => {
       <div>
         <SliderWithValues
           title={"volume"}
-          min={VOLUME_MIN}
-          max={VOLUME_MAX}
-          value={volume}
-          onChange={e => setVolume(e.target.value)}
+          min={0}
+          max={100}
+          value={Math.round((volume / VOLUME_MAX) * 100)}
+          onChange={e => {
+            let v = e.target.value;
+            setVolume(() => {
+              return Math.round((VOLUME_MAX / 100) * v);
+            });
+          }}
         />
       </div>
       <button

@@ -4,7 +4,7 @@ import "./styles.scss";
 
 import Slider from "../slider";
 
-const SliderWithValues = ({ title, min, max, value, onChange }) => {
+const SliderWithValues = ({ title, unit = "", min, max, value, onChange }) => {
   return (
     <div className={"slider-with-values"}>
       <div className={"slider"}>
@@ -12,7 +12,10 @@ const SliderWithValues = ({ title, min, max, value, onChange }) => {
       </div>
       <div className={"meta"}>
         <span className={"title"}>{title}</span>
-        <span className={"value"}>{value}</span>
+        <span className={"value"}>
+          {value}
+          {unit}
+        </span>
       </div>
     </div>
   );

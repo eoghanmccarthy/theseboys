@@ -1,25 +1,41 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState, useMemo } from "react";
 import Tone from "tone";
+
+import {
+  setSoundIndexPrev,
+  setSoundIndexNext
+} from "utils/helpers/setSoundIndex";
 
 const useAudio001 = channel => {
   const hit = useRef(null);
+  const [soundIndex, setSoundIndex] = useState(0);
+
+  const sounds = useMemo(() => {
+    return [
+      {
+        pitchDecay: 0.04,
+        octaves: 2,
+        envelope: {
+          attack: 0.64,
+          decay: 0.4,
+          sustain: 0,
+          release: 1.4
+        },
+        oscillator: {
+          type: "sine2"
+        },
+        volume: 12
+      }
+    ];
+  }, []);
 
   useEffect(() => {
     let chorus = new Tone.Chorus(4, 3, 1).toMaster();
-    hit.current = new Tone.MembraneSynth({
-      pitchDecay: 0.04,
-      octaves: 2,
-      envelope: {
-        attack: 0.64,
-        decay: 0.4,
-        sustain: 0,
-        release: 1.4
-      },
-      oscillator: {
-        type: "sine2"
-      },
-      volume: 10
-    }).chain(channel, chorus, Tone.Master);
+    hit.current = new Tone.MembraneSynth(sounds[soundIndex]).chain(
+      channel,
+      chorus,
+      Tone.Master
+    );
   }, []);
 
   const play = time => {
@@ -27,6 +43,8 @@ const useAudio001 = channel => {
   };
 
   return {
+    prev: () => setSoundIndex(i => setSoundIndexPrev(i, sounds.length)),
+    next: () => setSoundIndex(i => setSoundIndexNext(i, sounds.length)),
     play: play
   };
 };
@@ -102,4 +120,49 @@ const useAudio003 = channel => {
   };
 };
 
-export { useAudio001, useAudio002, useAudio003 };
+const useAudio004 = channel => {
+  const hit = useRef(null);
+  const [soundIndex, setSoundIndex] = useState(0);
+
+  const sounds = useMemo(() => {
+    return [
+      {
+        polyphony: 4,
+        detune: 0,
+        envelope: {
+          attack: 0.01,
+          decay: 0.1,
+          sustain: 0.5,
+          release: 0.4
+        },
+        oscillator: {
+          type: "sawtooth8"
+        },
+        volume: 0
+      }
+    ];
+  }, []);
+
+  useEffect(() => {
+    let chorus = new Tone.Chorus(2, 2, 1).toMaster();
+    let reverb = new Tone.Reverb(2.5).toMaster();
+    hit.current = new Tone.PolySynth(9, Tone.Synth, sounds[soundIndex]).chain(
+      channel,
+      chorus,
+      reverb,
+      Tone.Master
+    );
+  }, []);
+
+  const play = time => {
+    hit.current.triggerAttackRelease("d2", "8n", time);
+  };
+
+  return {
+    prev: () => setSoundIndex(i => setSoundIndexPrev(i, sounds.length)),
+    next: () => setSoundIndex(i => setSoundIndexNext(i, sounds.length)),
+    play: play
+  };
+};
+
+export { useAudio001, useAudio002, useAudio003, useAudio004 };

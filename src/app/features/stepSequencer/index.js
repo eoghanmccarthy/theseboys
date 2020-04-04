@@ -8,14 +8,19 @@ import { TransportContext } from "features/transportProvider";
 
 import { Slider, SliderWithValues } from "componentLib/slider";
 import Step from "./step";
-import { useAudio001, useAudio002, useAudio003 } from "features/soundBank";
+import {
+  useAudio001,
+  useAudio002,
+  useAudio003,
+  useAudio004
+} from "features/soundBank";
 
 const STEP_COUNT = 8;
 
 const initialStepState = {
   track01: [1, 1, 0, 0, 0, 0, 0, 0],
   track02: [0, 0, 0, 0, 0, 0, 0, 0],
-  track03: [0, 0, 0, 1, 1, 1, 0, 0]
+  track03: [0, 0, 0, 1, 0, 0, 0, 1]
 };
 
 const StepSequencer = () => {
@@ -44,16 +49,16 @@ const StepSequencer = () => {
   const JCReverb = useRef(new Tone.JCReverb(0.8));
 
   const [channelsState, setChannelsState] = useState({
-    track01: new Tone.Channel(-15, 0),
+    track01: new Tone.Channel(0, 0),
     track02: new Tone.Channel(0, 0.3),
-    track03: new Tone.Channel(-2, 0.7)
+    track03: new Tone.Channel(0, -0.7)
   });
   const channels = useRef(channelsState);
   channels.current = channelsState;
 
   const track01Audio = useAudio001(channels.current.track01);
   const track02Audio = useAudio003(channels.current.track02);
-  const track03Audio = useAudio002(channels.current.track03);
+  const track03Audio = useAudio004(channels.current.track03);
 
   const soundBank = useMemo(() => {
     return {
@@ -123,11 +128,12 @@ const StepSequencer = () => {
               </div>
               <div className={"channel"}>
                 <Slider
-                  min={-10}
-                  max={10}
-                  value={channels.current[track].pan.value * 10}
+                  min={-1}
+                  max={1}
+                  step={0.1}
+                  value={channels.current[track].pan.value}
                   onChange={e => {
-                    let value = e.target.value / 10;
+                    let value = e.target.value;
                     setChannelsState(s => {
                       let t = s[track];
                       t.pan.value = value;

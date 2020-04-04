@@ -21,7 +21,8 @@ module.exports = {
       features: path.resolve(__dirname, "src/app/features/"),
       global: path.resolve(__dirname, "src/app/global/"),
       pages: path.resolve(__dirname, "src/app/pages/"),
-      routes: path.resolve(__dirname, "src/app/routes/")
+      routes: path.resolve(__dirname, "src/app/routes/"),
+      utils: path.resolve(__dirname, "src/app/utils/")
     },
     extensions: [".ts", ".tsx", ".js", ".jsx"]
   },
