@@ -1,0 +1,10 @@
+.modules-nav {
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  top: 76px;
+  width: 100%;
+  margin-top: 15px;
+  margin-bottom: var(--spacing-sm);
+}
+

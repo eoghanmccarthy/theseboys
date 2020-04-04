@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
+import cx from "classnames";
 import Tone from "tone";
 
 import "./styles.scss";
 
+import { Control, ControlBlock } from "componentLib/control";
 import { SliderWithValues } from "componentLib/slider";
 import useKeyDownEvent from "componentLib/useKeyDownEvent";
 
@@ -11,7 +13,7 @@ const VOLUME_MAX = 72;
 const VOLUME_OFFSET = 60;
 
 const Volume = () => {
-  const [volume, setVolume] = useState(60);
+  const [volume, setVolume] = useState(61);
   const [mute, toggleMute] = useState(false);
 
   useKeyDownEvent(e => {
@@ -51,8 +53,8 @@ const Volume = () => {
   }, [mute]);
 
   return (
-    <div className={"volume"}>
-      <div>
+    <ControlBlock>
+      <Control>
         <SliderWithValues
           title={"volume"}
           min={0}
@@ -65,14 +67,16 @@ const Volume = () => {
             });
           }}
         />
-      </div>
-      <button
-        style={{ backgroundColor: mute && "red" }}
-        onClick={() => toggleMute(m => !m)}
-      >
-        mute
-      </button>
-    </div>
+      </Control>
+      <Control size={"sm"}>
+        <button
+          className={cx({ active: mute })}
+          onClick={() => toggleMute(m => !m)}
+        >
+          mute
+        </button>
+      </Control>
+    </ControlBlock>
   );
 };
 

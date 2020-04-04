@@ -1,20 +1,15 @@
 .master {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 30px;
+  position: relative;
+  margin-bottom: var(--spacing-sm);
   .transport-state {
     display: flex;
     flex-direction: column;
-    > div {
-      display: flex;
-      justify-content: center;
-      > button {
-        margin-right: 15px;
-        &:last-child {
-          margin-right: 0;
-        }
-      }
-    }
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
   }
 }
 

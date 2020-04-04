@@ -2,16 +2,25 @@
   --step-size: 56px;
 }
 
+.module-head {
+  border-bottom: 1px dotted grey;
+}
+
+.module-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .step-sequencer {
   flex: 1;
   display: flex;
   flex-direction: column;
   .tracks {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    border-radius: 4px;
+    overflow: hidden;
   }
   .track {
     display: flex;
@@ -71,9 +80,9 @@
     margin-left: 5px;
     > button {
       margin-left: 5px;
-      background-color: var(--color-tertiary);
+      background-color: var(--color-mid-grey);
       &.muted {
-        background-color: var(--color-mid-grey);
+        background-color: var(--color-tertiary);
       }
     }
   }

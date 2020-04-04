@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Tone from "tone";
 
+import { Control, ControlBlock } from "componentLib/control";
 import { SliderWithValues } from "componentLib/slider";
 import useKeyDownEvent from "componentLib/useKeyDownEvent";
 
@@ -38,15 +39,17 @@ const Tempo = () => {
   }, [bpm]);
 
   return (
-    <div>
-      <SliderWithValues
-        title={"bpm"}
-        min={TEMPO_MIN}
-        max={TEMPO_MAX}
-        value={bpm}
-        onChange={e => setBpm(e.target.value)}
-      />
-    </div>
+    <ControlBlock>
+      <Control>
+        <SliderWithValues
+          title={"bpm"}
+          min={TEMPO_MIN}
+          max={TEMPO_MAX}
+          value={bpm}
+          onChange={e => setBpm(e.target.value)}
+        />
+      </Control>
+    </ControlBlock>
   );
 };
 

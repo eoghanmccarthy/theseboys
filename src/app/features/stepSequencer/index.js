@@ -100,69 +100,75 @@ const StepSequencer = () => {
   }, []);
 
   return (
-    <div className={"step-sequencer"}>
-      <h1>step sequencer</h1>
-      <div className={"tracks"}>
-        {Object.entries(stepState).map(([track, steps], i) => {
-          return (
-            <div key={i} className={"track"}>
-              <div className={"sample"}>
-                <button onClick={() => soundBank[track].play()}>
-                  <span>{i}</span>
-                </button>
+    <div className={"module step-sequencer"}>
+      <div className={"module-head"}>
+        <h1>
+          <em>01.</em>step sequencer
+        </h1>
+      </div>
+      <div className={"module-main"}>
+        <div className={"tracks"}>
+          {Object.entries(stepState).map(([track, steps], i) => {
+            return (
+              <div key={i} className={"track"}>
+                <div className={"sample"}>
+                  <button onClick={() => soundBank[track].play()}>
+                    <span>{i}</span>
+                  </button>
+                </div>
+                <div className={"steps"}>
+                  <div className={"progress-indicator"} />
+                  {steps.map((value, i) => {
+                    return (
+                      <Step
+                        key={i}
+                        index={i}
+                        value={value}
+                        stepState={stepState}
+                        setStepState={setStepState}
+                        track={track}
+                      />
+                    );
+                  })}
+                </div>
+                <div className={"channel"}>
+                  <Slider
+                    min={-1}
+                    max={1}
+                    step={0.1}
+                    value={channels.current[track].pan.value}
+                    onChange={e => {
+                      let value = e.target.value;
+                      setChannelsState(s => {
+                        let t = s[track];
+                        t.pan.value = value;
+                        return {
+                          ...s,
+                          [track]: t
+                        };
+                      });
+                    }}
+                  />
+                  <button
+                    className={cx({ muted: channels.current[track].muted })}
+                    onClick={() => {
+                      setChannelsState(s => {
+                        let t = s[track];
+                        t.mute = !t.mute;
+                        return {
+                          ...s,
+                          [track]: t
+                        };
+                      });
+                    }}
+                  >
+                    mute
+                  </button>
+                </div>
               </div>
-              <div className={"steps"}>
-                <div className={"progress-indicator"} />
-                {steps.map((value, i) => {
-                  return (
-                    <Step
-                      key={i}
-                      index={i}
-                      value={value}
-                      stepState={stepState}
-                      setStepState={setStepState}
-                      track={track}
-                    />
-                  );
-                })}
-              </div>
-              <div className={"channel"}>
-                <Slider
-                  min={-1}
-                  max={1}
-                  step={0.1}
-                  value={channels.current[track].pan.value}
-                  onChange={e => {
-                    let value = e.target.value;
-                    setChannelsState(s => {
-                      let t = s[track];
-                      t.pan.value = value;
-                      return {
-                        ...s,
-                        [track]: t
-                      };
-                    });
-                  }}
-                />
-                <button
-                  className={cx({ muted: channels.current[track].muted })}
-                  onClick={() => {
-                    setChannelsState(s => {
-                      let t = s[track];
-                      t.mute = !t.mute;
-                      return {
-                        ...s,
-                        [track]: t
-                      };
-                    });
-                  }}
-                >
-                  mute
-                </button>
-              </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
     </div>
   );
