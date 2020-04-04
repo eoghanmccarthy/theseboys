@@ -132,23 +132,23 @@ const StepSequencer = () => {
                   })}
                 </div>
                 <div className={"channel"}>
-                  <Slider
-                    min={-1}
-                    max={1}
-                    step={0.1}
-                    value={channels.current[track].pan.value}
-                    onChange={e => {
-                      let value = e.target.value;
-                      setChannelsState(s => {
-                        let t = s[track];
-                        t.pan.value = value;
-                        return {
-                          ...s,
-                          [track]: t
-                        };
-                      });
-                    }}
-                  />
+                  {/*<Slider*/}
+                  {/*  min={-1}*/}
+                  {/*  max={1}*/}
+                  {/*  step={0.1}*/}
+                  {/*  value={channels.current[track].pan.value}*/}
+                  {/*  onChange={e => {*/}
+                  {/*    let value = e.target.value;*/}
+                  {/*    setChannelsState(s => {*/}
+                  {/*      let t = s[track];*/}
+                  {/*      t.pan.value = value;*/}
+                  {/*      return {*/}
+                  {/*        ...s,*/}
+                  {/*        [track]: t*/}
+                  {/*      };*/}
+                  {/*    });*/}
+                  {/*  }}*/}
+                  {/*/>*/}
                   <button
                     className={cx({ muted: channels.current[track].muted })}
                     onClick={() => {

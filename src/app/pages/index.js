@@ -17,7 +17,7 @@ const Home = () => {
           <Master />
           <div className={"modules"}>
             <ModulesNav />
-            {[<StepSequencer />]}
+            <StepSequencer />
           </div>
         </div>
       </main>

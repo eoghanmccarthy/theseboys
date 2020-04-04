@@ -24,7 +24,7 @@ const useAudio001 = channel => {
         oscillator: {
           type: "sine2"
         },
-        volume: 12
+        volume: 10
       }
     ];
   }, []);
@@ -136,9 +136,9 @@ const useAudio004 = channel => {
           release: 0.4
         },
         oscillator: {
-          type: "sawtooth8"
+          type: "sawtooth4"
         },
-        volume: 0
+        volume: -2
       }
     ];
   }, []);
@@ -146,7 +146,7 @@ const useAudio004 = channel => {
   useEffect(() => {
     let chorus = new Tone.Chorus(2, 2, 1).toMaster();
     let reverb = new Tone.Reverb(2.5).toMaster();
-    hit.current = new Tone.PolySynth(9, Tone.Synth, sounds[soundIndex]).chain(
+    hit.current = new Tone.PolySynth(6, Tone.Synth, sounds[soundIndex]).chain(
       channel,
       chorus,
       reverb,
