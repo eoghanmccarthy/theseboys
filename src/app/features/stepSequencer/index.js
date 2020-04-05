@@ -53,11 +53,13 @@ const StepSequencer = () => {
   const track02Channel = useChannel();
   const track03Channel = useChannel();
 
-  const channels = {
-    track01: track01Channel,
-    track02: track02Channel,
-    track03: track03Channel
-  };
+  const channels = useMemo(() => {
+    return {
+      track01: track01Channel,
+      track02: track02Channel,
+      track03: track03Channel
+    };
+  }, [track01Channel, track02Channel, track03Channel]);
 
   const track01Audio = useAudio001(channels.track01.channel);
   const track02Audio = useAudio003(channels.track02.channel);
@@ -69,7 +71,7 @@ const StepSequencer = () => {
       track02: track02Audio,
       track03: track03Audio
     };
-  }, []);
+  }, [track01Audio, track02Audio, track03Audio]);
 
   useEffect(() => {
     if (transportState === "stopped") {
