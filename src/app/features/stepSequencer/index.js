@@ -1,12 +1,13 @@
 import React, { useEffect, useRef, useState, useMemo, useContext } from "react";
 import cx from "classnames";
 import Tone from "tone";
+import { Button } from "@eoghanmccarthy/ui";
 
 import "./styles.scss";
 
 import { TransportContext } from "features/transportProvider";
 
-import { SliderWithValues } from "componentLib/slider";
+import { Slider } from "componentLib/slider";
 import Step from "./step";
 import useChannel from "features/useChannel";
 import {
@@ -32,26 +33,9 @@ const StepSequencer = () => {
   const stepsRef = useRef(stepState);
   stepsRef.current = stepState;
 
-  const [distState, setDistState] = useState(0.8);
-  const distRef = useRef({
-    distortion: distState
-  });
-
-  useEffect(() => {
-    distRef.current = new Tone.Distortion();
-  }, []);
-
-  useEffect(() => {
-    if (distRef.current) {
-      distRef.current.distortion = distState;
-    }
-  }, [distState]);
-
-  const JCReverb = useRef(new Tone.JCReverb(0.8));
-
-  const track01Channel = useChannel();
-  const track02Channel = useChannel();
-  const track03Channel = useChannel();
+  const track01Channel = useChannel(0, 0, false);
+  const track02Channel = useChannel(0, 0, false);
+  const track03Channel = useChannel(0, 0, true);
 
   const channels = useMemo(() => {
     return {
@@ -108,7 +92,7 @@ const StepSequencer = () => {
     <div className={"module step-sequencer"}>
       <div className={"module-head"}>
         <h1>
-          <em>01.</em>step sequencer
+          <em>a/ </em>step sequencer
         </h1>
       </div>
       <div className={"module-main"}>
@@ -141,17 +125,10 @@ const StepSequencer = () => {
                   {/*  min={-1}*/}
                   {/*  max={1}*/}
                   {/*  step={0.1}*/}
-                  {/*  value={channels.current[track].pan.value}*/}
+                  {/*  value={channels[track].pan.value}*/}
                   {/*  onChange={e => {*/}
                   {/*    let value = e.target.value;*/}
-                  {/*    setChannelsState(s => {*/}
-                  {/*      let t = s[track];*/}
-                  {/*      t.pan.value = value;*/}
-                  {/*      return {*/}
-                  {/*        ...s,*/}
-                  {/*        [track]: t*/}
-                  {/*      };*/}
-                  {/*    });*/}
+                  {/*    channels[track].pan.set(value);*/}
                   {/*  }}*/}
                   {/*/>*/}
                   <button
@@ -160,6 +137,7 @@ const StepSequencer = () => {
                   >
                     mute
                   </button>
+                  <Button>o</Button>
                 </div>
               </div>
             );
@@ -171,18 +149,3 @@ const StepSequencer = () => {
 };
 
 export default StepSequencer;
-
-// <SliderWithValues
-//     title={"dist"}
-//     min={"0"}
-//     max={"10"}
-//     value={distState * 10}
-//     onChange={e => setDistState(e.target.value / 10)}
-// />
-// <SliderWithValues
-// title={"reverb"}
-// min={"0"}
-// max={"10"}
-// value={JCReverb.current.roomSize.value * 10}
-// onChange={e => (JCReverb.current.roomSize.value = e.target.value / 10)}
-// />

@@ -35,7 +35,6 @@ const Tempo = () => {
   });
 
   useEffect(() => {
-    Tone.Transport.swing = 0.125;
     Tone.Transport.bpm.value = bpm;
   }, [bpm]);
 
