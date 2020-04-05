@@ -36,6 +36,7 @@
       height: var(--step-size);
       border-width: 0;
       outline: none;
+      cursor: pointer;
     }
   }
   .sample {
@@ -84,7 +85,7 @@
     border-left: 1px dotted grey;
     > button {
       background-color: var(--color-mid-grey);
-      &.muted {
+      &.active {
         background-color: var(--color-tertiary);
       }
     }

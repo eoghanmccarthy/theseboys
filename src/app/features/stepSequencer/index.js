@@ -6,8 +6,9 @@ import "./styles.scss";
 
 import { TransportContext } from "features/transportProvider";
 
-import { Slider, SliderWithValues } from "componentLib/slider";
+import { SliderWithValues } from "componentLib/slider";
 import Step from "./step";
+import useChannel from "features/useChannel";
 import {
   useAudio001,
   useAudio002,
@@ -48,17 +49,19 @@ const StepSequencer = () => {
 
   const JCReverb = useRef(new Tone.JCReverb(0.8));
 
-  const [channelsState, setChannelsState] = useState({
-    track01: new Tone.Channel(0, 0),
-    track02: new Tone.Channel(0, 0.3),
-    track03: new Tone.Channel(0, -0.7)
-  });
-  const channels = useRef(channelsState);
-  channels.current = channelsState;
+  const track01Channel = useChannel();
+  const track02Channel = useChannel();
+  const track03Channel = useChannel();
 
-  const track01Audio = useAudio001(channels.current.track01);
-  const track02Audio = useAudio003(channels.current.track02);
-  const track03Audio = useAudio004(channels.current.track03);
+  const channels = {
+    track01: track01Channel,
+    track02: track02Channel,
+    track03: track03Channel
+  };
+
+  const track01Audio = useAudio001(channels.track01.channel);
+  const track02Audio = useAudio003(channels.track02.channel);
+  const track03Audio = useAudio004(channels.track03.channel);
 
   const soundBank = useMemo(() => {
     return {
@@ -150,17 +153,8 @@ const StepSequencer = () => {
                   {/*  }}*/}
                   {/*/>*/}
                   <button
-                    className={cx({ muted: channels.current[track].muted })}
-                    onClick={() => {
-                      setChannelsState(s => {
-                        let t = s[track];
-                        t.mute = !t.mute;
-                        return {
-                          ...s,
-                          [track]: t
-                        };
-                      });
-                    }}
+                    className={cx({ active: channels[track].mute.value })}
+                    onClick={() => channels[track].mute.set(v => !v)}
                   >
                     mute
                   </button>
