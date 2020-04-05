@@ -15,12 +15,12 @@ import {
   useAudio004
 } from "features/soundBank";
 
-const STEP_COUNT = 8;
+const STEP_COUNT = 16;
 
 const initialStepState = {
-  track01: [1, 1, 0, 0, 0, 0, 0, 0],
-  track02: [0, 0, 0, 0, 0, 0, 0, 0],
-  track03: [0, 0, 0, 1, 0, 0, 0, 1]
+  track01: [1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0],
+  track02: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  track03: [0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1]
 };
 
 const StepSequencer = () => {
@@ -94,7 +94,7 @@ const StepSequencer = () => {
             el => (el.style.left = `${(parseInt(step) / STEP_COUNT) * 100}%`)
           );
       },
-      [0, 1, 2, 3, 4, 5, 6, 7],
+      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
       "8n"
     ).start(0);
   }, []);

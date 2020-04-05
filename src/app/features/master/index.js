@@ -41,7 +41,7 @@ const Master = () => {
                 })
               }
             >
-              play
+              {transportState === "playing" ? "pause" : "play"}
             </button>
           </Control>
           <Control size={"sm"}>
