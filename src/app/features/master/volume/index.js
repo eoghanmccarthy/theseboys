@@ -13,26 +13,30 @@ const VOLUME_MAX = 72;
 const VOLUME_OFFSET = 60;
 
 const Volume = () => {
-  const [volume, setVolume] = useState(61);
+  const [volume, setVolume] = useState(60);
   const [mute, toggleMute] = useState(false);
 
   useKeyDownEvent(e => {
     switch (e.code) {
       case "ArrowUp":
-        setVolume(v => {
-          if (v + 1 <= VOLUME_MAX) {
-            return v + 1;
-          }
-          return v;
-        });
+        if (e.shiftKey) {
+          setVolume(v => {
+            if (v + 1 <= VOLUME_MAX) {
+              return v + 1;
+            }
+            return v;
+          });
+        }
         break;
       case "ArrowDown":
-        setVolume(v => {
-          if (v - 1 >= VOLUME_MIN) {
-            return v - 1;
-          }
-          return v;
-        });
+        if (e.shiftKey) {
+          setVolume(v => {
+            if (v - 1 >= VOLUME_MIN) {
+              return v - 1;
+            }
+            return v;
+          });
+        }
         break;
       case "KeyM":
         if (e.shiftKey) {

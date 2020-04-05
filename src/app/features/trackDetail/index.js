@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useMemo, useContext } from "react";
+import React from "react";
 import cx from "classnames";
 import Tone from "tone";
 import { Dialog } from "@eoghanmccarthy/ui";
@@ -8,16 +8,13 @@ import "./styles.scss";
 import { Control, ControlBlock } from "componentLib/control";
 import { SliderWithValues } from "componentLib/slider";
 
-const TrackDetail = ({ isOpen, close, selectedTrack, channel }) => {
+const TrackDetail = ({ isOpen, close, selectedTrack, channel, chorus }) => {
   return (
-    <Dialog
-      id={"track-detail-dialog"}
-      disableBackdropClick
-      isVisible={isOpen}
-      closeDialog={close}
-      onClick={close}
-    >
-      <div>
+    <Dialog id={"track-detail-dialog"} isVisible={isOpen} closeDialog={close}>
+      <header>
+        <h2>track</h2>
+      </header>
+      <div className={"dialog-main"}>
         <ControlBlock>
           <Control>
             <SliderWithValues
@@ -29,6 +26,27 @@ const TrackDetail = ({ isOpen, close, selectedTrack, channel }) => {
               onChange={e => {
                 let value = e.target.value;
                 channel.pan.set(value);
+              }}
+            />
+          </Control>
+          <Control>
+            <button
+              className={cx({ active: channel.mute.value })}
+              onClick={() => channel.mute.set(v => !v)}
+            >
+              mute
+            </button>
+          </Control>
+          <Control>
+            <SliderWithValues
+              title={"chorus"}
+              min={0}
+              max={1}
+              step={0.1}
+              value={chorus.wet.value}
+              onChange={e => {
+                let value = e.target.value;
+                chorus.wet.set(value);
               }}
             />
           </Control>

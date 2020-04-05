@@ -1,6 +1,21 @@
 #track-detail-dialog {
-  background-color: black;
+  background-color: lighten(#1d1c25, 2%);
   border-radius: 4px;
   //
+  > header {
+    display: flex;
+    align-items: center;
+    height: 64px;
+    padding: 0 30px;
+    margin-right: -30px;
+    margin-left: -30px;
+    border-bottom: 1px dotted grey;
+    > h3 {
+      margin: 0;
+    }
+  }
+  .dialog-main {
+    padding: 30px 0;
+  }
 }
 

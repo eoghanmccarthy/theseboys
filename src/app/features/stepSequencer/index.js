@@ -19,6 +19,7 @@ import { Slider } from "componentLib/slider";
 import Step from "./step";
 import TrackDetail from "features/trackDetail";
 import useChannel from "features/useChannel";
+import useChorus from "features/useChorus";
 import {
   useAudio001,
   useAudio002,
@@ -45,17 +46,33 @@ const StepSequencer = () => {
   const trackDialog = useDialog();
   const [selectedTrack, setSelectedTrack] = useState(0);
 
+  const track01Chorus = useChorus(1.5, 3.5, 0.7);
+  const track02Chorus = useChorus(4, 3, 6);
+  const track03Chorus = useChorus(24, 9, 4);
+
+  const chorus = useMemo(() => {
+    return [track01Chorus, track02Chorus, track03Chorus];
+  }, [track01Chorus, track02Chorus, track03Chorus]);
+
   const track01Channel = useChannel(0, 0, false);
   const track02Channel = useChannel(0, 0, false);
   const track03Channel = useChannel(0, 0, true);
+
+  console.log(chorus);
 
   const channels = useMemo(() => {
     return [track01Channel, track02Channel, track03Channel];
   }, [track01Channel, track02Channel, track03Channel]);
 
-  const track01Audio = useAudio001(channels[0].channel);
-  const track02Audio = useAudio003(channels[1].channel);
-  const track03Audio = useAudio004(channels[2].channel);
+  const track01Audio = useAudio001(
+    channels[0].current.connect(chorus[0].current)
+  );
+  const track02Audio = useAudio003(
+    channels[1].current.connect(chorus[1].current)
+  );
+  const track03Audio = useAudio004(
+    channels[2].current.connect(chorus[2].current)
+  );
 
   const soundBank = useMemo(() => {
     return {
@@ -103,6 +120,7 @@ const StepSequencer = () => {
         close={trackDialog.close}
         selectedTrack={selectedTrack}
         channel={channels[selectedTrack]}
+        chorus={chorus[selectedTrack]}
       />
       <div className={"module step-sequencer"}>
         <div className={"module-head"}>
@@ -117,7 +135,7 @@ const StepSequencer = () => {
                 <div key={i} className={"track"}>
                   <div className={"sample"}>
                     <button onClick={() => soundBank[track].play()}>
-                      <span>{i}</span>
+                      <span>{i + 1}</span>
                     </button>
                   </div>
                   <div className={"steps"}>
@@ -148,7 +166,7 @@ const StepSequencer = () => {
                         setSelectedTrack(i);
                       }}
                     >
-                      o
+                      +
                     </Button>
                   </div>
                 </div>

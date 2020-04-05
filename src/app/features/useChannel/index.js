@@ -30,7 +30,7 @@ const useChannel = (v = 0, p = 0, m = false, s = false) => {
     pan: { value: pan, set: setPan },
     mute: { value: mute, set: setMute },
     solo: { value: solo, set: setSolo },
-    channel: channel.current
+    current: channel.current
   };
 };
 
