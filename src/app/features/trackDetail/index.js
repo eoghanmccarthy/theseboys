@@ -5,15 +5,35 @@ import { Dialog } from "@eoghanmccarthy/ui";
 
 import "./styles.scss";
 
-const TrackDetail = ({ isVisible }) => {
+import { Control, ControlBlock } from "componentLib/control";
+import { SliderWithValues } from "componentLib/slider";
+
+const TrackDetail = ({ isOpen, close, selectedTrack, channel }) => {
   return (
     <Dialog
       id={"track-detail-dialog"}
-      isVisible={isVisible}
+      disableBackdropClick
+      isVisible={isOpen}
       closeDialog={close}
       onClick={close}
     >
-      <div>track</div>
+      <div>
+        <ControlBlock>
+          <Control>
+            <SliderWithValues
+              title={"pan"}
+              min={-1}
+              max={1}
+              step={0.1}
+              value={channel.pan.value}
+              onChange={e => {
+                let value = e.target.value;
+                channel.pan.set(value);
+              }}
+            />
+          </Control>
+        </ControlBlock>
+      </div>
     </Dialog>
   );
 };

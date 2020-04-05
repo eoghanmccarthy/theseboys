@@ -1,4 +1,11 @@
-import React, { useEffect, useRef, useState, useMemo, useContext } from "react";
+import React, {
+  Fragment,
+  useEffect,
+  useRef,
+  useState,
+  useMemo,
+  useContext
+} from "react";
 import cx from "classnames";
 import Tone from "tone";
 import { Button } from "@eoghanmccarthy/ui";
@@ -7,8 +14,10 @@ import "./styles.scss";
 
 import { TransportContext } from "features/transportProvider";
 
+import useDialog from "componentLib/useDialog";
 import { Slider } from "componentLib/slider";
 import Step from "./step";
+import TrackDetail from "features/trackDetail";
 import useChannel from "features/useChannel";
 import {
   useAudio001,
@@ -33,21 +42,20 @@ const StepSequencer = () => {
   const stepsRef = useRef(stepState);
   stepsRef.current = stepState;
 
+  const trackDialog = useDialog();
+  const [selectedTrack, setSelectedTrack] = useState(0);
+
   const track01Channel = useChannel(0, 0, false);
   const track02Channel = useChannel(0, 0, false);
   const track03Channel = useChannel(0, 0, true);
 
   const channels = useMemo(() => {
-    return {
-      track01: track01Channel,
-      track02: track02Channel,
-      track03: track03Channel
-    };
+    return [track01Channel, track02Channel, track03Channel];
   }, [track01Channel, track02Channel, track03Channel]);
 
-  const track01Audio = useAudio001(channels.track01.channel);
-  const track02Audio = useAudio003(channels.track02.channel);
-  const track03Audio = useAudio004(channels.track03.channel);
+  const track01Audio = useAudio001(channels[0].channel);
+  const track02Audio = useAudio003(channels[1].channel);
+  const track03Audio = useAudio004(channels[2].channel);
 
   const soundBank = useMemo(() => {
     return {
@@ -89,62 +97,67 @@ const StepSequencer = () => {
   }, []);
 
   return (
-    <div className={"module step-sequencer"}>
-      <div className={"module-head"}>
-        <h1>
-          <em>a/ </em>step sequencer
-        </h1>
-      </div>
-      <div className={"module-main"}>
-        <div className={"tracks"}>
-          {Object.entries(stepState).map(([track, steps], i) => {
-            return (
-              <div key={i} className={"track"}>
-                <div className={"sample"}>
-                  <button onClick={() => soundBank[track].play()}>
-                    <span>{i}</span>
-                  </button>
+    <Fragment>
+      <TrackDetail
+        isOpen={trackDialog.isOpen}
+        close={trackDialog.close}
+        selectedTrack={selectedTrack}
+        channel={channels[selectedTrack]}
+      />
+      <div className={"module step-sequencer"}>
+        <div className={"module-head"}>
+          <h1>
+            <em>a/ </em>step sequencer
+          </h1>
+        </div>
+        <div className={"module-main"}>
+          <div className={"tracks"}>
+            {Object.entries(stepState).map(([track, steps], i) => {
+              return (
+                <div key={i} className={"track"}>
+                  <div className={"sample"}>
+                    <button onClick={() => soundBank[track].play()}>
+                      <span>{i}</span>
+                    </button>
+                  </div>
+                  <div className={"steps"}>
+                    <div className={"progress-indicator"} />
+                    {steps.map((value, i) => {
+                      return (
+                        <Step
+                          key={i}
+                          index={i}
+                          value={value}
+                          stepState={stepState}
+                          setStepState={setStepState}
+                          track={track}
+                        />
+                      );
+                    })}
+                  </div>
+                  <div className={"channel"}>
+                    <button
+                      className={cx({ active: channels[i].mute.value })}
+                      onClick={() => channels[i].mute.set(v => !v)}
+                    >
+                      mute
+                    </button>
+                    <Button
+                      onClick={() => {
+                        trackDialog.open();
+                        setSelectedTrack(i);
+                      }}
+                    >
+                      o
+                    </Button>
+                  </div>
                 </div>
-                <div className={"steps"}>
-                  <div className={"progress-indicator"} />
-                  {steps.map((value, i) => {
-                    return (
-                      <Step
-                        key={i}
-                        index={i}
-                        value={value}
-                        stepState={stepState}
-                        setStepState={setStepState}
-                        track={track}
-                      />
-                    );
-                  })}
-                </div>
-                <div className={"channel"}>
-                  {/*<Slider*/}
-                  {/*  min={-1}*/}
-                  {/*  max={1}*/}
-                  {/*  step={0.1}*/}
-                  {/*  value={channels[track].pan.value}*/}
-                  {/*  onChange={e => {*/}
-                  {/*    let value = e.target.value;*/}
-                  {/*    channels[track].pan.set(value);*/}
-                  {/*  }}*/}
-                  {/*/>*/}
-                  <button
-                    className={cx({ active: channels[track].mute.value })}
-                    onClick={() => channels[track].mute.set(v => !v)}
-                  >
-                    mute
-                  </button>
-                  <Button>o</Button>
-                </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
       </div>
-    </div>
+    </Fragment>
   );
 };
 

@@ -4,11 +4,25 @@ import "./styles.scss";
 
 import Slider from "../slider";
 
-const SliderWithValues = ({ title, unit = "", min, max, value, onChange }) => {
+const SliderWithValues = ({
+  title,
+  unit = "",
+  step,
+  min,
+  max,
+  value,
+  onChange
+}) => {
   return (
     <div className={"slider-with-values"}>
       <div className={"slider"}>
-        <Slider min={min} max={max} value={value} onChange={onChange} />
+        <Slider
+          step={step}
+          min={min}
+          max={max}
+          value={value}
+          onChange={onChange}
+        />
       </div>
       <div className={"meta"}>
         <span className={"title"}>{title}</span>
