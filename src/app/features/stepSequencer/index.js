@@ -15,11 +15,10 @@ import "./styles.scss";
 import { TransportContext } from "features/transportProvider";
 
 import useDialog from "componentLib/useDialog";
-import { Slider } from "componentLib/slider";
 import Step from "./step";
 import TrackDetail from "features/trackDetail";
 import useChannel from "features/useChannel";
-import useChorus from "features/useChorus";
+import useChorus from "features/effects/useChorus";
 import {
   useAudio001,
   useAudio002,
@@ -54,11 +53,9 @@ const StepSequencer = () => {
     return [track01Chorus, track02Chorus, track03Chorus];
   }, [track01Chorus, track02Chorus, track03Chorus]);
 
-  const track01Channel = useChannel(0, 0, false);
-  const track02Channel = useChannel(0, 0, false);
+  const track01Channel = useChannel(0, 0);
+  const track02Channel = useChannel(0, 0);
   const track03Channel = useChannel(0, 0, true);
-
-  console.log(chorus);
 
   const channels = useMemo(() => {
     return [track01Channel, track02Channel, track03Channel];
@@ -118,6 +115,7 @@ const StepSequencer = () => {
       <TrackDetail
         isOpen={trackDialog.isOpen}
         close={trackDialog.close}
+        setSelectedTrack={setSelectedTrack}
         selectedTrack={selectedTrack}
         channel={channels[selectedTrack]}
         chorus={chorus[selectedTrack]}
