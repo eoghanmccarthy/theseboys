@@ -39,7 +39,7 @@ const Tempo = () => {
   });
 
   useEffect(() => {
-    Transport.bpm.value = bpm;
+    Transport.set({ bpm: bpm });
   }, [bpm]);
 
   return (

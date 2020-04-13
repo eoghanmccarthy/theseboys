@@ -44,11 +44,11 @@ const Volume = () => {
   });
 
   useEffect(() => {
-    Destination.volume.value = volume - VOLUME_OFFSET;
+    Destination.set({ volume: volume - VOLUME_OFFSET });
   }, [volume]);
 
   useEffect(() => {
-    Destination.mute = mute;
+    Destination.set({ mute: mute });
   }, [mute]);
 
   return (

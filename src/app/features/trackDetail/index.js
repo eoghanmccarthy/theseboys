@@ -22,7 +22,7 @@ const TrackDetail = ({
   setAutoFilter
 }) => {
   return (
-    <Fragment>
+    <div className={"track-detail"}>
       <header>
         <h2>
           track <em>{selectedTrack}</em>
@@ -107,7 +107,7 @@ const TrackDetail = ({
           </Control>
           <Control>
             <SliderWithValues
-              title={"auto filter"}
+              title={"filter"}
               min={0}
               max={4000}
               step={200}
@@ -123,7 +123,7 @@ const TrackDetail = ({
           </Control>
         </ControlBlock>
       </div>
-    </Fragment>
+    </div>
   );
 };
 

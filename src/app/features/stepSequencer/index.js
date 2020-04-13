@@ -15,6 +15,7 @@ import "./styles.scss";
 import { TransportContext } from "features/transportProvider";
 
 import useDialog from "componentLib/useDialog";
+import effectsDefaults from "features/effects/defaults";
 import Track from "features/track";
 import TrackDetail from "features/trackDetail";
 
@@ -30,8 +31,11 @@ const sequencerSteps = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
 const initialStepState = [
   [1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  [0, 0, 1, 0, 1, 1, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0],
+  [0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 ];
+
+const instruments = ["fmsynth", "membranesynth", "amsynth"];
 
 const StepSequencer = () => {
   const transportCxt = useContext(TransportContext);
@@ -47,26 +51,11 @@ const StepSequencer = () => {
   );
 
   const [channelAutoFilter, setChannelAutoFilter] = useState(
-    initialStepState.map(() => ({
-      frequency: 1,
-      type: "sine",
-      depth: 1,
-      baseFrequency: 200,
-      octaves: 2.6,
-      filter: {
-        type: "lowpass",
-        rolloff: -12,
-        Q: 1
-      }
-    }))
+    initialStepState.map(() => effectsDefaults.autoFilter)
   );
 
   const [channelReverb, setChannelReverb] = useState(
-    initialStepState.map(() => ({
-      preDelay: 0.01,
-      decay: 1.5,
-      wet: 0.0
-    }))
+    initialStepState.map(() => effectsDefaults.reverb)
   );
 
   const [stepState, setStepState] = useState(initialStepState);
@@ -84,6 +73,44 @@ const StepSequencer = () => {
 
   return (
     <Fragment>
+      <Dialog
+        id={"track-detail-dialog"}
+        isVisible={trackDialog.isOpen}
+        closeDialog={trackDialog.close}
+      >
+        <TrackDetail
+          selectedTrack={selectedTrack}
+          setSelectedTrack={setSelectedTrack}
+          numberOfTracks={channelOpts.length}
+          channel={channelOpts[selectedTrack]}
+          setChannel={update => {
+            setChannelOpts(
+              channelOpts.map((c, i) => {
+                if (selectedTrack === i) return update;
+                return c;
+              })
+            );
+          }}
+          reverb={channelReverb[selectedTrack]}
+          setReverb={update => {
+            setChannelReverb(
+              channelReverb.map((r, i) => {
+                if (selectedTrack === i) return update;
+                return r;
+              })
+            );
+          }}
+          autoFilter={channelAutoFilter[selectedTrack]}
+          setAutoFilter={update => {
+            setChannelAutoFilter(
+              channelAutoFilter.map((a, i) => {
+                if (selectedTrack === i) return update;
+                return a;
+              })
+            );
+          }}
+        />
+      </Dialog>
       <div className={"module step-sequencer"}>
         <div className={"module-head"}>
           <h1>
@@ -109,6 +136,7 @@ const StepSequencer = () => {
                         })
                       );
                     }}
+                    instrument={instruments[index]}
                     effectsChain={null}
                     channel={channelOpts[index]}
                     reverb={channelReverb[index]}
@@ -140,40 +168,6 @@ const StepSequencer = () => {
                   </Track>
                 );
               })}
-            </div>
-            <div id={"track-detail"}>
-              <TrackDetail
-                selectedTrack={selectedTrack}
-                setSelectedTrack={setSelectedTrack}
-                numberOfTracks={channelOpts.length}
-                channel={channelOpts[selectedTrack]}
-                setChannel={update => {
-                  setChannelOpts(
-                    channelOpts.map((c, i) => {
-                      if (selectedTrack === i) return update;
-                      return c;
-                    })
-                  );
-                }}
-                reverb={channelReverb[selectedTrack]}
-                setReverb={update => {
-                  setChannelReverb(
-                    channelReverb.map((r, i) => {
-                      if (selectedTrack === i) return update;
-                      return r;
-                    })
-                  );
-                }}
-                autoFilter={channelAutoFilter[selectedTrack]}
-                setAutoFilter={update => {
-                  setChannelAutoFilter(
-                    channelAutoFilter.map((a, i) => {
-                      if (selectedTrack === i) return update;
-                      return a;
-                    })
-                  );
-                }}
-              />
             </div>
           </div>
         </div>

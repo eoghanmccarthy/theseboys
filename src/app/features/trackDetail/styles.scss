@@ -1,6 +1,9 @@
-#track-detail {
+#track-detail-dialog {
+  background-color: lighten(#1d1c25, 2%);
   border-radius: 4px;
-  //
+}
+
+.track-detail {
   > header {
     display: flex;
     align-items: center;
@@ -16,10 +19,9 @@
   }
   .detail-main {
     padding: 30px 0;
-
-    .control {
-      border: none;
-    }
+    //.control {
+    //  border: none;
+    //}
   }
 }
 
