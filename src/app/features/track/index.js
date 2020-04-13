@@ -31,14 +31,14 @@ const Track = ({
   const channelRef = useRef(
     new Channel(channel.volume, channel.pan).toDestination()
   );
-  // const reverbRef = useRef(new Reverb(reverb.decay).toDestination());
-  // const autoFilterRef = useRef(
-  //   new AutoFilter(
-  //     autoFilter.frequency,
-  //     autoFilter.baseFrequency,
-  //     autoFilter.octaves
-  //   ).toDestination()
-  // );
+  const reverbRef = useRef(new Reverb(reverb.decay).toDestination());
+  const autoFilterRef = useRef(
+    new AutoFilter(
+      autoFilter.frequency,
+      autoFilter.baseFrequency,
+      autoFilter.octaves
+    ).toDestination()
+  );
 
   const instrumentRef = useRef();
 
@@ -46,31 +46,28 @@ const Track = ({
   stepsRef.current = stepState;
 
   useEffect(() => {
-    channelRef.current.volume.value = channel.volume - VOLUME_OFFSET;
-    //channelRef.current.volume.set(channel.volume - VOLUME_OFFSET);
+    channelRef.current.set({ volume: channel.volume - VOLUME_OFFSET });
   }, [channel.volume]);
 
   useEffect(() => {
-    channelRef.current.pan.value = channel.pan;
+    channelRef.current.set({ pan: channel.pan });
   }, [channel.pan]);
 
   useEffect(() => {
-    channelRef.current.mute = channel.mute;
+    channelRef.current.set({ mute: channel.mute });
   }, [channel.mute]);
 
   useEffect(() => {
-    channelRef.current.solo = channel.solo;
+    channelRef.current.set({ solo: channel.solo });
   }, [channel.solo]);
 
-  // useEffect(() => {
-  //   reverbRef.current.preDelay = reverb.preDelay;
-  //   reverbRef.current.decay = reverb.decay;
-  //   reverbRef.current.wet.value = reverb.wet;
-  // }, [reverb]);
-  //
-  // useEffect(() => {
-  //   autoFilterRef.current.baseFrequency = autoFilter.baseFrequency;
-  // }, [autoFilter.baseFrequency]);
+  useEffect(() => {
+    reverbRef.current.set({ wet: reverb.wet });
+  }, [reverb.wet]);
+
+  useEffect(() => {
+    autoFilterRef.current.set({ baseFrequency: autoFilter.baseFrequency });
+  }, [autoFilter.baseFrequency]);
 
   useEffect(() => {
     instrumentRef.current = new FMSynth({
@@ -87,9 +84,9 @@ const Track = ({
       }
     });
     instrumentRef.current.chain(
-      // autoFilterRef.current,
-      // reverbRef.current,
       channelRef.current,
+      autoFilterRef.current,
+      reverbRef.current,
       Destination
     );
   }, []);
