@@ -40,6 +40,7 @@ const Track = ({
 
   useEffect(() => {
     channelRef.current.volume.value = channel.volume - VOLUME_OFFSET;
+    //channelRef.current.volume.set(channel.volume - VOLUME_OFFSET);
   }, [channel.volume]);
 
   useEffect(() => {

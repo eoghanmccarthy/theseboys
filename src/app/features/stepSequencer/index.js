@@ -92,87 +92,89 @@ const StepSequencer = () => {
         </div>
         <div className={"module-main"}>
           <div className={"tracks"}>
-            {stepState.map((steps, index) => {
-              return (
-                <Track
-                  key={index}
-                  index={index}
-                  subDivision={"8n"}
-                  sequencerSteps={sequencerSteps}
-                  stepState={stepState[index]}
-                  setStepState={updated => {
-                    setStepState(
-                      stepState.map((s, i) => {
-                        if (index === i) return updated;
-                        return s;
-                      })
-                    );
-                  }}
-                  effectsChain={null}
-                  channel={channelOpts[index]}
-                  reverb={channelReverb[index]}
-                  autoFilter={channelAutoFilter[index]}
-                >
-                  <div className={"channel"}>
-                    <button
-                      className={cx({ active: channelOpts[index].mute })}
-                      onClick={() => {
-                        setChannelOpts(
-                          channelOpts.map((c, i) => {
-                            if (index === i) return { ...c, mute: !c.mute };
-                            return c;
-                          })
-                        );
-                      }}
-                    >
-                      mute
-                    </button>
-                    <Button
-                      onClick={() => {
-                        trackDialog.open();
-                        setSelectedTrack(index);
-                      }}
-                    >
-                      +
-                    </Button>
-                  </div>
-                </Track>
-              );
-            })}
-          </div>
-          <div id={"track-detail"}>
-            <TrackDetail
-              selectedTrack={selectedTrack}
-              setSelectedTrack={setSelectedTrack}
-              numberOfTracks={channelOpts.length}
-              channel={channelOpts[selectedTrack]}
-              setChannel={update => {
-                setChannelOpts(
-                  channelOpts.map((c, i) => {
-                    if (selectedTrack === i) return update;
-                    return c;
-                  })
+            <div>
+              {stepState.map((steps, index) => {
+                return (
+                  <Track
+                    key={index}
+                    index={index}
+                    subDivision={"8n"}
+                    sequencerSteps={sequencerSteps}
+                    stepState={stepState[index]}
+                    setStepState={updated => {
+                      setStepState(
+                        stepState.map((s, i) => {
+                          if (index === i) return updated;
+                          return s;
+                        })
+                      );
+                    }}
+                    effectsChain={null}
+                    channel={channelOpts[index]}
+                    reverb={channelReverb[index]}
+                    autoFilter={channelAutoFilter[index]}
+                  >
+                    <div className={"channel"}>
+                      <button
+                        className={cx({ active: channelOpts[index].mute })}
+                        onClick={() => {
+                          setChannelOpts(
+                            channelOpts.map((c, i) => {
+                              if (index === i) return { ...c, mute: !c.mute };
+                              return c;
+                            })
+                          );
+                        }}
+                      >
+                        mute
+                      </button>
+                      <Button
+                        onClick={() => {
+                          trackDialog.open();
+                          setSelectedTrack(index);
+                        }}
+                      >
+                        +
+                      </Button>
+                    </div>
+                  </Track>
                 );
-              }}
-              reverb={channelReverb[selectedTrack]}
-              setReverb={update => {
-                setChannelReverb(
-                  channelReverb.map((r, i) => {
-                    if (selectedTrack === i) return update;
-                    return r;
-                  })
-                );
-              }}
-              autoFilter={channelAutoFilter[selectedTrack]}
-              setAutoFilter={update => {
-                setChannelAutoFilter(
-                  channelAutoFilter.map((a, i) => {
-                    if (selectedTrack === i) return update;
-                    return a;
-                  })
-                );
-              }}
-            />
+              })}
+            </div>
+            <div id={"track-detail"}>
+              <TrackDetail
+                selectedTrack={selectedTrack}
+                setSelectedTrack={setSelectedTrack}
+                numberOfTracks={channelOpts.length}
+                channel={channelOpts[selectedTrack]}
+                setChannel={update => {
+                  setChannelOpts(
+                    channelOpts.map((c, i) => {
+                      if (selectedTrack === i) return update;
+                      return c;
+                    })
+                  );
+                }}
+                reverb={channelReverb[selectedTrack]}
+                setReverb={update => {
+                  setChannelReverb(
+                    channelReverb.map((r, i) => {
+                      if (selectedTrack === i) return update;
+                      return r;
+                    })
+                  );
+                }}
+                autoFilter={channelAutoFilter[selectedTrack]}
+                setAutoFilter={update => {
+                  setChannelAutoFilter(
+                    channelAutoFilter.map((a, i) => {
+                      if (selectedTrack === i) return update;
+                      return a;
+                    })
+                  );
+                }}
+              />
+            </div>
           </div>
         </div>
       </div>
