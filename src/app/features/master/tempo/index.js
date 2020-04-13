@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Tone from "tone";
+import { Transport } from "tone";
 
 import { Control, ControlBlock } from "componentLib/control";
 import { SliderWithValues } from "componentLib/slider";
@@ -39,7 +39,7 @@ const Tempo = () => {
   });
 
   useEffect(() => {
-    Tone.Transport.bpm.value = bpm;
+    Transport.bpm.value = bpm;
   }, [bpm]);
 
   return (

@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useReducer } from "react";
-import Tone from "tone";
+import { Reverb } from "tone";
 
 import reducer from "../effectReducer";
 
 const useReverb = (decay = 0) => {
-  const reverb = useRef(new Tone.Reverb(decay).toMaster());
+  const reverb = useRef(new Reverb(decay).toDestination());
 
   const [meta, metaDispatch] = useReducer(reducer, {
     decay: 1.5,

@@ -1,5 +1,12 @@
 import React, { useEffect, useRef } from "react";
-import Tone from "tone";
+import {
+  Destination,
+  Channel,
+  Sequence,
+  FMSynth,
+  Reverb,
+  AutoFilter
+} from "tone";
 
 import "./styles.scss";
 
@@ -22,15 +29,15 @@ const Track = ({
   autoFilter
 }) => {
   const channelRef = useRef(
-    new Tone.Channel(channel.volume, channel.pan).toMaster()
+    new Channel(channel.volume, channel.pan).toDestination()
   );
-  // const reverbRef = useRef(new Tone.Reverb(reverb.decay).toMaster());
+  // const reverbRef = useRef(new Reverb(reverb.decay).toDestination());
   // const autoFilterRef = useRef(
-  //   new Tone.AutoFilter(
+  //   new AutoFilter(
   //     autoFilter.frequency,
   //     autoFilter.baseFrequency,
   //     autoFilter.octaves
-  //   ).toMaster()
+  //   ).toDestination()
   // );
 
   const instrumentRef = useRef();
@@ -66,7 +73,7 @@ const Track = ({
   // }, [autoFilter.baseFrequency]);
 
   useEffect(() => {
-    instrumentRef.current = new Tone.FMSynth({
+    instrumentRef.current = new FMSynth({
       envelope: {
         attack: 0.01,
         decay: 0.1,
@@ -83,12 +90,12 @@ const Track = ({
       // autoFilterRef.current,
       // reverbRef.current,
       channelRef.current,
-      Tone.Master
+      Destination
     );
   }, []);
 
   useEffect(() => {
-    new Tone.Sequence(
+    new Sequence(
       (time, step) => {
         let targetStep = stepsRef.current[step];
         if (targetStep === 1) {

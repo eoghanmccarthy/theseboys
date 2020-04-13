@@ -1,5 +1,15 @@
 import React, { useEffect, useRef, useState, useMemo } from "react";
-import Tone from "tone";
+import {
+  Destination,
+  Chorus,
+  MembraneSynth,
+  BitCrusher,
+  FMSynth,
+  Distortion,
+  PolySynth,
+  Synth,
+  NoiseSynth
+} from "tone";
 
 import { setIndexPrev, setIndexNext } from "utils/helpers/setSoundIndex";
 
@@ -27,11 +37,11 @@ const useAudio001 = channel => {
   }, []);
 
   useEffect(() => {
-    let chorus = new Tone.Chorus(4, 3, 1).toMaster();
-    hit.current = new Tone.MembraneSynth(sounds[soundIndex]).chain(
+    let chorus = new Chorus(4, 3, 1).toDestination();
+    hit.current = new MembraneSynth(sounds[soundIndex]).chain(
       channel,
       chorus,
-      Tone.Master
+      Destination
     );
   }, []);
 
@@ -50,9 +60,9 @@ const useAudio002 = () => {
   const hit = useRef(null);
 
   useEffect(() => {
-    let bitCrusher = new Tone.BitCrusher(1).toMaster();
-    let chorus = new Tone.Chorus(4, 3, 6).toMaster();
-    hit.current = new Tone.FMSynth({
+    let bitCrusher = new BitCrusher(1).toDestination();
+    let chorus = new Chorus(4, 3, 6).toDestination();
+    hit.current = new FMSynth({
       envelope: {
         attack: 0.01,
         decay: 0.1,
@@ -64,7 +74,7 @@ const useAudio002 = () => {
         partialCount: 0,
         phase: 135
       }
-    }).chain(bitCrusher, chorus, Tone.Master);
+    }).chain(bitCrusher, chorus, Destination);
   }, []);
 
   const trigger = time => {
@@ -82,8 +92,8 @@ const useAudio003 = channel => {
   const rattle = useRef(null);
 
   useEffect(() => {
-    let hitEffect = new Tone.Distortion(0.1).toMaster();
-    hit.current = new Tone.MembraneSynth({
+    let hitEffect = new Distortion(0.1).toDestination();
+    hit.current = new MembraneSynth({
       pitchDecay: 0.01,
       envelope: {
         attack: 0.001,
@@ -91,12 +101,12 @@ const useAudio003 = channel => {
         sustain: 0
       },
       volume: 4
-    }).chain(channel, hitEffect, Tone.Master);
+    }).chain(channel, hitEffect, Destination);
   }, []);
 
   useEffect(() => {
-    let bitCrusher = new Tone.BitCrusher(1).toMaster();
-    rattle.current = new Tone.NoiseSynth({
+    let bitCrusher = new BitCrusher(1).toDestination();
+    rattle.current = new NoiseSynth({
       type: "brown",
       envelope: {
         attack: 0.01,
@@ -105,7 +115,7 @@ const useAudio003 = channel => {
         release: 0.05
       },
       volume: -16
-    }).chain(channel, bitCrusher, Tone.Master);
+    }).chain(channel, bitCrusher, Destination);
   }, []);
 
   const play = time => {
@@ -142,13 +152,13 @@ const useAudio004 = channel => {
   }, []);
 
   useEffect(() => {
-    let chorus = new Tone.Chorus(2, 2, 1).toMaster();
-    let reverb = new Tone.Reverb(2.5).toMaster();
-    hit.current = new Tone.PolySynth(6, Tone.Synth, sounds[soundIndex]).chain(
+    let chorus = new Chorus(2, 2, 1).toDestination();
+    let reverb = new Reverb(2.5).toDestination();
+    hit.current = new PolySynth(6, Synth, sounds[soundIndex]).chain(
       channel,
       chorus,
       reverb,
-      Tone.Master
+      Destination
     );
   }, []);
 
@@ -167,7 +177,7 @@ const useAudio005 = () => {
   const hit = useRef(null);
 
   useEffect(() => {
-    hit.current = new Tone.FMSynth({
+    hit.current = new FMSynth({
       envelope: {
         attack: 0.01,
         decay: 0.1,
@@ -179,7 +189,7 @@ const useAudio005 = () => {
         partialCount: 0,
         phase: 135
       }
-    }).chain(Tone.Master);
+    }).chain(Destination);
   }, []);
 
   return {

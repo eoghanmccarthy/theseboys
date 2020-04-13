@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useReducer } from "react";
-import Tone from "tone";
+import { Chorus } from "tone";
 
 import reducer from "../effectReducer";
 
 const useChorus = (f = 0, dt = 0, d = 0) => {
-  const chorus = useRef(new Tone.Chorus().toMaster());
+  const chorus = useRef(new Chorus().toDestination());
 
   const [meta, metaDispatch] = useReducer(reducer, {
     wet: 0.5,

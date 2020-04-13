@@ -1,5 +1,5 @@
 import React, { useMemo, createContext, useState, useEffect } from "react";
-import Tone from "tone";
+import { Transport } from "tone";
 
 export const TransportContext = createContext();
 
@@ -26,11 +26,11 @@ const TransportProvider = ({ children }) => {
 
   useEffect(() => {
     if (transportState === "playing") {
-      Tone.Transport.start();
+      Transport.start();
     } else if (transportState === "paused") {
-      Tone.Transport.pause();
+      Transport.pause();
     } else {
-      Tone.Transport.stop();
+      Transport.stop();
     }
   }, [transportState]);
 

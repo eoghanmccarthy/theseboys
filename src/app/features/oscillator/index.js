@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useRef, useState } from "react";
 import {
   Gain,
-  Master,
+  Destination,
   MembraneSynth,
   MetalSynth,
   Oscillator,
@@ -65,7 +65,7 @@ const Home = () => {
   }, [bpm]);
 
   useEffect(() => {
-    gain.current = new Gain(0.6).toMaster();
+    gain.current = new Gain(0.6).toDestination();
   }, []);
 
   useEffect(() => {
@@ -80,7 +80,7 @@ const Home = () => {
     synths.current = {
       kick: new MembraneSynth()
         .connect(gain)
-        .chain(panner.current["kick"], Master),
+        .chain(panner.current["kick"], Destination),
       snare: new Synth({
         oscillator: { type: "sine" },
         envelope: {
@@ -89,7 +89,7 @@ const Home = () => {
           sustain: 0.3,
           release: 1
         }
-      }).chain(panner.current["snare"], Master),
+      }).chain(panner.current["snare"], Destination),
       clap: new MetalSynth({
         frequency: 200,
         envelope: {
@@ -101,12 +101,12 @@ const Home = () => {
         modulationIndex: 2,
         resonance: 1277,
         octaves: 1.2
-      }).chain(panner.current["clap"], Master)
+      }).chain(panner.current["clap"], Destination)
     };
   }, []);
 
   useEffect(() => {
-    oscillator.current = new Oscillator(440, "triangle5").toMaster();
+    oscillator.current = new Oscillator(440, "triangle5").toDestination();
   }, []);
 
   useEffect(() => {

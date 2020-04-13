@@ -76,51 +76,51 @@ const TrackDetail = ({
               }}
             />
           </Control>
-          {/*<Control>*/}
-          {/*  <button*/}
-          {/*    className={cx({ active: channel.mute })}*/}
-          {/*    onClick={() =>*/}
-          {/*      setChannel({*/}
-          {/*        ...channel,*/}
-          {/*        mute: !channel.mute*/}
-          {/*      })*/}
-          {/*    }*/}
-          {/*  >*/}
-          {/*    mute*/}
-          {/*  </button>*/}
-          {/*</Control>*/}
-          {/*<Control>*/}
-          {/*  <SliderWithValues*/}
-          {/*    title={"reverb"}*/}
-          {/*    min={0}*/}
-          {/*    max={1}*/}
-          {/*    step={0.1}*/}
-          {/*    value={reverb.wet}*/}
-          {/*    onChange={e => {*/}
-          {/*      let value = e.target.value;*/}
-          {/*      setReverb({*/}
-          {/*        ...reverb,*/}
-          {/*        wet: value*/}
-          {/*      });*/}
-          {/*    }}*/}
-          {/*  />*/}
-          {/*</Control>*/}
-          {/*<Control>*/}
-          {/*  <SliderWithValues*/}
-          {/*    title={"auto filter"}*/}
-          {/*    min={0}*/}
-          {/*    max={4000}*/}
-          {/*    step={200}*/}
-          {/*    value={autoFilter.baseFrequency}*/}
-          {/*    onChange={e => {*/}
-          {/*      let value = e.target.value;*/}
-          {/*      setAutoFilter({*/}
-          {/*        ...autoFilter,*/}
-          {/*        baseFrequency: value*/}
-          {/*      });*/}
-          {/*    }}*/}
-          {/*  />*/}
-          {/*</Control>*/}
+          <Control>
+            <button
+              className={cx({ active: channel.mute })}
+              onClick={() =>
+                setChannel({
+                  ...channel,
+                  mute: !channel.mute
+                })
+              }
+            >
+              mute
+            </button>
+          </Control>
+          <Control>
+            <SliderWithValues
+              title={"reverb"}
+              min={0}
+              max={1}
+              step={0.1}
+              value={reverb.wet}
+              onChange={e => {
+                let value = e.target.value;
+                setReverb({
+                  ...reverb,
+                  wet: value
+                });
+              }}
+            />
+          </Control>
+          <Control>
+            <SliderWithValues
+              title={"auto filter"}
+              min={0}
+              max={4000}
+              step={200}
+              value={autoFilter.baseFrequency}
+              onChange={e => {
+                let value = e.target.value;
+                setAutoFilter({
+                  ...autoFilter,
+                  baseFrequency: value
+                });
+              }}
+            />
+          </Control>
         </ControlBlock>
       </div>
     </Fragment>

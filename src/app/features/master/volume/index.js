@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import cx from "classnames";
-import Tone from "tone";
+import { Destination } from "tone";
 
 import "./styles.scss";
 
@@ -44,11 +44,11 @@ const Volume = () => {
   });
 
   useEffect(() => {
-    Tone.Master.volume.value = volume - VOLUME_OFFSET;
+    Destination.volume.value = volume - VOLUME_OFFSET;
   }, [volume]);
 
   useEffect(() => {
-    Tone.Master.mute = mute;
+    Destination.mute = mute;
   }, [mute]);
 
   return (

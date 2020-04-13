@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import cx from "classnames";
-import Tone from "tone";
+import { context } from "tone";
 import { Button } from "@eoghanmccarthy/ui";
 
 import "./styles.scss";
@@ -18,10 +18,10 @@ const Master = () => {
   const { setTransportState } = transportCxt.actions;
 
   useEffect(() => {
-    if (Tone.context.state !== "running") {
-      Tone.context.resume();
+    if (context.state !== "running") {
+      context.resume();
     }
-  }, [Tone.context]);
+  }, [context]);
 
   return (
     <div className={"master"}>
