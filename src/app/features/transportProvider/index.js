@@ -3,12 +3,12 @@ import Tone from "tone";
 
 export const TransportContext = createContext();
 
-import useKeyDownEvent from "componentLib/useKeyDownEvent";
+import useEventListener from "utils/hooks/useEventListener";
 
 const TransportProvider = ({ children }) => {
   const [transportState, setTransportState] = useState("stopped");
 
-  useKeyDownEvent(e => {
+  useEventListener("keydown", e => {
     switch (e.code) {
       case "Space":
         setTransportState(s => {

@@ -1,14 +1,14 @@
 import React from "react";
 import cx from "classnames";
 
-const Step = ({ index, value, stepState, setStepState, track }) => {
+const Step = ({ index, value, stepState, setStepState }) => {
   return (
     <button
       className={cx("step", { on: value === 1, double: value === 2 })}
       onClick={e => {
         e.preventDefault();
         let shiftEnabled = e.shiftKey === true;
-        let steps = [...stepState[track]];
+        let steps = stepState;
         let val =
           steps[index] === 0
             ? shiftEnabled
@@ -20,10 +20,7 @@ const Step = ({ index, value, stepState, setStepState, track }) => {
             ? 1
             : 0;
         steps[index] = val;
-        setStepState({
-          ...stepState,
-          [track]: steps
-        });
+        setStepState(steps);
       }}
     />
   );

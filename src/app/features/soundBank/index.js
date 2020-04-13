@@ -1,10 +1,7 @@
 import React, { useEffect, useRef, useState, useMemo } from "react";
 import Tone from "tone";
 
-import {
-  setSoundIndexPrev,
-  setSoundIndexNext
-} from "utils/helpers/setSoundIndex";
+import { setIndexPrev, setIndexNext } from "utils/helpers/setSoundIndex";
 
 const useAudio001 = channel => {
   const hit = useRef(null);
@@ -43,13 +40,13 @@ const useAudio001 = channel => {
   };
 
   return {
-    prev: () => setSoundIndex(i => setSoundIndexPrev(i, sounds.length)),
-    next: () => setSoundIndex(i => setSoundIndexNext(i, sounds.length)),
+    prev: () => setSoundIndex(i => setIndexPrev(i, sounds.length)),
+    next: () => setSoundIndex(i => setIndexNext(i, sounds.length)),
     play: play
   };
 };
 
-const useAudio002 = channel => {
+const useAudio002 = () => {
   const hit = useRef(null);
 
   useEffect(() => {
@@ -67,15 +64,16 @@ const useAudio002 = channel => {
         partialCount: 0,
         phase: 135
       }
-    }).chain(channel, bitCrusher, chorus, Tone.Master);
+    }).chain(bitCrusher, chorus, Tone.Master);
   }, []);
 
-  const play = time => {
+  const trigger = time => {
     hit.current.triggerAttackRelease("c3", "8n", time);
   };
 
   return {
-    play: play
+    current: hit.current,
+    trigger
   };
 };
 
@@ -159,10 +157,36 @@ const useAudio004 = channel => {
   };
 
   return {
-    prev: () => setSoundIndex(i => setSoundIndexPrev(i, sounds.length)),
-    next: () => setSoundIndex(i => setSoundIndexNext(i, sounds.length)),
+    prev: () => setSoundIndex(i => setIndexPrev(i, sounds.length)),
+    next: () => setSoundIndex(i => setIndexNext(i, sounds.length)),
     play: play
   };
 };
 
-export { useAudio001, useAudio002, useAudio003, useAudio004 };
+const useAudio005 = () => {
+  const hit = useRef(null);
+
+  useEffect(() => {
+    hit.current = new Tone.FMSynth({
+      envelope: {
+        attack: 0.01,
+        decay: 0.1,
+        release: 0.4,
+        sustain: 0.5
+      },
+      oscillator: {
+        type: "sawtooth8",
+        partialCount: 0,
+        phase: 135
+      }
+    }).chain(Tone.Master);
+  }, []);
+
+  return {
+    current: hit.current,
+    triggerAttackRelease: time =>
+      hit.current.triggerAttackRelease("c3", "8n", time)
+  };
+};
+
+export { useAudio001, useAudio002, useAudio003, useAudio004, useAudio005 };

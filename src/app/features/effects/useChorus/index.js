@@ -4,7 +4,7 @@ import Tone from "tone";
 import reducer from "../effectReducer";
 
 const useChorus = (f = 0, dt = 0, d = 0) => {
-  const chorus = useRef(new Tone.Chorus(f, dt, d).toMaster());
+  const chorus = useRef(new Tone.Chorus().toMaster());
 
   const [meta, metaDispatch] = useReducer(reducer, {
     wet: 0.5,

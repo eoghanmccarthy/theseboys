@@ -4,9 +4,10 @@ import Tone from "tone";
 
 import "./styles.scss";
 
+import useEventListener from "utils/hooks/useEventListener";
+
 import { Control, ControlBlock } from "componentLib/control";
 import { SliderWithValues } from "componentLib/slider";
-import useKeyDownEvent from "componentLib/useKeyDownEvent";
 
 const VOLUME_MIN = 0;
 const VOLUME_MAX = 72;
@@ -16,14 +17,12 @@ const Volume = () => {
   const [volume, setVolume] = useState(60);
   const [mute, toggleMute] = useState(false);
 
-  useKeyDownEvent(e => {
+  useEventListener("keydown", e => {
     switch (e.code) {
       case "ArrowUp":
         if (e.shiftKey) {
           setVolume(v => {
-            if (v + 1 <= VOLUME_MAX) {
-              return v + 1;
-            }
+            if (v + 1 <= VOLUME_MAX) return v + 1;
             return v;
           });
         }
@@ -31,17 +30,13 @@ const Volume = () => {
       case "ArrowDown":
         if (e.shiftKey) {
           setVolume(v => {
-            if (v - 1 >= VOLUME_MIN) {
-              return v - 1;
-            }
+            if (v - 1 >= VOLUME_MIN) return v - 1;
             return v;
           });
         }
         break;
       case "KeyM":
-        if (e.shiftKey) {
-          toggleMute(m => !m);
-        }
+        if (e.shiftKey) toggleMute(m => !m);
         break;
       default:
         break;

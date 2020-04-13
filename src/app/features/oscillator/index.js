@@ -12,7 +12,7 @@ import {
   Volume
 } from "tone";
 
-import useKeyDownEvent from "componentLib/useKeyDownEvent";
+import useEventListener from "utils/hooks/useEventListener";
 
 const initialStepState = {
   kick: [0, 0, 0, 0, 0, 0, 0, 0],
@@ -41,7 +41,7 @@ const Home = () => {
   const currentStepRef = useRef(currentStep);
   currentStepRef.current = currentStep;
 
-  useKeyDownEvent(e => {
+  useEventListener("keydown", e => {
     switch (e.code) {
       case "Space":
         setStart(s => !s);

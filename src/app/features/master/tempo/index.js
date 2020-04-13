@@ -3,7 +3,7 @@ import Tone from "tone";
 
 import { Control, ControlBlock } from "componentLib/control";
 import { SliderWithValues } from "componentLib/slider";
-import useKeyDownEvent from "componentLib/useKeyDownEvent";
+import useEventListener from "utils/hooks/useEventListener";
 
 const TEMPO_MIN = 30;
 const TEMPO_MAX = 240;
@@ -11,7 +11,7 @@ const TEMPO_MAX = 240;
 const Tempo = () => {
   const [bpm, setBpm] = useState(120);
 
-  useKeyDownEvent(e => {
+  useEventListener("keydown", e => {
     switch (e.code) {
       case "ArrowRight":
         if (e.shiftKey) {

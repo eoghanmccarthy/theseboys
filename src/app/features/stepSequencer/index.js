@@ -4,80 +4,75 @@ import React, {
   useRef,
   useState,
   useMemo,
-  useContext
+  useContext,
+  useReducer
 } from "react";
 import cx from "classnames";
-import Tone from "tone";
-import { Button } from "@eoghanmccarthy/ui";
+import { Button, Dialog } from "@eoghanmccarthy/ui";
 
 import "./styles.scss";
 
 import { TransportContext } from "features/transportProvider";
 
 import useDialog from "componentLib/useDialog";
-import Step from "./step";
+import Track from "features/track";
 import TrackDetail from "features/trackDetail";
-import useChannel from "features/useChannel";
-import useChorus from "features/effects/useChorus";
+
 import {
   useAudio001,
   useAudio002,
   useAudio003,
-  useAudio004
+  useAudio004,
+  useAudio005
 } from "features/soundBank";
 
-const STEP_COUNT = 16;
+const sequencerSteps = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
-const initialStepState = {
-  track01: [1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0],
-  track02: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  track03: [0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1]
-};
+const initialStepState = [
+  [1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+];
 
 const StepSequencer = () => {
   const transportCxt = useContext(TransportContext);
   const { transportState } = transportCxt.value;
 
+  const [channelOpts, setChannelOpts] = useState(
+    initialStepState.map(() => ({
+      volume: 60,
+      pan: 0,
+      mute: false,
+      solo: false
+    }))
+  );
+
+  const [channelAutoFilter, setChannelAutoFilter] = useState(
+    initialStepState.map(() => ({
+      frequency: 1,
+      type: "sine",
+      depth: 1,
+      baseFrequency: 200,
+      octaves: 2.6,
+      filter: {
+        type: "lowpass",
+        rolloff: -12,
+        Q: 1
+      }
+    }))
+  );
+
+  const [channelReverb, setChannelReverb] = useState(
+    initialStepState.map(() => ({
+      preDelay: 0.01,
+      decay: 1.5,
+      wet: 0.0
+    }))
+  );
+
   const [stepState, setStepState] = useState(initialStepState);
-  const stepsRef = useRef(stepState);
-  stepsRef.current = stepState;
 
   const trackDialog = useDialog();
   const [selectedTrack, setSelectedTrack] = useState(0);
-
-  const track01Chorus = useChorus(1.5, 3.5, 0.7);
-  const track02Chorus = useChorus(4, 3, 6);
-  const track03Chorus = useChorus(24, 9, 4);
-
-  const chorus = useMemo(() => {
-    return [track01Chorus, track02Chorus, track03Chorus];
-  }, [track01Chorus, track02Chorus, track03Chorus]);
-
-  const track01Channel = useChannel(0, 0);
-  const track02Channel = useChannel(0, 0);
-  const track03Channel = useChannel(0, 0, true);
-
-  const channels = useMemo(() => {
-    return [track01Channel, track02Channel, track03Channel];
-  }, [track01Channel, track02Channel, track03Channel]);
-
-  const track01Audio = useAudio001(
-    channels[0].current.connect(chorus[0].current)
-  );
-  const track02Audio = useAudio003(
-    channels[1].current.connect(chorus[1].current)
-  );
-  const track03Audio = useAudio004(
-    channels[2].current.connect(chorus[2].current)
-  );
-
-  const soundBank = useMemo(() => {
-    return {
-      track01: track01Audio,
-      track02: track02Audio,
-      track03: track03Audio
-    };
-  }, [track01Audio, track02Audio, track03Audio]);
 
   useEffect(() => {
     if (transportState === "stopped") {
@@ -87,39 +82,8 @@ const StepSequencer = () => {
     }
   }, [transportState]);
 
-  useEffect(() => {
-    new Tone.Sequence(
-      (time, step) => {
-        Object.keys(stepsRef.current).forEach(track => {
-          let targetStep = stepsRef.current[track][step];
-          if (targetStep === 1) {
-            soundBank[track].play(time);
-          } else if (targetStep === 2) {
-            soundBank[track].play(time);
-            soundBank[track].play("+64n");
-          }
-        });
-        document
-          .querySelectorAll(`.progress-indicator`)
-          .forEach(
-            el => (el.style.left = `${(parseInt(step) / STEP_COUNT) * 100}%`)
-          );
-      },
-      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
-      "8n"
-    ).start(0);
-  }, []);
-
   return (
     <Fragment>
-      <TrackDetail
-        isOpen={trackDialog.isOpen}
-        close={trackDialog.close}
-        setSelectedTrack={setSelectedTrack}
-        selectedTrack={selectedTrack}
-        channel={channels[selectedTrack]}
-        chorus={chorus[selectedTrack]}
-      />
       <div className={"module step-sequencer"}>
         <div className={"module-head"}>
           <h1>
@@ -128,48 +92,87 @@ const StepSequencer = () => {
         </div>
         <div className={"module-main"}>
           <div className={"tracks"}>
-            {Object.entries(stepState).map(([track, steps], i) => {
+            {stepState.map((steps, index) => {
               return (
-                <div key={i} className={"track"}>
-                  <div className={"sample"}>
-                    <button onClick={() => soundBank[track].play()}>
-                      <span>{i + 1}</span>
-                    </button>
-                  </div>
-                  <div className={"steps"}>
-                    <div className={"progress-indicator"} />
-                    {steps.map((value, i) => {
-                      return (
-                        <Step
-                          key={i}
-                          index={i}
-                          value={value}
-                          stepState={stepState}
-                          setStepState={setStepState}
-                          track={track}
-                        />
-                      );
-                    })}
-                  </div>
+                <Track
+                  key={index}
+                  index={index}
+                  subDivision={"8n"}
+                  sequencerSteps={sequencerSteps}
+                  stepState={stepState[index]}
+                  setStepState={updated => {
+                    setStepState(
+                      stepState.map((s, i) => {
+                        if (index === i) return updated;
+                        return s;
+                      })
+                    );
+                  }}
+                  effectsChain={null}
+                  channel={channelOpts[index]}
+                  reverb={channelReverb[index]}
+                  autoFilter={channelAutoFilter[index]}
+                >
                   <div className={"channel"}>
                     <button
-                      className={cx({ active: channels[i].mute.value })}
-                      onClick={() => channels[i].mute.set(v => !v)}
+                      className={cx({ active: channelOpts[index].mute })}
+                      onClick={() => {
+                        setChannelOpts(
+                          channelOpts.map((c, i) => {
+                            if (index === i) return { ...c, mute: !c.mute };
+                            return c;
+                          })
+                        );
+                      }}
                     >
                       mute
                     </button>
                     <Button
                       onClick={() => {
                         trackDialog.open();
-                        setSelectedTrack(i);
+                        setSelectedTrack(index);
                       }}
                     >
                       +
                     </Button>
                   </div>
-                </div>
+                </Track>
               );
             })}
+          </div>
+          <div id={"track-detail"}>
+            <TrackDetail
+              selectedTrack={selectedTrack}
+              setSelectedTrack={setSelectedTrack}
+              numberOfTracks={channelOpts.length}
+              channel={channelOpts[selectedTrack]}
+              setChannel={update => {
+                setChannelOpts(
+                  channelOpts.map((c, i) => {
+                    if (selectedTrack === i) return update;
+                    return c;
+                  })
+                );
+              }}
+              reverb={channelReverb[selectedTrack]}
+              setReverb={update => {
+                setChannelReverb(
+                  channelReverb.map((r, i) => {
+                    if (selectedTrack === i) return update;
+                    return r;
+                  })
+                );
+              }}
+              autoFilter={channelAutoFilter[selectedTrack]}
+              setAutoFilter={update => {
+                setChannelAutoFilter(
+                  channelAutoFilter.map((a, i) => {
+                    if (selectedTrack === i) return update;
+                    return a;
+                  })
+                );
+              }}
+            />
           </div>
         </div>
       </div>
