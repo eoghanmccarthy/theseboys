@@ -5,6 +5,8 @@ import "./styles.scss";
 import StepSequencer from "features/stepSequencer";
 import Oscillator from "features/oscillator";
 
+const alphabet = "abcdefghijklmnopqrstuvwxyz";
+
 const ModuleContainer = ({ index, data }) => {
   return (
     <div
@@ -13,7 +15,7 @@ const ModuleContainer = ({ index, data }) => {
     >
       <div className={"module__head"}>
         <h1>
-          <em>a/ </em>
+          <em>{alphabet.charAt(index)}/ </em>
           {data.name}
         </h1>
       </div>
