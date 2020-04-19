@@ -10,8 +10,6 @@ import {
   AutoFilter
 } from "tone";
 
-import "./styles.scss";
-
 import Step from "./step";
 
 const STEP_COUNT = 16;

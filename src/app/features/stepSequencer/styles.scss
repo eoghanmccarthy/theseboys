@@ -2,26 +2,11 @@
   --step-size: 48px;
 }
 
-.module-head {
-  border-bottom: 1px dotted grey;
-}
-
-.module-main {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
 .step-sequencer {
-  flex: 1;
   display: flex;
   flex-direction: column;
   .tracks {
     transform: skewX(-8deg);
-    //border-radius: 4px;
-    //overflow: hidden;
   }
   .track {
     display: flex;

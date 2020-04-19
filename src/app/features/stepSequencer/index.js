@@ -111,64 +111,57 @@ const StepSequencer = () => {
           }}
         />
       </Dialog>
-      <div className={"module step-sequencer"}>
-        <div className={"module-head"}>
-          <h1>
-            <em>a/ </em>step sequencer
-          </h1>
-        </div>
-        <div className={"module-main"}>
-          <div className={"tracks"}>
-            <div>
-              {stepState.map((steps, index) => {
-                return (
-                  <Track
-                    key={index}
-                    index={index}
-                    subDivision={"8n"}
-                    sequencerSteps={sequencerSteps}
-                    stepState={stepState[index]}
-                    setStepState={updated => {
-                      setStepState(
-                        stepState.map((s, i) => {
-                          if (index === i) return updated;
-                          return s;
-                        })
-                      );
-                    }}
-                    instrument={instruments[index]}
-                    effectsChain={null}
-                    channel={channelOpts[index]}
-                    reverb={channelReverb[index]}
-                    autoFilter={channelAutoFilter[index]}
-                  >
-                    <div className={"channel"}>
-                      <button
-                        className={cx({ active: channelOpts[index].mute })}
-                        onClick={() => {
-                          setChannelOpts(
-                            channelOpts.map((c, i) => {
-                              if (index === i) return { ...c, mute: !c.mute };
-                              return c;
-                            })
-                          );
-                        }}
-                      >
-                        mute
-                      </button>
-                      <Button
-                        onClick={() => {
-                          trackDialog.open();
-                          setSelectedTrack(index);
-                        }}
-                      >
-                        +
-                      </Button>
-                    </div>
-                  </Track>
-                );
-              })}
-            </div>
+      <div className={"step-sequencer"}>
+        <div className={"tracks"}>
+          <div>
+            {stepState.map((steps, index) => {
+              return (
+                <Track
+                  key={index}
+                  index={index}
+                  subDivision={"8n"}
+                  sequencerSteps={sequencerSteps}
+                  stepState={stepState[index]}
+                  setStepState={updated => {
+                    setStepState(
+                      stepState.map((s, i) => {
+                        if (index === i) return updated;
+                        return s;
+                      })
+                    );
+                  }}
+                  instrument={instruments[index]}
+                  effectsChain={null}
+                  channel={channelOpts[index]}
+                  reverb={channelReverb[index]}
+                  autoFilter={channelAutoFilter[index]}
+                >
+                  <div className={"channel"}>
+                    <button
+                      className={cx({ active: channelOpts[index].mute })}
+                      onClick={() => {
+                        setChannelOpts(
+                          channelOpts.map((c, i) => {
+                            if (index === i) return { ...c, mute: !c.mute };
+                            return c;
+                          })
+                        );
+                      }}
+                    >
+                      mute
+                    </button>
+                    <Button
+                      onClick={() => {
+                        trackDialog.open();
+                        setSelectedTrack(index);
+                      }}
+                    >
+                      +
+                    </Button>
+                  </div>
+                </Track>
+              );
+            })}
           </div>
         </div>
       </div>

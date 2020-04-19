@@ -11,5 +11,5 @@
 
 .me__content {
 	grid-area: main;
-	padding: var(--spacing-md);
+	padding: var(--spacing-md) 0;
 }
