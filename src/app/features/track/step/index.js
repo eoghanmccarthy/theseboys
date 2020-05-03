@@ -1,25 +1,32 @@
-import React from "react";
-import cx from "classnames";
+import React from 'react';
+import { css } from '@emotion/core';
 
-const Step = ({ index, value, stepState, setStepState }) => {
+import * as styles from './styles';
+
+const Step = ({ stepIndex, value, stepState, setStepState }) => {
   return (
     <button
-      className={cx("step", { on: value === 1, double: value === 2 })}
+      css={css`
+        ${styles.step}
+        background-color: ${
+          value === 1 ? 'var(--color-primary)' : value === 2 ? 'var(--color-secondary)' : 'white'
+        }
+      `}
       onClick={e => {
         e.preventDefault();
         let shiftEnabled = e.shiftKey === true;
         let steps = stepState;
         let val =
-          steps[index] === 0
+          steps[stepIndex] === 0
             ? shiftEnabled
               ? 2
               : 1
-            : steps[index] === 1 && shiftEnabled
+            : steps[stepIndex] === 1 && shiftEnabled
             ? 2
-            : steps[index] === 2 && shiftEnabled
+            : steps[stepIndex] === 2 && shiftEnabled
             ? 1
             : 0;
-        steps[index] = val;
+        steps[stepIndex] = val;
         setStepState(steps);
       }}
     />

@@ -1,12 +1,12 @@
-import React, { Fragment } from "react";
-import cx from "classnames";
+import React, { Fragment } from 'react';
+import cx from 'classnames';
 
-import "./styles.scss";
+import './styles.scss';
 
-import { setIndexPrev, setIndexNext } from "utils/helpers/setSoundIndex";
+import { setIndexPrev, setIndexNext } from 'utils/helpers/setSoundIndex';
 
-import { Control, ControlBlock } from "componentLib/control";
-import { SliderWithValues } from "componentLib/slider";
+import { Control, ControlBlock } from 'componentLib/control';
+import { SliderWithValues } from 'componentLib/slider';
 
 const VOLUME_MAX = 72;
 
@@ -22,13 +22,13 @@ const TrackDetail = ({
   setAutoFilter
 }) => {
   return (
-    <div className={"track-detail"}>
+    <div className={'track-detail'}>
       <header>
         <h2>
           track <em>{selectedTrack}</em>
         </h2>
       </header>
-      <div className={"detail-main"}>
+      <div className={'detail-main'}>
         <button
           onClick={() => {
             setSelectedTrack(i => {
@@ -50,7 +50,7 @@ const TrackDetail = ({
         <ControlBlock>
           <Control>
             <SliderWithValues
-              title={"pan"}
+              title={'pan'}
               min={-1}
               max={1}
               step={0.1}
@@ -63,7 +63,7 @@ const TrackDetail = ({
           </Control>
           <Control>
             <SliderWithValues
-              title={"volume"}
+              title={'volume'}
               min={0}
               max={100}
               value={Math.round((channel.volume / VOLUME_MAX) * 100)}
@@ -91,7 +91,7 @@ const TrackDetail = ({
           </Control>
           <Control>
             <SliderWithValues
-              title={"reverb"}
+              title={'reverb'}
               min={0}
               max={1}
               step={0.1}
@@ -107,7 +107,7 @@ const TrackDetail = ({
           </Control>
           <Control>
             <SliderWithValues
-              title={"filter"}
+              title={'filter'}
               min={0}
               max={4000}
               step={200}

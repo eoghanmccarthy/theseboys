@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { Oscillator as Osc } from 'tone';
 
 import interpolate from 'utils/helpers/interpolate';
@@ -15,6 +15,13 @@ const Oscillator = () => {
 
   const oscillator = useRef(new Osc(440, 'sine').toDestination());
 
+  useEffect(() => {
+    oscillator.current.set({
+      detune: 0,
+      phase: 0
+    });
+  }, []);
+
   const interpolateX = interpolate({
     inputRange: [0, 200],
     outputRange: [0, 440],
@@ -25,9 +32,6 @@ const Oscillator = () => {
 
   return (
     <div css={styles.oscillator}>
-      <span>
-        {values.frequency ?? 0} {values.partialCount ?? 0}
-      </span>
       <div
         ref={padRef}
         css={styles.pad}
@@ -51,7 +55,11 @@ const Oscillator = () => {
             partialCount
           });
         }}
-      />
+      >
+        {/*<div css={styles.values}>*/}
+        {/*  <span>{values.frequency ?? 0}</span>*/}
+        {/*</div>*/}
+      </div>
     </div>
   );
 };

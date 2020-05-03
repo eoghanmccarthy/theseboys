@@ -1,31 +1,18 @@
-import React, {
-  Fragment,
-  useEffect,
-  useRef,
-  useState,
-  useMemo,
-  useContext,
-  useReducer
-} from "react";
-import cx from "classnames";
-import { Button, Dialog } from "@eoghanmccarthy/ui";
+import React, { Fragment, useEffect, useState, useContext } from 'react';
+import { Dialog } from '@eoghanmccarthy/ui';
 
-import "./styles.scss";
+import './styles.scss';
 
-import { TransportContext } from "features/transportProvider";
+import { TransportContext } from 'features/transportProvider';
 
-import useDialog from "componentLib/useDialog";
-import effectsDefaults from "features/effects/defaults";
-import Track from "features/track";
-import TrackDetail from "features/trackDetail";
-
-import {
-  useAudio001,
-  useAudio002,
-  useAudio003,
-  useAudio004,
-  useAudio005
-} from "features/soundBank";
+import useDialog from 'componentLib/useDialog';
+import effectsDefaults from 'features/effects/defaults';
+import TrackProvider from 'features/track/trackProvider';
+import Track from 'features/track/track';
+import Channel from 'features/track/channel';
+import Sample from 'features/track/sample';
+import Steps from 'features/track/steps';
+import TrackDetail from 'features/trackDetail';
 
 const sequencerSteps = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
@@ -35,7 +22,7 @@ const initialStepState = [
   [0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 ];
 
-const instruments = ["fmsynth", "membranesynth", "amsynth"];
+const instruments = ['fmsynth', 'membranesynth', 'amsynth'];
 
 const StepSequencer = () => {
   const transportCxt = useContext(TransportContext);
@@ -64,17 +51,15 @@ const StepSequencer = () => {
   const [selectedTrack, setSelectedTrack] = useState(0);
 
   useEffect(() => {
-    if (transportState === "stopped") {
-      document
-        .querySelectorAll(`.progress-indicator`)
-        .forEach(el => (el.style.left = "0%"));
+    if (transportState === 'stopped') {
+      document.querySelectorAll(`.progress-indicator`).forEach(el => (el.style.left = '0%'));
     }
   }, [transportState]);
 
   return (
     <Fragment>
       <Dialog
-        id={"track-detail-dialog"}
+        id={'track-detail-dialog'}
         isVisible={trackDialog.isOpen}
         closeDialog={trackDialog.close}
       >
@@ -111,15 +96,15 @@ const StepSequencer = () => {
           }}
         />
       </Dialog>
-      <div className={"step-sequencer"}>
-        <div className={"tracks"}>
+      <div className={'step-sequencer'}>
+        <div className={'tracks'}>
           <div>
             {stepState.map((steps, index) => {
               return (
-                <Track
+                <TrackProvider
                   key={index}
                   index={index}
-                  subDivision={"8n"}
+                  subDivision={'8n'}
                   sequencerSteps={sequencerSteps}
                   stepState={stepState[index]}
                   setStepState={updated => {
@@ -136,30 +121,18 @@ const StepSequencer = () => {
                   reverb={channelReverb[index]}
                   autoFilter={channelAutoFilter[index]}
                 >
-                  <div className={"channel"}>
-                    <button
-                      className={cx({ active: channelOpts[index].mute })}
-                      onClick={() => {
-                        setChannelOpts(
-                          channelOpts.map((c, i) => {
-                            if (index === i) return { ...c, mute: !c.mute };
-                            return c;
-                          })
-                        );
-                      }}
-                    >
-                      mute
-                    </button>
-                    <Button
-                      onClick={() => {
-                        trackDialog.open();
-                        setSelectedTrack(index);
-                      }}
-                    >
-                      +
-                    </Button>
-                  </div>
-                </Track>
+                  <Track>
+                    <Sample />
+                    <Steps />
+                    <Channel
+                      index={index}
+                      channelOpts={channelOpts}
+                      setChannelOpts={setChannelOpts}
+                      setSelectedTrack={setSelectedTrack}
+                      openDialog={trackDialog.open}
+                    />
+                  </Track>
+                </TrackProvider>
               );
             })}
           </div>

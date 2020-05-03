@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, createContext, useMemo } from 'react';
 import {
   Destination,
   Channel,
@@ -8,17 +8,17 @@ import {
   MetalSynth,
   Reverb,
   AutoFilter
-} from "tone";
+} from 'tone';
 
-import Step from "./step";
+export const TrackContext = createContext();
 
 const STEP_COUNT = 16;
 const VOLUME_OFFSET = 60;
 
-const Track = ({
+const TrackProvider = ({
   children,
   index,
-  subDivision = "8n",
+  subDivision = '8n',
   sequencerSteps,
   stepState,
   setStepState,
@@ -28,9 +28,7 @@ const Track = ({
   reverb,
   autoFilter
 }) => {
-  const channelRef = useRef(
-    new Channel(channel.volume, channel.pan).toDestination()
-  );
+  const channelRef = useRef(new Channel(channel.volume, channel.pan).toDestination());
   const reverbRef = useRef(new Reverb(reverb.decay).toDestination());
   const autoFilterRef = useRef(
     new AutoFilter(
@@ -70,7 +68,7 @@ const Track = ({
   }, [autoFilter.baseFrequency]);
 
   useEffect(() => {
-    if (instrument === "fmsynth") {
+    if (instrument === 'fmsynth') {
       instrumentRef.current = new FMSynth({
         envelope: {
           attack: 0.01,
@@ -79,12 +77,12 @@ const Track = ({
           sustain: 0.5
         },
         oscillator: {
-          type: "sawtooth8",
+          type: 'sawtooth8',
           partialCount: 0,
           phase: 135
         }
       });
-    } else if (instrument === "membranesynth") {
+    } else if (instrument === 'membranesynth') {
       instrumentRef.current = new MetalSynth({
         frequency: 200,
         envelope: {
@@ -97,12 +95,12 @@ const Track = ({
         resonance: 4000,
         octaves: 1.5
       });
-    } else if (instrument === "amsynth") {
+    } else if (instrument === 'amsynth') {
       instrumentRef.current = new AMSynth({
         harmonicity: 3,
         detune: 0,
         oscillator: {
-          type: "sine"
+          type: 'sine'
         },
         envelope: {
           attack: 0.01,
@@ -111,7 +109,7 @@ const Track = ({
           release: 0.5
         },
         modulation: {
-          type: "square"
+          type: 'square'
         },
         modulationEnvelope: {
           attack: 0.5,
@@ -140,48 +138,29 @@ const Track = ({
       (time, step) => {
         let targetStep = stepsRef.current[step];
         if (targetStep === 1) {
-          instrumentRef.current.triggerAttackRelease("c3", "8n", time);
+          instrumentRef.current.triggerAttackRelease('c3', '8n', time);
         } else if (targetStep === 2) {
-          instrumentRef.current.triggerAttackRelease("c3", "8n", time);
-          instrumentRef.current.triggerAttackRelease("c3", "8n", "+64n");
+          instrumentRef.current.triggerAttackRelease('c3', '8n', time);
+          instrumentRef.current.triggerAttackRelease('c3', '8n', '+64n');
         }
         document
           .querySelectorAll(`.progress-indicator`)
-          .forEach(
-            el => (el.style.left = `${(parseInt(step) / STEP_COUNT) * 100}%`)
-          );
+          .forEach(el => (el.style.left = `${(parseInt(step) / STEP_COUNT) * 100}%`));
       },
       sequencerSteps,
       subDivision
     ).start(0);
   }, []);
 
-  return (
-    <div className={"track"}>
-      <div className={"sample"}>
-        <button
-          onClick={() => instrumentRef.current.triggerAttackRelease("c3", "8n")}
-        >
-          <span>{index + 1}</span>
-        </button>
-      </div>
-      <div className={"steps"}>
-        <div className={"progress-indicator"} />
-        {stepState.map((value, i) => {
-          return (
-            <Step
-              key={i}
-              index={i}
-              value={value}
-              stepState={stepState}
-              setStepState={setStepState}
-            />
-          );
-        })}
-      </div>
-      {children}
-    </div>
-  );
+  const onPlaySample = () => {
+    instrumentRef.current.triggerAttackRelease('c3', '8n');
+  };
+
+  const values = useMemo(() => {
+    return { index, stepState, setStepState, onPlaySample };
+  }, [stepState]);
+
+  return <TrackContext.Provider value={values}>{children}</TrackContext.Provider>;
 };
 
-export default Track;
+export default TrackProvider;

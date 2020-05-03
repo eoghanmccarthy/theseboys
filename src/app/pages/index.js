@@ -2,7 +2,7 @@ import React from 'react';
 import { useSpring, animated } from 'react-spring';
 import { Button } from '@eoghanmccarthy/ui';
 
-import './styles.scss';
+import * as styles from './styles';
 
 import TransportProvider from 'features/transportProvider';
 import Master from 'features/master';
@@ -21,9 +21,9 @@ const Home = () => {
   return (
     <TransportProvider>
       <main className={'me__content'}>
-        <div className={'console'}>
+        <div css={styles.console}>
           <Master />
-          <div className={'modules'}>
+          <div css={styles.modules}>
             <ModulesNav
               onDecrement={() => set({ selectedIndex: 0 })}
               onIncrement={() => set({ selectedIndex: 1 })}
@@ -53,7 +53,7 @@ export default Home;
 
 const ModulesNav = ({ onDecrement, onIncrement }) => {
   return (
-    <div className={'modules-nav'}>
+    <div css={styles.nav}>
       <Button size={'md'} onClick={onDecrement}>
         p
       </Button>
