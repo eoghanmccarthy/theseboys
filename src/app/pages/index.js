@@ -1,43 +1,43 @@
-import React, { useState } from "react";
-import { useSpring, animated } from "react-spring";
-import { Button } from "@eoghanmccarthy/ui";
+import React from 'react';
+import { useSpring, animated } from 'react-spring';
+import { Button } from '@eoghanmccarthy/ui';
 
-import "./styles.scss";
+import './styles.scss';
 
-import TransportProvider from "features/transportProvider";
-import Master from "features/master";
-import ModuleContainer from "features/moduleContainer";
+import TransportProvider from 'features/transportProvider';
+import Master from 'features/master';
+import Module from 'features/module';
+import StepSequencer from 'features/stepSequencer';
+import Oscillator from 'features/oscillator';
 
 const modules = [
-  { id: "seq", name: "step sequencer" },
-  { id: "osc", name: "oscillator" }
+  { id: 'seq', name: 'step sequencer' },
+  { id: 'osc', name: 'oscillator' }
 ];
 
 const Home = () => {
-  const [props, set, stop] = useSpring(() => ({ x: 0 }));
+  const [props, set, stop] = useSpring(() => ({ x: 1 }));
 
   return (
     <TransportProvider>
-      <main className={"me__content"}>
-        <div className={"console"}>
+      <main className={'me__content'}>
+        <div className={'console'}>
           <Master />
-          <div className={"modules"}>
-            <ModulesNav
-              onDecrement={() => set({ x: 0 })}
-              onIncrement={() => set({ x: 1 })}
-            />
+          <div className={'modules'}>
+            <ModulesNav onDecrement={() => set({ x: 0 })} onIncrement={() => set({ x: 1 })} />
             <animated.div
               style={{
                 flex: 1,
-                position: "relative",
-                transform: props.x.interpolate(
-                  x => `translateX(${x * -1 * 100}%)`
-                )
+                position: 'relative',
+                transform: props.x.interpolate(x => `translateX(${x * -1 * 100}%)`)
               }}
             >
-              {modules.map((m, i) => (
-                <ModuleContainer key={i} index={i} data={m} />
-              ))}
+              <Module index={0} data={modules[0]}>
+                <StepSequencer />
+              </Module>
+              <Module index={1} data={modules[1]}>
+                <Oscillator />
+              </Module>
             </animated.div>
           </div>
         </div>
@@ -50,11 +50,11 @@ export default Home;
 
 const ModulesNav = ({ onDecrement, onIncrement }) => {
   return (
-    <div className={"modules-nav"}>
-      <Button size={"md"} onClick={onDecrement}>
+    <div className={'modules-nav'}>
+      <Button size={'md'} onClick={onDecrement}>
         p
       </Button>
-      <Button size={"md"} onClick={onIncrement}>
+      <Button size={'md'} onClick={onIncrement}>
         n
       </Button>
     </div>

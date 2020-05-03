@@ -1,33 +1,52 @@
-import React, { Fragment, useEffect, useRef, useState } from "react";
-import { Oscillator as Osc } from "tone";
+import React, { useRef, useState } from 'react';
+import { Oscillator as Osc } from 'tone';
 
-//import "./styles.scss";
+import useInterpolate from 'utils/hooks/useInterpolate';
+
+import * as styles from './styles';
 
 const Oscillator = () => {
-  const oscillator = useRef(null);
+  const padRef = useRef();
 
-  const [pos, setPos] = useState({ x: 1, y: 1 });
+  const [values, setValues] = useState({ frequency: 0, partialCount: 0 });
 
-  useEffect(() => {
-    oscillator.current = new Osc(440, "triangle5").toDestination();
-  }, []);
+  const oscillator = useRef(new Osc(440, 'sine').toDestination());
+
+  const interpolateX = useInterpolate({
+    inputRange: [0, 200],
+    outputRange: [0, 440],
+    clamp: false
+  });
+  const interpolateY = useInterpolate({ inputRange: [0, 200], outputRange: [0, 32], clamp: false });
 
   return (
-    <div className={"oscillator"}>
+    <div css={styles.oscillator}>
       <span>
-        {pos.x * 2} {pos.y}
+        {values.frequency ?? 0} {values.partialCount ?? 0}
       </span>
       <div
-        onPointerEnter={() => oscillator.current.start()}
-        onPointerLeave={() => oscillator.current.stop()}
+        ref={padRef}
+        css={styles.pad}
+        onPointerDown={() => oscillator.current.start()}
+        onPointerUp={() => oscillator.current.stop()}
+        onPointerLeave={s => oscillator.current.stop()}
         onPointerMove={val => {
-          oscillator.current.frequency.value = val.clientX * 2;
-          setPos({ x: val.clientX, y: val.clientY });
+          const x = val.clientX - padRef.current.getBoundingClientRect().x;
+          const y = val.clientY - padRef.current.getBoundingClientRect().y;
+
+          const frequency = Math.abs(Math.round(interpolateX(x)));
+          const partialCount = Math.abs(Math.round(interpolateY(y)));
+
+          oscillator.current.set({
+            frequency,
+            partialCount
+          });
+          setValues({
+            frequency,
+            partialCount
+          });
         }}
-        style={{ width: "200px", height: "200px", backgroundColor: "blue" }}
-      >
-        osc
-      </div>
+      />
     </div>
   );
 };

@@ -21,8 +21,14 @@
     "last 2 versions",
     "> 1%"
   ],
+  "prettier": {
+    "singleQuote": true,
+    "printWidth": 100
+  },
   "dependencies": {
     "@babel/runtime": "^7.0.0-beta.54",
+    "@emotion/babel-preset-css-prop": "^10.0.27",
+    "@emotion/core": "^10.0.28",
     "@eoghanmccarthy/ui": "^1.4.7",
     "@types/classnames": "^2.2.6",
     "@types/react": "^16.7.17",

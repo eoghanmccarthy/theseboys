@@ -1,14 +1,20 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import "./styles.scss";
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { css } from '@emotion/core';
 
-import Logo from "componentLib/logo";
+import styles from './styles';
+
+import Logo from 'componentLib/logo';
 
 const Footer = () => {
   const auth = useSelector(state => state.app.authentication);
 
   return (
-    <footer className={"me__footer"}>
+    <footer
+      css={css`
+        ${styles}
+      `}
+    >
       <Logo />
     </footer>
   );

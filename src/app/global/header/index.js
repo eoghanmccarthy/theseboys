@@ -1,8 +1,16 @@
-import React from "react";
-import "./styles.scss";
+import React from 'react';
+import { css } from '@emotion/core';
+
+import styles from './styles';
 
 const Header = () => {
-  return <header className={"me__header"} />;
+  return (
+    <header
+      css={css`
+        ${styles}
+      `}
+    />
+  );
 };
 
 export default Header;
