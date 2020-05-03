@@ -13,6 +13,7 @@ const moduleHead = css`
   padding: var(--spacing-sm) var(--spacing-md) 0;
   h1 {
     margin: 0;
+    font-size: 24px;
   }
 `;
 

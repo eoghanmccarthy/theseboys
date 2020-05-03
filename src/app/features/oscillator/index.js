@@ -2,11 +2,14 @@ import React, { useRef, useState } from 'react';
 import { Oscillator as Osc } from 'tone';
 
 import interpolate from 'utils/helpers/interpolate';
+import usePointer from 'utils/hooks/usePointer';
 
 import * as styles from './styles';
 
 const Oscillator = () => {
   const padRef = useRef();
+
+  const pointer = usePointer();
 
   const [values, setValues] = useState({ frequency: 0, partialCount: 0 });
 
@@ -30,7 +33,8 @@ const Oscillator = () => {
         css={styles.pad}
         onPointerDown={() => oscillator.current.start()}
         onPointerUp={() => oscillator.current.stop()}
-        onPointerLeave={s => oscillator.current.stop()}
+        onPointerEnter={() => pointer.isDown && oscillator.current.start()}
+        onPointerLeave={() => pointer.isDown && oscillator.current.stop()}
         onPointerMove={val => {
           const x = val.clientX - padRef.current.getBoundingClientRect().x;
           const y = val.clientY - padRef.current.getBoundingClientRect().y;

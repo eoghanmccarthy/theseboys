@@ -1,22 +1,19 @@
-import React, { useMemo, createContext, useState, useEffect } from "react";
-import { Transport } from "tone";
+import React, { useMemo, createContext, useState, useEffect } from 'react';
+import { Transport } from 'tone';
 
 export const TransportContext = createContext();
 
-import useEventListener from "utils/hooks/useEventListener";
+import useEventListener from 'utils/hooks/useEventListener';
 
 const TransportProvider = ({ children }) => {
-  const [transportState, setTransportState] = useState("stopped");
+  const [transportState, setTransportState] = useState('stopped');
 
-  useEventListener("keydown", e => {
+  useEventListener('keydown', e => {
     switch (e.code) {
-      case "Space":
+      case 'Space':
         setTransportState(s => {
-          if (s === "paused" || s === "stopped") {
-            return "playing";
-          } else {
-            return "paused";
-          }
+          if (s === 'paused' || s === 'stopped') return 'playing';
+          return 'paused';
         });
         break;
       default:
@@ -25,9 +22,9 @@ const TransportProvider = ({ children }) => {
   });
 
   useEffect(() => {
-    if (transportState === "playing") {
+    if (transportState === 'playing') {
       Transport.start();
-    } else if (transportState === "paused") {
+    } else if (transportState === 'paused') {
       Transport.pause();
     } else {
       Transport.stop();
@@ -45,11 +42,7 @@ const TransportProvider = ({ children }) => {
     };
   }, [transportState]);
 
-  return (
-    <TransportContext.Provider value={values}>
-      {children}
-    </TransportContext.Provider>
-  );
+  return <TransportContext.Provider value={values}>{children}</TransportContext.Provider>;
 };
 
 export default TransportProvider;

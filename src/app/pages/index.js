@@ -16,7 +16,7 @@ const modules = [
 ];
 
 const Home = () => {
-  const [props, set, stop] = useSpring(() => ({ x: 1 }));
+  const [{ selectedIndex }, set] = useSpring(() => ({ selectedIndex: 0 }));
 
   return (
     <TransportProvider>
@@ -24,12 +24,15 @@ const Home = () => {
         <div className={'console'}>
           <Master />
           <div className={'modules'}>
-            <ModulesNav onDecrement={() => set({ x: 0 })} onIncrement={() => set({ x: 1 })} />
+            <ModulesNav
+              onDecrement={() => set({ selectedIndex: 0 })}
+              onIncrement={() => set({ selectedIndex: 1 })}
+            />
             <animated.div
               style={{
                 flex: 1,
                 position: 'relative',
-                transform: props.x.interpolate(x => `translateX(${x * -1 * 100}%)`)
+                transform: selectedIndex.interpolate(index => `translateX(${index * -1 * 100}%)`)
               }}
             >
               <Module index={0} data={modules[0]}>
