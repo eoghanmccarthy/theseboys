@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { Oscillator as Osc } from 'tone';
 
-import useInterpolate from 'utils/hooks/useInterpolate';
+import interpolate from 'utils/helpers/interpolate';
 
 import * as styles from './styles';
 
@@ -12,12 +12,13 @@ const Oscillator = () => {
 
   const oscillator = useRef(new Osc(440, 'sine').toDestination());
 
-  const interpolateX = useInterpolate({
+  const interpolateX = interpolate({
     inputRange: [0, 200],
     outputRange: [0, 440],
     clamp: false
   });
-  const interpolateY = useInterpolate({ inputRange: [0, 200], outputRange: [0, 32], clamp: false });
+
+  const interpolateY = interpolate({ inputRange: [0, 200], outputRange: [0, 32], clamp: false });
 
   return (
     <div css={styles.oscillator}>
