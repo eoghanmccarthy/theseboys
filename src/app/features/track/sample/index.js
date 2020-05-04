@@ -4,14 +4,16 @@ import { TrackContext } from '../trackProvider';
 
 import * as styles from './styles';
 
+import TrackButton from 'features/track/trackButton';
+
 const Sample = () => {
-  const { index, onPlaySample } = useContext(TrackContext);
+  const { trackIndex, onPlaySample } = useContext(TrackContext);
 
   return (
     <div css={styles.sample}>
-      <button onClick={onPlaySample}>
-        <span>{index + 1}</span>
-      </button>
+      <TrackButton onClick={onPlaySample}>
+        <span>{trackIndex + 1}</span>
+      </TrackButton>
     </div>
   );
 };

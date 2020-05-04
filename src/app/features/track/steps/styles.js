@@ -6,6 +6,14 @@ const steps = css`
   align-items: center;
   position: relative;
   overflow: hidden;
+  > button {
+    z-index: 1;
+    border-right: 1px solid black;
+    opacity: 0.92;
+    &:last-child {
+      border-right-width: 0;
+    }
+  }
 `;
 
 const progressIndicator = css`

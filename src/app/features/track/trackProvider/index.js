@@ -17,11 +17,10 @@ const VOLUME_OFFSET = 60;
 
 const TrackProvider = ({
   children,
-  index,
+  trackIndex,
   subDivision = '8n',
   sequencerSteps,
-  stepState,
-  setStepState,
+  steps,
   instrument,
   effectsChain = null,
   channel,
@@ -40,8 +39,8 @@ const TrackProvider = ({
 
   const instrumentRef = useRef();
 
-  const stepsRef = useRef(stepState);
-  stepsRef.current = stepState;
+  const stepsRef = useRef(steps);
+  stepsRef.current = steps;
 
   useEffect(() => {
     channelRef.current.set({ volume: channel.volume - VOLUME_OFFSET });
@@ -157,8 +156,8 @@ const TrackProvider = ({
   };
 
   const values = useMemo(() => {
-    return { index, stepState, setStepState, onPlaySample };
-  }, [stepState]);
+    return { trackIndex, onPlaySample };
+  }, []);
 
   return <TrackContext.Provider value={values}>{children}</TrackContext.Provider>;
 };

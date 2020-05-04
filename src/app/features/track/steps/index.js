@@ -1,28 +1,12 @@
-import React, { useContext } from 'react';
-
-import { TrackContext } from '../trackProvider';
+import React from 'react';
 
 import * as styles from './styles';
 
-import Step from '../step';
-
-const Steps = () => {
-  const { stepState, setStepState } = useContext(TrackContext);
-
+const Steps = ({ children }) => {
   return (
     <div css={styles.steps}>
-      <div css={styles.progressIndicator} />
-      {stepState.map((value, i) => {
-        return (
-          <Step
-            key={i}
-            stepIndex={i}
-            value={value}
-            stepState={stepState}
-            setStepState={setStepState}
-          />
-        );
-      })}
+      <div css={styles.progressIndicator} className={'progress-indicator'} />
+      {children}
     </div>
   );
 };
