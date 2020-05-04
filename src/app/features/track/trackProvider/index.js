@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, createContext, useMemo } from 'react';
+import React, { useEffect, useRef, createContext, useMemo, useState } from 'react';
 import {
   Destination,
   Channel,
@@ -18,11 +18,10 @@ const VOLUME_OFFSET = 60;
 const TrackProvider = ({
   children,
   trackIndex,
-  subDivision = '8n',
+  subDivision,
   sequencerSteps,
   steps,
   instrument,
-  effectsChain = null,
   channel,
   reverb,
   autoFilter
@@ -36,6 +35,8 @@ const TrackProvider = ({
       autoFilter.octaves
     ).toDestination()
   );
+
+  const [effectsChain, setEffectsChain] = useState([reverbRef.current, autoFilterRef.current]);
 
   const instrumentRef = useRef();
 
@@ -119,18 +120,13 @@ const TrackProvider = ({
       });
     }
 
-    instrumentRef.current.chain(
-      channelRef.current,
-      autoFilterRef.current,
-      reverbRef.current,
-      Destination
-    );
+    instrumentRef.current.chain(channelRef.current, ...effectsChain, Destination);
     return () => {
       if (instrumentRef.current) {
         instrumentRef.current.dispose();
       }
     };
-  }, [instrument]);
+  }, [effectsChain]);
 
   useEffect(() => {
     new Sequence(
@@ -155,8 +151,12 @@ const TrackProvider = ({
     instrumentRef.current.triggerAttackRelease('c3', '8n');
   };
 
+  const handleAddEffect = effect => {
+    setEffectsChain(prev => [effect, ...prev]);
+  };
+
   const values = useMemo(() => {
-    return { trackIndex, onPlaySample };
+    return { trackIndex, addEffect: handleAddEffect, onPlaySample };
   }, []);
 
   return <TrackContext.Provider value={values}>{children}</TrackContext.Provider>;
