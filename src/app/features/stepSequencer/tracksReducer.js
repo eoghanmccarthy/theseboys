@@ -9,22 +9,12 @@ const tracksInitialState = [
       solo: false
     },
     effects: {
-      reverb: {
-        preDelay: 0.01,
-        decay: 1.5,
-        wet: 0.0
-      },
       autoFilter: {
-        frequency: 1,
-        type: 'sine',
-        depth: 1,
-        baseFrequency: 200,
-        octaves: 2.6,
-        filter: {
-          type: 'lowpass',
-          rolloff: -12,
-          Q: 1
-        }
+        baseFrequency: 440
+      },
+      feedbackDelay: {
+        delayTime: 0.6,
+        wet: 0.4
       }
     }
   },
@@ -38,22 +28,13 @@ const tracksInitialState = [
       solo: false
     },
     effects: {
-      reverb: {
-        preDelay: 0.01,
-        decay: 1.5,
-        wet: 0.0
+      distortion: {
+        delayTime: 0.3,
+        wet: 0.4
       },
-      autoFilter: {
-        frequency: 1,
-        type: 'sine',
-        depth: 1,
-        baseFrequency: 200,
-        octaves: 2.6,
-        filter: {
-          type: 'lowpass',
-          rolloff: -12,
-          Q: 1
-        }
+      feedbackDelay: {
+        delayTime: 0.3,
+        wet: 0.4
       }
     }
   },
@@ -67,22 +48,12 @@ const tracksInitialState = [
       solo: false
     },
     effects: {
-      reverb: {
-        preDelay: 0.01,
-        decay: 1.5,
-        wet: 0.0
-      },
       autoFilter: {
-        frequency: 1,
-        type: 'sine',
-        depth: 1,
-        baseFrequency: 200,
-        octaves: 2.6,
-        filter: {
-          type: 'lowpass',
-          rolloff: -12,
-          Q: 1
-        }
+        baseFrequency: 220
+      },
+      feedbackDelay: {
+        delayTime: 0.8,
+        wet: 0.4
       }
     }
   }

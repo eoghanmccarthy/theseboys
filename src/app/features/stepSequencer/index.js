@@ -15,6 +15,7 @@ import Channel from 'features/track/channel';
 import Sample from 'features/track/sample';
 import Steps from 'features/track/steps';
 import Step from 'features/track/step';
+import Effect from 'features/track/effect';
 import TrackDetail from 'features/trackDetail';
 
 import { tracksInitialState, tracksReducer } from './tracksReducer';
@@ -85,12 +86,20 @@ const StepSequencer = () => {
                   sequencerSteps={sequencerSteps}
                   steps={track.steps}
                   instrument={track.instrument}
-                  effectsChain={null}
                   channel={track.channel}
-                  reverb={track.effects.reverb}
-                  autoFilter={track.effects.autoFilter}
                 >
                   <Track>
+                    {Object.entries(track.effects).map(([effect, values], index) => {
+                      return (
+                        <Effect
+                          key={index}
+                          type={effect}
+                          wet={values.wet}
+                          baseFrequency={values.baseFrequency}
+                          delayTime={values.delayTime}
+                        />
+                      );
+                    })}
                     <Sample />
                     <Steps>
                       {track.steps.map((value, i) => {

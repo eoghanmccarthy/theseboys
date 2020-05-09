@@ -25,7 +25,7 @@ const Oscillator = () => {
   const interpolateX = interpolate({
     inputRange: [0, 200],
     outputRange: [0, 440],
-    clamp: false
+    clamp: true
   });
 
   const interpolateY = interpolate({ inputRange: [0, 200], outputRange: [0, 32], clamp: false });
@@ -45,6 +45,8 @@ const Oscillator = () => {
 
           const frequency = Math.abs(Math.round(interpolateX(x)));
           const partialCount = Math.abs(Math.round(interpolateY(y)));
+
+          console.log(frequency, partialCount);
 
           oscillator.current.set({
             frequency,

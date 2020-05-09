@@ -1,14 +1,5 @@
 import React, { useEffect, useRef, createContext, useMemo, useState } from 'react';
-import {
-  Destination,
-  Channel,
-  Sequence,
-  FMSynth,
-  AMSynth,
-  MetalSynth,
-  Reverb,
-  AutoFilter
-} from 'tone';
+import { Destination, Channel, Sequence, FMSynth, AMSynth, MetalSynth } from 'tone';
 
 export const TrackContext = createContext();
 
@@ -22,21 +13,11 @@ const TrackProvider = ({
   sequencerSteps,
   steps,
   instrument,
-  channel,
-  reverb,
-  autoFilter
+  channel
 }) => {
   const channelRef = useRef(new Channel(channel.volume, channel.pan).toDestination());
-  const reverbRef = useRef(new Reverb(reverb.decay).toDestination());
-  const autoFilterRef = useRef(
-    new AutoFilter(
-      autoFilter.frequency,
-      autoFilter.baseFrequency,
-      autoFilter.octaves
-    ).toDestination()
-  );
 
-  const [effectsChain, setEffectsChain] = useState([reverbRef.current, autoFilterRef.current]);
+  const [effectsChain, setEffectsChain] = useState([]);
 
   const instrumentRef = useRef();
 
@@ -58,14 +39,6 @@ const TrackProvider = ({
   useEffect(() => {
     channelRef.current.set({ solo: channel.solo });
   }, [channel.solo]);
-
-  useEffect(() => {
-    reverbRef.current.set({ wet: reverb.wet });
-  }, [reverb.wet]);
-
-  useEffect(() => {
-    autoFilterRef.current.set({ baseFrequency: autoFilter.baseFrequency });
-  }, [autoFilter.baseFrequency]);
 
   useEffect(() => {
     if (instrument === 'fmsynth') {
