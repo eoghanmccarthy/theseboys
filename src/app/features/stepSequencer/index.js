@@ -1,10 +1,8 @@
 import React, { Fragment, useEffect, useState, useContext } from 'react';
 import { useImmerReducer } from 'use-immer';
 import cx from 'classnames';
-import { css } from '@emotion/core';
 import { Button, Dialog } from '@eoghanmccarthy/ui';
 
-import './styles.scss';
 import * as styles from './styles';
 
 import { TransportContext } from 'features/transportProvider';
@@ -20,7 +18,7 @@ import Step from 'features/track/step';
 import Effect from 'features/track/effect';
 import TrackDetail from 'features/trackDetail';
 
-import { tracksInitialState, tracksReducer } from './tracksReducer';
+import { initialState, reducer } from './tracksReducer';
 
 const sequencerSteps = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
@@ -29,7 +27,7 @@ const StepSequencer = () => {
     value: { transportState }
   } = useContext(TransportContext);
 
-  const [tracksState, tracksDispatch] = useImmerReducer(tracksReducer, tracksInitialState);
+  const [tracksState, tracksDispatch] = useImmerReducer(reducer, initialState);
 
   const trackDialog = useDialog();
   const [selectedTrack, setSelectedTrack] = useState(0);
@@ -86,6 +84,7 @@ const StepSequencer = () => {
                   trackIndex={index}
                   subDivision={'8n'}
                   sequencerSteps={sequencerSteps}
+                  track={track}
                   steps={track.steps}
                   instrument={track.instrument}
                   channel={track.channel}

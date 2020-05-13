@@ -1,7 +1,8 @@
-const tracksInitialState = [
+const initialState = [
   {
     steps: [1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0],
-    instrument: 'fmsynth',
+    instrument: 1000,
+    note: 'a2',
     channel: {
       volume: 60,
       pan: 0,
@@ -21,11 +22,12 @@ const tracksInitialState = [
     }
   },
   {
-    steps: [0, 0, 1, 0, 1, 1, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0],
-    instrument: 'membranesynth',
+    steps: [0, 0, 1, 0, 1, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0],
+    instrument: 1001,
+    note: 'c3',
     channel: {
-      volume: 60,
-      pan: 0.8,
+      volume: 48,
+      pan: 0.7,
       mute: false,
       solo: false
     },
@@ -45,7 +47,8 @@ const tracksInitialState = [
   },
   {
     steps: [0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    instrument: 'amsynth',
+    instrument: 1002,
+    note: 'c3',
     channel: {
       volume: 60,
       pan: 0,
@@ -66,7 +69,7 @@ const tracksInitialState = [
   }
 ];
 
-function tracksReducer(draft, action) {
+function reducer(draft, action) {
   const { type, payload } = action;
 
   switch (type) {
@@ -87,4 +90,4 @@ function tracksReducer(draft, action) {
   }
 }
 
-export { tracksInitialState, tracksReducer };
+export { initialState, reducer };

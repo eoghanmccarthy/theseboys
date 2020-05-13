@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { Transport } from "tone";
+import React, { useEffect, useState } from 'react';
+import { Transport } from 'tone';
 
-import { Control, ControlBlock } from "componentLib/control";
-import { SliderWithValues } from "componentLib/slider";
-import useEventListener from "utils/hooks/useEventListener";
+import { Control, ControlBlock } from 'componentLib/control';
+import { SliderWithValues } from 'componentLib/slider';
+import useEventListener from 'utils/hooks/useEventListener';
 
 const TEMPO_MIN = 30;
 const TEMPO_MAX = 240;
@@ -11,9 +11,9 @@ const TEMPO_MAX = 240;
 const Tempo = () => {
   const [bpm, setBpm] = useState(120);
 
-  useEventListener("keydown", e => {
+  useEventListener('keydown', e => {
     switch (e.code) {
-      case "ArrowRight":
+      case 'ArrowRight':
         if (e.shiftKey) {
           setBpm(b => {
             if (b + 1 <= TEMPO_MAX) {
@@ -23,7 +23,7 @@ const Tempo = () => {
           });
         }
         break;
-      case "ArrowLeft":
+      case 'ArrowLeft':
         if (e.shiftKey) {
           setBpm(b => {
             if (b - 1 >= TEMPO_MIN) {
@@ -46,7 +46,7 @@ const Tempo = () => {
     <ControlBlock>
       <Control>
         <SliderWithValues
-          title={"bpm"}
+          title={'bpm'}
           min={TEMPO_MIN}
           max={TEMPO_MAX}
           value={bpm}

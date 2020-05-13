@@ -1,16 +1,5 @@
 //https://codepen.io/egrucza/pen/LEoOQZ
 
-.range {
-	-webkit-appearance: none;
-	width: 100%;
-	margin-right: 0;
-	margin-left: 0;
-	background-color: transparent;
-	&:focus {
-		outline: none;
-	}
-}
-
 input[type=range]::-webkit-slider-runnable-track {
 	-webkit-appearance: none;
 	background: var(--color-primary);

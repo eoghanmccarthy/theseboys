@@ -1,21 +1,23 @@
 import React, { useEffect, useRef, createContext, useMemo, useState } from 'react';
 import { Destination, Channel, Sequence, FMSynth, AMSynth, MetalSynth } from 'tone';
+import { useImmerReducer } from 'use-immer';
 
 export const TrackContext = createContext();
+
+import { initialState, reducer } from 'features/stepSequencer/instrumentsPresetsReducer';
 
 const STEP_COUNT = 16;
 const VOLUME_OFFSET = 60;
 
-const TrackProvider = ({
-  children,
-  trackIndex,
-  subDivision,
-  sequencerSteps,
-  steps,
-  instrument,
-  channel
-}) => {
+const TrackProvider = ({ children, trackIndex, subDivision, sequencerSteps, track }) => {
+  const { channel, instrument, note, steps } = track;
+
   const channelRef = useRef(new Channel(channel.volume, channel.pan).toDestination());
+
+  const [instrumentsPresetsState, instrumentsPresetsDispatch] = useImmerReducer(
+    reducer,
+    initialState
+  );
 
   const [effectsChain, setEffectsChain] = useState([]);
 
@@ -41,56 +43,12 @@ const TrackProvider = ({
   }, [channel.solo]);
 
   useEffect(() => {
-    if (instrument === 'fmsynth') {
-      instrumentRef.current = new FMSynth({
-        envelope: {
-          attack: 0.01,
-          decay: 0.1,
-          release: 0.4,
-          sustain: 0.5
-        },
-        oscillator: {
-          type: 'sawtooth8',
-          partialCount: 0,
-          phase: 135
-        }
-      });
-    } else if (instrument === 'membranesynth') {
-      instrumentRef.current = new MetalSynth({
-        frequency: 200,
-        envelope: {
-          attack: 0.001,
-          decay: 1.4,
-          release: 0.2
-        },
-        harmonicity: 5.1,
-        modulationIndex: 32,
-        resonance: 4000,
-        octaves: 1.5
-      });
-    } else if (instrument === 'amsynth') {
-      instrumentRef.current = new AMSynth({
-        harmonicity: 3,
-        detune: 0,
-        oscillator: {
-          type: 'sine'
-        },
-        envelope: {
-          attack: 0.01,
-          decay: 0.01,
-          sustain: 1,
-          release: 0.5
-        },
-        modulation: {
-          type: 'square'
-        },
-        modulationEnvelope: {
-          attack: 0.5,
-          decay: 0,
-          sustain: 1,
-          release: 0.5
-        }
-      });
+    if (instrumentsPresetsState[instrument].type === 'fmsynth') {
+      instrumentRef.current = new FMSynth(instrumentsPresetsState[instrument].options);
+    } else if (instrumentsPresetsState[instrument].type === 'membranesynth') {
+      instrumentRef.current = new MetalSynth(instrumentsPresetsState[instrument].options);
+    } else if (instrumentsPresetsState[instrument].type === 'amsynth') {
+      instrumentRef.current = new AMSynth(instrumentsPresetsState[instrument].options);
     }
 
     instrumentRef.current.chain(channelRef.current, ...effectsChain, Destination);
@@ -105,11 +63,12 @@ const TrackProvider = ({
     new Sequence(
       (time, step) => {
         let targetStep = stepsRef.current[step];
+
         if (targetStep === 1) {
-          instrumentRef.current.triggerAttackRelease('c3', '8n', time);
+          instrumentRef.current.triggerAttackRelease(note, '8n', time);
         } else if (targetStep === 2) {
-          instrumentRef.current.triggerAttackRelease('c3', '8n', time);
-          instrumentRef.current.triggerAttackRelease('c3', '8n', '+64n');
+          instrumentRef.current.triggerAttackRelease(note, '8n', time);
+          instrumentRef.current.triggerAttackRelease(note, '8n', '+64n');
         }
         document
           .querySelectorAll(`.progress-indicator`)
@@ -129,7 +88,7 @@ const TrackProvider = ({
   };
 
   const onPlaySample = () => {
-    instrumentRef.current.triggerAttackRelease('c3', '8n');
+    instrumentRef.current.triggerAttackRelease(note, '8n');
   };
 
   const values = useMemo(() => {

@@ -46,8 +46,6 @@ const Oscillator = () => {
           const frequency = Math.abs(Math.round(interpolateX(x)));
           const partialCount = Math.abs(Math.round(interpolateY(y)));
 
-          console.log(frequency, partialCount);
-
           oscillator.current.set({
             frequency,
             partialCount

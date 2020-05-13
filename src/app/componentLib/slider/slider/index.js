@@ -1,17 +1,24 @@
-import React from "react";
+import React from 'react';
 
-import "./styles.scss";
+import * as styles from './styles';
 
-const Slider = ({ min, max, step = 1, value, onChange }) => {
+import './styles.scss';
+
+const Slider = ({ min, max, step = 1, value, onChange, enableKeyEvents = false }) => {
   return (
     <input
-      type={"range"}
+      css={styles.input}
+      type={'range'}
       min={min}
       max={max}
       step={step}
       value={value}
-      className={"range"}
       onChange={onChange}
+      {...(!enableKeyEvents && {
+        onKeyDown: e => {
+          e.preventDefault();
+        }
+      })}
     />
   );
 };

@@ -1,32 +1,19 @@
-import React from "react";
+import React from 'react';
+import { css } from '@emotion/core';
 
-import "./styles.scss";
+import * as styles from './styles';
 
-import Slider from "../slider";
+import Slider from '../slider';
 
-const SliderWithValues = ({
-  title,
-  unit = "",
-  step,
-  min,
-  max,
-  value,
-  onChange
-}) => {
+const SliderWithValues = ({ title, unit = '', step, min, max, value, onChange }) => {
   return (
-    <div className={"slider-with-values"}>
-      <div className={"slider"}>
-        <Slider
-          step={step}
-          min={min}
-          max={max}
-          value={value}
-          onChange={onChange}
-        />
+    <div css={styles.container}>
+      <div className={'slider'}>
+        <Slider step={step} min={min} max={max} value={value} onChange={onChange} />
       </div>
-      <div className={"meta"}>
-        <span className={"title"}>{title}</span>
-        <span className={"value"}>
+      <div css={styles.meta}>
+        <span css={styles.title}>{title}</span>
+        <span css={styles.value}>
           {value}
           {unit}
         </span>
