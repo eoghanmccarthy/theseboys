@@ -14,7 +14,9 @@ const interpolate = ({ inputRange: [minX, maxX], outputRange: [minY, maxY], clam
   const slope = (maxY - minY) / (maxX - minX);
 
   function makeInterpolationFunc(x) {
-    const res = (x - minX) * (slope + minY);
+    const a = -slope * minX + minY;
+
+    const res = slope * x + a;
 
     return linearStep(minY, maxY, res, clamp);
   }

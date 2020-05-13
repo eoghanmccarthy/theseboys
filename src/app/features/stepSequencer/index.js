@@ -85,21 +85,10 @@ const StepSequencer = () => {
                   subDivision={'8n'}
                   sequencerSteps={sequencerSteps}
                   track={track}
-                  steps={track.steps}
-                  instrument={track.instrument}
-                  channel={track.channel}
                 >
                   <Track>
-                    {Object.entries(track.effects).map(([effect, values], index) => {
-                      return (
-                        <Effect
-                          key={index}
-                          type={effect}
-                          wet={values.wet}
-                          baseFrequency={values.baseFrequency}
-                          delayTime={values.delayTime}
-                        />
-                      );
+                    {Object.entries(track.effects).map(([type, options], index) => {
+                      return <Effect key={index} type={type} options={options} />;
                     })}
                     <Sample />
                     <Steps>

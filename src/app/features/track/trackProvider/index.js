@@ -4,10 +4,9 @@ import { useImmerReducer } from 'use-immer';
 
 export const TrackContext = createContext();
 
-import { initialState, reducer } from 'features/stepSequencer/instrumentsPresetsReducer';
+import interpolate from 'utils/helpers/interpolate';
 
-const STEP_COUNT = 16;
-const VOLUME_OFFSET = 60;
+import { initialState, reducer } from 'features/stepSequencer/instrumentsPresetsReducer';
 
 const TrackProvider = ({ children, trackIndex, subDivision, sequencerSteps, track }) => {
   const { channel, instrument, note, steps } = track;
@@ -19,6 +18,12 @@ const TrackProvider = ({ children, trackIndex, subDivision, sequencerSteps, trac
     initialState
   );
 
+  const interpolateVolume = interpolate({
+    inputRange: [0, 100],
+    outputRange: [-60, 12],
+    clamp: true
+  });
+
   const [effectsChain, setEffectsChain] = useState([]);
 
   const instrumentRef = useRef();
@@ -27,7 +32,7 @@ const TrackProvider = ({ children, trackIndex, subDivision, sequencerSteps, trac
   stepsRef.current = steps;
 
   useEffect(() => {
-    channelRef.current.set({ volume: channel.volume - VOLUME_OFFSET });
+    channelRef.current.set({ volume: interpolateVolume(channel.volume) });
   }, [channel.volume]);
 
   useEffect(() => {
@@ -70,9 +75,10 @@ const TrackProvider = ({ children, trackIndex, subDivision, sequencerSteps, trac
           instrumentRef.current.triggerAttackRelease(note, '8n', time);
           instrumentRef.current.triggerAttackRelease(note, '8n', '+64n');
         }
-        document
-          .querySelectorAll(`.progress-indicator`)
-          .forEach(el => (el.style.left = `${(parseInt(step) / STEP_COUNT) * 100}%`));
+
+        // document
+        //   .querySelectorAll(`.progress-indicator`)
+        //   .forEach(el => (el.style.left = `${(parseInt(step) / STEP_COUNT) * 100}%`));
       },
       sequencerSteps,
       subDivision

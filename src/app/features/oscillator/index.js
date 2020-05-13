@@ -28,7 +28,7 @@ const Oscillator = () => {
     clamp: true
   });
 
-  const interpolateY = interpolate({ inputRange: [0, 200], outputRange: [0, 32], clamp: false });
+  const interpolateY = interpolate({ inputRange: [0, 200], outputRange: [0, 32], clamp: true });
 
   return (
     <div css={styles.oscillator}>

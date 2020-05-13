@@ -3,7 +3,7 @@ import { Distortion, BitCrusher, Tremolo, FeedbackDelay, AutoFilter, Reverb } fr
 
 import { TrackContext } from '../trackProvider';
 
-const Effect = ({ type, wet, baseFrequency, delayTime }) => {
+const Effect = ({ type, options }) => {
   const { addEffect } = useContext(TrackContext);
 
   const effect = useRef(null);
@@ -29,22 +29,22 @@ const Effect = ({ type, wet, baseFrequency, delayTime }) => {
   }, [type]);
 
   useEffect(() => {
-    if (wet && effect.current?.wet) {
-      effect.current.set({ wet: wet });
+    if (options.wet && effect.current?.wet) {
+      effect.current.set({ wet: options.wet });
     }
-  }, [wet]);
+  }, [options.wet]);
 
   useEffect(() => {
-    if (baseFrequency && effect.current?.baseFrequency) {
-      effect.current.set({ baseFrequency: baseFrequency });
+    if (options.baseFrequency && effect.current?.baseFrequency) {
+      effect.current.set({ baseFrequency: options.baseFrequency });
     }
-  }, [baseFrequency]);
+  }, [options.baseFrequency]);
 
   useEffect(() => {
-    if (delayTime && effect.current?.delayTime) {
-      effect.current.set({ delayTime: delayTime });
+    if (options.delayTime && effect.current?.delayTime) {
+      effect.current.set({ delayTime: options.delayTime });
     }
-  }, [delayTime]);
+  }, [options.delayTime]);
 
   return null;
 };

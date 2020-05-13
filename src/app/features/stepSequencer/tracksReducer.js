@@ -4,15 +4,16 @@ const initialState = [
     instrument: 1000,
     note: 'a2',
     channel: {
-      volume: 60,
-      pan: 0,
+      volume: 80,
+      pan: -0.2,
       mute: false,
       solo: false
     },
     effects: {
       reverb: { decay: 1.5, preDelay: 0.01, wet: 0.4 },
       autoFilter: {
-        baseFrequency: 440
+        baseFrequency: 200,
+        wet: 0.4
       },
       feedbackDelay: {
         delayTime: 0.6,
@@ -26,8 +27,8 @@ const initialState = [
     instrument: 1001,
     note: 'c3',
     channel: {
-      volume: 48,
-      pan: 0.7,
+      volume: 64,
+      pan: 0.8,
       mute: false,
       solo: false
     },
@@ -36,7 +37,7 @@ const initialState = [
       distortion: {
         distortion: 0.2,
         oversample: '2x',
-        wet: 0.9
+        wet: 0.3
       },
       feedbackDelay: {
         delayTime: 0.3,
@@ -50,7 +51,7 @@ const initialState = [
     instrument: 1002,
     note: 'c3',
     channel: {
-      volume: 60,
+      volume: 84,
       pan: 0,
       mute: false,
       solo: false
@@ -58,7 +59,8 @@ const initialState = [
     effects: {
       reverb: { decay: 1.5, preDelay: 0.01, wet: 0.4 },
       autoFilter: {
-        baseFrequency: 220
+        baseFrequency: 200,
+        wet: 0.2
       },
       feedbackDelay: {
         delayTime: 0.8,

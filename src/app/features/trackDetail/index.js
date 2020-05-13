@@ -11,8 +11,6 @@ import { setIndexPrev, setIndexNext } from 'utils/helpers/setSoundIndex';
 import { Control, ControlBlock } from 'componentLib/control';
 import { SliderWithValues } from 'componentLib/slider';
 
-const VOLUME_MAX = 72;
-
 const TrackDetail = ({
   selectedTrack,
   setSelectedTrack,
@@ -73,10 +71,10 @@ const TrackDetail = ({
               title={'volume'}
               min={0}
               max={100}
-              value={Math.round((channel.volume / VOLUME_MAX) * 100)}
+              value={channel.volume}
               onChange={e => {
-                let v = e.target.value;
-                onUpdateChannel('volume', Math.round((VOLUME_MAX / 100) * v));
+                let value = e.target.value;
+                onUpdateChannel('volume', Math.round(value));
               }}
             />
           </Control>
@@ -146,12 +144,12 @@ const TrackDetail = ({
               <SliderWithValues
                 title={'filter'}
                 min={0}
-                max={4000}
-                step={200}
-                value={autoFilter.baseFrequency}
+                max={1}
+                step={0.1}
+                value={autoFilter.wet}
                 onChange={e => {
                   let value = e.target.value;
-                  onUpdateEffect('autoFilter', 'baseFrequency', value);
+                  onUpdateEffect('autoFilter', 'wet', value);
                 }}
               />
             </Control>
