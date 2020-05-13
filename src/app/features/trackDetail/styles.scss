@@ -3,25 +3,3 @@
   border-radius: 4px;
 }
 
-.track-detail {
-  > header {
-    display: flex;
-    align-items: center;
-    height: 64px;
-    padding: 0 30px;
-    margin-right: -30px;
-    margin-left: -30px;
-    border-bottom: 1px dotted grey;
-    > h2 {
-      margin: 0;
-      font-size: 16px;
-    }
-  }
-  .detail-main {
-    padding: 30px 0;
-    //.control {
-    //  border: none;
-    //}
-  }
-}
-

@@ -1,9 +1,11 @@
 import React, { Fragment, useEffect, useState, useContext } from 'react';
 import { useImmerReducer } from 'use-immer';
 import cx from 'classnames';
+import { css } from '@emotion/core';
 import { Button, Dialog } from '@eoghanmccarthy/ui';
 
 import './styles.scss';
+import * as styles from './styles';
 
 import { TransportContext } from 'features/transportProvider';
 
@@ -74,8 +76,8 @@ const StepSequencer = () => {
           }}
         />
       </Dialog>
-      <div className={'step-sequencer'}>
-        <div className={'tracks'}>
+      <div css={styles.stepSequencer}>
+        <div css={styles.tracks}>
           <div>
             {tracksState.map((track, index) => {
               return (

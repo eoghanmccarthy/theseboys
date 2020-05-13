@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSpring, animated } from 'react-spring';
 import { Button } from '@eoghanmccarthy/ui';
+import { css } from '@emotion/core';
 
 import * as styles from './styles';
 

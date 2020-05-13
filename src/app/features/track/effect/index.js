@@ -6,41 +6,43 @@ import { TrackContext } from '../trackProvider';
 const Effect = ({ type, wet, baseFrequency, delayTime }) => {
   const { addEffect } = useContext(TrackContext);
 
-  const fx = useRef(null);
+  const effect = useRef(null);
 
   useEffect(() => {
     if (type === 'bitCrusher') {
-      fx.current = new BitCrusher();
+      effect.current = new BitCrusher();
     } else if (type === 'distortion') {
-      fx.current = new Distortion();
+      effect.current = new Distortion();
     } else if (type === 'tremolo') {
-      fx.current = new Tremolo();
+      effect.current = new Tremolo();
     } else if (type === 'feedbackDelay') {
-      fx.current = new FeedbackDelay();
+      effect.current = new FeedbackDelay();
     } else if (type === 'autoFilter') {
-      fx.current = new AutoFilter();
+      effect.current = new AutoFilter();
     } else if (type === 'reverb') {
-      fx.current = new Reverb();
+      effect.current = new Reverb();
     }
 
-    if (fx.current) addEffect(fx.current);
+    if (effect.current) {
+      addEffect(effect.current);
+    }
   }, [type]);
 
   useEffect(() => {
-    if (wet && fx.current?.wet) {
-      fx.current.set({ wet: wet });
+    if (wet && effect.current?.wet) {
+      effect.current.set({ wet: wet });
     }
   }, [wet]);
 
   useEffect(() => {
-    if (baseFrequency && fx.current?.baseFrequency) {
-      fx.current.set({ baseFrequency: baseFrequency });
+    if (baseFrequency && effect.current?.baseFrequency) {
+      effect.current.set({ baseFrequency: baseFrequency });
     }
   }, [baseFrequency]);
 
   useEffect(() => {
-    if (delayTime && fx.current?.delayTime) {
-      fx.current.set({ delayTime: delayTime });
+    if (delayTime && effect.current?.delayTime) {
+      effect.current.set({ delayTime: delayTime });
     }
   }, [delayTime]);
 

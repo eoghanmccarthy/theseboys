@@ -120,16 +120,25 @@ const TrackProvider = ({
     ).start(0);
   }, []);
 
-  const onPlaySample = () => {
-    instrumentRef.current.triggerAttackRelease('c3', '8n');
+  const handleAddInstrument = effect => {
+    setEffectsChain(prev => [effect, ...prev]);
   };
 
   const handleAddEffect = effect => {
     setEffectsChain(prev => [effect, ...prev]);
   };
 
+  const onPlaySample = () => {
+    instrumentRef.current.triggerAttackRelease('c3', '8n');
+  };
+
   const values = useMemo(() => {
-    return { trackIndex, addEffect: handleAddEffect, onPlaySample };
+    return {
+      trackIndex,
+      addInstrument: handleAddInstrument,
+      addEffect: handleAddEffect,
+      onPlaySample
+    };
   }, []);
 
   return <TrackContext.Provider value={values}>{children}</TrackContext.Provider>;

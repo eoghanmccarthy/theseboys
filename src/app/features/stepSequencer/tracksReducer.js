@@ -9,11 +9,13 @@ const tracksInitialState = [
       solo: false
     },
     effects: {
+      reverb: { decay: 1.5, preDelay: 0.01, wet: 0.4 },
       autoFilter: {
         baseFrequency: 440
       },
       feedbackDelay: {
         delayTime: 0.6,
+        feedback: 0.5,
         wet: 0.4
       }
     }
@@ -23,18 +25,21 @@ const tracksInitialState = [
     instrument: 'membranesynth',
     channel: {
       volume: 60,
-      pan: 0,
+      pan: 0.8,
       mute: false,
       solo: false
     },
     effects: {
+      reverb: { decay: 1.5, preDelay: 0.01, wet: 0.4 },
       distortion: {
-        delayTime: 0.3,
-        wet: 0.4
+        distortion: 0.2,
+        oversample: '2x',
+        wet: 0.9
       },
       feedbackDelay: {
         delayTime: 0.3,
-        wet: 0.4
+        feedback: 0.5,
+        wet: 0.2
       }
     }
   },
@@ -48,11 +53,13 @@ const tracksInitialState = [
       solo: false
     },
     effects: {
+      reverb: { decay: 1.5, preDelay: 0.01, wet: 0.4 },
       autoFilter: {
         baseFrequency: 220
       },
       feedbackDelay: {
         delayTime: 0.8,
+        feedback: 0.5,
         wet: 0.4
       }
     }

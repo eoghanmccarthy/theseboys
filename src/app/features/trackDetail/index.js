@@ -1,7 +1,10 @@
 import React, { Fragment } from 'react';
+import { Button } from '@eoghanmccarthy/ui';
+import { css } from '@emotion/core';
 import cx from 'classnames';
 
 import './styles.scss';
+import * as styles from './styles';
 
 import { setIndexPrev, setIndexNext } from 'utils/helpers/setSoundIndex';
 
@@ -19,35 +22,39 @@ const TrackDetail = ({
   onUpdateChannel,
   onUpdateEffect
 }) => {
-  const { reverb, autoFilter } = effects;
+  const { reverb, autoFilter, distortion, feedbackDelay } = effects;
 
   return (
     <div className={'track-detail'}>
-      <header>
+      <header css={styles.header}>
         <h2>
           track <em>{selectedTrack + 1}</em>
         </h2>
+        <div css={styles.trackNav}>
+          <Button
+            size={'sm'}
+            onClick={() => {
+              setSelectedTrack(i => {
+                return setIndexPrev(i, numberOfTracks);
+              });
+            }}
+          >
+            prev
+          </Button>
+          <Button
+            size={'sm'}
+            onClick={() => {
+              setSelectedTrack(i => {
+                return setIndexNext(i, numberOfTracks);
+              });
+            }}
+          >
+            next
+          </Button>
+        </div>
       </header>
-      <div className={'detail-main'}>
-        <button
-          onClick={() => {
-            setSelectedTrack(i => {
-              return setIndexPrev(i, numberOfTracks);
-            });
-          }}
-        >
-          prev
-        </button>
-        <button
-          onClick={() => {
-            setSelectedTrack(i => {
-              return setIndexNext(i, numberOfTracks);
-            });
-          }}
-        >
-          next
-        </button>
-        <ControlBlock>
+      <div css={styles.main}>
+        <div css={styles.controlGrid}>
           <Control>
             <SliderWithValues
               title={'pan'}
@@ -73,7 +80,11 @@ const TrackDetail = ({
               }}
             />
           </Control>
-          <Control>
+          <Control
+            css={css`
+              grid-column: 4;
+            `}
+          >
             <button
               className={cx({ active: channel.mute })}
               onClick={() => {
@@ -83,8 +94,10 @@ const TrackDetail = ({
               mute
             </button>
           </Control>
-          <Control>
-            {reverb ? (
+        </div>
+        <div css={styles.controlGrid}>
+          {reverb ? (
+            <Control>
               <SliderWithValues
                 title={'reverb'}
                 min={0}
@@ -96,10 +109,40 @@ const TrackDetail = ({
                   onUpdateEffect('reverb', 'wet', value);
                 }}
               />
-            ) : null}
-          </Control>
-          <Control>
-            {autoFilter ? (
+            </Control>
+          ) : null}
+          {feedbackDelay ? (
+            <Control>
+              <SliderWithValues
+                title={'delay'}
+                min={0}
+                max={1}
+                step={0.1}
+                value={feedbackDelay.wet}
+                onChange={e => {
+                  let value = e.target.value;
+                  onUpdateEffect('feedbackDelay', 'wet', value);
+                }}
+              />
+            </Control>
+          ) : null}
+          {distortion ? (
+            <Control>
+              <SliderWithValues
+                title={'distort'}
+                min={0}
+                max={1}
+                step={0.1}
+                value={distortion.wet}
+                onChange={e => {
+                  let value = e.target.value;
+                  onUpdateEffect('distortion', 'wet', value);
+                }}
+              />
+            </Control>
+          ) : null}
+          {autoFilter ? (
+            <Control>
               <SliderWithValues
                 title={'filter'}
                 min={0}
@@ -111,9 +154,9 @@ const TrackDetail = ({
                   onUpdateEffect('autoFilter', 'baseFrequency', value);
                 }}
               />
-            ) : null}
-          </Control>
-        </ControlBlock>
+            </Control>
+          ) : null}
+        </div>
       </div>
     </div>
   );

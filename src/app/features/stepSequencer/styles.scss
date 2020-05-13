@@ -1,12 +1,3 @@
 :root {
   --step-size: 48px;
 }
-
-.step-sequencer {
-  display: flex;
-  flex-direction: column;
-  .tracks {
-    transform: skewX(-8deg);
-  }
-}
-
