@@ -27,7 +27,7 @@ const initialState = [
     instrument: 1001,
     note: 'c3',
     channel: {
-      volume: 64,
+      volume: 72,
       pan: 0.8,
       mute: false,
       solo: false
@@ -51,6 +51,29 @@ const initialState = [
     instrument: 1002,
     note: 'c3',
     channel: {
+      volume: 86,
+      pan: 0,
+      mute: false,
+      solo: false
+    },
+    effects: {
+      reverb: { decay: 1.5, preDelay: 0.01, wet: 1 },
+      autoFilter: {
+        baseFrequency: 200,
+        wet: 0.0
+      },
+      feedbackDelay: {
+        delayTime: 0.8,
+        feedback: 0.5,
+        wet: 0.6
+      }
+    }
+  },
+  {
+    steps: [1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0],
+    instrument: 1003,
+    note: 'c2',
+    channel: {
       volume: 84,
       pan: 0,
       mute: false,
@@ -61,11 +84,6 @@ const initialState = [
       autoFilter: {
         baseFrequency: 200,
         wet: 0.2
-      },
-      feedbackDelay: {
-        delayTime: 0.8,
-        feedback: 0.5,
-        wet: 0.4
       }
     }
   }

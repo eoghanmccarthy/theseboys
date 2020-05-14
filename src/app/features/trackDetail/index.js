@@ -12,28 +12,35 @@ import { Control, ControlBlock } from 'componentLib/control';
 import { SliderWithValues } from 'componentLib/slider';
 
 const TrackDetail = ({
-  selectedTrack,
+  selectedTrackIndex,
   setSelectedTrack,
-  numberOfTracks,
-  channel,
-  effects,
+  tracksCount,
+  track,
+  instrument,
   onUpdateChannel,
+  onUpdateInstrument,
   onUpdateEffect
 }) => {
+  const { channel, effects } = track;
+
+  const {
+    options: { envelope }
+  } = instrument;
+
   const { reverb, autoFilter, distortion, feedbackDelay } = effects;
 
   return (
     <div className={'track-detail'}>
       <header css={styles.header}>
         <h2>
-          track <em>{selectedTrack + 1}</em>
+          track <em>{selectedTrackIndex + 1}</em>
         </h2>
         <div css={styles.trackNav}>
           <Button
             size={'sm'}
             onClick={() => {
               setSelectedTrack(i => {
-                return setIndexPrev(i, numberOfTracks);
+                return setIndexPrev(i, tracksCount);
               });
             }}
           >
@@ -43,7 +50,7 @@ const TrackDetail = ({
             size={'sm'}
             onClick={() => {
               setSelectedTrack(i => {
-                return setIndexNext(i, numberOfTracks);
+                return setIndexNext(i, tracksCount);
               });
             }}
           >
@@ -92,6 +99,68 @@ const TrackDetail = ({
               mute
             </button>
           </Control>
+        </div>
+        <div css={styles.controlGrid}>
+          {envelope.attack ? (
+            <Control>
+              <SliderWithValues
+                title={'attack'}
+                min={0}
+                max={1}
+                step={0.01}
+                value={envelope.attack}
+                onChange={e => {
+                  let value = e.target.value;
+                  onUpdateInstrument('attack', value);
+                }}
+              />
+            </Control>
+          ) : null}
+          {envelope.decay ? (
+            <Control>
+              <SliderWithValues
+                title={'decay'}
+                min={0}
+                max={1}
+                step={0.01}
+                value={envelope.decay}
+                onChange={e => {
+                  let value = e.target.value;
+                  onUpdateInstrument('decay', value);
+                }}
+              />
+            </Control>
+          ) : null}
+          {envelope.release ? (
+            <Control>
+              <SliderWithValues
+                title={'release'}
+                min={0}
+                max={1}
+                step={0.01}
+                value={envelope.release}
+                onChange={e => {
+                  let value = e.target.value;
+                  onUpdateInstrument('release', value);
+                }}
+              />
+            </Control>
+          ) : null}
+          {envelope.sustain ? (
+            <Control>
+              <SliderWithValues
+                title={'sustain'}
+                min={0}
+                max={1}
+                step={0.01}
+                value={envelope.sustain}
+                onChange={e => {
+                  let value = e.target.value;
+                  onUpdateInstrument('sustain', value);
+                }}
+              />
+            </Control>
+          ) : null}
         </div>
         <div css={styles.controlGrid}>
           {reverb ? (

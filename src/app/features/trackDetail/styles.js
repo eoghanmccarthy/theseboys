@@ -40,7 +40,7 @@ const controlGrid = css`
   &:last-child {
     border-bottom: none;
   }
-  .control {
+  > * {
     width: auto;
   }
 `;

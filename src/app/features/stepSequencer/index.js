@@ -15,10 +15,15 @@ import Channel from 'features/track/channel';
 import Sample from 'features/track/sample';
 import Steps from 'features/track/steps';
 import Step from 'features/track/step';
+import Instrument from 'features/track/instrument';
 import Effect from 'features/track/effect';
 import TrackDetail from 'features/trackDetail';
 
-import { initialState, reducer } from './tracksReducer';
+import { initialState as tracksInitialState, reducer as tracksReducer } from './tracksReducer';
+import {
+  initialState as presetInstrumentsInitialState,
+  reducer as presetInstrumentsReducer
+} from './presetInstrumentsReducer';
 
 const sequencerSteps = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
@@ -27,10 +32,16 @@ const StepSequencer = () => {
     value: { transportState }
   } = useContext(TransportContext);
 
-  const [tracksState, tracksDispatch] = useImmerReducer(reducer, initialState);
-
   const trackDialog = useDialog();
-  const [selectedTrack, setSelectedTrack] = useState(0);
+
+  const [tracksState, tracksDispatch] = useImmerReducer(tracksReducer, tracksInitialState);
+
+  const [presetInstrumentsState, presetInstrumentsDispatch] = useImmerReducer(
+    presetInstrumentsReducer,
+    presetInstrumentsInitialState
+  );
+
+  const [selectedTrackIndex, setSelectedTrackIndex] = useState(0);
 
   useEffect(() => {
     if (transportState === 'stopped') {
@@ -46,27 +57,37 @@ const StepSequencer = () => {
         closeDialog={trackDialog.close}
       >
         <TrackDetail
-          selectedTrack={selectedTrack}
-          setSelectedTrack={setSelectedTrack}
-          numberOfTracks={tracksState.length}
-          channel={tracksState[selectedTrack].channel}
-          effects={tracksState[selectedTrack].effects}
-          onUpdateEffect={(effect, param, value) => {
+          selectedTrackIndex={selectedTrackIndex}
+          setSelectedTrack={setSelectedTrackIndex}
+          tracksCount={tracksState.length}
+          track={tracksState[selectedTrackIndex]}
+          instrument={presetInstrumentsState[tracksState[selectedTrackIndex].instrument]}
+          onUpdateChannel={(param, value) => {
             tracksDispatch({
-              type: 'effect',
+              type: 'channel',
               payload: {
-                trackIndex: selectedTrack,
-                effect,
+                trackIndex: selectedTrackIndex,
                 param,
                 value
               }
             });
           }}
-          onUpdateChannel={(param, value) => {
-            tracksDispatch({
-              type: 'channel',
+          onUpdateInstrument={(param, value) => {
+            presetInstrumentsDispatch({
+              type: 'envelope',
               payload: {
-                trackIndex: selectedTrack,
+                instrumentId: tracksState[selectedTrackIndex].instrument,
+                param,
+                value
+              }
+            });
+          }}
+          onUpdateEffect={(effect, param, value) => {
+            tracksDispatch({
+              type: 'effect',
+              payload: {
+                trackIndex: selectedTrackIndex,
+                effect,
                 param,
                 value
               }
@@ -90,6 +111,7 @@ const StepSequencer = () => {
                     {Object.entries(track.effects).map(([type, options], index) => {
                       return <Effect key={index} type={type} options={options} />;
                     })}
+                    <Instrument instrument={presetInstrumentsState[track.instrument]} />
                     <Sample />
                     <Steps>
                       {track.steps.map((value, i) => {
@@ -128,7 +150,7 @@ const StepSequencer = () => {
                       <Button
                         onClick={() => {
                           trackDialog.open();
-                          setSelectedTrack(index);
+                          setSelectedTrackIndex(index);
                         }}
                       >
                         +

@@ -23,8 +23,8 @@ const initialState = {
       frequency: 200,
       envelope: {
         attack: 0.001,
-        decay: 1.4,
-        release: 0.2
+        decay: 0.3,
+        release: 0.8
       },
       harmonicity: 5.1,
       modulationIndex: 32,
@@ -43,9 +43,9 @@ const initialState = {
       },
       envelope: {
         attack: 0.01,
-        decay: 0.01,
-        sustain: 1,
-        release: 0.5
+        decay: 0.7,
+        sustain: 0.9,
+        release: 1
       },
       modulation: {
         type: 'square'
@@ -57,6 +57,24 @@ const initialState = {
         release: 0.5
       }
     }
+  },
+  1003: {
+    id: 1003,
+    type: 'membranesynth',
+    options: {
+      pitchDecay: 0.05,
+      octaves: 6,
+      envelope: {
+        attack: 0.001,
+        decay: 0.4,
+        sustain: 0.01,
+        release: 1.4,
+        attackCurve: 'exponential'
+      },
+      oscillator: {
+        type: 'sine'
+      }
+    }
   }
 };
 
@@ -64,17 +82,8 @@ function reducer(draft, action) {
   const { type, payload } = action;
 
   switch (type) {
-    case 'mute':
-      draft[payload.trackIndex].channel.mute = !draft[payload.trackIndex].channel.mute;
-      break;
-    case 'step':
-      draft[payload.trackIndex].steps[payload.stepIndex] = payload.value;
-      break;
-    case 'channel':
-      draft[payload.trackIndex].channel[payload.param] = payload.value;
-      break;
-    case 'effect':
-      draft[payload.trackIndex].effects[payload.effect][payload.param] = payload.value;
+    case 'envelope':
+      draft[payload.instrumentId].options.envelope[payload.param] = payload.value;
       break;
     default:
       return draft;

@@ -1,38 +1,24 @@
 import React, { useEffect, useRef, createContext, useMemo, useState } from 'react';
-import { Destination, Channel, Sequence, FMSynth, AMSynth, MetalSynth } from 'tone';
-import { useImmerReducer } from 'use-immer';
+import { Destination, Channel, Sequence } from 'tone';
 
 export const TrackContext = createContext();
 
-import interpolate from 'utils/helpers/interpolate';
-
-import { initialState, reducer } from 'features/stepSequencer/instrumentsPresetsReducer';
+import getVolume from 'utils/helpers/getVolume';
 
 const TrackProvider = ({ children, trackIndex, subDivision, sequencerSteps, track }) => {
-  const { channel, instrument, note, steps } = track;
+  const { channel, steps, note } = track;
 
   const channelRef = useRef(new Channel(channel.volume, channel.pan).toDestination());
 
-  const [instrumentsPresetsState, instrumentsPresetsDispatch] = useImmerReducer(
-    reducer,
-    initialState
-  );
-
-  const interpolateVolume = interpolate({
-    inputRange: [0, 100],
-    outputRange: [-60, 12],
-    clamp: true
-  });
-
   const [effectsChain, setEffectsChain] = useState([]);
 
-  const instrumentRef = useRef();
+  const instrumentRef = useRef(null);
 
   const stepsRef = useRef(steps);
   stepsRef.current = steps;
 
   useEffect(() => {
-    channelRef.current.set({ volume: interpolateVolume(channel.volume) });
+    channelRef.current.set({ volume: getVolume(channel.volume) });
   }, [channel.volume]);
 
   useEffect(() => {
@@ -48,20 +34,7 @@ const TrackProvider = ({ children, trackIndex, subDivision, sequencerSteps, trac
   }, [channel.solo]);
 
   useEffect(() => {
-    if (instrumentsPresetsState[instrument].type === 'fmsynth') {
-      instrumentRef.current = new FMSynth(instrumentsPresetsState[instrument].options);
-    } else if (instrumentsPresetsState[instrument].type === 'membranesynth') {
-      instrumentRef.current = new MetalSynth(instrumentsPresetsState[instrument].options);
-    } else if (instrumentsPresetsState[instrument].type === 'amsynth') {
-      instrumentRef.current = new AMSynth(instrumentsPresetsState[instrument].options);
-    }
-
-    instrumentRef.current.chain(channelRef.current, ...effectsChain, Destination);
-    return () => {
-      if (instrumentRef.current) {
-        instrumentRef.current.dispose();
-      }
-    };
+    instrumentRef.current.chain(...effectsChain, channelRef.current, Destination);
   }, [effectsChain]);
 
   useEffect(() => {
@@ -76,17 +49,17 @@ const TrackProvider = ({ children, trackIndex, subDivision, sequencerSteps, trac
           instrumentRef.current.triggerAttackRelease(note, '8n', '+64n');
         }
 
-        // document
-        //   .querySelectorAll(`.progress-indicator`)
-        //   .forEach(el => (el.style.left = `${(parseInt(step) / STEP_COUNT) * 100}%`));
+        document
+          .querySelectorAll(`.progress-indicator`)
+          .forEach(el => (el.style.left = `${(parseInt(step) / 16) * 100}%`));
       },
       sequencerSteps,
       subDivision
     ).start(0);
   }, []);
 
-  const handleAddInstrument = effect => {
-    setEffectsChain(prev => [effect, ...prev]);
+  const handleAddInstrument = instrument => {
+    instrumentRef.current = instrument;
   };
 
   const handleAddEffect = effect => {

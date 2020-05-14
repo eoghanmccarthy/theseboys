@@ -6,45 +6,37 @@ import { TrackContext } from '../trackProvider';
 const Effect = ({ type, options }) => {
   const { addEffect } = useContext(TrackContext);
 
-  const effect = useRef(null);
+  const ref = useRef(null);
 
   useEffect(() => {
     if (type === 'bitCrusher') {
-      effect.current = new BitCrusher();
+      ref.current = new BitCrusher();
     } else if (type === 'distortion') {
-      effect.current = new Distortion();
+      ref.current = new Distortion();
     } else if (type === 'tremolo') {
-      effect.current = new Tremolo();
+      ref.current = new Tremolo();
     } else if (type === 'feedbackDelay') {
-      effect.current = new FeedbackDelay();
+      ref.current = new FeedbackDelay();
     } else if (type === 'autoFilter') {
-      effect.current = new AutoFilter();
+      ref.current = new AutoFilter();
     } else if (type === 'reverb') {
-      effect.current = new Reverb();
+      ref.current = new Reverb();
     }
 
-    if (effect.current) {
-      addEffect(effect.current);
-    }
+    if (ref.current) addEffect(ref.current);
+
+    return () => {
+      if (ref.current) ref.current.dispose();
+    };
   }, [type]);
 
   useEffect(() => {
-    if (options.wet && effect.current?.wet) {
-      effect.current.set({ wet: options.wet });
+    const { wet } = options;
+
+    if (wet && ref.current?.wet) {
+      ref.current.set({ wet: wet });
     }
   }, [options.wet]);
-
-  useEffect(() => {
-    if (options.baseFrequency && effect.current?.baseFrequency) {
-      effect.current.set({ baseFrequency: options.baseFrequency });
-    }
-  }, [options.baseFrequency]);
-
-  useEffect(() => {
-    if (options.delayTime && effect.current?.delayTime) {
-      effect.current.set({ delayTime: options.delayTime });
-    }
-  }, [options.delayTime]);
 
   return null;
 };
