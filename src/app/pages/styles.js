@@ -13,16 +13,27 @@ const modules = css`
   position: relative;
 `;
 
-const nav = css`
-  display: flex;
-  justify-content: space-between;
+const prev = css`
+  z-index: 1;
   position: absolute;
-  z-index: 100;
-  top: 72px;
-  right: 30px;
+  top: 50%;
   left: 30px;
-  padding: var(--spacing-sm) 0;
-  border-top: 1px dotted grey;
+  transform: translateY(-50%);
 `;
 
-export { console, modules, nav };
+const next = css`
+  z-index: 1;
+  position: absolute;
+  top: 50%;
+  right: 30px;
+  transform: translateY(-50%);
+`;
+
+const svg = css`
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+`;
+
+export { console, modules, prev, next, svg };

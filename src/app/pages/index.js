@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { useSpring, animated } from 'react-spring';
 import { Button } from '@eoghanmccarthy/ui';
 import { css } from '@emotion/core';
@@ -25,6 +25,9 @@ const Home = () => {
         <div css={styles.console}>
           <Master />
           <div css={styles.modules}>
+            <svg css={styles.svg} height="1" width="100%">
+              <line x1="0" y1="0" x2="100%" y2="100%" stroke={'grey'} />
+            </svg>
             <ModulesNav
               onDecrement={() => set({ selectedIndex: 0 })}
               onIncrement={() => set({ selectedIndex: 1 })}
@@ -54,13 +57,13 @@ export default Home;
 
 const ModulesNav = ({ onDecrement, onIncrement }) => {
   return (
-    <div css={styles.nav}>
-      <Button size={'md'} onClick={onDecrement}>
+    <Fragment>
+      <Button css={styles.prev} size={'md'} onClick={onDecrement}>
         p
       </Button>
-      <Button size={'md'} onClick={onIncrement}>
+      <Button css={styles.next} size={'md'} onClick={onIncrement}>
         n
       </Button>
-    </div>
+    </Fragment>
   );
 };

@@ -24,7 +24,7 @@ const Oscillator = () => {
 
   const interpolateX = interpolate({
     inputRange: [0, 200],
-    outputRange: [0, 440],
+    outputRange: [0, 220],
     clamp: true
   });
 

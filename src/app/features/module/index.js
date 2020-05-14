@@ -13,12 +13,6 @@ const Module = ({ children, index, data }) => {
         ${styles.module}
       `}
     >
-      <div css={styles.moduleHead}>
-        <h1>
-          <em>{alphabet.charAt(index)}/ </em>
-          {data.name}
-        </h1>
-      </div>
       <div css={styles.moduleMain}>{children}</div>
     </div>
   );
