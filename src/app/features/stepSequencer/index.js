@@ -1,13 +1,14 @@
 import React, { Fragment, useEffect, useState, useContext } from 'react';
 import { useImmerReducer } from 'use-immer';
 import cx from 'classnames';
-import { Button, Dialog } from '@eoghanmccarthy/ui';
+import { Dialog } from '@eoghanmccarthy/ui';
 
 import * as styles from './styles';
 
 import { TransportContext } from 'features/transportProvider';
 
 import useDialog from 'componentLib/useDialog';
+import InstrumentContainer from 'features/instrumentContainer';
 import TrackProvider from 'features/track/trackProvider';
 import Track from 'features/track/track';
 import TrackButton from 'features/track/trackButton';
@@ -95,7 +96,7 @@ const StepSequencer = () => {
           }}
         />
       </Dialog>
-      <div css={styles.stepSequencer}>
+      <InstrumentContainer>
         <div css={styles.tracks}>
           <div>
             {tracksState.map((track, index) => {
@@ -147,14 +148,15 @@ const StepSequencer = () => {
                       >
                         mute
                       </TrackButton>
-                      <Button
+                      <TrackButton
+                        shape={'circle'}
                         onClick={() => {
                           trackDialog.open();
                           setSelectedTrackIndex(index);
                         }}
                       >
                         +
-                      </Button>
+                      </TrackButton>
                     </Channel>
                   </Track>
                 </TrackProvider>
@@ -162,7 +164,7 @@ const StepSequencer = () => {
             })}
           </div>
         </div>
-      </div>
+      </InstrumentContainer>
     </Fragment>
   );
 };

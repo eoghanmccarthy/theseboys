@@ -6,6 +6,8 @@ import usePointer from 'utils/hooks/usePointer';
 
 import * as styles from './styles';
 
+import InstrumentContainer from 'features/instrumentContainer';
+
 const Oscillator = () => {
   const padRef = useRef();
 
@@ -31,10 +33,10 @@ const Oscillator = () => {
   const interpolateY = interpolate({ inputRange: [0, 200], outputRange: [0, 32], clamp: true });
 
   return (
-    <div css={styles.oscillator}>
+    <InstrumentContainer>
       <div
         ref={padRef}
-        css={styles.pad}
+        css={styles.pad({ state: oscillator.current?.state })}
         onPointerDown={() => oscillator.current.start()}
         onPointerUp={() => oscillator.current.stop()}
         onPointerEnter={() => pointer.isDown && oscillator.current.start()}
@@ -60,7 +62,7 @@ const Oscillator = () => {
         {/*  <span>{values.frequency ?? 0}</span>*/}
         {/*</div>*/}
       </div>
-    </div>
+    </InstrumentContainer>
   );
 };
 

@@ -51,7 +51,7 @@ const TrackProvider = ({ children, trackIndex, subDivision, sequencerSteps, trac
 
         document
           .querySelectorAll(`.progress-indicator`)
-          .forEach(el => (el.style.left = `${(parseInt(step) / 16) * 100}%`));
+          .forEach(el => (el.style.left = `${parseInt(step) * 50}px`));
       },
       sequencerSteps,
       subDivision

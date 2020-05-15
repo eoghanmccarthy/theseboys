@@ -1,3 +1,6 @@
+//https://tobiasahlin.com/blog/layered-smooth-box-shadows/
+//https://sassme.jim-nielsen.com/
+
 @import url("https://fonts.googleapis.com/css?family=Roboto+Mono:100,100i,300,300i");
 
 :root {
@@ -8,7 +11,9 @@
 	--color-primary: #f913ad;
 	--color-secondary: #f95f13;
 	--color-tertiary: #f81976;
+	--color-light-grey: #22202b;
 	--color-mid-grey: #333333;
+	--color-dark-grey: #1d1c25;
 }
 
 :root {
@@ -28,7 +33,7 @@ body,
 }
 
 html {
-	background: #1d1c25;
+	background: var(--color-dark-grey);
 }
 
 body {

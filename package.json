@@ -29,7 +29,7 @@
     "@babel/runtime": "^7.0.0-beta.54",
     "@emotion/babel-preset-css-prop": "^10.0.27",
     "@emotion/core": "^10.0.28",
-    "@eoghanmccarthy/ui": "^1.4.7",
+    "@eoghanmccarthy/ui": "^1.4.10",
     "@types/classnames": "^2.2.6",
     "@types/react": "^16.7.17",
     "@types/react-dom": "^16.0.11",

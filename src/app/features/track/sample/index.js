@@ -11,9 +11,7 @@ const Sample = () => {
 
   return (
     <div css={styles.sample}>
-      <TrackButton onClick={onPlaySample}>
-        <span>{trackIndex + 1}</span>
-      </TrackButton>
+      <TrackButton onClick={onPlaySample}>{trackIndex + 1}</TrackButton>
     </div>
   );
 };

@@ -1,12 +1,19 @@
 import React from 'react';
+import { Button } from '@eoghanmccarthy/ui';
 
 import * as styles from './styles';
 
-const TrackButton = ({ children, className, onClick }) => {
+const TrackButton = ({ children, shape = 'square', className, onClick }) => {
   return (
-    <button css={styles.trackButton} className={className} onClick={onClick}>
+    <Button
+      shape={shape}
+      size={48}
+      css={styles.trackButton}
+      className={className}
+      onClick={onClick}
+    >
       {children}
-    </button>
+    </Button>
   );
 };
 

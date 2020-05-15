@@ -58,10 +58,10 @@ export default Home;
 const ModulesNav = ({ onDecrement, onIncrement }) => {
   return (
     <Fragment>
-      <Button css={styles.prev} size={'md'} onClick={onDecrement}>
+      <Button css={styles.prev} size={48} onClick={onDecrement}>
         p
       </Button>
-      <Button css={styles.next} size={'md'} onClick={onIncrement}>
+      <Button css={styles.next} size={48} onClick={onIncrement}>
         n
       </Button>
     </Fragment>

@@ -5,7 +5,7 @@ import * as styles from './styles';
 
 const alphabet = 'abcdefghijklmnopqrstuvwxyz';
 
-const Module = ({ children, index, data }) => {
+const Module = ({ children, index }) => {
   return (
     <div
       css={css`

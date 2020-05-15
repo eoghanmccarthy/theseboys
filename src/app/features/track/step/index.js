@@ -1,16 +1,13 @@
 import React from 'react';
-import { css } from '@emotion/core';
+
+import * as styles from './styles';
+
+import TrackButton from 'features/track/trackButton';
 
 const Step = ({ value, onClick }) => {
   return (
-    <button
-      css={css`
-        background-color: ${value === 1
-          ? 'var(--color-primary)'
-          : value === 2
-          ? 'var(--color-secondary)'
-          : 'white'};
-      `}
+    <TrackButton
+      css={styles.step({ value })}
       onClick={e => {
         e.preventDefault();
         let shiftEnabled = e.shiftKey === true;

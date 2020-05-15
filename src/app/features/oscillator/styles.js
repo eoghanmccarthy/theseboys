@@ -1,14 +1,15 @@
 import { css } from '@emotion/core';
 
-const oscillator = css`
-  transform: skewX(-8deg);
-`;
-
-const pad = css`
+const pad = ({ state }) => css`
   width: 200px;
   height: 200px;
   padding: 5px;
   background-color: blue;
+  opacity: 1;
+  transition: all 0.25s ease 0s;
+  &:hover {
+    opacity: 0.9;
+  }
 `;
 
 const values = css`
@@ -20,4 +21,4 @@ const values = css`
   }
 `;
 
-export { pad, oscillator, values };
+export { pad, values };

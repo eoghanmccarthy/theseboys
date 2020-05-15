@@ -8,16 +8,6 @@ const module = css`
   width: 100%;
 `;
 
-const moduleHead = css`
-  height: 72px;
-  padding: var(--spacing-sm) var(--spacing-md) 0;
-  h1 {
-    margin: 0;
-    font-size: 28px;
-    user-select: none;
-  }
-`;
-
 const moduleMain = css`
   flex: 1;
   display: flex;
@@ -26,4 +16,4 @@ const moduleMain = css`
   align-items: center;
 `;
 
-export { module, moduleHead, moduleMain };
+export { module, moduleMain };

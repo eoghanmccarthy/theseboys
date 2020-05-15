@@ -18,6 +18,7 @@ const prev = css`
   position: absolute;
   top: 50%;
   left: 30px;
+  background-color: var(--color-mid-grey);
   transform: translateY(-50%);
 `;
 
@@ -26,6 +27,7 @@ const next = css`
   position: absolute;
   top: 50%;
   right: 30px;
+  background-color: var(--color-mid-grey);
   transform: translateY(-50%);
 `;
 

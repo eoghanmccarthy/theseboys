@@ -1,12 +1,9 @@
 import { css } from '@emotion/core';
 
-const stepSequencer = css`
-  display: flex;
-  flex-direction: column;
-`;
-
 const tracks = css`
-  transform: skewX(-8deg);
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  overflow: hidden;
 `;
 
-export { stepSequencer, tracks };
+export { tracks };
