@@ -6,4 +6,9 @@ const tracks = css`
   overflow: hidden;
 `;
 
-export { tracks };
+const trackDetailDialog = css`
+  background-color: var(--color-light-grey);
+  border-radius: 4px;
+`;
+
+export { tracks, trackDetailDialog };

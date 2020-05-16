@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useContext } from 'react';
-import { Distortion, BitCrusher, Tremolo, FeedbackDelay, AutoFilter, Reverb } from 'tone';
+import { Distortion, BitCrusher, Tremolo, FeedbackDelay, AutoFilter, Reverb, Filter } from 'tone';
 
 import { TrackContext } from '../trackProvider';
 
@@ -21,6 +21,8 @@ const Effect = ({ type, options }) => {
       ref.current = new AutoFilter();
     } else if (type === 'reverb') {
       ref.current = new Reverb();
+    } else if (type === 'filter') {
+      ref.current = new Filter(100, 'lowpass');
     }
 
     if (ref.current) addEffect(ref.current);

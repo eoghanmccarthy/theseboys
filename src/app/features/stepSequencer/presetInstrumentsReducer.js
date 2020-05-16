@@ -18,7 +18,7 @@ const initialState = {
   },
   1001: {
     id: 1001,
-    type: 'membranesynth',
+    type: 'metalsynth',
     options: {
       frequency: 200,
       envelope: {
@@ -63,16 +63,13 @@ const initialState = {
     type: 'membranesynth',
     options: {
       pitchDecay: 0.05,
-      octaves: 6,
+      octaves: 1,
+      oscillator: { type: 'sine2' },
       envelope: {
         attack: 0.001,
-        decay: 0.4,
-        sustain: 0.01,
-        release: 1.4,
-        attackCurve: 'exponential'
-      },
-      oscillator: {
-        type: 'sine'
+        decay: 0.1,
+        sustain: 0.1,
+        release: 0.1
       }
     }
   }

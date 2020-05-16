@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useContext } from 'react';
-import { FMSynth, MetalSynth, AMSynth } from 'tone';
+import { FMSynth, MetalSynth, AMSynth, MembraneSynth } from 'tone';
 
 import { TrackContext } from '../trackProvider';
 
@@ -16,6 +16,8 @@ const Instrument = ({ instrument }) => {
     if (type === 'fmsynth') {
       ref.current = new FMSynth(options);
     } else if (type === 'membranesynth') {
+      ref.current = new MembraneSynth(options);
+    } else if (type === 'metalsynth') {
       ref.current = new MetalSynth(options);
     } else if (type === 'amsynth') {
       ref.current = new AMSynth(options);

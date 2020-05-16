@@ -32,7 +32,7 @@ const trackNav = css`
 
 const controlGrid = css`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   grid-auto-rows: auto;
   grid-gap: 10px;
   padding: 15px 0;

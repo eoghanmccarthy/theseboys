@@ -46,12 +46,12 @@ const TrackProvider = ({ children, trackIndex, subDivision, sequencerSteps, trac
           instrumentRef.current.triggerAttackRelease(note, '8n', time);
         } else if (targetStep === 2) {
           instrumentRef.current.triggerAttackRelease(note, '8n', time);
-          instrumentRef.current.triggerAttackRelease(note, '8n', '+64n');
+          instrumentRef.current.triggerAttackRelease(note, '8n', '+32n');
         }
 
-        document
-          .querySelectorAll(`.progress-indicator`)
-          .forEach(el => (el.style.left = `${parseInt(step) * 50}px`));
+        // document
+        //   .querySelectorAll(`.progress-indicator`)
+        //   .forEach(el => (el.style.left = `${parseInt(step) * 50}px`));
       },
       sequencerSteps,
       subDivision

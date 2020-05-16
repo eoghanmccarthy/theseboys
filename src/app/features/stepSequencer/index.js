@@ -54,6 +54,7 @@ const StepSequencer = () => {
     <Fragment>
       <Dialog
         id={'track-detail-dialog'}
+        css={styles.trackDetailDialog}
         isVisible={trackDialog.isOpen}
         closeDialog={trackDialog.close}
       >

@@ -74,17 +74,17 @@ const initialState = [
     instrument: 1003,
     note: 'c2',
     channel: {
-      volume: 84,
+      volume: 88,
       pan: 0,
       mute: false,
       solo: false
     },
     effects: {
-      reverb: { decay: 1.5, preDelay: 0.01, wet: 0.4 },
-      autoFilter: {
-        baseFrequency: 200,
-        wet: 0.2
-      }
+      filter: {}
+      // autoFilter: {
+      //   baseFrequency: 200,
+      //   wet: 0.2
+      // }
     }
   }
 ];

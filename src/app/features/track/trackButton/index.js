@@ -7,7 +7,7 @@ const TrackButton = ({ children, shape = 'square', className, onClick }) => {
   return (
     <Button
       shape={shape}
-      size={48}
+      //size={48}
       css={styles.trackButton}
       className={className}
       onClick={onClick}

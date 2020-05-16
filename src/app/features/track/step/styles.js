@@ -5,7 +5,7 @@ const step = ({ value }) => css`
   background-color: ${value === 1
     ? 'var(--color-primary)'
     : value === 2
-    ? 'var(--color-secondary)'
+    ? 'blue'
     : 'var(--color-light-grey)'};
   opacity: 0.92;
 `;

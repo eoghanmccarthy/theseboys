@@ -3,12 +3,14 @@ import { css } from '@emotion/core';
 const container = css`
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
 `;
 
 const meta = css`
   display: flex;
   justify-content: space-between;
-  padding-top: 20px;
+  padding-bottom: 2px;
 `;
 
 const title = css`
