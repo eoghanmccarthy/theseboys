@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, createContext, useMemo, useState } from 'react';
-import { Destination, Channel, Sequence } from 'tone';
+import { Destination, Channel, Sequence, context } from 'tone';
 
 export const TrackContext = createContext();
 
@@ -41,6 +41,8 @@ const TrackProvider = ({ children, trackIndex, subDivision, sequencerSteps, trac
     new Sequence(
       (time, step) => {
         let targetStep = stepsRef.current[step];
+
+        //https://github.com/Tonejs/Tone.js/issues/306
 
         if (targetStep === 1) {
           instrumentRef.current.triggerAttackRelease(note, '8n', time);

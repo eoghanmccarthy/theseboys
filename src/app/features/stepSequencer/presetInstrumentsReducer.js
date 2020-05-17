@@ -6,8 +6,8 @@ const initialState = {
       envelope: {
         attack: 0.01,
         decay: 0.1,
-        release: 0.4,
-        sustain: 0.5
+        sustain: 0.5,
+        release: 0.4
       },
       oscillator: {
         type: 'sawtooth8',
@@ -24,6 +24,7 @@ const initialState = {
       envelope: {
         attack: 0.001,
         decay: 0.3,
+        sustain: 0.5,
         release: 0.8
       },
       harmonicity: 5.1,
@@ -64,12 +65,12 @@ const initialState = {
     options: {
       pitchDecay: 0.05,
       octaves: 1,
-      oscillator: { type: 'sine2' },
+      oscillator: { type: 'sine3' },
       envelope: {
         attack: 0.001,
-        decay: 0.1,
-        sustain: 0.1,
-        release: 0.1
+        decay: 0.24,
+        sustain: 0.28,
+        release: 0.18
       }
     }
   }

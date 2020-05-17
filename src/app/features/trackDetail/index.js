@@ -131,21 +131,6 @@ const TrackDetail = ({
               />
             </Control>
           ) : null}
-          {envelope.release ? (
-            <Control>
-              <SliderWithValues
-                title={'release'}
-                min={0}
-                max={1}
-                step={0.01}
-                value={envelope.release}
-                onChange={e => {
-                  let value = e.target.value;
-                  onUpdateInstrument('release', value);
-                }}
-              />
-            </Control>
-          ) : null}
           {envelope.sustain ? (
             <Control>
               <SliderWithValues
@@ -157,6 +142,21 @@ const TrackDetail = ({
                 onChange={e => {
                   let value = e.target.value;
                   onUpdateInstrument('sustain', value);
+                }}
+              />
+            </Control>
+          ) : null}
+          {envelope.release ? (
+            <Control>
+              <SliderWithValues
+                title={'release'}
+                min={0}
+                max={1}
+                step={0.01}
+                value={envelope.release}
+                onChange={e => {
+                  let value = e.target.value;
+                  onUpdateInstrument('release', value);
                 }}
               />
             </Control>

@@ -1,12 +1,12 @@
 const initialState = [
   {
-    steps: [1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0],
+    steps: [0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0],
     instrument: 1000,
     note: 'a2',
     channel: {
       volume: 80,
-      pan: -0.2,
-      mute: false,
+      pan: -0.6,
+      mute: true,
       solo: false
     },
     effects: {
@@ -23,13 +23,13 @@ const initialState = [
     }
   },
   {
-    steps: [0, 0, 1, 0, 1, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0],
+    steps: [0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0],
     instrument: 1001,
-    note: 'c3',
+    note: 'c2',
     channel: {
-      volume: 72,
+      volume: 66,
       pan: 0.8,
-      mute: false,
+      mute: true,
       solo: false
     },
     effects: {
@@ -52,7 +52,7 @@ const initialState = [
     note: 'c3',
     channel: {
       volume: 86,
-      pan: 0,
+      pan: 0.4,
       mute: false,
       solo: false
     },
@@ -70,21 +70,23 @@ const initialState = [
     }
   },
   {
-    steps: [1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0],
+    steps: [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0],
     instrument: 1003,
     note: 'c2',
     channel: {
-      volume: 88,
+      volume: 82,
       pan: 0,
       mute: false,
       solo: false
     },
     effects: {
-      filter: {}
-      // autoFilter: {
-      //   baseFrequency: 200,
-      //   wet: 0.2
-      // }
+      filter: {
+        type: 'lowpass',
+        frequency: 1100,
+        rolloff: -12,
+        Q: 1,
+        gain: 12
+      }
     }
   }
 ];

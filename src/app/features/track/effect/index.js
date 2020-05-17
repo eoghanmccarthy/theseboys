@@ -6,37 +6,40 @@ import { TrackContext } from '../trackProvider';
 const Effect = ({ type, options }) => {
   const { addEffect } = useContext(TrackContext);
 
-  const ref = useRef(null);
+  const effectRef = useRef(null);
 
   useEffect(() => {
     if (type === 'bitCrusher') {
-      ref.current = new BitCrusher();
+      effectRef.current = new BitCrusher();
     } else if (type === 'distortion') {
-      ref.current = new Distortion();
+      effectRef.current = new Distortion();
     } else if (type === 'tremolo') {
-      ref.current = new Tremolo();
+      effectRef.current = new Tremolo();
     } else if (type === 'feedbackDelay') {
-      ref.current = new FeedbackDelay();
+      effectRef.current = new FeedbackDelay();
     } else if (type === 'autoFilter') {
-      ref.current = new AutoFilter();
+      effectRef.current = new AutoFilter();
     } else if (type === 'reverb') {
-      ref.current = new Reverb();
+      effectRef.current = new Reverb();
     } else if (type === 'filter') {
-      ref.current = new Filter(100, 'lowpass');
+      effectRef.current = new Filter({
+        type: 'lowpass',
+        frequency: 220
+      });
     }
 
-    if (ref.current) addEffect(ref.current);
+    if (effectRef.current) addEffect(effectRef.current);
 
     return () => {
-      if (ref.current) ref.current.dispose();
+      if (effectRef.current) effectRef.current.dispose();
     };
   }, [type]);
 
   useEffect(() => {
     const { wet } = options;
 
-    if (wet && ref.current?.wet) {
-      ref.current.set({ wet: wet });
+    if (wet && effectRef.current?.wet) {
+      effectRef.current.set({ wet: wet });
     }
   }, [options.wet]);
 
