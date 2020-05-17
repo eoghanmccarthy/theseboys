@@ -62,16 +62,18 @@ const initialState = {
   1003: {
     id: 1003,
     type: 'membranesynth',
+    name: 'kick',
     options: {
       pitchDecay: 0.05,
-      octaves: 1,
-      oscillator: { type: 'sine3' },
+      octaves: 8,
+      oscillator: { type: 'sine' },
       envelope: {
         attack: 0.001,
-        decay: 0.24,
-        sustain: 0.28,
-        release: 0.18
-      }
+        decay: 0.1,
+        sustain: 0.1,
+        release: 0.1
+      },
+      volume: 10
     }
   }
 };

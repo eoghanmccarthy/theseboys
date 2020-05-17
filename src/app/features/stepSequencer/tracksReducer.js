@@ -3,6 +3,7 @@ const initialState = [
     steps: [0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0],
     instrument: 1000,
     note: 'a2',
+    duration: '8n',
     channel: {
       volume: 80,
       pan: -0.6,
@@ -23,21 +24,22 @@ const initialState = [
     }
   },
   {
-    steps: [0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0],
+    steps: [0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 0],
     instrument: 1001,
     note: 'c2',
+    duration: '8n',
     channel: {
-      volume: 66,
+      volume: 68,
       pan: 0.8,
       mute: true,
       solo: false
     },
     effects: {
-      reverb: { decay: 1.5, preDelay: 0.01, wet: 0.4 },
+      reverb: { decay: 1.5, preDelay: 0.01, wet: 0.2 },
       distortion: {
         distortion: 0.2,
         oversample: '2x',
-        wet: 0.3
+        wet: 0.2
       },
       feedbackDelay: {
         delayTime: 0.3,
@@ -50,6 +52,7 @@ const initialState = [
     steps: [0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     instrument: 1002,
     note: 'c3',
+    duration: '8n',
     channel: {
       volume: 86,
       pan: 0.4,
@@ -70,23 +73,15 @@ const initialState = [
     }
   },
   {
-    steps: [1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0],
+    steps: [1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0],
     instrument: 1003,
-    note: 'c2',
+    note: 'a0',
+    duration: '16n',
     channel: {
-      volume: 82,
+      volume: 88,
       pan: 0,
       mute: false,
       solo: false
-    },
-    effects: {
-      filter: {
-        type: 'lowpass',
-        frequency: 1100,
-        rolloff: -12,
-        Q: 1,
-        gain: 12
-      }
     }
   }
 ];

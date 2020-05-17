@@ -26,6 +26,8 @@ import {
   reducer as presetInstrumentsReducer
 } from './presetInstrumentsReducer';
 
+const subDivision = 16;
+
 const sequencerSteps = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
 const StepSequencer = () => {
@@ -105,14 +107,15 @@ const StepSequencer = () => {
                 <TrackProvider
                   key={index}
                   trackIndex={index}
-                  subDivision={'8n'}
+                  subDivision={subDivision}
                   sequencerSteps={sequencerSteps}
                   track={track}
                 >
                   <Track>
-                    {Object.entries(track.effects).map(([type, options], index) => {
-                      return <Effect key={index} type={type} options={options} />;
-                    })}
+                    {typeof track.effects === 'object' &&
+                      Object.entries(track.effects).map(([type, options], index) => {
+                        return <Effect key={index} type={type} options={options} />;
+                      })}
                     <Instrument instrument={presetInstrumentsState[track.instrument]} />
                     <Sample />
                     <Steps>
