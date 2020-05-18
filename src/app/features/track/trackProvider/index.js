@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, createContext, useMemo, useState } from 'react';
-import { Destination, Channel, Sequence, context, Transport } from 'tone';
+import { Destination, Channel, Sequence, context } from 'tone';
 
 export const TrackContext = createContext();
 
 import getVolume from 'utils/helpers/getVolume';
 
 const TrackProvider = ({ children, trackIndex, subDivision, sequencerSteps, track }) => {
-  const { channel, steps, note, duration } = track;
+  const { channel, steps, triggers } = track;
 
   const channelRef = useRef(new Channel(channel.volume, channel.pan).toDestination());
 
@@ -46,13 +46,13 @@ const TrackProvider = ({ children, trackIndex, subDivision, sequencerSteps, trac
         //https://github.com/Tonejs/Tone.js/issues/306
 
         if (targetStep === 1) {
-          instrumentRef.current.triggerAttackRelease(note, duration, time);
+          instrumentRef.current.triggerAttackRelease(...triggers, time);
         } else if (targetStep === 2) {
-          instrumentRef.current.triggerAttackRelease(note, duration, time);
-          instrumentRef.current.triggerAttackRelease(note, duration, '+32n');
+          instrumentRef.current.triggerAttackRelease(...triggers, time);
+          instrumentRef.current.triggerAttackRelease(...triggers, '+32n');
         }
 
-        console.log(context.state, Transport.state);
+        console.log(context.state);
 
         document
           .querySelectorAll(`.progress-indicator`)
@@ -76,7 +76,7 @@ const TrackProvider = ({ children, trackIndex, subDivision, sequencerSteps, trac
   };
 
   const onPlaySample = () => {
-    instrumentRef.current.triggerAttackRelease(note, duration);
+    instrumentRef.current.triggerAttackRelease(...triggers);
   };
 
   const values = useMemo(() => {

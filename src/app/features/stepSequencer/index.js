@@ -22,9 +22,9 @@ import TrackDetail from 'features/trackDetail';
 
 import { initialState as tracksInitialState, reducer as tracksReducer } from './tracksReducer';
 import {
-  initialState as presetInstrumentsInitialState,
-  reducer as presetInstrumentsReducer
-} from './presetInstrumentsReducer';
+  initialState as instrumentsInitialState,
+  reducer as instrumentsReducer
+} from './instrumentsReducer';
 
 const subDivision = '16n';
 
@@ -39,9 +39,9 @@ const StepSequencer = () => {
 
   const [tracksState, tracksDispatch] = useImmerReducer(tracksReducer, tracksInitialState);
 
-  const [presetInstrumentsState, presetInstrumentsDispatch] = useImmerReducer(
-    presetInstrumentsReducer,
-    presetInstrumentsInitialState
+  const [instrumentsState, instrumentsDispatch] = useImmerReducer(
+    instrumentsReducer,
+    instrumentsInitialState
   );
 
   const [selectedTrackIndex, setSelectedTrackIndex] = useState(0);
@@ -65,7 +65,7 @@ const StepSequencer = () => {
           setSelectedTrack={setSelectedTrackIndex}
           tracksCount={tracksState.length}
           track={tracksState[selectedTrackIndex]}
-          instrument={presetInstrumentsState[tracksState[selectedTrackIndex].instrument]}
+          instrument={instrumentsState[tracksState[selectedTrackIndex].instrument]}
           onUpdateChannel={(param, value) => {
             tracksDispatch({
               type: 'channel',
@@ -77,7 +77,7 @@ const StepSequencer = () => {
             });
           }}
           onUpdateInstrument={(param, value) => {
-            presetInstrumentsDispatch({
+            instrumentsDispatch({
               type: 'envelope',
               payload: {
                 instrumentId: tracksState[selectedTrackIndex].instrument,
@@ -116,7 +116,7 @@ const StepSequencer = () => {
                       Object.entries(track.effects).map(([type, options], index) => {
                         return <Effect key={index} type={type} options={options} />;
                       })}
-                    <Instrument instrument={presetInstrumentsState[track.instrument]} />
+                    <Instrument instrument={instrumentsState[track.instrument]} />
                     <Sample />
                     <Steps>
                       {track.steps.map((value, i) => {

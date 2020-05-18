@@ -4,6 +4,7 @@ const initialState = [
     instrument: 1000,
     note: 'a2',
     duration: '8n',
+    triggers: ['a2', '8n'],
     channel: {
       volume: 80,
       pan: -0.6,
@@ -28,6 +29,7 @@ const initialState = [
     instrument: 1001,
     note: 'c2',
     duration: '8n',
+    triggers: ['c2', '8n'],
     channel: {
       volume: 68,
       pan: 0.8,
@@ -53,6 +55,7 @@ const initialState = [
     instrument: 1002,
     note: 'c3',
     duration: '8n',
+    triggers: ['c3', '8n'],
     channel: {
       volume: 86,
       pan: 0.4,
@@ -77,11 +80,32 @@ const initialState = [
     instrument: 1003,
     note: 'a0',
     duration: '16n',
+    triggers: ['a0', '16n'],
     channel: {
       volume: 88,
       pan: 0,
       mute: false,
       solo: false
+    },
+    effects: {
+      reverb: { decay: 1.5, preDelay: 0.01, wet: 1 }
+    }
+  },
+  {
+    steps: [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
+    instrument: 1004,
+    note: 'a0',
+    duration: '16n',
+    triggers: ['8n'],
+    channel: {
+      volume: 88,
+      pan: 0.5,
+      mute: false,
+      solo: false
+    },
+    effects: {
+      //reverb: { decay: 1.5, preDelay: 0.01, wet: 1 },
+      filter: { frequency: 9000 }
     }
   }
 ];

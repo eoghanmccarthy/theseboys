@@ -75,6 +75,21 @@ const initialState = {
       },
       volume: 10
     }
+  },
+  1004: {
+    id: 1004,
+    type: 'noisesynth',
+    name: 'snare',
+    options: {
+      type: 'white',
+      envelope: {
+        attack: 0.001,
+        decay: 0.8,
+        sustain: 0.04,
+        release: 0.14
+      },
+      volume: -8
+    }
   }
 };
 

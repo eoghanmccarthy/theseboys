@@ -27,8 +27,6 @@ const TrackDetail = ({
     options: { envelope }
   } = instrument;
 
-  const { reverb, autoFilter, distortion, feedbackDelay } = effects;
-
   return (
     <div className={'track-detail'}>
       <header css={styles.header}>
@@ -101,7 +99,69 @@ const TrackDetail = ({
           </Control>
         </div>
         <div css={styles.controlGrid}>
-          {envelope.attack ? (
+          {effects?.reverb ? (
+            <Control>
+              <SliderWithValues
+                title={'reverb'}
+                min={0}
+                max={1}
+                step={0.1}
+                value={effects.reverb.wet}
+                onChange={e => {
+                  let value = e.target.value;
+                  onUpdateEffect('reverb', 'wet', value);
+                }}
+              />
+            </Control>
+          ) : null}
+          {effects?.feedbackDelay ? (
+            <Control>
+              <SliderWithValues
+                title={'delay'}
+                min={0}
+                max={1}
+                step={0.1}
+                value={effects.feedbackDelay.wet}
+                onChange={e => {
+                  let value = e.target.value;
+                  onUpdateEffect('feedbackDelay', 'wet', value);
+                }}
+              />
+            </Control>
+          ) : null}
+          {effects?.distortion ? (
+            <Control>
+              <SliderWithValues
+                title={'distort'}
+                min={0}
+                max={1}
+                step={0.1}
+                value={effects.distortion.wet}
+                onChange={e => {
+                  let value = e.target.value;
+                  onUpdateEffect('distortion', 'wet', value);
+                }}
+              />
+            </Control>
+          ) : null}
+          {effects?.autoFilter ? (
+            <Control>
+              <SliderWithValues
+                title={'filter'}
+                min={0}
+                max={1}
+                step={0.1}
+                value={effects.autoFilter.wet}
+                onChange={e => {
+                  let value = e.target.value;
+                  onUpdateEffect('autoFilter', 'wet', value);
+                }}
+              />
+            </Control>
+          ) : null}
+        </div>
+        <div css={styles.controlGrid}>
+          {envelope?.attack ? (
             <Control>
               <SliderWithValues
                 title={'attack'}
@@ -116,7 +176,7 @@ const TrackDetail = ({
               />
             </Control>
           ) : null}
-          {envelope.decay ? (
+          {envelope?.decay ? (
             <Control>
               <SliderWithValues
                 title={'decay'}
@@ -131,7 +191,7 @@ const TrackDetail = ({
               />
             </Control>
           ) : null}
-          {envelope.sustain ? (
+          {envelope?.sustain ? (
             <Control>
               <SliderWithValues
                 title={'sustain'}
@@ -146,7 +206,7 @@ const TrackDetail = ({
               />
             </Control>
           ) : null}
-          {envelope.release ? (
+          {envelope?.release ? (
             <Control>
               <SliderWithValues
                 title={'release'}
@@ -157,68 +217,6 @@ const TrackDetail = ({
                 onChange={e => {
                   let value = e.target.value;
                   onUpdateInstrument('release', value);
-                }}
-              />
-            </Control>
-          ) : null}
-        </div>
-        <div css={styles.controlGrid}>
-          {reverb ? (
-            <Control>
-              <SliderWithValues
-                title={'reverb'}
-                min={0}
-                max={1}
-                step={0.1}
-                value={reverb.wet}
-                onChange={e => {
-                  let value = e.target.value;
-                  onUpdateEffect('reverb', 'wet', value);
-                }}
-              />
-            </Control>
-          ) : null}
-          {feedbackDelay ? (
-            <Control>
-              <SliderWithValues
-                title={'delay'}
-                min={0}
-                max={1}
-                step={0.1}
-                value={feedbackDelay.wet}
-                onChange={e => {
-                  let value = e.target.value;
-                  onUpdateEffect('feedbackDelay', 'wet', value);
-                }}
-              />
-            </Control>
-          ) : null}
-          {distortion ? (
-            <Control>
-              <SliderWithValues
-                title={'distort'}
-                min={0}
-                max={1}
-                step={0.1}
-                value={distortion.wet}
-                onChange={e => {
-                  let value = e.target.value;
-                  onUpdateEffect('distortion', 'wet', value);
-                }}
-              />
-            </Control>
-          ) : null}
-          {autoFilter ? (
-            <Control>
-              <SliderWithValues
-                title={'filter'}
-                min={0}
-                max={1}
-                step={0.1}
-                value={autoFilter.wet}
-                onChange={e => {
-                  let value = e.target.value;
-                  onUpdateEffect('autoFilter', 'wet', value);
                 }}
               />
             </Control>

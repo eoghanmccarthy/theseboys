@@ -1,5 +1,14 @@
 import React, { useEffect, useRef, useContext } from 'react';
-import { Distortion, BitCrusher, Tremolo, FeedbackDelay, AutoFilter, Reverb, Filter } from 'tone';
+import {
+  Distortion,
+  BitCrusher,
+  Tremolo,
+  FeedbackDelay,
+  AutoFilter,
+  Reverb,
+  Filter,
+  Chorus
+} from 'tone';
 
 import { TrackContext } from '../trackProvider';
 
@@ -19,13 +28,12 @@ const Effect = ({ type, options }) => {
       effectRef.current = new FeedbackDelay();
     } else if (type === 'autoFilter') {
       effectRef.current = new AutoFilter();
+    } else if (type === 'chorus') {
+      effectRef.current = new Chorus();
     } else if (type === 'reverb') {
       effectRef.current = new Reverb();
     } else if (type === 'filter') {
-      effectRef.current = new Filter({
-        type: 'lowpass',
-        frequency: 220
-      });
+      effectRef.current = new Filter();
     }
 
     if (effectRef.current) addEffect(effectRef.current);
@@ -42,6 +50,14 @@ const Effect = ({ type, options }) => {
       effectRef.current.set({ wet: wet });
     }
   }, [options.wet]);
+
+  useEffect(() => {
+    const { frequency } = options;
+
+    if (frequency && effectRef.current?.frequency) {
+      effectRef.current.set({ frequency: frequency });
+    }
+  }, [options.frequency]);
 
   return null;
 };
