@@ -56,7 +56,7 @@
     "reselect": "^4.0.0",
     "short-id": "0.1.0-1",
     "shortid": "^2.2.15",
-    "tone": "^14.5.28",
+    "tone": "^14.7.1",
     "use-immer": "^0.3.5"
   },
   "devDependencies": {

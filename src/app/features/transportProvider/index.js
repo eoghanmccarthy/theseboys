@@ -1,5 +1,5 @@
 import React, { useMemo, createContext, useState, useEffect } from 'react';
-import { Transport } from 'tone';
+import { Transport, context } from 'tone';
 
 export const TransportContext = createContext();
 
@@ -22,7 +22,17 @@ const TransportProvider = ({ children }) => {
   });
 
   useEffect(() => {
+    // https://github.com/Tonejs/Tone.js/issues/341#issuecomment-386725880
+    if (context.state !== 'running') {
+      context.resume();
+    }
+
+    return () => context.dispose();
+  }, []);
+
+  useEffect(() => {
     if (transportState === 'playing') {
+      context.resume();
       Transport.start();
     } else if (transportState === 'paused') {
       Transport.pause();

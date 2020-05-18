@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, createContext, useMemo, useState } from 'react';
-import { Destination, Channel, Sequence, context } from 'tone';
+import { Destination, Channel, Sequence, context, Transport } from 'tone';
 
 export const TrackContext = createContext();
 
@@ -12,6 +12,7 @@ const TrackProvider = ({ children, trackIndex, subDivision, sequencerSteps, trac
 
   const [effectsChain, setEffectsChain] = useState([]);
 
+  const sequencerRef = useRef(null);
   const instrumentRef = useRef(null);
 
   const stepsRef = useRef(steps);
@@ -38,7 +39,7 @@ const TrackProvider = ({ children, trackIndex, subDivision, sequencerSteps, trac
   }, [effectsChain]);
 
   useEffect(() => {
-    new Sequence(
+    sequencerRef.current = new Sequence(
       (time, step) => {
         let targetStep = stepsRef.current[step];
 
@@ -51,13 +52,19 @@ const TrackProvider = ({ children, trackIndex, subDivision, sequencerSteps, trac
           instrumentRef.current.triggerAttackRelease(note, duration, '+32n');
         }
 
-        // document
-        //   .querySelectorAll(`.progress-indicator`)
-        //   .forEach(el => (el.style.left = `${parseInt(step) * 50}px`));
+        console.log(context.state, Transport.state);
+
+        document
+          .querySelectorAll(`.progress-indicator`)
+          .forEach(el => (el.style.left = `${parseInt(step) * 50}px`));
       },
       sequencerSteps,
       subDivision
     ).start(0);
+
+    return () => {
+      if (sequencerRef.current) sequencerRef.current.dispose();
+    };
   }, []);
 
   const handleAddInstrument = instrument => {

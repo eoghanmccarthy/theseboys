@@ -10,55 +10,55 @@ const Instrument = ({ instrument }) => {
 
   const { addInstrument } = useContext(TrackContext);
 
-  const ref = useRef(null);
+  const instrumentRef = useRef(null);
 
   useEffect(() => {
     if (type === 'fmsynth') {
-      ref.current = new FMSynth(options);
+      instrumentRef.current = new FMSynth(options);
     } else if (type === 'membranesynth') {
-      ref.current = new MembraneSynth(options);
+      instrumentRef.current = new MembraneSynth(options);
     } else if (type === 'metalsynth') {
-      ref.current = new MetalSynth(options);
+      instrumentRef.current = new MetalSynth(options);
     } else if (type === 'amsynth') {
-      ref.current = new AMSynth(options);
+      instrumentRef.current = new AMSynth(options);
     }
 
-    if (ref.current) addInstrument(ref.current);
+    if (instrumentRef.current) addInstrument(instrumentRef.current);
 
     return () => {
-      if (ref.current) ref.current.dispose();
+      if (instrumentRef.current) instrumentRef.current.dispose();
     };
   }, [type]);
 
   useEffect(() => {
     const { attack } = envelope;
 
-    if (attack && ref.current?.envelope?.attack) {
-      ref.current.envelope.set({ attack: attack });
+    if (attack && instrumentRef.current?.envelope?.attack) {
+      instrumentRef.current.envelope.set({ attack: attack });
     }
   }, [envelope.attack]);
 
   useEffect(() => {
     const { decay } = envelope;
 
-    if (decay && ref.current?.envelope?.decay) {
-      ref.current.envelope.set({ decay: decay });
+    if (decay && instrumentRef.current?.envelope?.decay) {
+      instrumentRef.current.envelope.set({ decay: decay });
     }
   }, [envelope.decay]);
 
   useEffect(() => {
     const { sustain } = envelope;
 
-    if (sustain && ref.current?.envelope?.sustain) {
-      ref.current.envelope.set({ sustain: sustain });
+    if (sustain && instrumentRef.current?.envelope?.sustain) {
+      instrumentRef.current.envelope.set({ sustain: sustain });
     }
   }, [envelope.sustain]);
 
   useEffect(() => {
     const { release } = envelope;
 
-    if (release && ref.current?.envelope?.release) {
-      ref.current.envelope.set({ release: release });
+    if (release && instrumentRef.current?.envelope?.release) {
+      instrumentRef.current.envelope.set({ release: release });
     }
   }, [envelope.release]);
 

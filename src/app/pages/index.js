@@ -28,10 +28,12 @@ const Home = () => {
             <svg css={styles.svg} height="1" width="100%">
               <line x1="0" y1="0" x2="100%" y2="100%" stroke={'grey'} />
             </svg>
-            <ModulesNav
-              onDecrement={() => set({ selectedIndex: 0 })}
-              onIncrement={() => set({ selectedIndex: 1 })}
-            />
+            <Button css={styles.prev} size={48} onClick={() => set({ selectedIndex: 0 })}>
+              p
+            </Button>
+            <Button css={styles.next} size={48} onClick={() => set({ selectedIndex: 1 })}>
+              n
+            </Button>
             <animated.div
               style={{
                 flex: 1,
@@ -54,16 +56,3 @@ const Home = () => {
 };
 
 export default Home;
-
-const ModulesNav = ({ onDecrement, onIncrement }) => {
-  return (
-    <Fragment>
-      <Button css={styles.prev} size={48} onClick={onDecrement}>
-        p
-      </Button>
-      <Button css={styles.next} size={48} onClick={onIncrement}>
-        n
-      </Button>
-    </Fragment>
-  );
-};

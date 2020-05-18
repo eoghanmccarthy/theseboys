@@ -1,53 +1,48 @@
-import React, { useContext, useEffect } from "react";
-import cx from "classnames";
-import { context } from "tone";
-import { Button } from "@eoghanmccarthy/ui";
+import React, { useContext, useEffect } from 'react';
+import cx from 'classnames';
+import { context } from 'tone';
+import { Button } from '@eoghanmccarthy/ui';
 
-import "./styles.scss";
+import './styles.scss';
 
-import { TransportContext } from "features/transportProvider";
+import { TransportContext } from 'features/transportProvider';
 
-import { Control, ControlBlock } from "componentLib/control";
-import * as IconButtons from "componentLib/iconButtons";
-import Volume from "./volume";
-import Tempo from "./tempo";
+import { Control, ControlBlock } from 'componentLib/control';
+import * as IconButtons from 'componentLib/iconButtons';
+import Volume from './volume';
+import Tempo from './tempo';
 
 const Master = () => {
   const transportCxt = useContext(TransportContext);
+
   const { transportState } = transportCxt.value;
   const { setTransportState } = transportCxt.actions;
 
-  useEffect(() => {
-    if (context.state !== "running") {
-      context.resume();
-    }
-  }, [context]);
-
   return (
-    <div className={"master"}>
+    <div className={'master'}>
       <Volume />
-      <div className={"transport-state"}>
+      <div className={'transport-state'}>
         <ControlBlock>
-          <Control size={"sm"}>
+          <Control size={'sm'}>
             <button
-              className={cx({ active: transportState === "playing" })}
-              onClick={() =>
+              className={cx({ active: transportState === 'playing' })}
+              onClick={() => {
                 setTransportState(s => {
-                  if (s === "paused" || s === "stopped") {
-                    return "playing";
+                  if (s === 'paused' || s === 'stopped') {
+                    return 'playing';
                   } else {
-                    return "paused";
+                    return 'paused';
                   }
-                })
-              }
+                });
+              }}
             >
-              {transportState === "playing" ? "pause" : "play"}
+              {transportState === 'playing' ? 'pause' : 'play'}
             </button>
           </Control>
-          <Control size={"sm"}>
+          <Control size={'sm'}>
             <button
-              className={cx({ active: transportState === "stopped" })}
-              onClick={() => setTransportState("stopped")}
+              className={cx({ active: transportState === 'stopped' })}
+              onClick={() => setTransportState('stopped')}
             >
               stop
             </button>
