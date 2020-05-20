@@ -6,7 +6,7 @@ export const TrackContext = createContext();
 import getVolume from 'utils/helpers/getVolume';
 
 const TrackProvider = ({ children, trackIndex, subDivision, sequencerSteps, track }) => {
-  const { channel, steps, triggers } = track;
+  const { channel, steps, note, duration, triggers } = track;
 
   const channelRef = useRef(new Channel(channel.volume, channel.pan).toDestination());
 
@@ -45,6 +45,8 @@ const TrackProvider = ({ children, trackIndex, subDivision, sequencerSteps, trac
 
         //https://github.com/Tonejs/Tone.js/issues/306
 
+        //console.log(triggers, ...triggers.join(','));
+
         if (targetStep === 1) {
           instrumentRef.current.triggerAttackRelease(...triggers, time);
         } else if (targetStep === 2) {
@@ -52,7 +54,7 @@ const TrackProvider = ({ children, trackIndex, subDivision, sequencerSteps, trac
           instrumentRef.current.triggerAttackRelease(...triggers, '+32n');
         }
 
-        console.log(context.state);
+        //console.log(context.state);
 
         document
           .querySelectorAll(`.progress-indicator`)
@@ -66,6 +68,8 @@ const TrackProvider = ({ children, trackIndex, subDivision, sequencerSteps, trac
       if (sequencerRef.current) sequencerRef.current.dispose();
     };
   }, []);
+
+  console.log(instrumentRef);
 
   const handleAddInstrument = instrument => {
     instrumentRef.current = instrument;

@@ -7,7 +7,9 @@ import {
   AutoFilter,
   Reverb,
   Filter,
-  Chorus
+  Chorus,
+  Phaser,
+  EQ3
 } from 'tone';
 
 import { TrackContext } from '../trackProvider';
@@ -19,21 +21,25 @@ const Effect = ({ type, options }) => {
 
   useEffect(() => {
     if (type === 'bitCrusher') {
-      effectRef.current = new BitCrusher();
+      effectRef.current = new BitCrusher(options);
     } else if (type === 'distortion') {
-      effectRef.current = new Distortion();
+      effectRef.current = new Distortion(options);
     } else if (type === 'tremolo') {
-      effectRef.current = new Tremolo();
+      effectRef.current = new Tremolo(options);
     } else if (type === 'feedbackDelay') {
-      effectRef.current = new FeedbackDelay();
+      effectRef.current = new FeedbackDelay(options);
     } else if (type === 'autoFilter') {
-      effectRef.current = new AutoFilter();
+      effectRef.current = new AutoFilter(options);
     } else if (type === 'chorus') {
-      effectRef.current = new Chorus();
+      effectRef.current = new Chorus(options);
     } else if (type === 'reverb') {
-      effectRef.current = new Reverb();
+      effectRef.current = new Reverb(options);
     } else if (type === 'filter') {
-      effectRef.current = new Filter();
+      effectRef.current = new Filter(options);
+    } else if (type === 'phaser') {
+      effectRef.current = new Phaser(options);
+    } else if (type === 'eq3') {
+      effectRef.current = new EQ3(options);
     }
 
     if (effectRef.current) addEffect(effectRef.current);

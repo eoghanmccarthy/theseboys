@@ -62,19 +62,7 @@ const initialState = {
   1003: {
     id: 1003,
     type: 'membranesynth',
-    name: 'kick',
-    options: {
-      pitchDecay: 0.05,
-      octaves: 8,
-      oscillator: { type: 'sine' },
-      envelope: {
-        attack: 0.001,
-        decay: 0.1,
-        sustain: 0.1,
-        release: 0.1
-      },
-      volume: 10
-    }
+    name: 'kick'
   },
   1004: {
     id: 1004,
@@ -84,11 +72,28 @@ const initialState = {
       type: 'white',
       envelope: {
         attack: 0.001,
-        decay: 0.8,
+        decay: 0.14,
         sustain: 0.04,
         release: 0.14
       },
       volume: -8
+    }
+  },
+  1005: {
+    id: 1005,
+    type: 'metalsynth',
+    options: {
+      frequency: 1200,
+      envelope: {
+        attack: 0.001,
+        decay: 0.28,
+        sustain: 0.0,
+        release: 0.0
+      },
+      harmonicity: 1.1,
+      modulationIndex: 42,
+      resonance: 4800,
+      octaves: 1.8
     }
   }
 };

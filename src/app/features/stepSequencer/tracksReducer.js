@@ -78,9 +78,9 @@ const initialState = [
   {
     steps: [1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0],
     instrument: 1003,
-    note: 'a0',
-    duration: '16n',
-    triggers: ['a0', '16n'],
+    note: 'c2',
+    duration: '8n',
+    triggers: ['c2', '8n'],
     channel: {
       volume: 88,
       pan: 0,
@@ -88,15 +88,21 @@ const initialState = [
       solo: false
     },
     effects: {
-      reverb: { decay: 1.5, preDelay: 0.01, wet: 1 }
+      eq3: {
+        low: 32,
+        mid: 0,
+        high: 0,
+        lowFrequency: 400,
+        highFrequency: 2500
+      }
     }
   },
   {
-    steps: [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
+    steps: [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
     instrument: 1004,
-    note: 'a0',
+    note: '',
     duration: '16n',
-    triggers: ['8n'],
+    triggers: ['32n'],
     channel: {
       volume: 88,
       pan: 0.5,
@@ -104,8 +110,42 @@ const initialState = [
       solo: false
     },
     effects: {
-      //reverb: { decay: 1.5, preDelay: 0.01, wet: 1 },
+      reverb: { decay: 1.5, preDelay: 0.01, wet: 1 },
+      phaser: {
+        frequency: 0.5,
+        octaves: 3,
+        stages: 10,
+        Q: 10,
+        baseFrequency: 350,
+        wet: 1
+      },
       filter: { frequency: 9000 }
+    }
+  },
+  {
+    steps: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    instrument: 1005,
+    note: 'e1',
+    duration: '8n',
+    triggers: ['e1', '8n'],
+    channel: {
+      volume: 90,
+      pan: -0.7,
+      mute: false,
+      solo: false
+    },
+    effects: {
+      reverb: { decay: 1.5, preDelay: 0.01, wet: 0.4 },
+      distortion: {
+        distortion: 0.2,
+        oversample: '2x',
+        wet: 0.2
+      }
+      // feedbackDelay: {
+      //   delayTime: 0.3,
+      //   feedback: 0.5,
+      //   wet: 0.2
+      // }
     }
   }
 ];

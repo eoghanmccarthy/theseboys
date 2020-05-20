@@ -6,8 +6,6 @@ import { TrackContext } from '../trackProvider';
 const Instrument = ({ instrument }) => {
   const { type, options } = instrument;
 
-  const { envelope } = options;
-
   const { addInstrument } = useContext(TrackContext);
 
   const instrumentRef = useRef(null);
@@ -33,36 +31,28 @@ const Instrument = ({ instrument }) => {
   }, [type]);
 
   useEffect(() => {
-    const { attack } = envelope;
-
-    if (attack && instrumentRef.current?.envelope?.attack) {
-      instrumentRef.current.envelope.set({ attack: attack });
+    if (options?.envelope?.attack && instrumentRef.current?.envelope?.attack) {
+      instrumentRef.current.envelope.set({ attack: options.envelope.attack });
     }
-  }, [envelope.attack]);
+  }, [options]);
 
   useEffect(() => {
-    const { decay } = envelope;
-
-    if (decay && instrumentRef.current?.envelope?.decay) {
-      instrumentRef.current.envelope.set({ decay: decay });
+    if (options?.envelope?.decay && instrumentRef.current?.envelope?.decay) {
+      instrumentRef.current.envelope.set({ decay: options.envelope.decay });
     }
-  }, [envelope.decay]);
+  }, [options]);
 
   useEffect(() => {
-    const { sustain } = envelope;
-
-    if (sustain && instrumentRef.current?.envelope?.sustain) {
-      instrumentRef.current.envelope.set({ sustain: sustain });
+    if (options?.envelope?.sustain && instrumentRef.current?.envelope?.sustain) {
+      instrumentRef.current.envelope.set({ sustain: options.envelope.sustain });
     }
-  }, [envelope.sustain]);
+  }, [options]);
 
   useEffect(() => {
-    const { release } = envelope;
-
-    if (release && instrumentRef.current?.envelope?.release) {
-      instrumentRef.current.envelope.set({ release: release });
+    if (options?.envelope?.release && instrumentRef.current?.envelope?.release) {
+      instrumentRef.current.envelope.set({ release: options.envelope.release });
     }
-  }, [envelope.release]);
+  }, [options]);
 
   return null;
 };
