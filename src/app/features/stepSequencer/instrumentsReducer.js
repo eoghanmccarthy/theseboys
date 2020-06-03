@@ -1,3 +1,5 @@
+//https://codepen.io/AmirahChamble/pen/RqbOLj
+
 const initialState = {
   1000: {
     id: 1000,
@@ -62,7 +64,15 @@ const initialState = {
   1003: {
     id: 1003,
     type: 'membranesynth',
-    name: 'kick'
+    name: 'kick',
+    options: {
+      envelope: {
+        attack: 0.001,
+        decay: 0.14,
+        sustain: 0.04,
+        release: 0.14
+      }
+    }
   },
   1004: {
     id: 1004,
@@ -86,13 +96,13 @@ const initialState = {
       frequency: 1200,
       envelope: {
         attack: 0.001,
-        decay: 0.28,
+        decay: 0.18,
         sustain: 0.0,
         release: 0.0
       },
-      harmonicity: 1.1,
-      modulationIndex: 42,
-      resonance: 4800,
+      harmonicity: 1.9,
+      modulationIndex: 88,
+      resonance: 1200,
       octaves: 1.8
     }
   }

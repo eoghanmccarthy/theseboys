@@ -14,10 +14,18 @@ import {
 
 import { TrackContext } from '../trackProvider';
 
-const Effect = ({ type, options }) => {
+import interpolate from 'utils/helpers/interpolate';
+
+const Effect = ({ type, options = {} }) => {
   const { addEffect } = useContext(TrackContext);
 
   const effectRef = useRef(null);
+
+  const interpolateVolume = interpolate({
+    inputRange: [0, 100],
+    outputRange: [-60, 12],
+    clamp: true
+  });
 
   useEffect(() => {
     if (type === 'bitCrusher') {
@@ -39,7 +47,7 @@ const Effect = ({ type, options }) => {
     } else if (type === 'phaser') {
       effectRef.current = new Phaser(options);
     } else if (type === 'eq3') {
-      effectRef.current = new EQ3(options);
+      effectRef.current = new EQ3();
     }
 
     if (effectRef.current) addEffect(effectRef.current);
@@ -50,18 +58,32 @@ const Effect = ({ type, options }) => {
   }, [type]);
 
   useEffect(() => {
-    const { wet } = options;
-
-    if (wet && effectRef.current?.wet) {
-      effectRef.current.set({ wet: wet });
+    if (options.wet && effectRef.current?.wet) {
+      effectRef.current.set({ wet: options.wet });
     }
   }, [options.wet]);
 
   useEffect(() => {
-    const { frequency } = options;
+    if (typeof options.low !== 'undefined' && effectRef.current?.low) {
+      effectRef.current.set({ low: interpolateVolume(options.low) });
+    }
+  }, [options.low]);
 
-    if (frequency && effectRef.current?.frequency) {
-      effectRef.current.set({ frequency: frequency });
+  useEffect(() => {
+    if (typeof options.mid !== 'undefined' && effectRef.current?.mid) {
+      effectRef.current.set({ mid: interpolateVolume(options.mid) });
+    }
+  }, [options.mid]);
+
+  useEffect(() => {
+    if (typeof options.high !== 'undefined' && effectRef.current?.high) {
+      effectRef.current.set({ high: interpolateVolume(options.high) });
+    }
+  }, [options.high]);
+
+  useEffect(() => {
+    if (options.frequency && effectRef.current?.frequency) {
+      effectRef.current.set({ frequency: options.frequency });
     }
   }, [options.frequency]);
 

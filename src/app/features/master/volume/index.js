@@ -14,9 +14,9 @@ const Volume = () => {
   const [volume, setVolume] = useState(80);
   const [mute, toggleMute] = useState(false);
 
-  const interpolateVolume = interpolate({
+  const interpVol = interpolate({
     inputRange: [0, 100],
-    outputRange: [-60, 12],
+    outputRange: [-60, 20],
     clamp: true
   });
 
@@ -47,12 +47,8 @@ const Volume = () => {
   });
 
   useEffect(() => {
-    Destination.set({ volume: interpolateVolume(volume) });
-  }, [volume]);
-
-  useEffect(() => {
-    Destination.set({ mute: mute });
-  }, [mute]);
+    Destination.set({ volume: interpVol(volume) });
+  }, []);
 
   return (
     <ControlBlock>
@@ -63,13 +59,22 @@ const Volume = () => {
           max={100}
           value={volume}
           onChange={e => {
-            let value = e.target.value;
-            setVolume(Math.round(value));
+            let value = Math.round(e.target.value);
+            Destination.set({ volume: interpVol(value) });
+            setVolume(value);
           }}
         />
       </Control>
       <Control size={'sm'}>
-        <button className={cx({ active: mute })} onClick={() => toggleMute(m => !m)}>
+        <button
+          className={cx({ active: mute })}
+          onClick={() => {
+            toggleMute(prv => {
+              Destination.set({ mute: !prv });
+              return !prv;
+            });
+          }}
+        >
           mute
         </button>
       </Control>

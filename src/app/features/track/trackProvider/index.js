@@ -3,7 +3,7 @@ import { Destination, Channel, Sequence, context } from 'tone';
 
 export const TrackContext = createContext();
 
-import getVolume from 'utils/helpers/getVolume';
+import interpolate from 'utils/helpers/interpolate';
 
 const TrackProvider = ({ children, trackIndex, subDivision, sequencerSteps, track }) => {
   const { channel, steps, note, duration, triggers } = track;
@@ -18,21 +18,23 @@ const TrackProvider = ({ children, trackIndex, subDivision, sequencerSteps, trac
   const stepsRef = useRef(steps);
   stepsRef.current = steps;
 
-  useEffect(() => {
-    channelRef.current.set({ volume: getVolume(channel.volume) });
-  }, [channel.volume]);
+  const interpVol = interpolate({
+    inputRange: [0, 100],
+    outputRange: [-60, 20],
+    clamp: true
+  });
 
   useEffect(() => {
-    channelRef.current.set({ pan: channel.pan });
-  }, [channel.pan]);
+    channelRef.current.set({ volume: interpVol(channel.volume) });
+  }, []);
 
   useEffect(() => {
     channelRef.current.set({ mute: channel.mute });
-  }, [channel.mute]);
+  }, []);
 
   useEffect(() => {
-    channelRef.current.set({ solo: channel.solo });
-  }, [channel.solo]);
+    channelRef.current.set({ pan: channel.pan });
+  }, []);
 
   useEffect(() => {
     instrumentRef.current.chain(...effectsChain, channelRef.current, Destination);
@@ -45,16 +47,12 @@ const TrackProvider = ({ children, trackIndex, subDivision, sequencerSteps, trac
 
         //https://github.com/Tonejs/Tone.js/issues/306
 
-        //console.log(triggers, ...triggers.join(','));
-
         if (targetStep === 1) {
           instrumentRef.current.triggerAttackRelease(...triggers, time);
         } else if (targetStep === 2) {
           instrumentRef.current.triggerAttackRelease(...triggers, time);
           instrumentRef.current.triggerAttackRelease(...triggers, '+32n');
         }
-
-        //console.log(context.state);
 
         document
           .querySelectorAll(`.progress-indicator`)
@@ -69,14 +67,12 @@ const TrackProvider = ({ children, trackIndex, subDivision, sequencerSteps, trac
     };
   }, []);
 
-  console.log(instrumentRef);
-
   const handleAddInstrument = instrument => {
     instrumentRef.current = instrument;
   };
 
   const handleAddEffect = effect => {
-    setEffectsChain(prev => [effect, ...prev]);
+    setEffectsChain(prv => [effect, ...prv]);
   };
 
   const onPlaySample = () => {
@@ -86,11 +82,13 @@ const TrackProvider = ({ children, trackIndex, subDivision, sequencerSteps, trac
   const values = useMemo(() => {
     return {
       trackIndex,
+      channelRef,
+      channel,
       addInstrument: handleAddInstrument,
       addEffect: handleAddEffect,
       onPlaySample
     };
-  }, []);
+  }, [trackIndex, channelRef, channel]);
 
   return <TrackContext.Provider value={values}>{children}</TrackContext.Provider>;
 };

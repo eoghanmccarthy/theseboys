@@ -64,6 +64,11 @@ const initialState = [
     },
     effects: {
       reverb: { decay: 1.5, preDelay: 0.01, wet: 1 },
+      distortion: {
+        distortion: 1,
+        oversample: '2x',
+        wet: 1
+      },
       autoFilter: {
         baseFrequency: 200,
         wet: 0.0
@@ -88,10 +93,16 @@ const initialState = [
       solo: false
     },
     effects: {
+      reverb: { decay: 1.5, preDelay: 0.01, wet: 0 },
+      distortion: {
+        distortion: 1,
+        oversample: '2x',
+        wet: 0.0
+      },
       eq3: {
-        low: 32,
-        mid: 0,
-        high: 0,
+        low: 84,
+        mid: 84,
+        high: 84,
         lowFrequency: 400,
         highFrequency: 2500
       }
@@ -129,17 +140,24 @@ const initialState = [
     duration: '8n',
     triggers: ['e1', '8n'],
     channel: {
-      volume: 90,
+      volume: 70,
       pan: -0.7,
       mute: false,
       solo: false
     },
     effects: {
-      reverb: { decay: 1.5, preDelay: 0.01, wet: 0.4 },
+      reverb: { decay: 1.5, preDelay: 0.01, wet: 1 },
       distortion: {
         distortion: 0.2,
         oversample: '2x',
-        wet: 0.2
+        wet: 0
+      },
+      eq3: {
+        low: 84,
+        mid: 84,
+        high: 84,
+        lowFrequency: 400,
+        highFrequency: 2500
       }
       // feedbackDelay: {
       //   delayTime: 0.3,
@@ -156,6 +174,9 @@ function reducer(draft, action) {
   switch (type) {
     case 'mute':
       draft[payload.trackIndex].channel.mute = !draft[payload.trackIndex].channel.mute;
+      break;
+    case 'pan':
+      draft[payload.trackIndex].channel.pan = payload.value;
       break;
     case 'step':
       draft[payload.trackIndex].steps[payload.stepIndex] = payload.value;

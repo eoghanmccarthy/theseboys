@@ -40,7 +40,7 @@ const Tempo = () => {
 
   useEffect(() => {
     Transport.set({ bpm: bpm });
-  }, [bpm]);
+  }, []);
 
   return (
     <ControlBlock>
@@ -50,7 +50,11 @@ const Tempo = () => {
           min={TEMPO_MIN}
           max={TEMPO_MAX}
           value={bpm}
-          onChange={e => setBpm(e.target.value)}
+          onChange={e => {
+            let value = e.target.value;
+            Transport.set({ bpm: value });
+            setBpm(value);
+          }}
         />
       </Control>
     </ControlBlock>

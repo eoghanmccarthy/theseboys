@@ -4,6 +4,8 @@ import * as styles from './styles';
 
 import './styles.scss';
 
+let timeout;
+
 const Slider = ({ min, max, step = 1, value, onChange, enableKeyEvents = false }) => {
   return (
     <input
