@@ -22,10 +22,19 @@ const Track = ({
   trackDialog,
   openDialog
 }) => {
-  const { channelRef, trackEffectsChain, instrumentRef, trackIndex } = useContext(TrackContext);
+  const {
+    channelRef,
+    reverbRef,
+    feedbackDelayRef,
+    distortionRef,
+    instrumentRef,
+    trackIndex
+  } = useContext(TrackContext);
 
-  const [trackChannel, setTrackChannel] = useState(trackState?.channel ?? {});
-  const [trackEffects, setTrackEffects] = useState(trackState?.effects ?? {});
+  const [channel, setChannel] = useState(trackState?.channel ?? {});
+  const [reverb, setReverb] = useState(trackState?.effects?.reverb ?? {});
+  const [feedbackDelay, setFeedbackDelay] = useState(trackState?.effects?.feedbackDelay ?? {});
+  const [distortion, setDistortion] = useState(trackState?.effects?.distortion ?? {});
   const [envelope, setEnvelope] = useState(instrumentState?.options?.envelope ?? {});
 
   useEffect(() => {
@@ -43,10 +52,10 @@ const Track = ({
       {children}
       <div css={styles.channel}>
         <TrackButton
-          className={cx({ active: trackChannel.mute ?? false })}
+          className={cx({ active: channel.mute ?? false })}
           onClick={() => {
-            channelRef.current.set({ mute: !trackChannel.mute });
-            setTrackChannel(prv => ({ ...prv, mute: !trackChannel.mute }));
+            channelRef.current.set({ mute: !channel.mute });
+            setChannel(prv => ({ ...prv, mute: !channel.mute }));
           }}
         >
           mute
@@ -97,11 +106,11 @@ const Track = ({
                   min={-1}
                   max={1}
                   step={0.1}
-                  value={trackChannel.pan ?? 0}
+                  value={channel?.pan ?? 0}
                   onChange={e => {
                     let value = e.target.value;
                     channelRef.current.set({ pan: value });
-                    setTrackChannel(prv => ({ ...prv, pan: value }));
+                    setChannel(prv => ({ ...prv, pan: value }));
                   }}
                 />
               </Control>
@@ -110,11 +119,11 @@ const Track = ({
                   title={'volume'}
                   min={0}
                   max={100}
-                  value={trackChannel.volume ?? 80}
+                  value={channel?.volume ?? 80}
                   onChange={e => {
                     let value = Math.round(e.target.value);
                     channelRef.current.set({ volume: interpVol(value) });
-                    setTrackChannel(prv => ({ ...prv, volume: value }));
+                    setChannel(prv => ({ ...prv, volume: value }));
                   }}
                 />
               </Control>
@@ -124,10 +133,10 @@ const Track = ({
                 `}
               >
                 <button
-                  className={cx({ active: trackChannel.mute })}
+                  className={cx({ active: channel?.mute ?? false })}
                   onClick={() => {
-                    channelRef.current.set({ mute: !trackChannel.mute });
-                    setTrackChannel(prv => ({ ...prv, mute: !trackChannel.mute }));
+                    channelRef.current.set({ mute: !channel.mute });
+                    setChannel(prv => ({ ...prv, mute: !channel.mute }));
                   }}
                 >
                   mute
@@ -135,41 +144,48 @@ const Track = ({
               </Control>
             </div>
             <div css={styles.controlGrid}>
-              {trackEffectsChain?.reverb ? (
-                <Control>
-                  <SliderWithValues
-                    title={'reverb'}
-                    min={0}
-                    max={1}
-                    step={0.1}
-                    value={trackEffects?.reverb?.wet ?? 0.5}
-                    onChange={e => {
-                      let value = e.target.value;
-                      trackEffectsChain.reverb.set({ wet: value });
-                      setTrackEffects(prv => ({ ...prv, reverb: { ...prv.reverb, wet: value } }));
-                    }}
-                  />
-                </Control>
-              ) : null}
-              {trackEffectsChain?.distortion ? (
-                <Control>
-                  <SliderWithValues
-                    title={'distort'}
-                    min={0}
-                    max={1}
-                    step={0.1}
-                    value={trackEffects?.distortion?.wet ?? 0.5}
-                    onChange={e => {
-                      let value = e.target.value;
-                      trackEffectsChain.distortion.set({ wet: value });
-                      setTrackEffects(prv => ({
-                        ...prv,
-                        distortion: { ...prv.distortion, wet: value }
-                      }));
-                    }}
-                  />
-                </Control>
-              ) : null}
+              <Control>
+                <SliderWithValues
+                  title={'reverb'}
+                  min={0}
+                  max={1}
+                  step={0.1}
+                  value={reverb?.wet ?? 0.5}
+                  onChange={e => {
+                    let value = e.target.value;
+                    reverbRef.current.set({ wet: value });
+                    setReverb(prv => ({ ...prv, wet: value }));
+                  }}
+                />
+              </Control>
+              <Control>
+                <SliderWithValues
+                  title={'delay'}
+                  min={0}
+                  max={1}
+                  step={0.1}
+                  value={feedbackDelay?.wet ?? 0.5}
+                  onChange={e => {
+                    let value = e.target.value;
+                    feedbackDelayRef.current.set({ wet: value });
+                    setFeedbackDelay(prv => ({ ...prv, wet: value }));
+                  }}
+                />
+              </Control>
+              <Control>
+                <SliderWithValues
+                  title={'distort'}
+                  min={0}
+                  max={1}
+                  step={0.1}
+                  value={distortion?.wet ?? 0.5}
+                  onChange={e => {
+                    let value = e.target.value;
+                    distortionRef.current.set({ wet: value });
+                    setDistortion(prv => ({ ...prv, wet: value }));
+                  }}
+                />
+              </Control>
               {/*{effects?.eq3 ? (*/}
               {/*  <Fragment>*/}
               {/*    <Control>*/}

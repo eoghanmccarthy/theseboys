@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, createContext, useMemo, useState } from 'react';
-import { Destination, Channel, Sequence, context } from 'tone';
+import { Destination, Channel, Sequence, Reverb, FeedbackDelay, Distortion, context } from 'tone';
 
 export const TrackContext = createContext();
 
 import interpolate from 'utils/helpers/interpolate';
 
 const TrackProvider = ({ children, trackIndex, subDivision, sequencerSteps, track }) => {
-  const { channel, steps, note, duration, triggers } = track;
+  const { channel, steps, note, duration, triggers, effects } = track;
 
   const interpVol = interpolate({
     inputRange: [0, 100],
@@ -20,8 +20,12 @@ const TrackProvider = ({ children, trackIndex, subDivision, sequencerSteps, trac
       volume: interpVol(channel.volume),
       mute: channel.mute,
       solo: false
-    }).toDestination()
+    })
   );
+
+  const reverbRef = useRef(new Reverb(effects.reverb));
+  const feedbackDelayRef = useRef(new FeedbackDelay(effects.feedbackDelay));
+  const distortionRef = useRef(new Distortion(effects.distortion));
 
   const [trackEffectsChain, setTrackEffectsChain] = useState({});
 
@@ -38,7 +42,13 @@ const TrackProvider = ({ children, trackIndex, subDivision, sequencerSteps, trac
       effectsChain.push(trackEffectsChain[effect]);
     }
 
-    instrumentRef.current.chain(...effectsChain, channelRef.current, Destination);
+    instrumentRef.current.chain(
+      channelRef.current,
+      reverbRef.current,
+      feedbackDelayRef.current,
+      distortionRef.current,
+      Destination
+    );
   }, [trackEffectsChain]);
 
   useEffect(() => {
@@ -88,7 +98,9 @@ const TrackProvider = ({ children, trackIndex, subDivision, sequencerSteps, trac
     return {
       trackIndex,
       channelRef,
-      trackEffectsChain,
+      reverbRef,
+      feedbackDelayRef,
+      distortionRef,
       instrumentRef,
       channel,
       addInstrument: handleAddInstrument,

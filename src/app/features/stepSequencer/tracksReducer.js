@@ -13,14 +13,15 @@ const initialState = [
     },
     effects: {
       reverb: { decay: 1.5, preDelay: 0.01, wet: 0.4 },
-      autoFilter: {
-        baseFrequency: 200,
-        wet: 0.4
-      },
       feedbackDelay: {
         delayTime: 0.6,
         feedback: 0.5,
         wet: 0.4
+      },
+      distortion: {
+        distortion: 0.2,
+        oversample: '2x',
+        wet: 0.0
       }
     }
   },
@@ -38,14 +39,14 @@ const initialState = [
     },
     effects: {
       reverb: { decay: 1.5, preDelay: 0.01, wet: 0.2 },
-      distortion: {
-        distortion: 0.2,
-        oversample: '2x',
-        wet: 0.2
-      },
       feedbackDelay: {
         delayTime: 0.3,
         feedback: 0.5,
+        wet: 0.2
+      },
+      distortion: {
+        distortion: 0.2,
+        oversample: '2x',
         wet: 0.2
       }
     }
@@ -64,19 +65,15 @@ const initialState = [
     },
     effects: {
       reverb: { decay: 1.5, preDelay: 0.01, wet: 1 },
-      distortion: {
-        distortion: 1,
-        oversample: '2x',
-        wet: 1
-      },
-      autoFilter: {
-        baseFrequency: 200,
-        wet: 0.0
-      },
       feedbackDelay: {
         delayTime: 0.8,
         feedback: 0.5,
         wet: 0.6
+      },
+      distortion: {
+        distortion: 1,
+        oversample: '2x',
+        wet: 1
       }
     }
   },
@@ -94,6 +91,11 @@ const initialState = [
     },
     effects: {
       reverb: { decay: 1.5, preDelay: 0.01, wet: 0 },
+      feedbackDelay: {
+        delayTime: 0.8,
+        feedback: 0.5,
+        wet: 0.0
+      },
       distortion: {
         distortion: 1,
         oversample: '2x',
@@ -122,6 +124,16 @@ const initialState = [
     },
     effects: {
       reverb: { decay: 1.5, preDelay: 0.01, wet: 1 },
+      feedbackDelay: {
+        delayTime: 0.8,
+        feedback: 0.5,
+        wet: 0.0
+      },
+      distortion: {
+        distortion: 0.2,
+        oversample: '2x',
+        wet: 0.0
+      },
       phaser: {
         frequency: 0.5,
         octaves: 3,
@@ -147,6 +159,11 @@ const initialState = [
     },
     effects: {
       reverb: { decay: 1.5, preDelay: 0.01, wet: 1 },
+      feedbackDelay: {
+        delayTime: 0.8,
+        feedback: 0.5,
+        wet: 0.6
+      },
       distortion: {
         distortion: 0.2,
         oversample: '2x',
@@ -159,11 +176,6 @@ const initialState = [
         lowFrequency: 400,
         highFrequency: 2500
       }
-      // feedbackDelay: {
-      //   delayTime: 0.3,
-      //   feedback: 0.5,
-      //   wet: 0.2
-      // }
     }
   }
 ];
