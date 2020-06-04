@@ -1,4 +1,4 @@
-import React, { Fragment, useContext, useState } from 'react';
+import React, { Fragment, useContext, useState, useEffect } from 'react';
 import { Button } from '@eoghanmccarthy/ui';
 import { css } from '@emotion/core';
 import cx from 'classnames';
@@ -13,7 +13,6 @@ import { setIndexPrev, setIndexNext } from 'utils/helpers/setSoundIndex';
 
 import { Control, ControlBlock } from 'componentLib/control';
 import { SliderWithValues } from 'componentLib/slider';
-import { Destination } from 'tone';
 
 const TrackDetail = ({
   channelState,
@@ -70,49 +69,6 @@ const TrackDetail = ({
         </div>
       </header>
       <div css={styles.main}>
-        <div css={styles.controlGrid}>
-          <Control>
-            <SliderWithValues
-              title={'pan'}
-              min={-1}
-              max={1}
-              step={0.1}
-              value={channel.pan ?? 0}
-              onChange={e => {
-                let value = e.target.value;
-                channelRef.current.set({ pan: value });
-                setChannel(prv => ({ ...prv, pan: value }));
-              }}
-            />
-          </Control>
-          <Control>
-            <SliderWithValues
-              title={'volume'}
-              min={0}
-              max={100}
-              value={channel.volume ?? 80}
-              onChange={e => {
-                let value = Math.round(e.target.value);
-                channelRef.current.set({ volume: interpVol(value) });
-                setChannel(prv => ({ ...prv, volume: value }));
-              }}
-            />
-          </Control>
-          <Control
-            css={css`
-              grid-column: 4;
-            `}
-          >
-            <button
-              className={cx({ active: channel.mute })}
-              onClick={() => {
-                onUpdateChannel('mute', !channel.mute);
-              }}
-            >
-              mute
-            </button>
-          </Control>
-        </div>
         {/*<div css={styles.controlGrid}>*/}
         {/*  {effects?.reverb ? (*/}
         {/*    <Control>*/}
@@ -201,68 +157,6 @@ const TrackDetail = ({
         {/*        />*/}
         {/*      </Control>*/}
         {/*    </Fragment>*/}
-        {/*  ) : null}*/}
-        {/*</div>*/}
-        {/*<div css={styles.controlGrid}>*/}
-        {/*  {typeof instrumentOptions?.envelope?.attack !== 'undefined' ? (*/}
-        {/*    <Control>*/}
-        {/*      <SliderWithValues*/}
-        {/*        title={'attack'}*/}
-        {/*        min={0}*/}
-        {/*        max={1}*/}
-        {/*        step={0.01}*/}
-        {/*        value={instrumentOptions.envelope.attack}*/}
-        {/*        onChange={e => {*/}
-        {/*          let value = e.target.value;*/}
-        {/*          onUpdateInstrument('attack', value);*/}
-        {/*        }}*/}
-        {/*      />*/}
-        {/*    </Control>*/}
-        {/*  ) : null}*/}
-        {/*  {typeof instrumentOptions?.envelope?.decay !== 'undefined' ? (*/}
-        {/*    <Control>*/}
-        {/*      <SliderWithValues*/}
-        {/*        title={'decay'}*/}
-        {/*        min={0}*/}
-        {/*        max={1}*/}
-        {/*        step={0.01}*/}
-        {/*        value={instrumentOptions.envelope.decay}*/}
-        {/*        onChange={e => {*/}
-        {/*          let value = e.target.value;*/}
-        {/*          onUpdateInstrument('decay', value);*/}
-        {/*        }}*/}
-        {/*      />*/}
-        {/*    </Control>*/}
-        {/*  ) : null}*/}
-        {/*  {typeof instrumentOptions?.envelope?.sustain !== 'undefined' ? (*/}
-        {/*    <Control>*/}
-        {/*      <SliderWithValues*/}
-        {/*        title={'sustain'}*/}
-        {/*        min={0}*/}
-        {/*        max={1}*/}
-        {/*        step={0.01}*/}
-        {/*        value={instrumentOptions.envelope.sustain}*/}
-        {/*        onChange={e => {*/}
-        {/*          let value = e.target.value;*/}
-        {/*          onUpdateInstrument('sustain', value);*/}
-        {/*        }}*/}
-        {/*      />*/}
-        {/*    </Control>*/}
-        {/*  ) : null}*/}
-        {/*  {typeof instrumentOptions?.envelope?.release !== 'undefined' ? (*/}
-        {/*    <Control>*/}
-        {/*      <SliderWithValues*/}
-        {/*        title={'release'}*/}
-        {/*        min={0}*/}
-        {/*        max={1}*/}
-        {/*        step={0.01}*/}
-        {/*        value={instrumentOptions.envelope.release}*/}
-        {/*        onChange={e => {*/}
-        {/*          let value = e.target.value;*/}
-        {/*          onUpdateInstrument('release', value);*/}
-        {/*        }}*/}
-        {/*      />*/}
-        {/*    </Control>*/}
         {/*  ) : null}*/}
         {/*</div>*/}
       </div>

@@ -12,7 +12,7 @@ import { SliderWithValues } from 'componentLib/slider';
 
 const Volume = () => {
   const [volume, setVolume] = useState(80);
-  const [mute, toggleMute] = useState(false);
+  const [mute, setMute] = useState(false);
 
   const interpVol = interpolate({
     inputRange: [0, 100],
@@ -24,22 +24,22 @@ const Volume = () => {
     switch (e.code) {
       case 'ArrowUp':
         if (e.shiftKey) {
-          setVolume(v => {
-            if (v + 1 <= 100) return v + 1;
-            return v;
+          setVolume(prv => {
+            if (prv + 1 <= 100) return prv + 1;
+            return prv;
           });
         }
         break;
       case 'ArrowDown':
         if (e.shiftKey) {
-          setVolume(v => {
-            if (v - 1 >= 0) return v - 1;
-            return v;
+          setVolume(prv => {
+            if (prv - 1 >= 0) return prv - 1;
+            return prv;
           });
         }
         break;
       case 'KeyM':
-        if (e.shiftKey) toggleMute(m => !m);
+        if (e.shiftKey) setMute(prv => !prv);
         break;
       default:
         break;
@@ -69,7 +69,7 @@ const Volume = () => {
         <button
           className={cx({ active: mute })}
           onClick={() => {
-            toggleMute(prv => {
+            setMute(prv => {
               Destination.set({ mute: !prv });
               return !prv;
             });

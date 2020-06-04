@@ -17,7 +17,7 @@ import { TrackContext } from '../trackProvider';
 import interpolate from 'utils/helpers/interpolate';
 
 const Effect = ({ type, options = {} }) => {
-  const { addEffect } = useContext(TrackContext);
+  const { addTrackEffect } = useContext(TrackContext);
 
   const effectRef = useRef(null);
 
@@ -28,7 +28,9 @@ const Effect = ({ type, options = {} }) => {
   });
 
   useEffect(() => {
-    if (type === 'bitCrusher') {
+    if (type === 'reverb') {
+      effectRef.current = new Reverb(options);
+    } else if (type === 'bitCrusher') {
       effectRef.current = new BitCrusher(options);
     } else if (type === 'distortion') {
       effectRef.current = new Distortion(options);
@@ -40,8 +42,6 @@ const Effect = ({ type, options = {} }) => {
       effectRef.current = new AutoFilter(options);
     } else if (type === 'chorus') {
       effectRef.current = new Chorus(options);
-    } else if (type === 'reverb') {
-      effectRef.current = new Reverb(options);
     } else if (type === 'filter') {
       effectRef.current = new Filter(options);
     } else if (type === 'phaser') {
@@ -50,42 +50,12 @@ const Effect = ({ type, options = {} }) => {
       effectRef.current = new EQ3();
     }
 
-    if (effectRef.current) addEffect(effectRef.current);
+    if (effectRef.current) addTrackEffect({ [type]: effectRef.current });
 
     return () => {
       if (effectRef.current) effectRef.current.dispose();
     };
   }, [type]);
-
-  useEffect(() => {
-    if (options.wet && effectRef.current?.wet) {
-      effectRef.current.set({ wet: options.wet });
-    }
-  }, [options.wet]);
-
-  useEffect(() => {
-    if (typeof options.low !== 'undefined' && effectRef.current?.low) {
-      effectRef.current.set({ low: interpolateVolume(options.low) });
-    }
-  }, [options.low]);
-
-  useEffect(() => {
-    if (typeof options.mid !== 'undefined' && effectRef.current?.mid) {
-      effectRef.current.set({ mid: interpolateVolume(options.mid) });
-    }
-  }, [options.mid]);
-
-  useEffect(() => {
-    if (typeof options.high !== 'undefined' && effectRef.current?.high) {
-      effectRef.current.set({ high: interpolateVolume(options.high) });
-    }
-  }, [options.high]);
-
-  useEffect(() => {
-    if (options.frequency && effectRef.current?.frequency) {
-      effectRef.current.set({ frequency: options.frequency });
-    }
-  }, [options.frequency]);
 
   return null;
 };

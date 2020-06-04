@@ -12,6 +12,8 @@ import InstrumentContainer from 'features/instrumentContainer';
 import TrackProvider from 'features/track/trackProvider';
 import Track from 'features/track/track';
 import TrackButton from 'features/track/trackButton';
+import { Control, ControlBlock } from 'componentLib/control';
+import { SliderWithValues } from 'componentLib/slider';
 import Channel from 'features/track/channel';
 import Sample from 'features/track/sample';
 import Steps from 'features/track/steps';
@@ -25,6 +27,7 @@ import {
   initialState as instrumentsInitialState,
   reducer as instrumentsReducer
 } from './instrumentsReducer';
+import { css } from '@emotion/core';
 
 const subDivision = '16n';
 
@@ -46,6 +49,8 @@ const StepSequencer = () => {
 
   const [selectedTrackIndex, setSelectedTrackIndex] = useState(0);
 
+  const [pan, setPan] = useState(0);
+
   useEffect(() => {
     if (transportState === 'stopped') {
       document.querySelectorAll(`.progress-indicator`).forEach(el => (el.style.left = '0%'));
@@ -66,7 +71,17 @@ const StepSequencer = () => {
                   sequencerSteps={sequencerSteps}
                   track={track}
                 >
-                  <Track>
+                  <Track
+                    selectedTrackIndex={selectedTrackIndex}
+                    setSelectedTrackIndex={setSelectedTrackIndex}
+                    trackState={track}
+                    instrumentState={instrumentsState[track.instrument]}
+                    trackDialog={trackDialog}
+                    openDialog={index => {
+                      setSelectedTrackIndex(index);
+                      trackDialog.open();
+                    }}
+                  >
                     {typeof track.effects === 'object' &&
                       Object.entries(track.effects).map(([type, options], index) => {
                         return <Effect key={index} type={type} options={options} />;
@@ -93,60 +108,6 @@ const StepSequencer = () => {
                         );
                       })}
                     </Steps>
-                    <Channel
-                      channelState={track.channel}
-                      tracksDispatch={tracksDispatch}
-                      openDialog={index => {
-                        setSelectedTrackIndex(index);
-                        trackDialog.open();
-                      }}
-                    />
-                    <Dialog
-                      id={'track-detail-dialog'}
-                      css={styles.trackDetailDialog}
-                      isVisible={trackDialog.isOpen && selectedTrackIndex === index}
-                      closeDialog={trackDialog.close}
-                    >
-                      <TrackDetail
-                        channelState={track.channel}
-                        selectedTrackIndex={selectedTrackIndex}
-                        setSelectedTrack={setSelectedTrackIndex}
-                        tracksCount={tracksState.length}
-                        track={tracksState[selectedTrackIndex]}
-                        instrument={instrumentsState[tracksState[selectedTrackIndex].instrument]}
-                        // onUpdateChannel={(param, value) => {
-                        //   tracksDispatch({
-                        //     type: 'channel',
-                        //     payload: {
-                        //       trackIndex: selectedTrackIndex,
-                        //       param,
-                        //       value
-                        //     }
-                        //   });
-                        // }}
-                        // onUpdateInstrument={(param, value) => {
-                        //   instrumentsDispatch({
-                        //     type: 'envelope',
-                        //     payload: {
-                        //       instrumentId: tracksState[selectedTrackIndex].instrument,
-                        //       param,
-                        //       value
-                        //     }
-                        //   });
-                        // }}
-                        // onUpdateEffect={(effect, param, value) => {
-                        //   tracksDispatch({
-                        //     type: 'effect',
-                        //     payload: {
-                        //       trackIndex: selectedTrackIndex,
-                        //       effect,
-                        //       param,
-                        //       value
-                        //     }
-                        //   });
-                        // }}
-                      />
-                    </Dialog>
                   </Track>
                 </TrackProvider>
               );

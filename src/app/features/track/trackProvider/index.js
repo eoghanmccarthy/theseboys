@@ -8,9 +8,22 @@ import interpolate from 'utils/helpers/interpolate';
 const TrackProvider = ({ children, trackIndex, subDivision, sequencerSteps, track }) => {
   const { channel, steps, note, duration, triggers } = track;
 
-  const channelRef = useRef(new Channel(channel.volume, channel.pan).toDestination());
+  const interpVol = interpolate({
+    inputRange: [0, 100],
+    outputRange: [-60, 20],
+    clamp: true
+  });
 
-  const [effectsChain, setEffectsChain] = useState([]);
+  const channelRef = useRef(
+    new Channel({
+      pan: channel.pan,
+      volume: interpVol(channel.volume),
+      mute: channel.mute,
+      solo: false
+    }).toDestination()
+  );
+
+  const [trackEffectsChain, setTrackEffectsChain] = useState({});
 
   const sequencerRef = useRef(null);
   const instrumentRef = useRef(null);
@@ -18,27 +31,15 @@ const TrackProvider = ({ children, trackIndex, subDivision, sequencerSteps, trac
   const stepsRef = useRef(steps);
   stepsRef.current = steps;
 
-  const interpVol = interpolate({
-    inputRange: [0, 100],
-    outputRange: [-60, 20],
-    clamp: true
-  });
-
   useEffect(() => {
-    channelRef.current.set({ volume: interpVol(channel.volume) });
-  }, []);
+    const effectsChain = [];
 
-  useEffect(() => {
-    channelRef.current.set({ mute: channel.mute });
-  }, []);
+    for (const effect in trackEffectsChain) {
+      effectsChain.push(trackEffectsChain[effect]);
+    }
 
-  useEffect(() => {
-    channelRef.current.set({ pan: channel.pan });
-  }, []);
-
-  useEffect(() => {
     instrumentRef.current.chain(...effectsChain, channelRef.current, Destination);
-  }, [effectsChain]);
+  }, [trackEffectsChain]);
 
   useEffect(() => {
     sequencerRef.current = new Sequence(
@@ -71,8 +72,12 @@ const TrackProvider = ({ children, trackIndex, subDivision, sequencerSteps, trac
     instrumentRef.current = instrument;
   };
 
-  const handleAddEffect = effect => {
-    setEffectsChain(prv => [effect, ...prv]);
+  const handleAddTrackEffect = effect => {
+    Object.entries(effect).map(([name, instance]) => {
+      setTrackEffectsChain(chain => {
+        return { ...chain, [name]: instance };
+      });
+    });
   };
 
   const onPlaySample = () => {
@@ -83,12 +88,14 @@ const TrackProvider = ({ children, trackIndex, subDivision, sequencerSteps, trac
     return {
       trackIndex,
       channelRef,
+      trackEffectsChain,
+      instrumentRef,
       channel,
       addInstrument: handleAddInstrument,
-      addEffect: handleAddEffect,
+      addTrackEffect: handleAddTrackEffect,
       onPlaySample
     };
-  }, [trackIndex, channelRef, channel]);
+  }, [trackIndex, channelRef, trackEffectsChain, instrumentRef, channel]);
 
   return <TrackContext.Provider value={values}>{children}</TrackContext.Provider>;
 };

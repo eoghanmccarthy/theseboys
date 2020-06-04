@@ -30,30 +30,6 @@ const Instrument = ({ instrument }) => {
     };
   }, [type]);
 
-  useEffect(() => {
-    if (options?.envelope?.attack && instrumentRef.current?.envelope?.attack) {
-      instrumentRef.current.envelope.set({ attack: options.envelope.attack });
-    }
-  }, [options]);
-
-  useEffect(() => {
-    if (options?.envelope?.decay && instrumentRef.current?.envelope?.decay) {
-      instrumentRef.current.envelope.set({ decay: options.envelope.decay });
-    }
-  }, [options]);
-
-  useEffect(() => {
-    if (options?.envelope?.sustain && instrumentRef.current?.envelope?.sustain) {
-      instrumentRef.current.envelope.set({ sustain: options.envelope.sustain });
-    }
-  }, [options]);
-
-  useEffect(() => {
-    if (options?.envelope?.release && instrumentRef.current?.envelope?.release) {
-      instrumentRef.current.envelope.set({ release: options.envelope.release });
-    }
-  }, [options]);
-
   return null;
 };
 

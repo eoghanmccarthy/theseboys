@@ -15,21 +15,21 @@ const Tempo = () => {
     switch (e.code) {
       case 'ArrowRight':
         if (e.shiftKey) {
-          setBpm(b => {
-            if (b + 1 <= TEMPO_MAX) {
-              return b + 1;
+          setBpm(prv => {
+            if (prv + 1 <= TEMPO_MAX) {
+              return prv + 1;
             }
-            return b;
+            return prv;
           });
         }
         break;
       case 'ArrowLeft':
         if (e.shiftKey) {
-          setBpm(b => {
-            if (b - 1 >= TEMPO_MIN) {
-              return b - 1;
+          setBpm(prv => {
+            if (prv - 1 >= TEMPO_MIN) {
+              return prv - 1;
             }
-            return b;
+            return prv;
           });
         }
         break;

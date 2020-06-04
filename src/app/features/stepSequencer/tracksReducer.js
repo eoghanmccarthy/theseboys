@@ -172,17 +172,14 @@ function reducer(draft, action) {
   const { type, payload } = action;
 
   switch (type) {
-    case 'mute':
+    case 'channel/MUTE':
       draft[payload.trackIndex].channel.mute = !draft[payload.trackIndex].channel.mute;
       break;
-    case 'pan':
+    case 'channel/PAN':
       draft[payload.trackIndex].channel.pan = payload.value;
       break;
     case 'step':
       draft[payload.trackIndex].steps[payload.stepIndex] = payload.value;
-      break;
-    case 'channel':
-      draft[payload.trackIndex].channel[payload.param] = payload.value;
       break;
     case 'effect':
       draft[payload.trackIndex].effects[payload.effect][payload.param] = payload.value;
