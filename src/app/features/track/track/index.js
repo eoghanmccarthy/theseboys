@@ -24,6 +24,7 @@ const Track = ({
 }) => {
   const {
     channelRef,
+    eq3Ref,
     reverbRef,
     feedbackDelayRef,
     distortionRef,
@@ -32,6 +33,7 @@ const Track = ({
   } = useContext(TrackContext);
 
   const [channel, setChannel] = useState(trackState?.channel ?? {});
+  const [eq3, setEq3] = useState(trackState?.effects?.eq3 ?? {});
   const [reverb, setReverb] = useState(trackState?.effects?.reverb ?? {});
   const [feedbackDelay, setFeedbackDelay] = useState(trackState?.effects?.feedbackDelay ?? {});
   const [distortion, setDistortion] = useState(trackState?.effects?.distortion ?? {});
@@ -186,49 +188,48 @@ const Track = ({
                   }}
                 />
               </Control>
-              {/*{effects?.eq3 ? (*/}
-              {/*  <Fragment>*/}
-              {/*    <Control>*/}
-              {/*      <SliderWithValues*/}
-              {/*        title={'low'}*/}
-              {/*        min={0}*/}
-              {/*        max={100}*/}
-              {/*        step={1}*/}
-              {/*        value={effects.eq3.low}*/}
-              {/*        onChange={e => {*/}
-              {/*          let value = e.target.value;*/}
-              {/*          onUpdateEffect('eq3', 'low', Math.round(value));*/}
-              {/*        }}*/}
-              {/*      />*/}
-              {/*    </Control>*/}
-              {/*    <Control>*/}
-              {/*      <SliderWithValues*/}
-              {/*        title={'med'}*/}
-              {/*        min={0}*/}
-              {/*        max={100}*/}
-              {/*        step={1}*/}
-              {/*        value={effects.eq3.mid}*/}
-              {/*        onChange={e => {*/}
-              {/*          let value = e.target.value;*/}
-              {/*          onUpdateEffect('eq3', 'mid', Math.round(value));*/}
-              {/*        }}*/}
-              {/*      />*/}
-              {/*    </Control>*/}
-              {/*    <Control>*/}
-              {/*      <SliderWithValues*/}
-              {/*        title={'high'}*/}
-              {/*        min={0}*/}
-              {/*        max={100}*/}
-              {/*        step={1}*/}
-              {/*        value={effects.eq3.high}*/}
-              {/*        onChange={e => {*/}
-              {/*          let value = e.target.value;*/}
-              {/*          onUpdateEffect('eq3', 'high', Math.round(value));*/}
-              {/*        }}*/}
-              {/*      />*/}
-              {/*    </Control>*/}
-              {/*  </Fragment>*/}
-              {/*) : null}*/}
+              <Control>
+                <SliderWithValues
+                  title={'low'}
+                  min={0}
+                  max={100}
+                  step={1}
+                  value={eq3?.low ?? 50}
+                  onChange={e => {
+                    let value = e.target.value;
+                    eq3Ref.current.set({ low: value });
+                    setEq3(prv => ({ ...prv, low: value }));
+                  }}
+                />
+              </Control>
+              <Control>
+                <SliderWithValues
+                  title={'med'}
+                  min={0}
+                  max={100}
+                  step={1}
+                  value={eq3?.mid ?? 50}
+                  onChange={e => {
+                    let value = e.target.value;
+                    eq3Ref.current.set({ mid: value });
+                    setEq3(prv => ({ ...prv, mid: value }));
+                  }}
+                />
+              </Control>
+              <Control>
+                <SliderWithValues
+                  title={'high'}
+                  min={0}
+                  max={100}
+                  step={1}
+                  value={eq3?.high ?? 50}
+                  onChange={e => {
+                    let value = e.target.value;
+                    eq3Ref.current.set({ high: value });
+                    setEq3(prv => ({ ...prv, high: value }));
+                  }}
+                />
+              </Control>
             </div>
             <div css={styles.controlGrid}>
               {typeof envelope?.attack !== 'undefined' ? (

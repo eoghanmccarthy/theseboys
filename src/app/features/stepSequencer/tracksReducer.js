@@ -22,6 +22,13 @@ const initialState = [
         distortion: 0.2,
         oversample: '2x',
         wet: 0.0
+      },
+      eq3: {
+        low: 0,
+        mid: 0,
+        high: 0,
+        lowFrequency: 400,
+        highFrequency: 2500
       }
     }
   },
@@ -48,6 +55,13 @@ const initialState = [
         distortion: 0.2,
         oversample: '2x',
         wet: 0.2
+      },
+      eq3: {
+        low: 0,
+        mid: 0,
+        high: 0,
+        lowFrequency: 400,
+        highFrequency: 2500
       }
     }
   },
@@ -74,6 +88,13 @@ const initialState = [
         distortion: 1,
         oversample: '2x',
         wet: 1
+      },
+      eq3: {
+        low: 0,
+        mid: 0,
+        high: 0,
+        lowFrequency: 400,
+        highFrequency: 2500
       }
     }
   },
@@ -102,9 +123,9 @@ const initialState = [
         wet: 0.0
       },
       eq3: {
-        low: 84,
-        mid: 84,
-        high: 84,
+        low: 0,
+        mid: 0,
+        high: 0,
         lowFrequency: 400,
         highFrequency: 2500
       }
@@ -133,6 +154,13 @@ const initialState = [
         distortion: 0.2,
         oversample: '2x',
         wet: 0.0
+      },
+      eq3: {
+        low: 0,
+        mid: 0,
+        high: 0,
+        lowFrequency: 400,
+        highFrequency: 2500
       },
       phaser: {
         frequency: 0.5,
@@ -170,9 +198,9 @@ const initialState = [
         wet: 0
       },
       eq3: {
-        low: 84,
-        mid: 84,
-        high: 84,
+        low: 0,
+        mid: 0,
+        high: 0,
         lowFrequency: 400,
         highFrequency: 2500
       }

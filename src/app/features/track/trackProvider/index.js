@@ -1,5 +1,14 @@
 import React, { useEffect, useRef, createContext, useMemo, useState } from 'react';
-import { Destination, Channel, Sequence, Reverb, FeedbackDelay, Distortion, context } from 'tone';
+import {
+  Destination,
+  Sequence,
+  Channel,
+  EQ3,
+  Reverb,
+  FeedbackDelay,
+  Distortion,
+  context
+} from 'tone';
 
 export const TrackContext = createContext();
 
@@ -23,8 +32,12 @@ const TrackProvider = ({ children, trackIndex, subDivision, sequencerSteps, trac
     })
   );
 
+  const eq3Ref = useRef(new EQ3(effects.eq3));
+
   const reverbRef = useRef(new Reverb(effects.reverb));
+
   const feedbackDelayRef = useRef(new FeedbackDelay(effects.feedbackDelay));
+
   const distortionRef = useRef(new Distortion(effects.distortion));
 
   const [trackEffectsChain, setTrackEffectsChain] = useState({});
@@ -44,6 +57,7 @@ const TrackProvider = ({ children, trackIndex, subDivision, sequencerSteps, trac
 
     instrumentRef.current.chain(
       channelRef.current,
+      eq3Ref.current,
       reverbRef.current,
       feedbackDelayRef.current,
       distortionRef.current,
@@ -98,6 +112,7 @@ const TrackProvider = ({ children, trackIndex, subDivision, sequencerSteps, trac
     return {
       trackIndex,
       channelRef,
+      eq3Ref,
       reverbRef,
       feedbackDelayRef,
       distortionRef,
