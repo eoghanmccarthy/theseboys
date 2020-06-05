@@ -25,15 +25,6 @@ const Home = () => {
         <div css={styles.console}>
           <Master />
           <div css={styles.modules}>
-            <svg css={styles.svg} height="1" width="100%">
-              <line x1="0" y1="0" x2="100%" y2="100%" stroke={'grey'} />
-            </svg>
-            <Button css={styles.prev} size={48} onClick={() => set({ selectedIndex: 0 })}>
-              p
-            </Button>
-            <Button css={styles.next} size={48} onClick={() => set({ selectedIndex: 1 })}>
-              n
-            </Button>
             <animated.div
               style={{
                 flex: 1,
@@ -44,9 +35,9 @@ const Home = () => {
               <Module index={0} data={modules[0]}>
                 <StepSequencer />
               </Module>
-              <Module index={1} data={modules[1]}>
-                <Oscillator />
-              </Module>
+              {/*<Module index={1} data={modules[1]}>*/}
+              {/*  <Oscillator />*/}
+              {/*</Module>*/}
             </animated.div>
           </div>
         </div>

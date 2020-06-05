@@ -1,5 +1,11 @@
 import { css } from '@emotion/core';
 
+const dialog = css`
+  background-color: var(--color-light-grey);
+  border-radius: 0;
+  box-shadow: 0 2px 1px rgba(0, 0, 0, 0.09), 0 4px 2px rgba(0, 0, 0, 0.09),
+    0 8px 4px rgba(0, 0, 0, 0.09), 0 16px 8px rgba(0, 0, 0, 0.09), 0 32px 16px rgba(0, 0, 0, 0.09);
+`;
 const header = css`
   display: flex;
   justify-content: space-between;
@@ -30,19 +36,4 @@ const trackNav = css`
   }
 `;
 
-const controlGrid = css`
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-auto-rows: auto;
-  grid-gap: 10px;
-  padding: 15px 0;
-  border-bottom: 1px dotted grey;
-  &:last-child {
-    border-bottom: none;
-  }
-  > * {
-    width: auto;
-  }
-`;
-
-export { header, main, trackNav, controlGrid };
+export { dialog, header, main, trackNav };

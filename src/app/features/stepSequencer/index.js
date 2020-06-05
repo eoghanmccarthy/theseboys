@@ -1,7 +1,6 @@
 import React, { Fragment, useEffect, useState, useContext } from 'react';
 import { useImmerReducer } from 'use-immer';
 import cx from 'classnames';
-import { Dialog } from '@eoghanmccarthy/ui';
 
 import * as styles from './styles';
 
@@ -12,22 +11,17 @@ import InstrumentContainer from 'features/instrumentContainer';
 import TrackProvider from 'features/track/trackProvider';
 import Track from 'features/track/track';
 import TrackButton from 'features/track/trackButton';
-import { Control, ControlBlock } from 'componentLib/control';
-import { SliderWithValues } from 'componentLib/slider';
-import Channel from 'features/track/channel';
 import Sample from 'features/track/sample';
 import Steps from 'features/track/steps';
 import Step from 'features/track/step';
 import Instrument from 'features/track/instrument';
 import Effect from 'features/track/effect';
-import TrackDetail from 'features/trackDetail';
 
 import { initialState as tracksInitialState, reducer as tracksReducer } from './tracksReducer';
 import {
   initialState as instrumentsInitialState,
   reducer as instrumentsReducer
 } from './instrumentsReducer';
-import { css } from '@emotion/core';
 
 const subDivision = '16n';
 
@@ -48,8 +42,6 @@ const StepSequencer = () => {
   );
 
   const [selectedTrackIndex, setSelectedTrackIndex] = useState(0);
-
-  const [pan, setPan] = useState(0);
 
   useEffect(() => {
     if (transportState === 'stopped') {
@@ -72,6 +64,7 @@ const StepSequencer = () => {
                   track={track}
                 >
                   <Track
+                    trackCount={tracksState.length}
                     selectedTrackIndex={selectedTrackIndex}
                     setSelectedTrackIndex={setSelectedTrackIndex}
                     trackState={track}
