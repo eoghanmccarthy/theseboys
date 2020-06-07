@@ -66,7 +66,7 @@ const initialState = [
     }
   },
   {
-    steps: [0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    steps: [1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     instrument: 1002,
     note: 'c3',
     duration: '8n',
@@ -90,8 +90,8 @@ const initialState = [
         wet: 1
       },
       eq3: {
-        low: 0,
-        mid: 0,
+        low: 20,
+        mid: 26,
         high: 0,
         lowFrequency: 400,
         highFrequency: 2500
@@ -186,21 +186,21 @@ const initialState = [
       solo: false
     },
     effects: {
-      reverb: { decay: 1.5, preDelay: 0.01, wet: 1 },
+      reverb: { decay: 1.5, preDelay: 0.01, wet: 0.0 },
       feedbackDelay: {
         delayTime: 0.8,
         feedback: 0.5,
-        wet: 0.6
+        wet: 0.0
       },
       distortion: {
         distortion: 0.2,
-        oversample: '2x',
-        wet: 0
+        oversample: '4x',
+        wet: 0.0
       },
       eq3: {
         low: 0,
-        mid: 0,
-        high: 0,
+        mid: 16,
+        high: 10,
         lowFrequency: 400,
         highFrequency: 2500
       }

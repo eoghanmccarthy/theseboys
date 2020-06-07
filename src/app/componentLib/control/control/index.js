@@ -4,7 +4,7 @@ import * as styles from './styles';
 
 const Control = ({ children, size = 'md', ...rest }) => {
   return (
-    <div css={styles.control({ size })} {...rest}>
+    <div className={'control'} css={styles.control({ size })} {...rest}>
       {children}
     </div>
   );

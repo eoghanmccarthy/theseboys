@@ -129,6 +129,9 @@ const Track = ({
             </Control>
           </div>
           <div css={styles.controlGrid}>
+            <div className={'control-group-title'}>
+              <span>effects</span>
+            </div>
             <Control>
               <SliderWithValues
                 title={'reverb'}
@@ -177,6 +180,11 @@ const Track = ({
                 }}
               />
             </Control>
+          </div>
+          <div css={styles.controlGrid}>
+            <div className={'control-group-title'}>
+              <span>equalize</span>
+            </div>
             <Control>
               <SliderWithValues
                 title={'low'}
@@ -227,6 +235,9 @@ const Track = ({
             </Control>
           </div>
           <div css={styles.controlGrid}>
+            <div className={'control-group-title'}>
+              <span>envelope</span>
+            </div>
             {typeof envelope?.attack !== 'undefined' ? (
               <Control>
                 <SliderWithValues

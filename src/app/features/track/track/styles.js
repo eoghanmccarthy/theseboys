@@ -35,8 +35,22 @@ const controlGrid = css`
   &:last-child {
     border-bottom: none;
   }
-  > * {
+  > .control {
     width: auto;
+    background-color: transparent;
+    border: none;
+  }
+  > .control-group-title {
+    span {
+      display: block;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1em;
+      word-break: break-all;
+      line-height: 1.2;
+      transform: skew(15deg);
+      transform-origin: top left;
+    }
   }
 `;
 
