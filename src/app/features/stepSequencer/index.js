@@ -2,6 +2,8 @@ import React, { Fragment, useEffect, useState, useContext } from 'react';
 import { useImmerReducer } from 'use-immer';
 import cx from 'classnames';
 
+//https://tone-demos.glitch.me/
+
 import * as styles from './styles';
 
 import { TransportContext } from 'features/transportProvider';
@@ -16,6 +18,9 @@ import Steps from 'features/track/steps';
 import Step from 'features/track/step';
 import Instrument from 'features/track/instrument';
 import Effect from 'features/track/effect';
+
+import useKick from '../instruments/useKick';
+import useVibertSnare from '../instruments/useVibertSnare';
 
 import { initialState as tracksInitialState, reducer as tracksReducer } from './tracksReducer';
 import {
@@ -43,6 +48,9 @@ const StepSequencer = () => {
 
   const [selectedTrackIndex, setSelectedTrackIndex] = useState(0);
 
+  const kick = useKick();
+  const vibertSnare = useVibertSnare();
+
   useEffect(() => {
     if (transportState === 'stopped') {
       document.querySelectorAll(`.progress-indicator`).forEach(el => (el.style.left = '0%'));
@@ -51,6 +59,8 @@ const StepSequencer = () => {
 
   return (
     <Fragment>
+      <button onClick={() => kick.trigger()}>kick</button>
+      <button onClick={() => vibertSnare.trigger()}>vibert snare</button>
       <InstrumentContainer>
         <div css={styles.tracks}>
           <div>

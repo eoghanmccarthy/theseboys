@@ -112,7 +112,7 @@ function reducer(draft, action) {
   const { type, payload } = action;
 
   switch (type) {
-    case 'envelope':
+    case 'instrument/ENVELOPE':
       draft[payload.instrumentId].options.envelope[payload.param] = payload.value;
       break;
     default:

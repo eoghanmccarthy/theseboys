@@ -1,0 +1,9 @@
+.me__content.experiments {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.me__content.experiments > *:not(:last-child) {
+    margin-bottom: 10px;
+}

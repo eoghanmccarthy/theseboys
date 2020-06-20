@@ -79,7 +79,7 @@ const Track = ({
       >
         <div>
           <div css={styles.controlGrid}>
-            <Control>
+            <GridControl>
               <SliderWithValues
                 title={'pan'}
                 min={-1}
@@ -94,8 +94,8 @@ const Track = ({
                   });
                 }}
               />
-            </Control>
-            <Control>
+            </GridControl>
+            <GridControl>
               <SliderWithValues
                 title={'volume'}
                 min={0}
@@ -109,8 +109,8 @@ const Track = ({
                   });
                 }}
               />
-            </Control>
-            <Control
+            </GridControl>
+            <GridControl
               css={css`
                 grid-column: 4;
               `}
@@ -126,13 +126,11 @@ const Track = ({
               >
                 mute
               </button>
-            </Control>
+            </GridControl>
           </div>
           <div css={styles.controlGrid}>
-            <div className={'control-group-title'}>
-              <span>effects</span>
-            </div>
-            <Control>
+            <ControlGroupTitle title={'effects'} />
+            <GridControl>
               <SliderWithValues
                 title={'reverb'}
                 min={0}
@@ -147,8 +145,8 @@ const Track = ({
                   });
                 }}
               />
-            </Control>
-            <Control>
+            </GridControl>
+            <GridControl>
               <SliderWithValues
                 title={'delay'}
                 min={0}
@@ -163,8 +161,8 @@ const Track = ({
                   });
                 }}
               />
-            </Control>
-            <Control>
+            </GridControl>
+            <GridControl>
               <SliderWithValues
                 title={'distort'}
                 min={0}
@@ -179,13 +177,11 @@ const Track = ({
                   });
                 }}
               />
-            </Control>
+            </GridControl>
           </div>
           <div css={styles.controlGrid}>
-            <div className={'control-group-title'}>
-              <span>equalize</span>
-            </div>
-            <Control>
+            <ControlGroupTitle title={'equalize'} />
+            <GridControl>
               <SliderWithValues
                 title={'low'}
                 min={0}
@@ -200,8 +196,8 @@ const Track = ({
                   });
                 }}
               />
-            </Control>
-            <Control>
+            </GridControl>
+            <GridControl>
               <SliderWithValues
                 title={'med'}
                 min={0}
@@ -216,8 +212,8 @@ const Track = ({
                   });
                 }}
               />
-            </Control>
-            <Control>
+            </GridControl>
+            <GridControl>
               <SliderWithValues
                 title={'high'}
                 min={0}
@@ -232,14 +228,12 @@ const Track = ({
                   });
                 }}
               />
-            </Control>
+            </GridControl>
           </div>
           <div css={styles.controlGrid}>
-            <div className={'control-group-title'}>
-              <span>envelope</span>
-            </div>
+            <ControlGroupTitle title={'envelope'} />
             {typeof envelope?.attack !== 'undefined' ? (
-              <Control>
+              <GridControl>
                 <SliderWithValues
                   title={'attack'}
                   min={0}
@@ -254,10 +248,10 @@ const Track = ({
                     });
                   }}
                 />
-              </Control>
+              </GridControl>
             ) : null}
             {typeof envelope?.decay !== 'undefined' ? (
-              <Control>
+              <GridControl>
                 <SliderWithValues
                   title={'decay'}
                   min={0}
@@ -272,10 +266,10 @@ const Track = ({
                     });
                   }}
                 />
-              </Control>
+              </GridControl>
             ) : null}
             {typeof envelope?.sustain !== 'undefined' ? (
-              <Control>
+              <GridControl>
                 <SliderWithValues
                   title={'sustain'}
                   min={0}
@@ -290,10 +284,10 @@ const Track = ({
                     });
                   }}
                 />
-              </Control>
+              </GridControl>
             ) : null}
             {typeof envelope?.release !== 'undefined' ? (
-              <Control>
+              <GridControl>
                 <SliderWithValues
                   title={'release'}
                   min={0}
@@ -308,7 +302,7 @@ const Track = ({
                     });
                   }}
                 />
-              </Control>
+              </GridControl>
             ) : null}
           </div>
         </div>
@@ -318,3 +312,26 @@ const Track = ({
 };
 
 export default Track;
+
+const ControlGroupTitle = ({ children, title, ...rest }) => {
+  return (
+    <div css={styles.controlGroupTitle} {...rest}>
+      <span>{title}</span>
+    </div>
+  );
+};
+
+const GridControl = ({ children, ...rest }) => {
+  return (
+    <Control
+      css={css`
+        width: auto;
+        background-color: transparent;
+        border: none;
+      `}
+      {...rest}
+    >
+      {children}
+    </Control>
+  );
+};

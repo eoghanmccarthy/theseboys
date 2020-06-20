@@ -1,12 +1,10 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { Oscillator as Osc, Distortion, Destination, Filter } from 'tone';
 
+import './index.css';
+
 import interpolate from 'utils/helpers/interpolate';
 import usePointer from 'utils/hooks/usePointer';
-
-import * as styles from './styles';
-
-import InstrumentContainer from 'features/instrumentContainer';
 
 const Oscillator = () => {
   const padRef = useRef();
@@ -38,44 +36,43 @@ const Oscillator = () => {
   }, []);
 
   const interpolateX = interpolate({
-    inputRange: [0, 200],
+    inputRange: [0, 420],
     outputRange: [0, 440],
     clamp: true
   });
 
-  const interpolateY = interpolate({ inputRange: [0, 200], outputRange: [0, 32], clamp: true });
+  const interpolateY = interpolate({ inputRange: [0, 280], outputRange: [0, 32], clamp: true });
 
   return (
-    <InstrumentContainer>
-      <div
-        ref={padRef}
-        css={styles.pad({ state: oscillatorRef.current?.state })}
-        onPointerDown={() => oscillatorRef.current.start()}
-        onPointerUp={() => oscillatorRef.current.stop()}
-        onPointerEnter={() => pointer.isDown && oscillatorRef.current.start()}
-        onPointerLeave={() => pointer.isDown && oscillatorRef.current.stop()}
-        onPointerMove={val => {
-          const x = val.clientX - padRef.current.getBoundingClientRect().x;
-          const y = val.clientY - padRef.current.getBoundingClientRect().y;
+    <div
+      ref={padRef}
+      className={'oscillator__pad'}
+      onPointerDown={() => oscillatorRef.current.start()}
+      onPointerUp={() => oscillatorRef.current.stop()}
+      onPointerEnter={() => pointer.isDown && oscillatorRef.current.start()}
+      onPointerLeave={() => pointer.isDown && oscillatorRef.current.stop()}
+      onPointerMove={val => {
+        const x = val.clientX - padRef.current.getBoundingClientRect().x;
+        const y = val.clientY - padRef.current.getBoundingClientRect().y;
 
-          const frequency = Math.abs(Math.round(interpolateX(x)));
-          const partialCount = Math.abs(Math.round(interpolateY(y)));
+        const frequency = Math.abs(Math.round(interpolateX(x)));
+        const partialCount = Math.abs(Math.round(interpolateY(y)));
 
-          oscillatorRef.current.set({
-            frequency,
-            partialCount
-          });
-          setValues({
-            frequency,
-            partialCount
-          });
-        }}
-      >
-        {/*<div css={styles.values}>*/}
-        {/*  <span>{values.frequency ?? 0}</span>*/}
-        {/*</div>*/}
-      </div>
-    </InstrumentContainer>
+        oscillatorRef.current.set({
+          frequency,
+          partialCount
+        });
+
+        setValues({
+          frequency,
+          partialCount
+        });
+      }}
+    >
+      {/*<div>*/}
+      {/*  <span>{values.frequency ?? 0}</span>*/}
+      {/*</div>*/}
+    </div>
   );
 };
 

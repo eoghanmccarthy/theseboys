@@ -1,0 +1,8 @@
+.experiment__panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 420px;
+    height: 280px;
+    background-color: #333333;
+}
