@@ -7,7 +7,8 @@ import {
   Destination,
   Transport,
   Sequence,
-  Draw
+  Draw,
+  Distortion
 } from 'tone';
 
 //https://tone-demos.glitch.me/
@@ -71,7 +72,16 @@ const RandomSequencer = memo(() => {
 
   let sequence = useRef();
   let synth = useRef();
-  let effect = useRef();
+
+  let delay = useRef(
+    new FeedbackDelay({
+      delayTime: `${Math.floor(numCols / 2)}n`,
+      feedback: 1 / 3,
+      wet: 0.2
+    })
+  );
+
+  let distortion = useRef(new Distortion({ wet: 0.6 }));
 
   const reverb = useRef(
     new Reverb({
@@ -82,17 +92,10 @@ const RandomSequencer = memo(() => {
   );
 
   useEffect(() => {
-    effect.current = new FeedbackDelay(`${Math.floor(numCols / 2)}n`, 1 / 3);
-
-    effect.current.set({ wet: 0.2 });
-  }, []);
-
-  useEffect(() => {
     synth.current = new PolySynth(DuoSynth, {
       volume: -10,
       polyphony: numRows
     });
-
     synth.current.set({
       voice0: {
         oscillator: {
@@ -115,7 +118,7 @@ const RandomSequencer = memo(() => {
       }
     });
 
-    synth.current.chain(effect.current, reverb.current, Destination);
+    synth.current.chain(delay.current, distortion.current, reverb.current, Destination);
   }, []);
 
   const onSequenceStep = (time, column) => {
@@ -140,17 +143,30 @@ const RandomSequencer = memo(() => {
     Draw.schedule(() => {
       const elems = document.getElementsByClassName(`col`);
       for (let i = 0; i < elems.length; i++) {
-        elems[i].classList.remove('on');
+        elems[i].setAttribute(
+          'style',
+          'opacity: 0.5; transform: scale(1); background-color: transparent;'
+        );
       }
+
+      const container = document.querySelector(`.random-sequencer`);
+      container.style.transform = `scale(${random(1, 3.6)})`;
 
       for (let i = 0; i < numRows; i++) {
         const isOn = columnData[i] === 1;
         const elem = document.querySelector(`.col-${column}-${i}`);
 
         if (isOn) {
-          elem.style.opacity = random(0.5, 0.88);
-          elem.style.transform = `scale(${random(1, 4.4)})`;
-          elem.classList.add('on');
+          elem.setAttribute(
+            'style',
+            `opacity: ${random(0.5, 0.88)}; transform: scale(${random(
+              1,
+              4.4
+            )}); background-color: hsl(${random(60, 70)}, ${random(80, 100)}%, ${random(
+              50,
+              100
+            )}%);`
+          );
         } else {
           //elem.classList.remove('on');
         }
@@ -183,9 +199,7 @@ const RandomSequencer = memo(() => {
         {data.map((rowData, rowIndex) => (
           <div key={rowIndex} className={`row row-${rowIndex}`}>
             {rowData.map((colValue, colIndex) => (
-              <span key={colIndex} className={`col col-${colIndex}-${rowIndex}`}>
-                {`-`}
-              </span>
+              <span key={colIndex} className={`col col-${colIndex}-${rowIndex}`} />
             ))}
           </div>
         ))}
