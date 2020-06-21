@@ -1,4 +1,4 @@
-import React, { Fragment, useRef, useState, useEffect, memo } from 'react';
+import React, { Fragment, useRef, useState, memo } from 'react';
 import {
   PolySynth,
   Reverb,
@@ -70,10 +70,9 @@ for (let y = 0; y < numRows; y++) {
 const RandomSequencer = memo(() => {
   const [playing, setPlaying] = useState(false);
 
-  let sequence = useRef();
-  let synth = useRef();
+  const sequence = useRef();
 
-  let delay = useRef(
+  const delay = useRef(
     new FeedbackDelay({
       delayTime: `${Math.floor(numCols / 2)}n`,
       feedback: 1 / 3,
@@ -81,7 +80,7 @@ const RandomSequencer = memo(() => {
     })
   );
 
-  let distortion = useRef(new Distortion({ wet: 0.6 }));
+  const distortion = useRef(new Distortion({ wet: 0.6 }));
 
   const reverb = useRef(
     new Reverb({
@@ -91,12 +90,10 @@ const RandomSequencer = memo(() => {
     })
   );
 
-  useEffect(() => {
-    synth.current = new PolySynth(DuoSynth, {
+  const synth = useRef(
+    new PolySynth(DuoSynth, {
       volume: -10,
-      polyphony: numRows
-    });
-    synth.current.set({
+      polyphony: numRows,
       voice0: {
         oscillator: {
           type: 'triangle4'
@@ -116,10 +113,8 @@ const RandomSequencer = memo(() => {
           sustain: 1
         }
       }
-    });
-
-    synth.current.chain(delay.current, distortion.current, reverb.current, Destination);
-  }, []);
+    }).chain(delay.current, distortion.current, reverb.current, Destination)
+  );
 
   const onSequenceStep = (time, column) => {
     let notesToPlay = [];
@@ -162,13 +157,8 @@ const RandomSequencer = memo(() => {
             `opacity: ${random(0.5, 0.88)}; transform: scale(${random(
               1,
               4.4
-            )}); background-color: hsl(${random(60, 70)}, ${random(80, 100)}%, ${random(
-              50,
-              100
-            )}%);`
+            )}); background-color: hsl(${random(60, 70)}, ${random(82, 96)}%, ${random(56, 100)}%);`
           );
-        } else {
-          //elem.classList.remove('on');
         }
       }
     }, time);
