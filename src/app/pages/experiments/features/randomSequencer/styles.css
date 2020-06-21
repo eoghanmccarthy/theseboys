@@ -1,0 +1,29 @@
+.random-sequencer {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 15px;
+}
+
+.random-sequencer .row {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+
+.random-sequencer .row:not(:last-child) {
+    margin-bottom: 5px;
+}
+
+.random-sequencer .row .col:not(:last-child) {
+    margin-right: 5px;
+}
+
+.random-sequencer .row .col {
+    color: grey;
+}
+
+.random-sequencer .row .col.on {
+    color: yellow;
+}

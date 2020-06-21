@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import './index.css';
 
@@ -7,6 +7,7 @@ import Oscillator from 'features/oscillator';
 
 import useKick from '../../features/instruments/useKick';
 import useVibertSnare from '../../features/instruments/useVibertSnare';
+import RandomSequencer from './features/randomSequencer';
 
 const Experiments = () => {
   const kick = useKick();
@@ -19,6 +20,9 @@ const Experiments = () => {
       </Panel>
       <Panel>
         <PlayButton onClick={() => vibertSnare.trigger()}>vibert snare</PlayButton>
+      </Panel>
+      <Panel>
+        <RandomSequencer />
       </Panel>
       <Panel>
         <Oscillator />

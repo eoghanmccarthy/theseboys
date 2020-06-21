@@ -9,7 +9,6 @@ import TransportProvider from 'features/transportProvider';
 import Master from 'features/master';
 import Module from 'features/module';
 import StepSequencer from 'features/stepSequencer';
-import Oscillator from 'features/oscillator';
 
 const modules = [
   { id: 'seq', name: 'step sequencer' },
@@ -32,11 +31,8 @@ const Home = () => {
                 transform: selectedIndex.interpolate(index => `translateX(${index * -1 * 100}%)`)
               }}
             >
-              <Module index={0} data={modules[0]}>
-                <StepSequencer />
-              </Module>
-              {/*<Module index={1} data={modules[1]}>*/}
-              {/*  <Oscillator />*/}
+              {/*<Module index={0} data={modules[0]}>*/}
+              {/*  <StepSequencer />*/}
               {/*</Module>*/}
             </animated.div>
           </div>
