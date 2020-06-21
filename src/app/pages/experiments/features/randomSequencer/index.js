@@ -10,6 +10,8 @@ import {
   Draw
 } from 'tone';
 
+//https://tone-demos.glitch.me/
+
 import './styles.css';
 
 import { PlayButton } from '../../ui';
@@ -146,6 +148,8 @@ const RandomSequencer = memo(() => {
         const elem = document.querySelector(`.col-${column}-${i}`);
 
         if (isOn) {
+          elem.style.opacity = random(0.5, 0.88);
+          elem.style.transform = `scale(${random(1, 4.4)})`;
           elem.classList.add('on');
         } else {
           //elem.classList.remove('on');

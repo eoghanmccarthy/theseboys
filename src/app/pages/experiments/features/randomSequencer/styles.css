@@ -21,7 +21,7 @@
 }
 
 .random-sequencer .row .col {
-    color: grey;
+    color: transparent;
 }
 
 .random-sequencer .row .col.on {
