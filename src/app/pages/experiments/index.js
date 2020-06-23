@@ -16,10 +16,10 @@ const Experiments = () => {
   return (
     <main className={'me__content experiments'}>
       <Panel>
-        <PlayButton onClick={() => kick.trigger()}>kick</PlayButton>
+        <PlayButton onClick={() => kick.trigger()} />
       </Panel>
       <Panel>
-        <PlayButton onClick={() => vibertSnare.trigger()}>vibert snare</PlayButton>
+        <PlayButton onClick={() => vibertSnare.trigger()} />
       </Panel>
       <Panel>
         <RandomSequencer />

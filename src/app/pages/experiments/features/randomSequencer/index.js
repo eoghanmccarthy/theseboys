@@ -1,4 +1,4 @@
-import React, { Fragment, useRef, useState, memo } from 'react';
+import React, { Fragment, useRef, useState, memo, useEffect } from 'react';
 import {
   PolySynth,
   Reverb,
@@ -15,6 +15,9 @@ import {
 
 import './styles.css';
 
+import random from 'utils/helpers/random';
+import newArray from 'utils/helpers/newArray';
+
 import { PlayButton } from '../../ui';
 
 //const notes = ['A4', 'D3', 'E3', 'G4', 'F#4'];
@@ -27,44 +30,30 @@ const numRows = notes.length;
 const numCols = 16;
 const noteInterval = `${numCols}n`;
 
-const newArray = n => {
-  const array = [];
-  for (let i = 0; i < n; i++) {
-    array.push(i);
-  }
-  return array;
-};
-
-const random = (min, max) => {
-  let rand = Math.random();
-
-  if (typeof min === 'undefined') {
-    return rand;
-  } else if (typeof max === 'undefined') {
-    if (min instanceof Array) {
-      return min[Math.floor(rand * min.length)];
-    } else {
-      return rand * min;
-    }
-  } else {
-    if (min > max) {
-      const tmp = min;
-      min = max;
-      max = tmp;
-    }
-
-    return rand * (max - min) + min;
+const data = {
+  array: [],
+  get() {
+    return this.array;
+  },
+  set(data) {
+    this.array = data;
   }
 };
 
-const data = [];
+const initialData = [];
 
 for (let y = 0; y < numRows; y++) {
   const row = [];
   for (let x = 0; x < numCols; x++) {
     row.push(0);
   }
-  data.push(row);
+  initialData.push(row);
+}
+
+data.set(initialData);
+
+function randomZero_One() {
+  return Math.round(Math.random());
 }
 
 const RandomSequencer = memo(() => {
@@ -115,6 +104,32 @@ const RandomSequencer = memo(() => {
       }
     }).chain(delay.current, distortion.current, reverb.current, Destination)
   );
+
+  useEffect(() => {
+    Transport.scheduleRepeat(() => {
+      //
+    }, '2m');
+  }, []);
+
+  const randomizeSequencer = () => {
+    // Choose a % chance so that sometimes it is more busy, other times more sparse
+    const chance = random(0.5, 1.5);
+    for (let y = 0; y < data.get().length; y++) {
+      // Loop through and create some random on/off values
+      const row = data.get()[y];
+      for (let x = 0; x < row.length; x++) {
+        row[x] = randomZero_One() > chance ? 1 : 0;
+      }
+      // Loop through again and make sure we don't have two
+      // consectutive on values (it sounds bad)
+      for (let x = 0; x < row.length - 1; x++) {
+        if (row[x] === 1 && row[x + 1] === 1) {
+          row[x + 1] = 0;
+          x++;
+        }
+      }
+    }
+  };
 
   const onSequenceStep = (time, column) => {
     let notesToPlay = [];
@@ -185,15 +200,15 @@ const RandomSequencer = memo(() => {
 
   return (
     <Fragment>
-      <div className={'random-sequencer'} onClick={() => start()}>
-        {data.map((rowData, rowIndex) => (
+      <PlayButton onClick={() => start()} />
+      <div className={'random-sequencer'}>
+        {data.get().map((rowData, rowIndex) => (
           <div key={rowIndex} className={`row row-${rowIndex}`}>
             {rowData.map((colValue, colIndex) => (
               <span key={colIndex} className={`col col-${colIndex}-${rowIndex}`} />
             ))}
           </div>
         ))}
-        {/*<PlayButton >sequencer</PlayButton>*/}
       </div>
     </Fragment>
   );
