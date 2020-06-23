@@ -16,12 +16,14 @@
     margin-bottom: 10px;
 }
 
-.exp.step-sequencer > .row .step-sequencer__col:not(:last-child) {
+.exp.step-sequencer > .row > .step-sequencer__col:not(:last-child) {
     margin-right: 15px;
 }
 
-.exp.step-sequencer > .row .step-sequencer__col {
+.exp.step-sequencer > .row > .step-sequencer__col {
     width: 2px;
     height: 2px;
+    background-color: white;
     border-radius: 50%;
+    cursor: pointer;
 }

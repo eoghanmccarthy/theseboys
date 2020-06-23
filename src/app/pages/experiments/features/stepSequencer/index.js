@@ -1,4 +1,5 @@
-import React, { Fragment, useRef, useState, memo, useEffect } from 'react';
+import React, { Fragment, useRef, useState, memo } from 'react';
+import { useImmer } from 'use-immer';
 import {
   PolySynth,
   Reverb,
@@ -31,17 +32,20 @@ const noteInterval = `${numCols}n`;
 const StepSequencer = memo(() => {
   const [playing, setPlaying] = useState(false);
 
-  const [data, setData] = useState(() => {
+  const [data, setData] = useImmer(() => {
     const arr = [];
     for (let y = 0; y < numRows; y++) {
       const row = [];
       for (let x = 0; x < numCols; x++) {
-        row.push(1);
+        row.push(0);
       }
       arr.push(row);
     }
     return arr;
   });
+
+  const stepsRef = useRef(data);
+  stepsRef.current = data;
 
   const sequence = useRef();
 
@@ -93,9 +97,8 @@ const StepSequencer = memo(() => {
     let notesToPlay = [];
     let columnData = [];
 
-    for (let i = 0; i < data.length; i++) {
-      const isOn = data[i][column] === 1;
-      // If its on, add it to the list of notes to play
+    for (let i = 0; i < stepsRef.current.length; i++) {
+      const isOn = stepsRef.current[i][column] === 1;
       if (isOn) {
         const note = notes[i];
         notesToPlay.push(note);
@@ -118,17 +121,18 @@ const StepSequencer = memo(() => {
         );
       }
 
-      for (let i = 0; i < data.length; i++) {
+      for (let i = 0; i < stepsRef.current.length; i++) {
         const isOn = columnData[i] === 1;
         const elem = document.querySelector(`.step-sequencer__col-${column}-${i}`);
 
         if (isOn) {
           elem.setAttribute(
             'style',
-            `opacity: ${random(0.5, 0.88)}; transform: scale(${random(
-              1,
-              4.4
-            )}); background-color: hsl(${random(60, 70)}, ${random(82, 96)}%, ${random(56, 100)}%);`
+            `opacity: ${random(0.5, 0.88)}; transform: scale(${velocity *
+              5}); background-color: hsl(${random(60, 70)}, ${random(82, 96)}%, ${random(
+              56,
+              100
+            )}%);`
           );
         }
       }
@@ -156,15 +160,23 @@ const StepSequencer = memo(() => {
 
   return (
     <Fragment>
-      <PlayButton onClick={() => start()} />
+      {/*<PlayButton onClick={() => start()} />*/}
+      <div onClick={() => start()}>jj</div>
       <div className={'exp step-sequencer'}>
         {data.map((rowData, rowIndex) => (
           <div key={rowIndex} className={`row`}>
-            {rowData.map((colValue, colIndex) => (
+            {rowData.map((stepValue, stepIndex) => (
               <span
-                key={colIndex}
-                className={`step-sequencer__col step-sequencer__col-${colIndex}-${rowIndex}`}
-              />
+                key={stepIndex}
+                className={`step-sequencer__col step-sequencer__col-${stepIndex}-${rowIndex}`}
+                onClick={() => {
+                  setData(draft => {
+                    draft[rowIndex][stepIndex] = stepValue === 0 ? 1 : 0;
+                  });
+                }}
+              >
+                o
+              </span>
             ))}
           </div>
         ))}

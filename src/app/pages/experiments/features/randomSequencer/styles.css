@@ -16,11 +16,11 @@
     margin-bottom: 10px;
 }
 
-.exp.random-sequencer > .row .rs-col:not(:last-child) {
+.exp.random-sequencer > .row > .random-sequencer__col:not(:last-child) {
     margin-right: 15px;
 }
 
-.exp.random-sequencer > .row .rs-col {
+.exp.random-sequencer > .row > .random-sequencer__col {
     width: 2px;
     height: 2px;
     border-radius: 50%;

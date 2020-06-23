@@ -123,28 +123,28 @@ const RandomSequencer = memo(() => {
     synth.current.triggerAttackRelease(notesToPlay, noteInterval, time, velocity);
 
     Draw.schedule(() => {
-      const elems = document.getElementsByClassName(`rs-col`);
+      const elems = document.getElementsByClassName(`random-sequencer__col`);
       for (let i = 0; i < elems.length; i++) {
+        elems[i].classList.remove('on');
         elems[i].setAttribute(
           'style',
           'opacity: 0.5; transform: scale(1); background-color: transparent;'
         );
       }
 
-      const container = document.querySelector(`.random-sequencer`);
-      container.style.transform = `scale(${random(1, 3.6)})`;
-
       for (let i = 0; i < numRows; i++) {
         const isOn = columnData[i] === 1;
-        const elem = document.querySelector(`.rs-col-${column}-${i}`);
+        const elem = document.querySelector(`.random-sequencer__col-${column}-${i}`);
 
         if (isOn) {
+          elem.classList.add('on');
           elem.setAttribute(
             'style',
-            `opacity: ${random(0.5, 0.88)}; transform: scale(${random(
-              1,
-              4.4
-            )}); background-color: hsl(${random(60, 70)}, ${random(82, 96)}%, ${random(56, 100)}%);`
+            `opacity: ${random(0.5, 0.88)}; transform: scale(${velocity *
+              10}); background-color: hsl(${random(60, 70)}, ${random(82, 96)}%, ${random(
+              56,
+              100
+            )}%);`
           );
         }
       }
@@ -176,8 +176,11 @@ const RandomSequencer = memo(() => {
       <div className={'exp random-sequencer'}>
         {data.map((rowData, rowIndex) => (
           <div key={rowIndex} className={`row`}>
-            {rowData.map((colValue, colIndex) => (
-              <span key={colIndex} className={`rs-col rs-col-${colIndex}-${rowIndex}`} />
+            {rowData.map((stepValue, stepIndex) => (
+              <span
+                key={stepIndex}
+                className={`random-sequencer__col random-sequencer__col-${stepIndex}-${rowIndex}`}
+              />
             ))}
           </div>
         ))}
