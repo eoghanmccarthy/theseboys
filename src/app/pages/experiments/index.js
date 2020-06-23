@@ -8,6 +8,7 @@ import Oscillator from 'features/oscillator';
 import useKick from 'features/instruments/useKick';
 import useVibertSnare from 'features/instruments/useVibertSnare';
 import RandomSequencer from './features/randomSequencer';
+import StepSequencer from './features/stepSequencer';
 
 const Experiments = () => {
   const kick = useKick();
@@ -23,6 +24,9 @@ const Experiments = () => {
       </Panel>
       <Panel>
         <RandomSequencer />
+      </Panel>
+      <Panel>
+        <StepSequencer />
       </Panel>
       <Panel>
         <Oscillator />

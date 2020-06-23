@@ -1,4 +1,4 @@
-.exp.random-sequencer {
+.exp.step-sequencer {
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -6,21 +6,21 @@
     padding: 15px;
 }
 
-.exp.random-sequencer > .row {
+.exp.step-sequencer > .row {
     display: flex;
     justify-content: center;
     width: 100%;
 }
 
-.exp.random-sequencer > .row:not(:last-child) {
+.exp.step-sequencer > .row:not(:last-child) {
     margin-bottom: 10px;
 }
 
-.exp.random-sequencer > .row .rs-col:not(:last-child) {
+.exp.step-sequencer > .row .step-sequencer__col:not(:last-child) {
     margin-right: 15px;
 }
 
-.exp.random-sequencer > .row .rs-col {
+.exp.step-sequencer > .row .step-sequencer__col {
     width: 2px;
     height: 2px;
     border-radius: 50%;

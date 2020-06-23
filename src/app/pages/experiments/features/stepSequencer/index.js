@@ -20,42 +20,28 @@ import newArray from 'utils/helpers/newArray';
 
 import { PlayButton } from '../../ui';
 
-//const notes = ['A4', 'D3', 'E3', 'G4', 'F#4'];
-//const notes = ['F#4', 'E4', 'C#4', 'A4'];
-const notes = ['A3', 'C4', 'D4', 'E4', 'G4', 'A4'];
-//const notes = ['A4', 'D3', 'E3', 'G4', 'F#4'];
+const notes = ['F#4', 'E4', 'C#4', 'A4'];
 
 const numRows = notes.length;
 
-const numCols = 16;
+const numCols = 4;
+
 const noteInterval = `${numCols}n`;
 
-const data = [];
-
-for (let y = 0; y < numRows; y++) {
-  const row = [];
-  for (let x = 0; x < numCols; x++) {
-    row.push(0);
-  }
-  data.push(row);
-}
-
-function randomZero_One() {
-  return Math.round(Math.random());
-}
-
-const RandomSequencer = memo(() => {
+const StepSequencer = memo(() => {
   const [playing, setPlaying] = useState(false);
 
-  // const dataRef = useRef({
-  //   array: initialData,
-  //   get() {
-  //     return this.array;
-  //   },
-  //   set(data) {
-  //     this.array = data;
-  //   }
-  // });
+  const [data, setData] = useState(() => {
+    const arr = [];
+    for (let y = 0; y < numRows; y++) {
+      const row = [];
+      for (let x = 0; x < numCols; x++) {
+        row.push(1);
+      }
+      arr.push(row);
+    }
+    return arr;
+  });
 
   const sequence = useRef();
 
@@ -107,8 +93,9 @@ const RandomSequencer = memo(() => {
     let notesToPlay = [];
     let columnData = [];
 
-    for (let i = 0; i < numRows; i++) {
-      const isOn = random(0.5, 1.12) > 1;
+    for (let i = 0; i < data.length; i++) {
+      const isOn = data[i][column] === 1;
+      // If its on, add it to the list of notes to play
       if (isOn) {
         const note = notes[i];
         notesToPlay.push(note);
@@ -123,20 +110,17 @@ const RandomSequencer = memo(() => {
     synth.current.triggerAttackRelease(notesToPlay, noteInterval, time, velocity);
 
     Draw.schedule(() => {
-      const elems = document.getElementsByClassName(`rs-col`);
+      const elems = document.getElementsByClassName(`step-sequencer__col`);
       for (let i = 0; i < elems.length; i++) {
         elems[i].setAttribute(
           'style',
-          'opacity: 0.5; transform: scale(1); background-color: transparent;'
+          'opacity: 0.5; transform: scale(1); background-color: white;'
         );
       }
 
-      const container = document.querySelector(`.random-sequencer`);
-      container.style.transform = `scale(${random(1, 3.6)})`;
-
-      for (let i = 0; i < numRows; i++) {
+      for (let i = 0; i < data.length; i++) {
         const isOn = columnData[i] === 1;
-        const elem = document.querySelector(`.rs-col-${column}-${i}`);
+        const elem = document.querySelector(`.step-sequencer__col-${column}-${i}`);
 
         if (isOn) {
           elem.setAttribute(
@@ -173,11 +157,14 @@ const RandomSequencer = memo(() => {
   return (
     <Fragment>
       <PlayButton onClick={() => start()} />
-      <div className={'exp random-sequencer'}>
+      <div className={'exp step-sequencer'}>
         {data.map((rowData, rowIndex) => (
           <div key={rowIndex} className={`row`}>
             {rowData.map((colValue, colIndex) => (
-              <span key={colIndex} className={`rs-col rs-col-${colIndex}-${rowIndex}`} />
+              <span
+                key={colIndex}
+                className={`step-sequencer__col step-sequencer__col-${colIndex}-${rowIndex}`}
+              />
             ))}
           </div>
         ))}
@@ -186,4 +173,4 @@ const RandomSequencer = memo(() => {
   );
 });
 
-export default RandomSequencer;
+export default StepSequencer;
