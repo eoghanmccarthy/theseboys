@@ -2,7 +2,7 @@ import React from 'react';
 
 import './index.css';
 
-import { Panel, PlayButton } from './ui';
+import { Panel, Meta, PlayButton } from './ui';
 import Oscillator from 'features/oscillator';
 
 import useKick from 'features/instruments/useKick';
@@ -16,18 +16,17 @@ const Experiments = () => {
 
   return (
     <main className={'me__content experiments'}>
-      <Panel>
+      <Meta>
         <PlayButton onClick={() => kick.trigger()} />
-      </Panel>
-      <Panel>
+      </Meta>
+      <Panel />
+      <Meta>
         <PlayButton onClick={() => vibertSnare.trigger()} />
-      </Panel>
-      <Panel>
-        <RandomSequencer />
-      </Panel>
-      <Panel>
-        <StepSequencer />
-      </Panel>
+      </Meta>
+      <Panel />
+      <RandomSequencer />
+      <StepSequencer />
+      <Meta>ppp</Meta>
       <Panel>
         <Oscillator />
       </Panel>

@@ -20,7 +20,7 @@ import './styles.css';
 import random from 'utils/helpers/random';
 import newArray from 'utils/helpers/newArray';
 
-import { PlayButton } from '../../ui';
+import { Panel, Meta, PlayButton } from '../../ui';
 
 const notes = ['F#4', 'E4', 'C#4', 'A4'];
 //const notes = ['A4', 'D3', 'E3', 'G4', 'F#4'];
@@ -146,32 +146,36 @@ const StepSequencer = memo(() => {
 
       setIsPlaying(true);
       sequence.current.start();
-      Transport.start();
+      Transport.state === 'stopped' && Transport.start();
     }
   };
 
   return (
     <Fragment>
-      <PlayButton isPlaying={isPlaying} onClick={() => start()} />
-      <div className={'exp step-sequencer'}>
-        {data.map((rowData, rowIndex) => (
-          <div key={rowIndex} className={`row`}>
-            {rowData.map((stepValue, stepIndex) => (
-              <span
-                key={stepIndex}
-                className={classNames(`step-sequencer__step`, {
-                  on: stepValue === 1
-                })}
-                onClick={() => {
-                  setData(draft => {
-                    draft[rowIndex][stepIndex] = stepValue === 0 ? 1 : 0;
-                  });
-                }}
-              />
-            ))}
-          </div>
-        ))}
-      </div>
+      <Meta>
+        <PlayButton isPlaying={isPlaying} onClick={() => start()} />
+      </Meta>
+      <Panel>
+        <div className={'exp step-sequencer'}>
+          {data.map((rowData, rowIndex) => (
+            <div key={rowIndex} className={`row`}>
+              {rowData.map((stepValue, stepIndex) => (
+                <span
+                  key={stepIndex}
+                  className={classNames(`step-sequencer__step`, {
+                    on: stepValue === 1
+                  })}
+                  onClick={() => {
+                    setData(draft => {
+                      draft[rowIndex][stepIndex] = stepValue === 0 ? 1 : 0;
+                    });
+                  }}
+                />
+              ))}
+            </div>
+          ))}
+        </div>
+      </Panel>
     </Fragment>
   );
 });

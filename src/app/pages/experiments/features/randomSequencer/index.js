@@ -1,4 +1,5 @@
 import React, { Fragment, useRef, useState, memo, useEffect } from 'react';
+import classNames from 'classnames';
 import {
   PolySynth,
   Reverb,
@@ -18,7 +19,7 @@ import './styles.css';
 import random from 'utils/helpers/random';
 import newArray from 'utils/helpers/newArray';
 
-import { PlayButton } from '../../ui';
+import { Panel, Meta, PlayButton } from '../../ui';
 
 //const notes = ['A4', 'D3', 'E3', 'G4', 'F#4'];
 //const notes = ['F#4', 'E4', 'C#4', 'A4'];
@@ -107,6 +108,8 @@ const RandomSequencer = memo(() => {
     let notesToPlay = [];
     let columnData = [];
 
+    let stepsArray = [];
+
     for (let i = 0; i < numRows; i++) {
       const isOn = random(0.5, 1.12) > 1;
       if (isOn) {
@@ -166,25 +169,34 @@ const RandomSequencer = memo(() => {
 
       setIsPlaying(true);
       sequence.current.start();
-      Transport.start();
+      Transport.state === 'stopped' && Transport.start();
     }
   };
 
   return (
     <Fragment>
-      <PlayButton isPlaying={isPlaying} onClick={() => start()} />
-      <div className={'exp random-sequencer'}>
-        {data.map((rowData, rowIndex) => (
-          <div key={rowIndex} className={`row`}>
-            {rowData.map((stepValue, stepIndex) => (
-              <span
-                key={stepIndex}
-                className={`random-sequencer__col random-sequencer__col-${stepIndex}-${rowIndex}`}
-              />
-            ))}
-          </div>
-        ))}
-      </div>
+      <Meta>
+        <PlayButton isPlaying={isPlaying} onClick={() => start()} />
+      </Meta>
+      <Panel>
+        <div className={'exp random-sequencer'}>
+          {data.map((rowData, rowIndex) => (
+            <div key={rowIndex} className={`row`}>
+              {rowData.map((stepValue, stepIndex) => (
+                <span
+                  key={stepIndex}
+                  className={classNames(
+                    `random-sequencer__col random-sequencer__col-${stepIndex}-${rowIndex}`,
+                    {
+                      on: stepValue === 1
+                    }
+                  )}
+                />
+              ))}
+            </div>
+          ))}
+        </div>
+      </Panel>
     </Fragment>
   );
 });

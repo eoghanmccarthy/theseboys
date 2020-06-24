@@ -1,6 +1,6 @@
-.experiment__panel {
+.experiment__meta {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background-color: var(--color-grey-900);
+    align-items: center;
 }
