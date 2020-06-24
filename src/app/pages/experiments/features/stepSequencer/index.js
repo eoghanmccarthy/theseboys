@@ -1,5 +1,6 @@
 import React, { Fragment, useRef, useState, memo } from 'react';
 import { useImmer } from 'use-immer';
+import classNames from 'classnames';
 import {
   PolySynth,
   Reverb,
@@ -22,15 +23,16 @@ import newArray from 'utils/helpers/newArray';
 import { PlayButton } from '../../ui';
 
 const notes = ['F#4', 'E4', 'C#4', 'A4'];
+//const notes = ['A4', 'D3', 'E3', 'G4', 'F#4'];
 
 const numRows = notes.length;
 
-const numCols = 4;
+const numCols = 8;
 
-const noteInterval = `${numCols}n`;
+const noteInterval = `${numCols * 2}n`;
 
 const StepSequencer = memo(() => {
-  const [playing, setPlaying] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   const [data, setData] = useImmer(() => {
     const arr = [];
@@ -57,7 +59,7 @@ const StepSequencer = memo(() => {
     })
   );
 
-  const distortion = useRef(new Distortion({ wet: 0.6 }));
+  const distortion = useRef(new Distortion({ wet: 0.9 }));
 
   const reverb = useRef(
     new Reverb({
@@ -95,16 +97,17 @@ const StepSequencer = memo(() => {
 
   const onSequenceStep = (time, column) => {
     let notesToPlay = [];
-    let columnData = [];
+
+    let stepsArray = [];
 
     for (let i = 0; i < stepsRef.current.length; i++) {
+      stepsArray = [...stepsArray, ...stepsRef.current[i]];
+
       const isOn = stepsRef.current[i][column] === 1;
+
       if (isOn) {
         const note = notes[i];
         notesToPlay.push(note);
-        columnData.push(1);
-      } else {
-        columnData.push(0);
       }
     }
 
@@ -113,27 +116,16 @@ const StepSequencer = memo(() => {
     synth.current.triggerAttackRelease(notesToPlay, noteInterval, time, velocity);
 
     Draw.schedule(() => {
-      const elems = document.getElementsByClassName(`step-sequencer__col`);
-      for (let i = 0; i < elems.length; i++) {
-        elems[i].setAttribute(
-          'style',
-          'opacity: 0.5; transform: scale(1); background-color: white;'
-        );
-      }
+      const allElements = document.getElementsByClassName(`step-sequencer__step`);
 
-      for (let i = 0; i < stepsRef.current.length; i++) {
-        const isOn = columnData[i] === 1;
-        const elem = document.querySelector(`.step-sequencer__col-${column}-${i}`);
-
-        if (isOn) {
-          elem.setAttribute(
-            'style',
-            `opacity: ${random(0.5, 0.88)}; transform: scale(${velocity *
-              5}); background-color: hsl(${random(60, 70)}, ${random(82, 96)}%, ${random(
-              56,
-              100
-            )}%);`
-          );
+      for (let i = 0; i < allElements.length; i++) {
+        if ((i - column) % numCols === 0) {
+          allElements[i].classList.add('current');
+          if (stepsArray[i] === 1) {
+            allElements[i].classList.add('playing');
+          }
+        } else {
+          allElements[i].classList.remove('current', 'playing');
         }
       }
     }, time);
@@ -144,15 +136,15 @@ const StepSequencer = memo(() => {
       return;
     }
 
-    if (playing) {
-      setPlaying(false);
+    if (isPlaying) {
+      setIsPlaying(false);
       sequence.current.stop();
       Transport.stop();
     } else {
       const noteIndices = newArray(numCols);
       sequence.current = new Sequence(onSequenceStep, noteIndices, noteInterval);
 
-      setPlaying(true);
+      setIsPlaying(true);
       sequence.current.start();
       Transport.start();
     }
@@ -160,23 +152,22 @@ const StepSequencer = memo(() => {
 
   return (
     <Fragment>
-      {/*<PlayButton onClick={() => start()} />*/}
-      <div onClick={() => start()}>jj</div>
+      <PlayButton isPlaying={isPlaying} onClick={() => start()} />
       <div className={'exp step-sequencer'}>
         {data.map((rowData, rowIndex) => (
           <div key={rowIndex} className={`row`}>
             {rowData.map((stepValue, stepIndex) => (
               <span
                 key={stepIndex}
-                className={`step-sequencer__col step-sequencer__col-${stepIndex}-${rowIndex}`}
+                className={classNames(`step-sequencer__step`, {
+                  on: stepValue === 1
+                })}
                 onClick={() => {
                   setData(draft => {
                     draft[rowIndex][stepIndex] = stepValue === 0 ? 1 : 0;
                   });
                 }}
-              >
-                o
-              </span>
+              />
             ))}
           </div>
         ))}

@@ -1,9 +1,9 @@
 .exp.step-sequencer {
-    flex: 1;
+    align-self: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 15px;
+    border-radius: 4px;
 }
 
 .exp.step-sequencer > .row {
@@ -13,17 +13,28 @@
 }
 
 .exp.step-sequencer > .row:not(:last-child) {
-    margin-bottom: 10px;
+    margin-bottom: 1px;
 }
 
-.exp.step-sequencer > .row > .step-sequencer__col:not(:last-child) {
-    margin-right: 15px;
+.exp.step-sequencer > .row > .step-sequencer__step:not(:last-child) {
+    margin-right: 1px;
 }
 
-.exp.step-sequencer > .row > .step-sequencer__col {
-    width: 2px;
-    height: 2px;
-    background-color: white;
-    border-radius: 50%;
+.exp.step-sequencer > .row > .step-sequencer__step {
+    width: 16px;
+    height: 16px;
+    border: 1px solid var(--color-grey-800);
     cursor: pointer;
+}
+
+.exp.step-sequencer > .row > .step-sequencer__step.on {
+    border-color: blue;
+}
+
+.exp.step-sequencer > .row > .step-sequencer__step.current {
+    border-color: white;
+}
+
+.exp.step-sequencer > .row > .step-sequencer__step.on.current.playing {
+    border-color: red;
 }

@@ -45,7 +45,7 @@ function randomZero_One() {
 }
 
 const RandomSequencer = memo(() => {
-  const [playing, setPlaying] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   // const dataRef = useRef({
   //   array: initialData,
@@ -156,15 +156,15 @@ const RandomSequencer = memo(() => {
       return;
     }
 
-    if (playing) {
-      setPlaying(false);
+    if (isPlaying) {
+      setIsPlaying(false);
       sequence.current.stop();
       Transport.stop();
     } else {
       const noteIndices = newArray(numCols);
       sequence.current = new Sequence(onSequenceStep, noteIndices, noteInterval);
 
-      setPlaying(true);
+      setIsPlaying(true);
       sequence.current.start();
       Transport.start();
     }
@@ -172,7 +172,7 @@ const RandomSequencer = memo(() => {
 
   return (
     <Fragment>
-      <PlayButton onClick={() => start()} />
+      <PlayButton isPlaying={isPlaying} onClick={() => start()} />
       <div className={'exp random-sequencer'}>
         {data.map((rowData, rowIndex) => (
           <div key={rowIndex} className={`row`}>
