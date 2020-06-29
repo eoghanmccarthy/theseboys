@@ -1,6 +1,5 @@
 import React, { Fragment, useRef, useState, memo } from 'react';
 import { useImmer } from 'use-immer';
-import classNames from 'classnames';
 import {
   PolySynth,
   Reverb,
@@ -19,8 +18,10 @@ import './styles.css';
 
 import random from 'utils/helpers/random';
 import newArray from 'utils/helpers/newArray';
+import stepDataInitialState from 'utils/helpers/stepDataInitialState';
 
 import { Panel, Meta, PlayButton } from '../../ui';
+import Step from './step';
 
 const notes = ['F#4', 'E4', 'C#4', 'A4'];
 //const notes = ['A4', 'D3', 'E3', 'G4', 'F#4'];
@@ -34,17 +35,7 @@ const noteInterval = `${numCols * 2}n`;
 const StepSequencer = memo(() => {
   const [isPlaying, setIsPlaying] = useState(false);
 
-  const [data, setData] = useImmer(() => {
-    const arr = [];
-    for (let y = 0; y < numRows; y++) {
-      const row = [];
-      for (let x = 0; x < numCols; x++) {
-        row.push(0);
-      }
-      arr.push(row);
-    }
-    return arr;
-  });
+  const [data, setData] = useImmer(() => stepDataInitialState(numRows, numCols));
 
   const stepsRef = useRef(data);
   stepsRef.current = data;
@@ -116,16 +107,16 @@ const StepSequencer = memo(() => {
     synth.current.triggerAttackRelease(notesToPlay, noteInterval, time, velocity);
 
     Draw.schedule(() => {
-      const allElements = document.getElementsByClassName(`step-sequencer__step`);
+      const elements = document.getElementsByClassName(`step-sequencer__step`);
 
-      for (let i = 0; i < allElements.length; i++) {
+      for (let i = 0; i < elements.length; i++) {
         if ((i - column) % numCols === 0) {
-          allElements[i].classList.add('current');
+          elements[i].classList.add('current');
           if (stepsArray[i] === 1) {
-            allElements[i].classList.add('playing');
+            elements[i].classList.add('playing');
           }
         } else {
-          allElements[i].classList.remove('current', 'playing');
+          elements[i].classList.remove('current', 'playing');
         }
       }
     }, time);
@@ -157,14 +148,12 @@ const StepSequencer = memo(() => {
       </Meta>
       <Panel>
         <div className={'exp step-sequencer'}>
-          {data.map((rowData, rowIndex) => (
+          {stepsRef.current.map((rowData, rowIndex) => (
             <div key={rowIndex} className={`row`}>
               {rowData.map((stepValue, stepIndex) => (
-                <span
+                <Step
                   key={stepIndex}
-                  className={classNames(`step-sequencer__step`, {
-                    on: stepValue === 1
-                  })}
+                  stepValue={stepValue}
                   onClick={() => {
                     setData(draft => {
                       draft[rowIndex][stepIndex] = stepValue === 0 ? 1 : 0;

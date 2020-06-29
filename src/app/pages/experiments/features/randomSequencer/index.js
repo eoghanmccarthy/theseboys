@@ -1,4 +1,5 @@
-import React, { Fragment, useRef, useState, memo, useEffect } from 'react';
+import React, { Fragment, useRef, useState, memo } from 'react';
+import { useImmer } from 'use-immer';
 import classNames from 'classnames';
 import {
   PolySynth,
@@ -18,6 +19,7 @@ import './styles.css';
 
 import random from 'utils/helpers/random';
 import newArray from 'utils/helpers/newArray';
+import stepDataInitialState from 'utils/helpers/stepDataInitialState';
 
 import { Panel, Meta, PlayButton } from '../../ui';
 
@@ -29,23 +31,19 @@ const notes = ['A3', 'C4', 'D4', 'E4', 'G4', 'A4'];
 const numRows = notes.length;
 
 const numCols = 16;
+
 const noteInterval = `${numCols}n`;
-
-const data = [];
-
-for (let y = 0; y < numRows; y++) {
-  const row = [];
-  for (let x = 0; x < numCols; x++) {
-    row.push(0);
-  }
-  data.push(row);
-}
 
 function randomZero_One() {
   return Math.round(Math.random());
 }
 
 const RandomSequencer = memo(() => {
+  const [data, setData] = useImmer(() => stepDataInitialState(numRows, numCols));
+
+  const stepsRef = useRef(data);
+  stepsRef.current = data;
+
   const [isPlaying, setIsPlaying] = useState(false);
 
   // const dataRef = useRef({
@@ -180,7 +178,7 @@ const RandomSequencer = memo(() => {
       </Meta>
       <Panel>
         <div className={'exp random-sequencer'}>
-          {data.map((rowData, rowIndex) => (
+          {stepsRef.current.map((rowData, rowIndex) => (
             <div key={rowIndex} className={`row`}>
               {rowData.map((stepValue, stepIndex) => (
                 <span

@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 import './styles.css';
 
-const Meta = ({ children }) => {
+const Meta = memo(({ children }) => {
   return <div className={'experiment__meta'}>{children}</div>;
-};
+});
 
 export default Meta;
