@@ -11,7 +11,7 @@ import {
 
 //https://codepen.io/michaelphipps/pen/QBMENY
 
-const useGatedReverbSnare = () => {
+export default () => {
   const feedbackDelay = useRef(
     new FeedbackDelay({
       delayTime: '32n',
@@ -56,5 +56,3 @@ const useGatedReverbSnare = () => {
 
   return { trigger };
 };
-
-export default useGatedReverbSnare;

@@ -3,7 +3,7 @@ import { Filter, NoiseSynth, Synth, PolySynth } from 'tone';
 
 //https://gist.github.com/vibertthio/9c815b7edeee2aab3aec35de7dfa57bb
 
-const useVibertSnare = () => {
+export default () => {
   const lowPass = useRef(
     new Filter({
       frequency: 11000
@@ -49,5 +49,3 @@ const useVibertSnare = () => {
 
   return { trigger };
 };
-
-export default useVibertSnare;

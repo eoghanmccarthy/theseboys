@@ -25,6 +25,7 @@ import Step from './step';
 
 const notes = ['F#4', 'E4', 'C#4', 'A4'];
 //const notes = ['A4', 'D3', 'E3', 'G4', 'F#4'];
+//const notes = ['A3', 'C4', 'D4', 'E4', 'G4', 'A4'];
 
 const numRows = notes.length;
 

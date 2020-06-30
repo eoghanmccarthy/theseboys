@@ -13,7 +13,7 @@ import {
 //http://www.katyarozanova.com/art/2017/11/7/pattern-and-sound-series
 //https://editor.p5js.org/katya/sketches/S1dRFwsWG
 
-const useMonoSynth = () => {
+export default () => {
   const gate = useRef(new Gate(-50));
 
   const compressor = useRef(new MidSideCompressor());
@@ -47,5 +47,3 @@ const useMonoSynth = () => {
 
   return { trigger };
 };
-
-export default useMonoSynth;

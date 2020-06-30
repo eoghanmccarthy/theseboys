@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { MembraneSynth } from 'tone';
 
-const useKick = () => {
+export default () => {
   const membrane = useRef(
     new MembraneSynth({
       envelope: {
@@ -13,11 +13,9 @@ const useKick = () => {
     }).toDestination()
   );
 
-  const trigger = () => {
-    membrane.current.triggerAttackRelease('C2', '8n');
+  const trigger = (note = 'C2', duration = '8n') => {
+    membrane.current.triggerAttackRelease(note, duration);
   };
 
   return { trigger };
 };
-
-export default useKick;

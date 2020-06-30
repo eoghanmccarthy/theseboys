@@ -5,31 +5,43 @@ import './index.css';
 import { Panel, Meta, PlayButton } from './ui';
 import Oscillator from 'features/oscillator';
 
-import useKick from 'features/instruments/useKick';
-import useVibertSnare from 'features/instruments/useVibertSnare';
-import useGatedReverbSnare from 'features/instruments/useGatedReverbSnare';
-import useMonoSynth from 'features/instruments/useMonoSynth';
+import useKick01 from 'features/sounds/useKick01';
+import useKick02 from 'features/sounds/useKick02';
+import useSnare01 from 'features/sounds/useSnare01';
+import useSnare02 from 'features/sounds/useSnare02';
+import useBell01 from 'features/sounds/useBell01';
+import useMonoSynth from 'features/sounds/useMonoSynth';
 import RandomSequencer from './features/randomSequencer';
 import StepSequencer from './features/stepSequencer';
 
 const Experiments = () => {
-  const kick = useKick();
-  const vibertSnare = useVibertSnare();
-  const gatedReverbSnare = useGatedReverbSnare();
+  const kick01 = useKick01();
+  const kick02 = useKick02();
+  const snare01 = useSnare01();
+  const snare02 = useSnare02();
+  const bell01 = useBell01();
   const monoSynth = useMonoSynth();
 
   return (
     <main className={'me__content experiments'}>
       <Meta>
-        <PlayButton onClick={() => kick.trigger()} />
+        <PlayButton onClick={() => bell01.trigger()} />
       </Meta>
       <Panel />
       <Meta>
-        <PlayButton onClick={() => vibertSnare.trigger()} />
+        <PlayButton onClick={() => kick02.trigger()} />
       </Meta>
       <Panel />
       <Meta>
-        <PlayButton onClick={() => gatedReverbSnare.trigger()} />
+        <PlayButton onClick={() => kick01.trigger()} />
+      </Meta>
+      <Panel />
+      <Meta>
+        <PlayButton onClick={() => snare01.trigger()} />
+      </Meta>
+      <Panel />
+      <Meta>
+        <PlayButton onClick={() => snare02.trigger()} />
       </Meta>
       <Panel />
       <Meta>
