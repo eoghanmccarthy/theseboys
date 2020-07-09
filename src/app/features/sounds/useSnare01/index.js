@@ -47,5 +47,5 @@ export default () => {
     poly.current.triggerAttackRelease(['Eb3', 'G4', 'C5'], '16n', time);
   };
 
-  return { trigger };
+  return { trigger, label: 'snare 01' };
 };

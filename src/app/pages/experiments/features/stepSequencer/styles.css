@@ -2,48 +2,65 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    padding: 28px;
+    padding: var(--spacing-12) calc(var(--spacing-12) * 2) ;
 }
 
 .exp.step-sequencer > .row {
+    flex: 1;
     display: grid;
     grid-auto-flow: column;
-    grid-column-gap: 5px;
     justify-items: center;
     align-items: center;
     width: 100%;
 }
 
-.exp.step-sequencer > .row:not(:last-child) {
-    //margin-bottom: 24px;
-}
-
-.exp.step-sequencer > .row > .step-sequencer__step:not(:last-child) {
-    //margin-right: 16px;
-}
-
 .exp.step-sequencer > .row > .step-sequencer__step {
-    width: 28px;
-    height: 28px;
-    border: 1px solid var(--color-bluegrey-600);
+    position: relative;
+    width: 24px;
+    height: 24px;
+    background-color: var(--color-bluegrey-800);
+    border: 1px solid var(--color-bluegrey-900);
     border-radius: 100%;
     cursor: pointer;
     transform: scale(1);
     transition: all .25s;
 }
 
+.exp.step-sequencer > .row > .step-sequencer__step:hover {
+    background-color: var(--color-bluegrey-900);
+    /*opacity: .6;*/
+}
+
+.exp.step-sequencer > .row > .step-sequencer__step > span {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background-color: var(--color-bluegrey-200);
+    transform: translate(-50%, -50%);
+}
+
+.exp.step-sequencer > .row > .step-sequencer__step > span:first-child {
+    width: 1px;
+    height: 8px;
+}
+
+.exp.step-sequencer > .row > .step-sequencer__step > span:last-child {
+    width: 8px;
+    height: 1px;
+}
+
 .exp.step-sequencer > .row > .step-sequencer__step.on {
-    background-color: white;
-    border-color: white;
-    //transform: scale(0.75);
+    /*background-color: white;*/
+    border-color: var(--color-bluegrey-600);
 }
 
 .exp.step-sequencer > .row > .step-sequencer__step.current {
-    border-color: blue;
-    transform: scale(1.25);
+    border-width: 3px;
+    transform: scale(1.22);
 }
 
 .exp.step-sequencer > .row > .step-sequencer__step.on.current.playing {
-    border-color: red;
+    border-width: 3px;
+    /*border-color: red;*/
 }

@@ -1,14 +1,20 @@
-import React, { memo } from 'react';
+import React, { memo, useRef } from 'react';
 import classNames from 'classnames';
 
 const Step = memo(({ stepValue, onClick }) => {
+  const stepRef = useRef(null);
+
   return (
-    <span
+    <div
+      ref={stepRef}
       className={classNames(`step-sequencer__step`, {
         on: stepValue === 1
       })}
       onClick={onClick}
-    />
+    >
+      <span />
+      <span />
+    </div>
   );
 });
 
