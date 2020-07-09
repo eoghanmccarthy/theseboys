@@ -2,7 +2,7 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    padding: var(--spacing-12) calc(var(--spacing-12) * 2) ;
+    padding: var(--spacing-12);
 }
 
 .exp.step-sequencer > .row {
