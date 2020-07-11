@@ -62,5 +62,13 @@
 
 .exp.step-sequencer > .row > .step-sequencer__step.on.current.playing {
     border-width: 3px;
-    /*border-color: red;*/
+    border-color: var(--color-secondary);
+}
+
+button.testt {
+    background-color: red;
+}
+
+button.testtt {
+    background-color: white;
 }

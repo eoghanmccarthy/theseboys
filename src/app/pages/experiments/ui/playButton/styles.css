@@ -34,11 +34,11 @@
 }
 
 .play-button.is-playing {
-    border-color: yellow;
+    border-color: var(--color-primary);
 }
 
 .play-button.is-playing:after {
-    border-left-color: yellow;
+    border-left-color: var(--color-primary);
 }
 
 .play-button:focus {

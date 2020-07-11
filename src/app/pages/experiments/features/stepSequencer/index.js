@@ -131,7 +131,7 @@ const StepSequencer = memo(() => {
     if (isPlaying) {
       setIsPlaying(false);
       sequence.current.stop();
-      Transport.stop();
+      //Transport.stop();
     } else {
       const noteIndices = newArray(numCols);
       sequence.current = new Sequence(onSequenceStep, noteIndices, noteInterval);
@@ -165,6 +165,63 @@ const StepSequencer = memo(() => {
             </div>
           ))}
         </div>
+      </Panel>
+      <Meta />
+      <Panel>
+        <button
+          onClick={() => {
+            const { wet } = distortion.current.get();
+            const val = Math.min(wet + 0.1, 1);
+            distortion.current.set({ wet: val });
+          }}
+        >
+          distortion up
+        </button>
+        <button
+          onClick={() => {
+            const { wet } = distortion.current.get();
+            const val = Math.max(wet - 0.1, 0);
+            distortion.current.set({ wet: val });
+          }}
+        >
+          distortion down
+        </button>
+        <button
+          onClick={() => {
+            const { wet } = reverb.current.get();
+            const val = Math.min(wet + 0.1, 1);
+            reverb.current.set({ wet: val });
+          }}
+        >
+          reverb up
+        </button>
+        <button
+          onClick={() => {
+            const { wet } = reverb.current.get();
+            const val = Math.max(wet - 0.1, 0);
+            reverb.current.set({ wet: val });
+          }}
+        >
+          reverb down
+        </button>
+        <button
+          onClick={() => {
+            const { wet } = delay.current.get();
+            const val = Math.min(wet + 0.1, 1);
+            delay.current.set({ wet: val });
+          }}
+        >
+          delay up
+        </button>
+        <button
+          onClick={() => {
+            const { wet } = delay.current.get();
+            const val = Math.max(wet - 0.1, 0);
+            delay.current.set({ wet: val });
+          }}
+        >
+          delay down
+        </button>
       </Panel>
     </Fragment>
   );
