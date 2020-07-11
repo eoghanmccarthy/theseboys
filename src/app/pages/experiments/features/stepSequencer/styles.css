@@ -65,10 +65,6 @@
     border-color: var(--color-secondary);
 }
 
-button.testt {
+.effect-button.limit {
     background-color: red;
-}
-
-button.testtt {
-    background-color: white;
 }

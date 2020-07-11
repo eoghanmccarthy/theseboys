@@ -1,5 +1,6 @@
 import React, { Fragment, useRef, useState, memo } from 'react';
 import { useImmer } from 'use-immer';
+import cx from 'classnames';
 import {
   PolySynth,
   Reverb,
@@ -22,6 +23,7 @@ import stepDataInitialState from 'utils/helpers/stepDataInitialState';
 
 import { Panel, Meta, PlayButton } from '../../ui';
 import Step from './step';
+import classNames from 'classnames';
 
 const notes = ['F#4', 'E4', 'C#4', 'A4'];
 //const notes = ['A4', 'D3', 'E3', 'G4', 'F#4'];
@@ -168,63 +170,60 @@ const StepSequencer = memo(() => {
       </Panel>
       <Meta />
       <Panel>
-        <button
-          onClick={() => {
-            const { wet } = distortion.current.get();
-            const val = Math.min(wet + 0.1, 1);
-            distortion.current.set({ wet: val });
-          }}
-        >
+        <EffectButton className={'distortion'} node={distortion?.current}>
           distortion up
-        </button>
-        <button
-          onClick={() => {
-            const { wet } = distortion.current.get();
-            const val = Math.max(wet - 0.1, 0);
-            distortion.current.set({ wet: val });
-          }}
-        >
+        </EffectButton>
+        <EffectButton className={'distortion'} node={distortion?.current} dec limit={0}>
           distortion down
-        </button>
-        <button
-          onClick={() => {
-            const { wet } = reverb.current.get();
-            const val = Math.min(wet + 0.1, 1);
-            reverb.current.set({ wet: val });
-          }}
-        >
+        </EffectButton>
+        <EffectButton className={'reverb'} node={reverb?.current}>
           reverb up
-        </button>
-        <button
-          onClick={() => {
-            const { wet } = reverb.current.get();
-            const val = Math.max(wet - 0.1, 0);
-            reverb.current.set({ wet: val });
-          }}
-        >
+        </EffectButton>
+        <EffectButton className={'reverb'} node={reverb?.current} dec limit={0}>
           reverb down
-        </button>
-        <button
-          onClick={() => {
-            const { wet } = delay.current.get();
-            const val = Math.min(wet + 0.1, 1);
-            delay.current.set({ wet: val });
-          }}
-        >
+        </EffectButton>
+        <EffectButton className={'delay'} node={delay?.current}>
           delay up
-        </button>
-        <button
-          onClick={() => {
-            const { wet } = delay.current.get();
-            const val = Math.max(wet - 0.1, 0);
-            delay.current.set({ wet: val });
-          }}
-        >
+        </EffectButton>
+        <EffectButton className={'delay'} node={delay?.current} dec limit={0}>
           delay down
-        </button>
+        </EffectButton>
       </Panel>
     </Fragment>
   );
 });
 
 export default StepSequencer;
+
+const EffectButton = memo(({ children, className, node, dec, step = 0.1, limit = 1 }) => {
+  if (!node) {
+    return null;
+  }
+
+  return (
+    <button
+      className={cx('effect-button', className, {
+        inc: !dec,
+        dec: dec
+      })}
+      onClick={() => {
+        const { wet } = node.get();
+        const val = !dec ? Math.min(wet + step, limit) : Math.max(wet - step, limit);
+
+        if (val === 0) {
+          document.querySelector(`.effect-button.${className}.dec`).classList.add('limit');
+        } else if (val === 1) {
+          document.querySelector(`.effect-button.${className}.inc`).classList.add('limit');
+        } else {
+          document
+            .querySelectorAll(`.effect-button.${className}`)
+            .forEach(el => el.classList.remove('limit'));
+        }
+
+        node.set({ wet: val });
+      }}
+    >
+      {children}
+    </button>
+  );
+});
