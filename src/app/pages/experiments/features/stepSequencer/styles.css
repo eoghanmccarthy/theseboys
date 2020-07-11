@@ -65,6 +65,6 @@
     border-color: var(--color-secondary);
 }
 
-.effect-button.limit {
+.step-sequencer__effect.limit {
     background-color: red;
 }

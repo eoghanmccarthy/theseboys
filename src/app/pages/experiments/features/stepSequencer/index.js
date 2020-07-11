@@ -202,7 +202,7 @@ const EffectButton = memo(({ children, className, node, dec, step = 0.1, limit =
 
   return (
     <button
-      className={cx('effect-button', className, {
+      className={cx('step-sequencer__effect', className, {
         inc: !dec,
         dec: dec
       })}
@@ -211,12 +211,12 @@ const EffectButton = memo(({ children, className, node, dec, step = 0.1, limit =
         const val = !dec ? Math.min(wet + step, limit) : Math.max(wet - step, limit);
 
         if (val === 0) {
-          document.querySelector(`.effect-button.${className}.dec`).classList.add('limit');
+          document.querySelector(`.step-sequencer__effect.${className}.dec`).classList.add('limit');
         } else if (val === 1) {
-          document.querySelector(`.effect-button.${className}.inc`).classList.add('limit');
+          document.querySelector(`.step-sequencer__effect.${className}.inc`).classList.add('limit');
         } else {
           document
-            .querySelectorAll(`.effect-button.${className}`)
+            .querySelectorAll(`.step-sequencer__effect.${className}`)
             .forEach(el => el.classList.remove('limit'));
         }
 
