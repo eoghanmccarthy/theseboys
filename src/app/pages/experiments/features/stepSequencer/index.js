@@ -91,12 +91,10 @@ const StepSequencer = memo(() => {
   const onSequenceStep = (time, column) => {
     let notesToPlay = [];
 
-    let stepsArray = [];
-
     for (let i = 0; i < stepsRef.current.length; i++) {
-      stepsArray = [...stepsArray, ...stepsRef.current[i]];
-
-      const isOn = stepsRef.current[i][column] === 1;
+      const isOn = document
+        .querySelector(`.step-sequencer__step.track-${i}-step-${column}`)
+        .classList.contains('on');
 
       if (isOn) {
         const note = notes[i];
@@ -112,9 +110,10 @@ const StepSequencer = memo(() => {
       const elements = document.getElementsByClassName(`step-sequencer__step`);
 
       for (let i = 0; i < elements.length; i++) {
-        if ((i - column) % numCols === 0) {
+        const currentStep = (i - column) % numCols === 0;
+        if (currentStep) {
           elements[i].classList.add('current');
-          if (stepsArray[i] === 1) {
+          if (elements[i].classList.contains('on')) {
             elements[i].classList.add('playing');
           }
         } else {
@@ -163,15 +162,11 @@ const StepSequencer = memo(() => {
                     const elem = document.querySelector(
                       `.step-sequencer__step.track-${trackIndex}-step-${stepIndex}`
                     );
-
                     if (!elem.classList.contains('on')) {
                       elem.classList.add('on');
                     } else {
                       elem.classList.remove('on');
                     }
-                    setData(draft => {
-                      draft[trackIndex][stepIndex] = stepValue === 0 ? 1 : 0;
-                    });
                   }}
                 />
               ))}
