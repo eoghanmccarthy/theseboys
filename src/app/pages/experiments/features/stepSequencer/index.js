@@ -22,7 +22,6 @@ import newArray from 'utils/helpers/newArray';
 import stepDataInitialState from 'utils/helpers/stepDataInitialState';
 
 import { Panel, Meta, PlayButton } from '../../ui';
-import Step from './step';
 import classNames from 'classnames';
 
 const notes = ['F#4', 'E4', 'C#4', 'A4'];
@@ -151,15 +150,27 @@ const StepSequencer = memo(() => {
       </Meta>
       <Panel>
         <div className={'exp step-sequencer'}>
-          {stepsRef.current.map((rowData, rowIndex) => (
-            <div key={rowIndex} className={`row`}>
+          {stepsRef.current.map((rowData, trackIndex) => (
+            <div key={trackIndex} className={`row`}>
               {rowData.map((stepValue, stepIndex) => (
-                <Step
+                <div
                   key={stepIndex}
-                  stepValue={stepValue}
+                  className={classNames(
+                    `step-sequencer__step`,
+                    `track-${trackIndex}-step-${stepIndex}`
+                  )}
                   onClick={() => {
+                    const elem = document.querySelector(
+                      `.step-sequencer__step.track-${trackIndex}-step-${stepIndex}`
+                    );
+
+                    if (!elem.classList.contains('on')) {
+                      elem.classList.add('on');
+                    } else {
+                      elem.classList.remove('on');
+                    }
                     setData(draft => {
-                      draft[rowIndex][stepIndex] = stepValue === 0 ? 1 : 0;
+                      draft[trackIndex][stepIndex] = stepValue === 0 ? 1 : 0;
                     });
                   }}
                 />

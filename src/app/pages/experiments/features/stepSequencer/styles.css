@@ -62,6 +62,7 @@
 
 .exp.step-sequencer > .row > .step-sequencer__step.on.current.playing {
     border-width: 3px;
+    background-color: var(--color-secondary);
     border-color: var(--color-secondary);
 }
 
