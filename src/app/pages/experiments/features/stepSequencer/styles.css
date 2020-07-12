@@ -19,14 +19,3 @@
     justify-content: space-around;
     align-items: center;
 }
-
-.exp.step-seq__effects > .step-seq__effect {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.step-seq__effect > *:not(:last-child) {
-    margin-bottom: var(--spacing-12);
-}

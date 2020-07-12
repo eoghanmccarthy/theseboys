@@ -22,7 +22,7 @@ import random from 'utils/helpers/random';
 import newArray from 'utils/helpers/newArray';
 import stepDataInitialState from 'utils/helpers/stepDataInitialState';
 
-import { Panel, Meta, PlayButton, Step, EffectCtrlButton } from '../../ui';
+import { Panel, Meta, PlayButton, Step, EffectControls } from '../../ui';
 
 const notes = ['F#4', 'E4', 'C#4', 'A4'];
 //const notes = ['A4', 'D3', 'E3', 'G4', 'F#4'];
@@ -192,8 +192,9 @@ const StepSequencer = memo(() => {
       <Meta />
       <Panel>
         <div className={'exp step-seq__effects'}>
-          <EffectControl
+          <EffectControls
             node={channel?.current}
+            sequencerName={sequencerName}
             param={'volume'}
             name={'volume'}
             label={'VOL'}
@@ -201,16 +202,32 @@ const StepSequencer = memo(() => {
             min={-60}
             max={20}
           />
-          <EffectControl
+          <EffectControls
             node={channel?.current}
+            sequencerName={sequencerName}
             param={'pan'}
             name={'pan'}
             label={'PAN'}
             min={-1}
           />
-          <EffectControl node={distortion?.current} name={'distortion'} label={'DIS'} />
-          <EffectControl node={reverb?.current} name={'reverb'} label={'REV'} />
-          <EffectControl node={delay?.current} name={'delay'} label={'DLY'} />
+          <EffectControls
+            node={distortion?.current}
+            sequencerName={sequencerName}
+            name={'distortion'}
+            label={'DIS'}
+          />
+          <EffectControls
+            node={reverb?.current}
+            sequencerName={sequencerName}
+            name={'reverb'}
+            label={'REV'}
+          />
+          <EffectControls
+            node={delay?.current}
+            sequencerName={sequencerName}
+            name={'delay'}
+            label={'DLY'}
+          />
         </div>
       </Panel>
     </Fragment>
@@ -218,38 +235,3 @@ const StepSequencer = memo(() => {
 });
 
 export default StepSequencer;
-
-const EffectControl = memo(({ node, param = 'wet', name, label, step = 0.1, min = 0, max = 1 }) => {
-  if (!node) {
-    return null;
-  }
-
-  return (
-    <div className={'step-seq__effect'}>
-      <EffectCtrlButton
-        sequencerName={sequencerName}
-        name={name}
-        node={node}
-        param={param}
-        step={step}
-        min={min}
-        max={max}
-      >
-        +
-      </EffectCtrlButton>
-      <span className={'effect-label'}>{label}</span>
-      <EffectCtrlButton
-        sequencerName={sequencerName}
-        name={name}
-        node={node}
-        param={param}
-        step={step}
-        dec
-        min={min}
-        max={max}
-      >
-        <span />
-      </EffectCtrlButton>
-    </div>
-  );
-});

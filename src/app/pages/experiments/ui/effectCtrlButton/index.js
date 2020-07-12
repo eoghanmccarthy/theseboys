@@ -9,7 +9,7 @@ const EffectCtrlButton = memo(
       return null;
     }
 
-    const className = `${sequencerName}__effect--${name}`;
+    const className = `${sequencerName}__effect-ctrl--${name}`;
 
     return (
       <button

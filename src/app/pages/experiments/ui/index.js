@@ -2,6 +2,6 @@ import Panel from './panel';
 import Meta from './meta';
 import PlayButton from './playButton';
 import Step from './step';
-import EffectCtrlButton from './effectCtrlButton';
+import EffectControls from './effectCtrls';
 
-export { Panel, Meta, PlayButton, Step, EffectCtrlButton };
+export { Panel, Meta, PlayButton, Step, EffectControls };
