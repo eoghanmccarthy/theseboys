@@ -1,6 +1,5 @@
 import React, { Fragment, useRef, useState, memo } from 'react';
 import { useImmer } from 'use-immer';
-import cx from 'classnames';
 import {
   PolySynth,
   Reverb,
@@ -23,7 +22,7 @@ import random from 'utils/helpers/random';
 import newArray from 'utils/helpers/newArray';
 import stepDataInitialState from 'utils/helpers/stepDataInitialState';
 
-import { Panel, Meta, PlayButton, Step } from '../../ui';
+import { Panel, Meta, PlayButton, Step, EffectCtrlButton } from '../../ui';
 
 const notes = ['F#4', 'E4', 'C#4', 'A4'];
 //const notes = ['A4', 'D3', 'E3', 'G4', 'F#4'];
@@ -37,7 +36,7 @@ const noteInterval = `${numCols * 2}n`;
 
 const noteIndices = newArray(numCols);
 
-const sequencerName = 'synth-sequencer';
+const sequencerName = 'step-seq-001';
 
 const StepSequencer = memo(() => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -175,7 +174,7 @@ const StepSequencer = memo(() => {
         <PlayButton isPlaying={isPlaying} onClick={() => start()} />
       </Meta>
       <Panel>
-        <div className={'exp synth-step-sequencer'}>
+        <div className={`exp step-seq__steps`}>
           {stepsRef.current.map((rowData, trackIndex) => (
             <div key={trackIndex} className={`row`}>
               {rowData.map((stepValue, stepIndex) => (
@@ -192,7 +191,7 @@ const StepSequencer = memo(() => {
       </Panel>
       <Meta />
       <Panel>
-        <div className={'exp synth-step-sequencer__effects'}>
+        <div className={'exp step-seq__effects'}>
           <EffectControl
             node={channel?.current}
             param={'volume'}
@@ -226,50 +225,31 @@ const EffectControl = memo(({ node, param = 'wet', name, label, step = 0.1, min 
   }
 
   return (
-    <div className={'synth-step-sequencer__effect'}>
-      <RangeButton className={name} node={node} param={param} step={step} min={min} max={max}>
+    <div className={'step-seq__effect'}>
+      <EffectCtrlButton
+        sequencerName={sequencerName}
+        name={name}
+        node={node}
+        param={param}
+        step={step}
+        min={min}
+        max={max}
+      >
         +
-      </RangeButton>
+      </EffectCtrlButton>
       <span className={'effect-label'}>{label}</span>
-      <RangeButton className={name} node={node} param={param} step={step} dec min={min} max={max}>
+      <EffectCtrlButton
+        sequencerName={sequencerName}
+        name={name}
+        node={node}
+        param={param}
+        step={step}
+        dec
+        min={min}
+        max={max}
+      >
         <span />
-      </RangeButton>
+      </EffectCtrlButton>
     </div>
   );
 });
-
-const RangeButton = memo(
-  ({ children, className, node, param = 'wet', dec, step = 0.1, min = 0, max = 1 }) => {
-    if (!node) {
-      return null;
-    }
-
-    return (
-      <button
-        className={cx('effect-control', className, {
-          inc: !dec,
-          dec: dec
-        })}
-        onClick={() => {
-          const params = node.get();
-          const previous = params[param];
-          const val = !dec ? Math.min(previous + step, max) : Math.max(previous - step, min);
-
-          if (val === min) {
-            document.querySelector(`.effect-control.${className}.dec`).classList.add('limit');
-          } else if (val === max) {
-            document.querySelector(`.effect-control.${className}.inc`).classList.add('limit');
-          } else {
-            document
-              .querySelectorAll(`.effect-control.${className}`)
-              .forEach(el => el.classList.remove('limit'));
-          }
-
-          node.set({ [param]: val });
-        }}
-      >
-        {children}
-      </button>
-    );
-  }
-);

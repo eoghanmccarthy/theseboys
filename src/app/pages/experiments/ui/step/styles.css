@@ -1,4 +1,4 @@
-.step-sequencer__step {
+.step-seq__step {
     width: 24px;
     height: 24px;
     background-color: var(--color-bluegrey-800);
@@ -9,12 +9,12 @@
     transition: all .25s;
 }
 
-.step-sequencer__step:hover {
+.step-seq__step:hover {
     background-color: var(--color-bluegrey-900);
     /*opacity: .6;*/
 }
 
-.step-sequencer__step > span {
+.step-seq__step > span {
     display: none;
     position: absolute;
     top: 50%;
@@ -23,26 +23,26 @@
     transform: translate(-50%, -50%);
 }
 
-.step-sequencer__step > span:first-child {
+.step-seq__step > span:first-child {
     width: 1px;
     height: 8px;
 }
 
-.step-sequencer__step > span:last-child {
+.step-seq__step > span:last-child {
     width: 8px;
     height: 1px;
 }
 
-.step-sequencer__step.on {
+.step-seq__step.on {
     border-color: var(--color-bluegrey-600);
 }
 
-.step-sequencer__step.current {
+.step-seq__step.current {
     border-width: 3px;
     transform: scale(1.22);
 }
 
-.step-sequencer__step.on.current.playing {
+.step-seq__step.on.current.playing {
     border-width: 3px;
     background-color: var(--color-secondary);
     border-color: var(--color-secondary);

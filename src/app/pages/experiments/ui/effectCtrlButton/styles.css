@@ -1,0 +1,23 @@
+button.effect-ctrl {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 32px;
+    height: 32px;
+    background-color: var(--color-bluegrey-800);
+    border: 1px solid var(--color-bluegrey-900);
+    border-radius: 100%;
+    cursor: pointer;
+    transition: all .25s;
+}
+
+button.effect-ctrl.dec > span {
+    width: 50%;
+    height: 1px;
+    background-color: var(--color-bluegrey-400);
+}
+
+button.effect-ctrl.limit {
+    background-color: red;
+}

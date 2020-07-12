@@ -8,7 +8,7 @@ const Step = memo(({ sequencerName, trackIndex, stepIndex }) => {
     <div
       key={stepIndex}
       className={classNames(
-        `step-sequencer__step`,
+        `step-seq__step`,
         `${sequencerName}__step`,
         `track-${trackIndex}-step-${stepIndex}`
       )}

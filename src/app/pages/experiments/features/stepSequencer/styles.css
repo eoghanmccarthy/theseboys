@@ -1,11 +1,11 @@
-.exp.synth-step-sequencer {
+.exp.step-seq__steps {
     flex: 1;
     display: flex;
     flex-direction: column;
     padding: var(--spacing-12);
 }
 
-.exp.synth-step-sequencer > .row {
+.exp.step-seq__steps > .row {
     flex: 1;
     display: grid;
     grid-auto-flow: column;
@@ -14,46 +14,19 @@
     width: 100%;
 }
 
-.exp.synth-step-sequencer__effects {
+.exp.step-seq__effects {
     display: flex;
     justify-content: space-around;
     align-items: center;
 }
 
-/*.exp.synth-step-sequencer__effects > *:not(:last-child) {*/
-/*    margin-right: var(--spacing-12);*/
-/*}*/
-
-.exp.synth-step-sequencer__effects > .synth-step-sequencer__effect {
+.exp.step-seq__effects > .step-seq__effect {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-.exp.synth-step-sequencer__effects > .synth-step-sequencer__effect > *:not(:last-child) {
+.step-seq__effect > *:not(:last-child) {
     margin-bottom: var(--spacing-12);
-}
-
-.exp.synth-step-sequencer__effects > .synth-step-sequencer__effect > .effect-control {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 32px;
-    height: 32px;
-    background-color: var(--color-bluegrey-800);
-    border: 1px solid var(--color-bluegrey-900);
-    border-radius: 100%;
-    cursor: pointer;
-    transition: all .25s;
-}
-.exp.synth-step-sequencer__effects > .synth-step-sequencer__effect > .effect-control.dec > span {
-    width: 50%;
-    height: 1px;
-    background-color: var(--color-bluegrey-400);
-}
-
-.exp.synth-step-sequencer__effects > .synth-step-sequencer__effect > .effect-control.limit {
-    background-color: red;
 }
