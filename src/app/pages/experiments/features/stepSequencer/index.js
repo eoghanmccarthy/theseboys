@@ -10,7 +10,9 @@ import {
   Transport,
   Sequence,
   Draw,
-  Distortion
+  Distortion,
+  PitchShift,
+  Channel
 } from 'tone';
 
 //https://tone-demos.glitch.me/
@@ -43,6 +45,24 @@ const StepSequencer = memo(() => {
   stepsRef.current = data;
 
   const sequence = useRef();
+
+  const channel = useRef(
+    new Channel({
+      pan: 0,
+      volume: 10,
+      mute: false,
+      solo: false
+    })
+  );
+
+  const pitchShift = useRef(
+    new PitchShift({
+      pitch: -12,
+      windowSize: 0.1,
+      delayTime: 0,
+      feedback: 0
+    })
+  );
 
   const delay = useRef(
     new FeedbackDelay({
@@ -85,7 +105,14 @@ const StepSequencer = memo(() => {
           sustain: 1
         }
       }
-    }).chain(delay.current, distortion.current, reverb.current, Destination)
+    }).chain(
+      channel.current,
+      pitchShift.current,
+      delay.current,
+      distortion.current,
+      reverb.current,
+      Destination
+    )
   );
 
   const onSequenceStep = (time, column) => {
@@ -177,33 +204,25 @@ const StepSequencer = memo(() => {
       <Meta />
       <Panel>
         <div className={'exp step-sequencer__effects'}>
-          <div className={'step-sequencer__effect'}>
-            <EffectButton className={'distortion'} node={distortion?.current}>
-              +
-            </EffectButton>
-            <span className={'effect-label'}>DIS</span>
-            <EffectButton className={'distortion'} node={distortion?.current} dec limit={0}>
-              <span />
-            </EffectButton>
-          </div>
-          <div className={'step-sequencer__effect'}>
-            <EffectButton className={'reverb'} node={reverb?.current}>
-              +
-            </EffectButton>
-            <span className={'effect-label'}>REV</span>
-            <EffectButton className={'reverb'} node={reverb?.current} dec limit={0}>
-              <span />
-            </EffectButton>
-          </div>
-          <div className={'step-sequencer__effect'}>
-            <EffectButton className={'delay'} node={delay?.current}>
-              +
-            </EffectButton>
-            <span className={'effect-label'}>DLY</span>
-            <EffectButton className={'delay'} node={delay?.current} dec limit={0}>
-              <span />
-            </EffectButton>
-          </div>
+          <EffectControl
+            node={channel?.current}
+            param={'volume'}
+            name={'volume'}
+            label={'VOL'}
+            step={1}
+            min={-60}
+            max={20}
+          />
+          <EffectControl
+            node={channel?.current}
+            param={'pan'}
+            name={'pan'}
+            label={'PAN'}
+            min={-1}
+          />
+          <EffectControl node={distortion?.current} name={'distortion'} label={'DIS'} />
+          <EffectControl node={reverb?.current} name={'reverb'} label={'REV'} />
+          <EffectControl node={delay?.current} name={'delay'} label={'DLY'} />
         </div>
       </Panel>
     </Fragment>
@@ -212,35 +231,56 @@ const StepSequencer = memo(() => {
 
 export default StepSequencer;
 
-const EffectButton = memo(({ children, className, node, dec, step = 0.1, limit = 1 }) => {
+const EffectControl = memo(({ node, param = 'wet', name, label, step = 0.1, min = 0, max = 1 }) => {
   if (!node) {
     return null;
   }
 
   return (
-    <button
-      className={cx('effect-control', className, {
-        inc: !dec,
-        dec: dec
-      })}
-      onClick={() => {
-        const { wet } = node.get();
-        const val = !dec ? Math.min(wet + step, limit) : Math.max(wet - step, limit);
-
-        if (val === 0) {
-          document.querySelector(`.effect-control.${className}.dec`).classList.add('limit');
-        } else if (val === 1) {
-          document.querySelector(`.effect-control.${className}.inc`).classList.add('limit');
-        } else {
-          document
-            .querySelectorAll(`.effect-control.${className}`)
-            .forEach(el => el.classList.remove('limit'));
-        }
-
-        node.set({ wet: val });
-      }}
-    >
-      {children}
-    </button>
+    <div className={'step-sequencer__effect'}>
+      <RangeButton className={name} node={node} param={param} step={step} min={min} max={max}>
+        +
+      </RangeButton>
+      <span className={'effect-label'}>{label}</span>
+      <RangeButton className={name} node={node} param={param} step={step} dec min={min} max={max}>
+        <span />
+      </RangeButton>
+    </div>
   );
 });
+
+const RangeButton = memo(
+  ({ children, className, node, param = 'wet', dec, step = 0.1, min = 0, max = 1 }) => {
+    if (!node) {
+      return null;
+    }
+
+    return (
+      <button
+        className={cx('effect-control', className, {
+          inc: !dec,
+          dec: dec
+        })}
+        onClick={() => {
+          const params = node.get();
+          const previous = params[param];
+          const val = !dec ? Math.min(previous + step, max) : Math.max(previous - step, min);
+
+          if (val === min) {
+            document.querySelector(`.effect-control.${className}.dec`).classList.add('limit');
+          } else if (val === max) {
+            document.querySelector(`.effect-control.${className}.inc`).classList.add('limit');
+          } else {
+            document
+              .querySelectorAll(`.effect-control.${className}`)
+              .forEach(el => el.classList.remove('limit'));
+          }
+
+          node.set({ [param]: val });
+        }}
+      >
+        {children}
+      </button>
+    );
+  }
+);
