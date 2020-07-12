@@ -23,8 +23,7 @@ import random from 'utils/helpers/random';
 import newArray from 'utils/helpers/newArray';
 import stepDataInitialState from 'utils/helpers/stepDataInitialState';
 
-import { Panel, Meta, PlayButton } from '../../ui';
-import classNames from 'classnames';
+import { Panel, Meta, PlayButton, Step } from '../../ui';
 
 const notes = ['F#4', 'E4', 'C#4', 'A4'];
 //const notes = ['A4', 'D3', 'E3', 'G4', 'F#4'];
@@ -37,6 +36,8 @@ const numCols = 8;
 const noteInterval = `${numCols * 2}n`;
 
 const noteIndices = newArray(numCols);
+
+const sequencerName = 'synth-sequencer';
 
 const StepSequencer = memo(() => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -57,7 +58,7 @@ const StepSequencer = memo(() => {
 
   const pitchShift = useRef(
     new PitchShift({
-      pitch: -12,
+      pitch: 0,
       windowSize: 0.1,
       delayTime: 0,
       feedback: 0
@@ -72,7 +73,7 @@ const StepSequencer = memo(() => {
     })
   );
 
-  const distortion = useRef(new Distortion({ wet: 0.9 }));
+  const distortion = useRef(new Distortion({ wet: 0.6 }));
 
   const reverb = useRef(
     new Reverb({
@@ -120,7 +121,7 @@ const StepSequencer = memo(() => {
 
     for (let i = 0; i < stepsRef.current.length; i++) {
       const isOn = document
-        .querySelector(`.synth-step-sequencer__step.track-${i}-step-${column}`)
+        .querySelector(`.${sequencerName}__step.track-${i}-step-${column}`)
         .classList.contains('on');
 
       if (isOn) {
@@ -134,7 +135,7 @@ const StepSequencer = memo(() => {
     synth.current.triggerAttackRelease(notesToPlay, noteInterval, time, velocity);
 
     Draw.schedule(() => {
-      const elements = document.getElementsByClassName(`synth-step-sequencer__step`);
+      const elements = document.getElementsByClassName(`${sequencerName}__step`);
 
       for (let i = 0; i < elements.length; i++) {
         const currentStep = (i - column) % numCols === 0;
@@ -150,7 +151,7 @@ const StepSequencer = memo(() => {
     }, time);
   };
 
-  const sequence = useRef(new Sequence(onSequenceStep, noteIndices, noteInterval).start(0));
+  const sequence = useRef();
 
   const start = () => {
     if (!synth) {
@@ -161,6 +162,8 @@ const StepSequencer = memo(() => {
       setIsPlaying(false);
       Transport.stop();
     } else {
+      sequence.current = new Sequence(onSequenceStep, noteIndices, noteInterval);
+      sequence.current.start();
       setIsPlaying(true);
       Transport.state === 'stopped' && Transport.start();
     }
@@ -176,22 +179,11 @@ const StepSequencer = memo(() => {
           {stepsRef.current.map((rowData, trackIndex) => (
             <div key={trackIndex} className={`row`}>
               {rowData.map((stepValue, stepIndex) => (
-                <div
+                <Step
                   key={stepIndex}
-                  className={classNames(
-                    `synth-step-sequencer__step`,
-                    `track-${trackIndex}-step-${stepIndex}`
-                  )}
-                  onClick={() => {
-                    const elem = document.querySelector(
-                      `.synth-step-sequencer__step.track-${trackIndex}-step-${stepIndex}`
-                    );
-                    if (!elem.classList.contains('on')) {
-                      elem.classList.add('on');
-                    } else {
-                      elem.classList.remove('on');
-                    }
-                  }}
+                  sequencerName={sequencerName}
+                  trackIndex={trackIndex}
+                  stepIndex={stepIndex}
                 />
               ))}
             </div>

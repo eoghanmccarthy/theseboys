@@ -14,57 +14,6 @@
     width: 100%;
 }
 
-.exp.synth-step-sequencer > .row > .synth-step-sequencer__step {
-    width: 24px;
-    height: 24px;
-    background-color: var(--color-bluegrey-800);
-    border: 1px solid var(--color-bluegrey-900);
-    border-radius: 100%;
-    cursor: pointer;
-    transform: scale(1);
-    transition: all .25s;
-}
-
-.exp.synth-step-sequencer > .row > .synth-step-sequencer__step:hover {
-    background-color: var(--color-bluegrey-900);
-    /*opacity: .6;*/
-}
-
-.exp.synth-step-sequencer > .row > .synth-step-sequencer__step > span {
-    display: none;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    background-color: var(--color-bluegrey-200);
-    transform: translate(-50%, -50%);
-}
-
-.exp.synth-step-sequencer > .row > .synth-step-sequencer__step > span:first-child {
-    width: 1px;
-    height: 8px;
-}
-
-.exp.synth-step-sequencer > .row > .synth-step-sequencer__step > span:last-child {
-    width: 8px;
-    height: 1px;
-}
-
-.exp.synth-step-sequencer > .row > .synth-step-sequencer__step.on {
-    /*background-color: white;*/
-    border-color: var(--color-bluegrey-600);
-}
-
-.exp.synth-step-sequencer > .row > .synth-step-sequencer__step.current {
-    border-width: 3px;
-    transform: scale(1.22);
-}
-
-.exp.synth-step-sequencer > .row > .synth-step-sequencer__step.on.current.playing {
-    border-width: 3px;
-    background-color: var(--color-secondary);
-    border-color: var(--color-secondary);
-}
-
 .exp.synth-step-sequencer__effects {
     display: flex;
     justify-content: space-around;
