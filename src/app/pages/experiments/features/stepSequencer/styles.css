@@ -15,7 +15,6 @@
 }
 
 .exp.step-sequencer > .row > .step-sequencer__step {
-    position: relative;
     width: 24px;
     height: 24px;
     background-color: var(--color-bluegrey-800);
@@ -66,6 +65,46 @@
     border-color: var(--color-secondary);
 }
 
-.step-sequencer__effect.limit {
+.exp.step-sequencer__effects {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+/*.exp.step-sequencer__effects > *:not(:last-child) {*/
+/*    margin-right: var(--spacing-12);*/
+/*}*/
+
+.exp.step-sequencer__effects > .step-sequencer__effect {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.exp.step-sequencer__effects > .step-sequencer__effect > *:not(:last-child) {
+    margin-bottom: var(--spacing-12);
+}
+
+.exp.step-sequencer__effects > .step-sequencer__effect > .effect-control {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 32px;
+    height: 32px;
+    background-color: var(--color-bluegrey-800);
+    border: 1px solid var(--color-bluegrey-900);
+    border-radius: 100%;
+    cursor: pointer;
+    transition: all .25s;
+}
+.exp.step-sequencer__effects > .step-sequencer__effect > .effect-control.dec > span {
+    width: 50%;
+    height: 1px;
+    background-color: var(--color-bluegrey-400);
+}
+
+.exp.step-sequencer__effects > .step-sequencer__effect > .effect-control.limit {
     background-color: red;
 }
