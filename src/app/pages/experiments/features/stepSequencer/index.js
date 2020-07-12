@@ -36,6 +36,8 @@ const numCols = 8;
 
 const noteInterval = `${numCols * 2}n`;
 
+const noteIndices = newArray(numCols);
+
 const StepSequencer = memo(() => {
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -43,8 +45,6 @@ const StepSequencer = memo(() => {
 
   const stepsRef = useRef(data);
   stepsRef.current = data;
-
-  const sequence = useRef();
 
   const channel = useRef(
     new Channel({
@@ -120,7 +120,7 @@ const StepSequencer = memo(() => {
 
     for (let i = 0; i < stepsRef.current.length; i++) {
       const isOn = document
-        .querySelector(`.step-sequencer__step.track-${i}-step-${column}`)
+        .querySelector(`.synth-step-sequencer__step.track-${i}-step-${column}`)
         .classList.contains('on');
 
       if (isOn) {
@@ -134,7 +134,7 @@ const StepSequencer = memo(() => {
     synth.current.triggerAttackRelease(notesToPlay, noteInterval, time, velocity);
 
     Draw.schedule(() => {
-      const elements = document.getElementsByClassName(`step-sequencer__step`);
+      const elements = document.getElementsByClassName(`synth-step-sequencer__step`);
 
       for (let i = 0; i < elements.length; i++) {
         const currentStep = (i - column) % numCols === 0;
@@ -150,6 +150,8 @@ const StepSequencer = memo(() => {
     }, time);
   };
 
+  const sequence = useRef(new Sequence(onSequenceStep, noteIndices, noteInterval).start(0));
+
   const start = () => {
     if (!synth) {
       return;
@@ -157,14 +159,9 @@ const StepSequencer = memo(() => {
 
     if (isPlaying) {
       setIsPlaying(false);
-      sequence.current.stop();
-      //Transport.stop();
+      Transport.stop();
     } else {
-      const noteIndices = newArray(numCols);
-      sequence.current = new Sequence(onSequenceStep, noteIndices, noteInterval);
-
       setIsPlaying(true);
-      sequence.current.start();
       Transport.state === 'stopped' && Transport.start();
     }
   };
@@ -175,19 +172,19 @@ const StepSequencer = memo(() => {
         <PlayButton isPlaying={isPlaying} onClick={() => start()} />
       </Meta>
       <Panel>
-        <div className={'exp step-sequencer'}>
+        <div className={'exp synth-step-sequencer'}>
           {stepsRef.current.map((rowData, trackIndex) => (
             <div key={trackIndex} className={`row`}>
               {rowData.map((stepValue, stepIndex) => (
                 <div
                   key={stepIndex}
                   className={classNames(
-                    `step-sequencer__step`,
+                    `synth-step-sequencer__step`,
                     `track-${trackIndex}-step-${stepIndex}`
                   )}
                   onClick={() => {
                     const elem = document.querySelector(
-                      `.step-sequencer__step.track-${trackIndex}-step-${stepIndex}`
+                      `.synth-step-sequencer__step.track-${trackIndex}-step-${stepIndex}`
                     );
                     if (!elem.classList.contains('on')) {
                       elem.classList.add('on');
@@ -203,7 +200,7 @@ const StepSequencer = memo(() => {
       </Panel>
       <Meta />
       <Panel>
-        <div className={'exp step-sequencer__effects'}>
+        <div className={'exp synth-step-sequencer__effects'}>
           <EffectControl
             node={channel?.current}
             param={'volume'}
@@ -237,7 +234,7 @@ const EffectControl = memo(({ node, param = 'wet', name, label, step = 0.1, min 
   }
 
   return (
-    <div className={'step-sequencer__effect'}>
+    <div className={'synth-step-sequencer__effect'}>
       <RangeButton className={name} node={node} param={param} step={step} min={min} max={max}>
         +
       </RangeButton>

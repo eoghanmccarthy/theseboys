@@ -7,7 +7,7 @@ const Step = memo(({ stepValue, onClick }) => {
   return (
     <div
       ref={stepRef}
-      className={classNames(`step-sequencer__step`, {
+      className={classNames(`synth-step-sequencer__step`, {
         on: stepValue === 1
       })}
       onClick={onClick}
