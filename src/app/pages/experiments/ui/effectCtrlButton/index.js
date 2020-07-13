@@ -3,17 +3,33 @@ import cx from 'classnames';
 
 import './styles.css';
 
-const EffectCtrlButton = memo(
-  ({ children, sequencerName, name, node, param = 'wet', dec, step = 0.1, min = 0, max = 1 }) => {
+import interpolate from 'utils/helpers/interpolate';
+
+const EffectControlButton = memo(
+  ({
+    children,
+    controlName,
+    node,
+    param = 'wet',
+    dec,
+    step = 0.1,
+    min = 0,
+    max = 1,
+    showPercentageValue = false
+  }) => {
     if (!node) {
       return null;
     }
 
-    const className = `${sequencerName}__effect-ctrl--${name}`;
+    const interpolateValue = interpolate({
+      inputRange: [min, max],
+      outputRange: [0, 100],
+      clamp: true
+    });
 
     return (
       <button
-        className={cx('effect-ctrl', className, {
+        className={cx('effect-ctrl', controlName, {
           inc: !dec,
           dec: dec
         })}
@@ -22,12 +38,21 @@ const EffectCtrlButton = memo(
           const previous = params[param];
           const val = !dec ? Math.min(previous + step, max) : Math.max(previous - step, min);
 
+          document
+            .querySelector(`.effect-value.${controlName}`)
+            .setAttribute(
+              'data-value',
+              showPercentageValue ? Math.round(interpolateValue(val)).toString() : val.toFixed(1)
+            );
+
           if (val === min) {
-            document.querySelector(`.${className}.dec`).classList.add('limit');
+            document.querySelector(`.${controlName}.dec`).classList.add('limit');
           } else if (val === max) {
-            document.querySelector(`.${className}.inc`).classList.add('limit');
+            document.querySelector(`.${controlName}.inc`).classList.add('limit');
           } else {
-            document.querySelectorAll(`.${className}`).forEach(el => el.classList.remove('limit'));
+            document
+              .querySelectorAll(`.${controlName}`)
+              .forEach(el => el.classList.remove('limit'));
           }
 
           node.set({ [param]: val });
@@ -39,4 +64,4 @@ const EffectCtrlButton = memo(
   }
 );
 
-export default EffectCtrlButton;
+export default EffectControlButton;

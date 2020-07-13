@@ -2,43 +2,56 @@ import React, { memo } from 'react';
 
 import './styles.css';
 
-import EffectCtrlButton from '../effectCtrlButton';
+import EffectControlButton from '../effectCtrlButton';
 
-const EffectControls = memo(
-  ({ node, sequencerName, name, param = 'wet', label, step = 0.1, min = 0, max = 1 }) => {
+const EffectControl = memo(
+  ({
+    node,
+    sequencerName,
+    name,
+    param = 'wet',
+    label,
+    step = 0.1,
+    min = 0,
+    max = 1,
+    showPercentageValue = false
+  }) => {
     if (!node) {
       return null;
     }
 
+    const controlName = `${sequencerName}__effect-ctrl--${name}`;
+
     return (
       <div className={'step-seq__effect-ctrls'}>
-        <EffectCtrlButton
-          sequencerName={sequencerName}
-          name={name}
+        <span className={`effect-label ${controlName}`}>{label}</span>
+        <EffectControlButton
+          controlName={controlName}
           node={node}
           param={param}
           step={step}
           min={min}
           max={max}
+          showPercentageValue={showPercentageValue}
         >
           +
-        </EffectCtrlButton>
-        <span className={'effect-label'}>{label}</span>
-        <EffectCtrlButton
-          sequencerName={sequencerName}
-          name={name}
+        </EffectControlButton>
+        <span className={`effect-value ${controlName}`} />
+        <EffectControlButton
+          controlName={controlName}
           node={node}
           param={param}
           step={step}
           dec
           min={min}
           max={max}
+          showPercentageValue={showPercentageValue}
         >
           <span />
-        </EffectCtrlButton>
+        </EffectControlButton>
       </div>
     );
   }
 );
 
-export default EffectControls;
+export default EffectControl;

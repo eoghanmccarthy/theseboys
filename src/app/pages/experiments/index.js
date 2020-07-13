@@ -14,6 +14,7 @@ import useSnare02 from 'features/sounds/useSnare02';
 import useMonoSynth from 'features/sounds/useMonoSynth';
 import RandomSequencer from './features/randomSequencer';
 import StepSequencer from './features/stepSequencer';
+import KickSequencer from './features/kickSequencer';
 import Analyser from './features/analyser';
 
 const Experiments = () => {
@@ -28,6 +29,7 @@ const Experiments = () => {
   return (
     <main className={'me__content experiments'}>
       <StepSequencer />
+      <KickSequencer />
       <Analyser />
       <Meta>
         <PlayButton onClick={() => conga01.trigger()} />

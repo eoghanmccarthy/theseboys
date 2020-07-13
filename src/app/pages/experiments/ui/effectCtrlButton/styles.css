@@ -12,6 +12,12 @@ button.effect-ctrl {
     transition: all .25s;
 }
 
+.effect-value::before {
+    width: 40px;
+    height: 40px;
+    content: attr(data-value);
+}
+
 button.effect-ctrl.dec > span {
     width: 50%;
     height: 1px;
