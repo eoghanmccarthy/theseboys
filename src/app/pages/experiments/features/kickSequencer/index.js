@@ -11,7 +11,10 @@ import {
   Draw,
   Distortion,
   PitchShift,
-  Channel
+  Channel,
+  Compressor,
+  Gain,
+  MembraneSynth
 } from 'tone';
 
 //https://tone-demos.glitch.me/
@@ -23,8 +26,6 @@ import newArray from 'utils/helpers/newArray';
 import stepDataInitialState from 'utils/helpers/stepDataInitialState';
 
 import { Panel, Meta, PlayButton, Step, EffectControls } from '../../ui';
-
-import useKick02 from 'features/sounds/useKick01';
 
 const notes = ['C1'];
 //const notes = ['A4', 'D3', 'E3', 'G4', 'F#4'];
@@ -45,8 +46,6 @@ const KickSequencer = memo(() => {
 
   const [data, setData] = useImmer(() => stepDataInitialState(numRows, numCols));
 
-  const kick02 = useKick02();
-
   const stepsRef = useRef(data);
   stepsRef.current = data;
 
@@ -61,18 +60,40 @@ const KickSequencer = memo(() => {
     })
   );
 
-  const onSequenceStep = (time, column) => {
-    let notesToPlay = [];
+  const compressor = useRef(
+    new Compressor({
+      threshold: -30,
+      ratio: 6,
+      attack: 0.3,
+      release: 0.1
+    })
+  );
 
+  const gain = useRef(new Gain(2).toDestination());
+
+  const membrane = useRef(
+    new MembraneSynth({
+      pitchDecay: 0.01,
+      octaves: 6,
+      oscillator: {
+        type: 'square4'
+      },
+      envelope: {
+        attack: 0.001,
+        decay: 0.2,
+        sustain: 0
+      }
+    }).chain(channel.current, compressor.current, gain.current, Destination)
+  );
+
+  const onSequenceStep = (time, column) => {
     for (let i = 0; i < stepsRef.current.length; i++) {
       const isOn = document
         .querySelector(`.${sequencerName}__step.track-${i}-step-${column}`)
         .classList.contains('on');
 
       if (isOn) {
-        kick02.trigger('C1', noteInterval, time);
-        //const note = notes[i];
-        //notesToPlay.push(note);
+        membrane.current.triggerAttackRelease('C1', noteInterval, time);
       }
     }
 

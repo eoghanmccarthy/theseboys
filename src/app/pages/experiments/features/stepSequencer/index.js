@@ -1,4 +1,4 @@
-import React, { Fragment, useRef, useState, memo } from 'react';
+import React, { Fragment, useRef, useState, memo, useEffect } from 'react';
 import { useImmer } from 'use-immer';
 import {
   PolySynth,
@@ -117,6 +117,14 @@ const StepSequencer = memo(() => {
     )
   );
 
+  useEffect(() => {
+    sequence.current = new Sequence(onSequenceStep, noteIndices, noteInterval).start(0);
+
+    return () => {
+      if (sequence.current) sequence.current.dispose();
+    };
+  }, []);
+
   const onSequenceStep = (time, column) => {
     let notesToPlay = [];
 
@@ -161,8 +169,6 @@ const StepSequencer = memo(() => {
       setIsPlaying(false);
       Transport.stop();
     } else {
-      sequence.current = new Sequence(onSequenceStep, noteIndices, noteInterval);
-      sequence.current.start();
       setIsPlaying(true);
       Transport.state === 'stopped' && Transport.start();
     }
