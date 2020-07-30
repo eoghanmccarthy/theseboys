@@ -15,7 +15,7 @@ import useMonoSynth from 'features/sounds/useMonoSynth';
 import RandomSequencer from './features/randomSequencer';
 import StepSequencer from './features/stepSequencer';
 import KickSequencer from './features/kickSequencer';
-import Analyser from './features/analyser';
+import CongaSequencer from './features/congaSequencer';
 
 const Experiments = () => {
   const bell01 = useBell01();
@@ -30,7 +30,7 @@ const Experiments = () => {
     <main className={'me__content experiments'}>
       <StepSequencer />
       <KickSequencer />
-      <Analyser />
+      <CongaSequencer />
       <Meta>
         <PlayButton onClick={() => conga01.trigger()} />
       </Meta>

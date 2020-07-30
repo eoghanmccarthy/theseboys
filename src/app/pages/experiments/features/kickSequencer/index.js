@@ -24,8 +24,10 @@ import './styles.css';
 import random from 'utils/helpers/random';
 import newArray from 'utils/helpers/newArray';
 import stepDataInitialState from 'utils/helpers/stepDataInitialState';
+import drawSteps from 'utils/helpers/drawSteps';
+import isStepOn from 'utils/helpers/isStepOn';
 
-import { Panel, Meta, PlayButton, Step, EffectControls } from '../../ui';
+import { Panel, Meta, PlayButton, Steps, EffectControls } from '../../ui';
 
 const notes = ['C1'];
 //const notes = ['A4', 'D3', 'E3', 'G4', 'F#4'];
@@ -42,8 +44,6 @@ const noteIndices = newArray(numCols);
 const sequencerName = 'step-seq-002';
 
 const KickSequencer = memo(() => {
-  const [isPlaying, setIsPlaying] = useState(false);
-
   const [data, setData] = useImmer(() => stepDataInitialState(numRows, numCols));
 
   const stepsRef = useRef(data);
@@ -96,54 +96,23 @@ const KickSequencer = memo(() => {
 
   const onSequenceStep = (time, column) => {
     for (let i = 0; i < stepsRef.current.length; i++) {
-      const isOn = document
-        .querySelector(`.${sequencerName}__step.track-${i}-step-${column}`)
-        .classList.contains('on');
+      const velocity = random(0.5, 1);
 
-      if (isOn) {
-        membrane.current.triggerAttackRelease('C1', noteInterval, time);
+      if (isStepOn(sequencerName, i, column)) {
+        membrane.current.triggerAttackRelease('C1', noteInterval, time, velocity);
       }
     }
 
-    const velocity = random(0.5, 1);
-
     Draw.schedule(() => {
-      const elements = document.getElementsByClassName(`${sequencerName}__step`);
-
-      for (let i = 0; i < elements.length; i++) {
-        const currentStep = (i - column) % numCols === 0;
-        if (currentStep) {
-          elements[i].classList.add('current');
-          if (elements[i].classList.contains('on')) {
-            elements[i].classList.add('playing');
-          }
-        } else {
-          elements[i].classList.remove('current', 'playing');
-        }
-      }
+      drawSteps(sequencerName, numCols, column);
     }, time);
   };
 
   return (
     <Fragment>
-      <Meta>
-        <PlayButton isPlaying={isPlaying} onClick={() => null} />
-      </Meta>
+      <Meta />
       <Panel>
-        <div className={`exp step-seq__steps`}>
-          {stepsRef.current.map((rowData, trackIndex) => (
-            <div key={trackIndex} className={`row`}>
-              {rowData.map((stepValue, stepIndex) => (
-                <Step
-                  key={stepIndex}
-                  sequencerName={sequencerName}
-                  trackIndex={trackIndex}
-                  stepIndex={stepIndex}
-                />
-              ))}
-            </div>
-          ))}
-        </div>
+        <Steps sequencer={sequencerName} steps={stepsRef?.current} />
       </Panel>
       <Meta>
         <button

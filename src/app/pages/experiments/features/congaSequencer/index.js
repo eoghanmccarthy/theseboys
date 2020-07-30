@@ -11,7 +11,11 @@ import {
   Draw,
   Distortion,
   PitchShift,
-  Channel
+  Channel,
+  Compressor,
+  Gain,
+  MembraneSynth,
+  MetalSynth
 } from 'tone';
 
 //https://tone-demos.glitch.me/
@@ -24,9 +28,9 @@ import stepDataInitialState from 'utils/helpers/stepDataInitialState';
 import drawSteps from 'utils/helpers/drawSteps';
 import isStepOn from 'utils/helpers/isStepOn';
 
-import { Panel, Meta, PlayButton, Steps, EffectControls } from '../../ui';
+import { Panel, Meta, Steps, EffectControls } from '../../ui';
 
-const notes = ['F#4', 'E4', 'C#4', 'A4'];
+const notes = ['C1'];
 //const notes = ['A4', 'D3', 'E3', 'G4', 'F#4'];
 //const notes = ['A3', 'C4', 'D4', 'E4', 'G4', 'A4'];
 
@@ -38,11 +42,9 @@ const noteInterval = `${numCols * 2}n`;
 
 const noteIndices = newArray(numCols);
 
-const sequencerName = 'step-seq-001';
+const sequencerName = 'step-seq-003';
 
-const StepSequencer = memo(() => {
-  const [isPlaying, setIsPlaying] = useState(false);
-
+const CongaSequencer = memo(() => {
   const [data, setData] = useImmer(() => stepDataInitialState(numRows, numCols));
 
   const stepsRef = useRef(data);
@@ -59,20 +61,12 @@ const StepSequencer = memo(() => {
     })
   );
 
-  const pitchShift = useRef(
-    new PitchShift({
-      pitch: 0,
-      windowSize: 0.1,
-      delayTime: 0,
-      feedback: 0
-    })
-  );
-
-  const delay = useRef(
-    new FeedbackDelay({
-      delayTime: `${Math.floor(numCols / 2)}n`,
-      feedback: 1 / 3,
-      wet: 0.2
+  const compressor = useRef(
+    new Compressor({
+      threshold: -30,
+      ratio: 6,
+      attack: 0.3,
+      release: 0.1
     })
   );
 
@@ -86,33 +80,21 @@ const StepSequencer = memo(() => {
     })
   );
 
-  const synth = useRef(
-    new PolySynth(DuoSynth, {
-      volume: -10,
-      polyphony: numRows,
-      voice0: {
-        oscillator: {
-          type: 'triangle4'
-        },
-        volume: -30,
-        envelope: {
-          attack: 0.005,
-          release: 0.05,
-          sustain: 1
-        }
+  const gain = useRef(new Gain(2).toDestination());
+
+  const bell = useRef(
+    new MetalSynth({
+      harmonicity: 12,
+      resonance: 1000,
+      modulationIndex: 20,
+      envelope: {
+        decay: 0.4
       },
-      voice1: {
-        volume: -10,
-        envelope: {
-          attack: 0.005,
-          release: 0.05,
-          sustain: 1
-        }
-      }
+      volume: -15
     }).chain(
       channel.current,
-      pitchShift.current,
-      delay.current,
+      compressor.current,
+      gain.current,
       distortion.current,
       reverb.current,
       Destination
@@ -128,41 +110,22 @@ const StepSequencer = memo(() => {
   }, []);
 
   const onSequenceStep = (time, column) => {
-    let notesToPlay = [];
-
     for (let i = 0; i < stepsRef.current.length; i++) {
+      const velocity = random(0.5, 1);
+
       if (isStepOn(sequencerName, i, column)) {
-        const note = notes[i];
-        notesToPlay.push(note);
+        bell.current.triggerAttackRelease('C1', noteInterval, time, velocity);
       }
     }
-
-    const velocity = random(0.5, 1);
-
-    synth.current.triggerAttackRelease(notesToPlay, noteInterval, time, velocity);
 
     Draw.schedule(() => {
       drawSteps(sequencerName, numCols, column);
     }, time);
   };
 
-  const start = () => {
-    if (!synth) return;
-
-    if (isPlaying) {
-      setIsPlaying(false);
-      Transport.stop();
-    } else {
-      setIsPlaying(true);
-      Transport.state === 'stopped' && Transport.start();
-    }
-  };
-
   return (
     <Fragment>
-      <Meta>
-        <PlayButton isPlaying={isPlaying} onClick={() => start()} />
-      </Meta>
+      <Meta />
       <Panel>
         <Steps sequencer={sequencerName} steps={stepsRef?.current} />
       </Panel>
@@ -198,30 +161,30 @@ const StepSequencer = memo(() => {
             min={-1}
           />
           <EffectControls
+            showPercentageValue
             node={distortion?.current}
             sequencerName={sequencerName}
             name={'distortion'}
             label={'DIS'}
-            showPercentageValue
           />
           <EffectControls
+            showPercentageValue
             node={reverb?.current}
             sequencerName={sequencerName}
             name={'reverb'}
             label={'REV'}
-            showPercentageValue
           />
-          <EffectControls
-            node={delay?.current}
-            sequencerName={sequencerName}
-            name={'delay'}
-            label={'DLY'}
-            showPercentageValue
-          />
+          {/*<EffectControls*/}
+          {/*  node={delay?.current}*/}
+          {/*  sequencerName={sequencerName}*/}
+          {/*  name={'delay'}*/}
+          {/*  label={'DLY'}*/}
+          {/*  showPercentageValue*/}
+          {/*/>*/}
         </div>
       </Panel>
     </Fragment>
   );
 });
 
-export default StepSequencer;
+export default CongaSequencer;

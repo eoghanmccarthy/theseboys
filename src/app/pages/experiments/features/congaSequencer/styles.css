@@ -1,0 +1,21 @@
+.exp.step-seq__steps {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: var(--spacing-12);
+}
+
+.exp.step-seq__steps > .row {
+    flex: 1;
+    display: grid;
+    grid-auto-flow: column;
+    justify-items: center;
+    align-items: center;
+    width: 100%;
+}
+
+.exp.step-seq__effects {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
