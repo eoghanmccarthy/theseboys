@@ -15,7 +15,8 @@ const EffectControlButton = memo(
     step = 0.1,
     min = 0,
     max = 1,
-    showPercentageValue = false
+    showPercentageValue = false,
+    toFixed = 1
   }) => {
     if (!node) {
       return null;
@@ -42,7 +43,9 @@ const EffectControlButton = memo(
             .querySelector(`.effect-value.${controlName}`)
             .setAttribute(
               'data-value',
-              showPercentageValue ? Math.round(interpolateValue(val)).toString() : val.toFixed(1)
+              showPercentageValue
+                ? Math.round(interpolateValue(val)).toString()
+                : val.toFixed(toFixed)
             );
 
           if (val === min) {

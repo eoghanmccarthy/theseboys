@@ -6,7 +6,6 @@ import {
   FeedbackDelay,
   DuoSynth,
   Destination,
-  Transport,
   Sequence,
   Draw,
   Distortion,
@@ -24,7 +23,7 @@ import stepDataInitialState from 'utils/helpers/stepDataInitialState';
 import drawSteps from 'utils/helpers/drawSteps';
 import isStepOn from 'utils/helpers/isStepOn';
 
-import { Panel, Meta, PlayButton, Steps, EffectControls } from '../../ui';
+import { Panel, Meta, Steps, EffectControls } from '../../ui';
 
 const notes = ['F#4', 'E4', 'C#4', 'A4'];
 //const notes = ['A4', 'D3', 'E3', 'G4', 'F#4'];
@@ -41,8 +40,6 @@ const noteIndices = newArray(numCols);
 const sequencerName = 'step-seq-001';
 
 const StepSequencer = memo(() => {
-  const [isPlaying, setIsPlaying] = useState(false);
-
   const [data, setData] = useImmer(() => stepDataInitialState(numRows, numCols));
 
   const stepsRef = useRef(data);
@@ -146,23 +143,9 @@ const StepSequencer = memo(() => {
     }, time);
   };
 
-  const start = () => {
-    if (!synth) return;
-
-    if (isPlaying) {
-      setIsPlaying(false);
-      Transport.stop();
-    } else {
-      setIsPlaying(true);
-      Transport.state === 'stopped' && Transport.start();
-    }
-  };
-
   return (
     <Fragment>
-      <Meta>
-        <PlayButton isPlaying={isPlaying} onClick={() => start()} />
-      </Meta>
+      <Meta />
       <Panel>
         <Steps sequencer={sequencerName} steps={stepsRef?.current} />
       </Panel>
@@ -180,8 +163,8 @@ const StepSequencer = memo(() => {
         <div className={'exp step-seq__effects'}>
           <EffectControls
             node={channel?.current}
-            sequencerName={sequencerName}
             param={'volume'}
+            sequencerName={sequencerName}
             name={'volume'}
             label={'VOL'}
             step={1}
@@ -191,8 +174,8 @@ const StepSequencer = memo(() => {
           />
           <EffectControls
             node={channel?.current}
-            sequencerName={sequencerName}
             param={'pan'}
+            sequencerName={sequencerName}
             name={'pan'}
             label={'PAN'}
             min={-1}

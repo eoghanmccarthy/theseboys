@@ -12,6 +12,7 @@ import useKick02 from 'features/sounds/useKick02';
 import useSnare01 from 'features/sounds/useSnare01';
 import useSnare02 from 'features/sounds/useSnare02';
 import useMonoSynth from 'features/sounds/useMonoSynth';
+import Master from './features/master';
 import RandomSequencer from './features/randomSequencer';
 import StepSequencer from './features/stepSequencer';
 import KickSequencer from './features/kickSequencer';
@@ -28,6 +29,7 @@ const Experiments = () => {
 
   return (
     <main className={'me__content experiments'}>
+      <Master />
       <StepSequencer />
       <KickSequencer />
       <CongaSequencer />

@@ -1,0 +1,9 @@
+.master {
+  grid-column: 1 / 5;
+  z-index: 99;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 var(--spacing-md);
+  background-color: var(--color-secondary);
+}
+

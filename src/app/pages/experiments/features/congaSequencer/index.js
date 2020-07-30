@@ -1,4 +1,4 @@
-import React, { Fragment, useRef, useState, memo, useEffect } from 'react';
+import React, { Fragment, useRef, memo, useEffect } from 'react';
 import { useImmer } from 'use-immer';
 import {
   PolySynth,
@@ -6,7 +6,6 @@ import {
   FeedbackDelay,
   DuoSynth,
   Destination,
-  Transport,
   Sequence,
   Draw,
   Distortion,

@@ -6,7 +6,6 @@ import {
   FeedbackDelay,
   DuoSynth,
   Destination,
-  Transport,
   Sequence,
   Draw,
   Distortion,
@@ -71,7 +70,7 @@ const KickSequencer = memo(() => {
 
   const gain = useRef(new Gain(2).toDestination());
 
-  const membrane = useRef(
+  const synth = useRef(
     new MembraneSynth({
       pitchDecay: 0.01,
       octaves: 6,
@@ -81,7 +80,8 @@ const KickSequencer = memo(() => {
       envelope: {
         attack: 0.001,
         decay: 0.2,
-        sustain: 0
+        sustain: 0,
+        release: 0
       }
     }).chain(channel.current, compressor.current, gain.current, Destination)
   );
@@ -99,7 +99,7 @@ const KickSequencer = memo(() => {
       const velocity = random(0.5, 1);
 
       if (isStepOn(sequencerName, i, column)) {
-        membrane.current.triggerAttackRelease('C1', noteInterval, time, velocity);
+        synth.current.triggerAttackRelease('C1', noteInterval, time, velocity);
       }
     }
 
@@ -128,8 +128,8 @@ const KickSequencer = memo(() => {
         <div className={'exp step-seq__effects'}>
           <EffectControls
             node={channel?.current}
-            sequencerName={sequencerName}
             param={'volume'}
+            sequencerName={sequencerName}
             name={'volume'}
             label={'VOL'}
             step={1}
@@ -139,33 +139,48 @@ const KickSequencer = memo(() => {
           />
           <EffectControls
             node={channel?.current}
-            sequencerName={sequencerName}
             param={'pan'}
+            sequencerName={sequencerName}
             name={'pan'}
             label={'PAN'}
             min={-1}
           />
-          {/*<EffectControls*/}
-          {/*  node={distortion?.current}*/}
-          {/*  sequencerName={sequencerName}*/}
-          {/*  name={'distortion'}*/}
-          {/*  label={'DIS'}*/}
-          {/*  showPercentageValue*/}
-          {/*/>*/}
-          {/*<EffectControls*/}
-          {/*  node={reverb?.current}*/}
-          {/*  sequencerName={sequencerName}*/}
-          {/*  name={'reverb'}*/}
-          {/*  label={'REV'}*/}
-          {/*  showPercentageValue*/}
-          {/*/>*/}
-          {/*<EffectControls*/}
-          {/*  node={delay?.current}*/}
-          {/*  sequencerName={sequencerName}*/}
-          {/*  name={'delay'}*/}
-          {/*  label={'DLY'}*/}
-          {/*  showPercentageValue*/}
-          {/*/>*/}
+          <EffectControls
+            node={synth?.current.envelope}
+            param={'attack'}
+            sequencerName={sequencerName}
+            name={'attack'}
+            label={'ATK'}
+            step={0.001}
+            toFixed={3}
+          />
+          <EffectControls
+            node={synth?.current.envelope}
+            param={'decay'}
+            sequencerName={sequencerName}
+            name={'decay'}
+            label={'DEC'}
+            step={0.001}
+            toFixed={3}
+          />
+          <EffectControls
+            node={synth?.current.envelope}
+            param={'sustain'}
+            sequencerName={sequencerName}
+            name={'sustain'}
+            label={'SUS'}
+            step={0.001}
+            toFixed={3}
+          />
+          <EffectControls
+            node={synth?.current.envelope}
+            param={'release'}
+            sequencerName={sequencerName}
+            name={'release'}
+            label={'REL'}
+            step={0.001}
+            toFixed={3}
+          />
         </div>
       </Panel>
     </Fragment>

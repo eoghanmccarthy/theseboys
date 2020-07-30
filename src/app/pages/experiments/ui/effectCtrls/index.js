@@ -14,7 +14,8 @@ const EffectControl = memo(
     step = 0.1,
     min = 0,
     max = 1,
-    showPercentageValue = false
+    showPercentageValue = false,
+    toFixed = 1
   }) => {
     if (!node) {
       return null;
@@ -26,19 +27,19 @@ const EffectControl = memo(
       <div className={'step-seq__effect-ctrls'}>
         <span className={`effect-label ${controlName}`}>{label}</span>
         <EffectControlButton
-          showPercentageValue={showPercentageValue}
           controlName={controlName}
           node={node}
           param={param}
           step={step}
           min={min}
           max={max}
+          showPercentageValue={showPercentageValue}
+          toFixed={toFixed}
         >
           +
         </EffectControlButton>
         <span className={`effect-value ${controlName}`} />
         <EffectControlButton
-          showPercentageValue={showPercentageValue}
           controlName={controlName}
           node={node}
           param={param}
@@ -46,8 +47,10 @@ const EffectControl = memo(
           dec
           min={min}
           max={max}
+          showPercentageValue={showPercentageValue}
+          toFixed={toFixed}
         >
-          <span />
+          -
         </EffectControlButton>
       </div>
     );
