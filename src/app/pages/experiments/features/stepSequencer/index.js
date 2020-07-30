@@ -161,9 +161,7 @@ const StepSequencer = memo(() => {
   };
 
   const start = () => {
-    if (!synth) {
-      return;
-    }
+    if (!synth) return;
 
     if (isPlaying) {
       setIsPlaying(false);
@@ -195,18 +193,18 @@ const StepSequencer = memo(() => {
           ))}
         </div>
       </Panel>
-      <Meta />
+      <Meta>
+        <button
+          onClick={() => {
+            const { mute } = channel?.current.get();
+            channel?.current.set({ mute: !mute });
+          }}
+        >
+          mute
+        </button>
+      </Meta>
       <Panel>
         <div className={'exp step-seq__effects'}>
-          <button
-            onClick={() => {
-              const { mute } = channel?.current.get();
-
-              channel?.current.set({ mute: !mute });
-            }}
-          >
-            mute
-          </button>
           <EffectControls
             node={channel?.current}
             sequencerName={sequencerName}

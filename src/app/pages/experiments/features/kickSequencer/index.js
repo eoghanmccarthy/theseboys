@@ -1,4 +1,4 @@
-import React, { Fragment, useRef, useState, memo } from 'react';
+import React, { Fragment, useRef, useState, memo, useEffect } from 'react';
 import { useImmer } from 'use-immer';
 import {
   PolySynth,
@@ -86,6 +86,14 @@ const KickSequencer = memo(() => {
     }).chain(channel.current, compressor.current, gain.current, Destination)
   );
 
+  useEffect(() => {
+    sequence.current = new Sequence(onSequenceStep, noteIndices, noteInterval).start(0);
+
+    return () => {
+      if (sequence.current) sequence.current.dispose();
+    };
+  }, []);
+
   const onSequenceStep = (time, column) => {
     for (let i = 0; i < stepsRef.current.length; i++) {
       const isOn = document
@@ -116,22 +124,10 @@ const KickSequencer = memo(() => {
     }, time);
   };
 
-  const start = () => {
-    if (isPlaying) {
-      setIsPlaying(false);
-      //Transport.stop();
-    } else {
-      sequence.current = new Sequence(onSequenceStep, noteIndices, noteInterval);
-      sequence.current.start();
-      setIsPlaying(true);
-      Transport.state === 'stopped' && Transport.start();
-    }
-  };
-
   return (
     <Fragment>
       <Meta>
-        <PlayButton isPlaying={isPlaying} onClick={() => start()} />
+        <PlayButton isPlaying={isPlaying} onClick={() => null} />
       </Meta>
       <Panel>
         <div className={`exp step-seq__steps`}>
@@ -149,18 +145,18 @@ const KickSequencer = memo(() => {
           ))}
         </div>
       </Panel>
-      <Meta />
+      <Meta>
+        <button
+          onClick={() => {
+            const { mute } = channel?.current.get();
+            channel?.current.set({ mute: !mute });
+          }}
+        >
+          mute
+        </button>
+      </Meta>
       <Panel>
         <div className={'exp step-seq__effects'}>
-          <button
-            onClick={() => {
-              const { mute } = channel?.current.get();
-
-              channel?.current.set({ mute: !mute });
-            }}
-          >
-            mute
-          </button>
           <EffectControls
             node={channel?.current}
             sequencerName={sequencerName}
