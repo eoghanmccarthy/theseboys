@@ -12,14 +12,15 @@ const Step = memo(({ sequencerName, trackIndex, stepIndex }) => {
         `${sequencerName}__step`,
         `track-${trackIndex}-step-${stepIndex}`
       )}
+      data-step-status={'off'}
       onClick={() => {
         const elem = document.querySelector(
           `.${sequencerName}__step.track-${trackIndex}-step-${stepIndex}`
         );
-        if (!elem.classList.contains('on')) {
-          elem.classList.add('on');
+        if (elem.getAttribute('data-step-status') === 'off') {
+          elem.setAttribute('data-step-status', 'on');
         } else {
-          elem.classList.remove('on');
+          elem.setAttribute('data-step-status', 'off');
         }
       }}
     />

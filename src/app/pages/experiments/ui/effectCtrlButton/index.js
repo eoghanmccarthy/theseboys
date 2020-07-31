@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { useEffect, memo } from 'react';
 import cx from 'classnames';
 
 import './styles.css';
@@ -18,9 +18,18 @@ const EffectControlButton = memo(
     showPercentageValue = false,
     toFixed = 1
   }) => {
-    if (!node) {
-      return null;
-    }
+    if (!node || !param) return null;
+
+    useEffect(() => {
+      document
+        .querySelector(`.effect-value.${controlName}`)
+        .setAttribute(
+          'data-value',
+          showPercentageValue
+            ? Math.round(interpolateValue(node.get()[param])).toString()
+            : node.get()[param].toFixed(toFixed)
+        );
+    }, []);
 
     const interpolateValue = interpolate({
       inputRange: [min, max],

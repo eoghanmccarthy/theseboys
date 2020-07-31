@@ -33,16 +33,16 @@
     height: 1px;
 }
 
-.step-seq__step.on {
+.step-seq__step[data-step-status = 'on'] {
     border-color: var(--color-bluegrey-600);
 }
 
-.step-seq__step.current {
+.step-seq__step[data-step-playback-status = 'current'] {
     border-width: 3px;
     transform: scale(1.22);
 }
 
-.step-seq__step.on.current.playing {
+.step-seq__step[data-step-status = 'on'][data-step-playback-status = 'current'] {
     border-width: 3px;
     background-color: var(--color-secondary);
     border-color: var(--color-secondary);
