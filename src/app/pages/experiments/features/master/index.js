@@ -1,10 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react';
-import cx from 'classnames';
+import React from 'react';
 import { Transport, Destination } from 'tone';
 
 import './styles.scss';
 
-import Volume from './volume';
 import Tempo from './tempo';
 
 const sequencerName = 'master';
@@ -17,7 +15,6 @@ const Master = () => {
 
   return (
     <div className={'master'}>
-      <Volume />
       <EffectControlButton
         showPercentageValue
         controlName={controlName}
