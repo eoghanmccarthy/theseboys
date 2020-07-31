@@ -42,8 +42,18 @@ const Master = () => {
       >
         -
       </EffectControlButton>
-      <PlayButton onClick={() => Transport.start()} />
-      <PlayButton onClick={() => Transport.stop()} />
+      <PlayButton
+        onClick={() => {
+          console.log(Transport.state);
+          Transport.state === 'stopped' && Transport.start();
+        }}
+      />
+      <PlayButton
+        onClick={() => {
+          console.log(Transport.state);
+          Transport.state === 'started' && Transport.stop();
+        }}
+      />
       <Tempo />
     </div>
   );
