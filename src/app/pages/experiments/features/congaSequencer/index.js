@@ -19,15 +19,13 @@ import {
 
 //https://tone-demos.glitch.me/
 
-import './styles.css';
-
 import random from 'utils/helpers/random';
 import newArray from 'utils/helpers/newArray';
 import stepDataInitialState from 'utils/helpers/stepDataInitialState';
 import drawSteps from 'utils/helpers/drawSteps';
 import isStepOn from 'utils/helpers/isStepOn';
 
-import { Panel, Meta, Steps, EffectControls } from '../../ui';
+import { Panel, Meta, Steps, ControlsContainer, EffectControls } from '../../ui';
 
 const notes = ['C1'];
 //const notes = ['A4', 'D3', 'E3', 'G4', 'F#4'];
@@ -139,7 +137,7 @@ const CongaSequencer = memo(() => {
         </button>
       </Meta>
       <Panel>
-        <div className={'exp step-seq__effects'}>
+        <ControlsContainer>
           <EffectControls
             node={channel?.current}
             sequencerName={sequencerName}
@@ -180,7 +178,7 @@ const CongaSequencer = memo(() => {
           {/*  label={'DLY'}*/}
           {/*  showPercentageValue*/}
           {/*/>*/}
-        </div>
+        </ControlsContainer>
       </Panel>
     </Fragment>
   );
