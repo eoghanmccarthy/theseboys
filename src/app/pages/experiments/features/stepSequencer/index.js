@@ -148,16 +148,6 @@ const StepSequencer = memo(() => {
         <Steps sequencer={sequencerName} steps={stepsRef?.current} />
       </Panel>
       <Meta>
-        <button
-          onClick={() => {
-            const { mute } = channel?.current.get();
-            channel?.current.set({ mute: !mute });
-          }}
-        >
-          mute
-        </button>
-      </Meta>
-      <Panel>
         <ControlsContainer>
           <EffectControls
             node={channel?.current}
@@ -178,6 +168,18 @@ const StepSequencer = memo(() => {
             label={'PAN'}
             min={-1}
           />
+        </ControlsContainer>
+        {/*<button*/}
+        {/*  onClick={() => {*/}
+        {/*    const { mute } = channel?.current.get();*/}
+        {/*    channel?.current.set({ mute: !mute });*/}
+        {/*  }}*/}
+        {/*>*/}
+        {/*  mute*/}
+        {/*</button>*/}
+      </Meta>
+      <Panel>
+        <ControlsContainer>
           <EffectControls
             node={distortion?.current}
             sequencerName={sequencerName}

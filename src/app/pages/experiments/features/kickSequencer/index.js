@@ -113,16 +113,6 @@ const KickSequencer = memo(() => {
         <Steps sequencer={sequencerName} steps={stepsRef?.current} />
       </Panel>
       <Meta>
-        <button
-          onClick={() => {
-            const { mute } = channel?.current.get();
-            channel?.current.set({ mute: !mute });
-          }}
-        >
-          mute
-        </button>
-      </Meta>
-      <Panel>
         <ControlsContainer>
           <EffectControls
             node={channel?.current}
@@ -143,6 +133,18 @@ const KickSequencer = memo(() => {
             label={'PAN'}
             min={-1}
           />
+        </ControlsContainer>
+        {/*<button*/}
+        {/*  onClick={() => {*/}
+        {/*    const { mute } = channel?.current.get();*/}
+        {/*    channel?.current.set({ mute: !mute });*/}
+        {/*  }}*/}
+        {/*>*/}
+        {/*  mute*/}
+        {/*</button>*/}
+      </Meta>
+      <Panel>
+        <ControlsContainer>
           <EffectControls
             node={synth?.current.envelope}
             param={'attack'}

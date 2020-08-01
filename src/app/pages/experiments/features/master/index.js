@@ -1,5 +1,5 @@
 import React from 'react';
-import { Transport, Destination } from 'tone';
+import { Transport, Destination, context } from 'tone';
 
 import './styles.scss';
 
@@ -41,6 +41,9 @@ const Master = () => {
       </EffectControlButton>
       <PlayButton
         onClick={() => {
+          if (context.state !== 'running') {
+            context.resume();
+          }
           console.log(Transport.state);
           Transport.state === 'stopped' && Transport.start();
         }}

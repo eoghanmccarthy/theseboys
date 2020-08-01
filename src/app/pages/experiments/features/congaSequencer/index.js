@@ -127,21 +127,11 @@ const CongaSequencer = memo(() => {
         <Steps sequencer={sequencerName} steps={stepsRef?.current} />
       </Panel>
       <Meta>
-        <button
-          onClick={() => {
-            const { mute } = channel?.current.get();
-            channel?.current.set({ mute: !mute });
-          }}
-        >
-          mute
-        </button>
-      </Meta>
-      <Panel>
         <ControlsContainer>
           <EffectControls
             node={channel?.current}
-            sequencerName={sequencerName}
             param={'volume'}
+            sequencerName={sequencerName}
             name={'volume'}
             label={'VOL'}
             step={1}
@@ -151,12 +141,24 @@ const CongaSequencer = memo(() => {
           />
           <EffectControls
             node={channel?.current}
-            sequencerName={sequencerName}
             param={'pan'}
+            sequencerName={sequencerName}
             name={'pan'}
             label={'PAN'}
             min={-1}
           />
+        </ControlsContainer>
+        {/*<button*/}
+        {/*  onClick={() => {*/}
+        {/*    const { mute } = channel?.current.get();*/}
+        {/*    channel?.current.set({ mute: !mute });*/}
+        {/*  }}*/}
+        {/*>*/}
+        {/*  mute*/}
+        {/*</button>*/}
+      </Meta>
+      <Panel>
+        <ControlsContainer>
           <EffectControls
             showPercentageValue
             node={distortion?.current}
