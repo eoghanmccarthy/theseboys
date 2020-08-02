@@ -111,12 +111,18 @@ const CongaSequencer = memo(() => {
     };
   }, []);
 
+  const onTriggerAttackRelease = (duration, time, velocity) => {
+    if (!synth) return;
+
+    synth.current.triggerAttackRelease('C1', duration, time, velocity);
+  };
+
   const onSequenceStep = (time, column) => {
     for (let i = 0; i < stepsRef.current.length; i++) {
       const velocity = random(0.5, 1);
 
       if (isStepOn(sequencerName, i, column)) {
-        synth.current.triggerAttackRelease('C1', noteInterval, time, velocity);
+        onTriggerAttackRelease(noteInterval, time, velocity);
       }
     }
 
@@ -127,7 +133,17 @@ const CongaSequencer = memo(() => {
 
   return (
     <Fragment>
-      <Meta />
+      <Meta>
+        <button onClick={() => onTriggerAttackRelease(noteInterval)}>sample</button>
+        <button
+          onClick={() => {
+            const { mute } = channel?.current.get();
+            channel?.current.set({ mute: !mute });
+          }}
+        >
+          mute
+        </button>
+      </Meta>
       <Panel>
         <Steps sequencer={sequencerName} steps={stepsRef?.current} />
       </Panel>

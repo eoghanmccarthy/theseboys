@@ -1,0 +1,18 @@
+.header {
+    grid-area: header;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;  
+    padding: 15px;
+}
+
+.header svg {
+    height: 100%;
+    cursor: pointer;
+}
+
+
+.header svg path {
+    fill: black;
+}

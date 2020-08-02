@@ -1,17 +1,17 @@
-import { createStore, applyMiddleware, compose } from "redux";
-import { persistStore, persistReducer } from "redux-persist";
-import storage from "redux-persist/lib/storage/session";
-import { routerMiddleware } from "connected-react-router";
-import { createEpicMiddleware } from "redux-observable";
-import { ajax } from "rxjs/ajax";
+import { createStore, applyMiddleware, compose } from 'redux';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage/session';
+import { routerMiddleware } from 'connected-react-router';
+import { createEpicMiddleware } from 'redux-observable';
+import { ajax } from 'rxjs/ajax';
 
-import createRootReducer from "app/reducers";
-import { rootEpic } from "app/epics";
+import createRootReducer from 'app/reducers';
+import { rootEpic } from 'app/epics';
 
 const persistConfig = {
-  key: "root",
+  key: 'root',
   storage,
-  whitelist: [""]
+  whitelist: ['']
 };
 
 const epicMiddleware = createEpicMiddleware({
@@ -23,8 +23,7 @@ export default (initialState = {}, history) => {
 
   const enhancers = [applyMiddleware(...middlewares)];
 
-  const composeEnhancers =
-    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+  const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
   const store = createStore(
     persistReducer(persistConfig, createRootReducer(history)),

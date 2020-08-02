@@ -145,7 +145,16 @@ const StepSequencer = memo(() => {
 
   return (
     <Fragment>
-      <Meta />
+      <Meta>
+        <button
+          onClick={() => {
+            const { mute } = channel?.current.get();
+            channel?.current.set({ mute: !mute });
+          }}
+        >
+          mute
+        </button>
+      </Meta>
       <Panel>
         <Steps sequencer={sequencerName} steps={stepsRef?.current} />
       </Panel>

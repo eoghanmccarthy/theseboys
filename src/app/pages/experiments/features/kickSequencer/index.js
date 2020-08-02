@@ -87,8 +87,6 @@ const KickSequencer = memo(() => {
   );
 
   useEffect(() => {
-    console.log(synth?.current);
-
     sequence.current = new Sequence(onSequenceStep, noteIndices, noteInterval).start(0);
 
     return () => {
@@ -96,12 +94,18 @@ const KickSequencer = memo(() => {
     };
   }, []);
 
+  const onTriggerAttackRelease = (duration, time, velocity) => {
+    if (!synth) return;
+
+    synth.current.triggerAttackRelease('C1', duration, time, velocity);
+  };
+
   const onSequenceStep = (time, column) => {
     for (let i = 0; i < stepsRef.current.length; i++) {
       const velocity = random(0.5, 1);
 
       if (isStepOn(sequencerName, i, column)) {
-        synth.current.triggerAttackRelease('C1', noteInterval, time, velocity);
+        onTriggerAttackRelease(noteInterval, time, velocity);
       }
     }
 
@@ -112,7 +116,17 @@ const KickSequencer = memo(() => {
 
   return (
     <Fragment>
-      <Meta />
+      <Meta>
+        <button onClick={() => onTriggerAttackRelease(noteInterval)}>sample</button>
+        <button
+          onClick={() => {
+            const { mute } = channel?.current.get();
+            channel?.current.set({ mute: !mute });
+          }}
+        >
+          mute
+        </button>
+      </Meta>
       <Panel>
         <Steps sequencer={sequencerName} steps={stepsRef?.current} />
       </Panel>
@@ -120,14 +134,6 @@ const KickSequencer = memo(() => {
         <ControlsContainer>
           <ChannelControls sequencerName={sequencerName} channel={channel?.current} />
         </ControlsContainer>
-        {/*<button*/}
-        {/*  onClick={() => {*/}
-        {/*    const { mute } = channel?.current.get();*/}
-        {/*    channel?.current.set({ mute: !mute });*/}
-        {/*  }}*/}
-        {/*>*/}
-        {/*  mute*/}
-        {/*</button>*/}
       </Meta>
       <Panel>
         <ControlsContainer>
