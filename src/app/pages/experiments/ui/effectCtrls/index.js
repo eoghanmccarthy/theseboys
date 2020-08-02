@@ -8,7 +8,7 @@ const EffectControl = memo(
   ({
     node,
     sequencerName,
-    name,
+    effectName,
     param = 'wet',
     label,
     step = 0.1,
@@ -21,7 +21,7 @@ const EffectControl = memo(
       return null;
     }
 
-    const controlName = `${sequencerName}__effect-ctrl--${name}`;
+    const controlName = `${sequencerName}__effect-ctrl--${effectName}`;
 
     return (
       <div className={'step-seq__effect-ctrls'}>

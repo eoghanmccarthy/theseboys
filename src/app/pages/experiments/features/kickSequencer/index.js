@@ -25,6 +25,8 @@ import drawSteps from 'utils/helpers/drawSteps';
 import isStepOn from 'utils/helpers/isStepOn';
 
 import { Panel, Meta, Steps, ControlsContainer, EffectControls } from '../../ui';
+import ChannelControls from '../channelControls';
+import EnvelopeControls from '../envelopeControls';
 
 const notes = ['C1'];
 //const notes = ['A4', 'D3', 'E3', 'G4', 'F#4'];
@@ -79,12 +81,14 @@ const KickSequencer = memo(() => {
         attack: 0.001,
         decay: 0.2,
         sustain: 0,
-        release: 0
+        release: 1.4
       }
     }).chain(channel.current, compressor.current, gain.current, Destination)
   );
 
   useEffect(() => {
+    console.log(synth?.current);
+
     sequence.current = new Sequence(onSequenceStep, noteIndices, noteInterval).start(0);
 
     return () => {
@@ -114,25 +118,7 @@ const KickSequencer = memo(() => {
       </Panel>
       <Meta>
         <ControlsContainer>
-          <EffectControls
-            node={channel?.current}
-            param={'volume'}
-            sequencerName={sequencerName}
-            name={'volume'}
-            label={'VOL'}
-            step={1}
-            min={-60}
-            max={20}
-            showPercentageValue
-          />
-          <EffectControls
-            node={channel?.current}
-            param={'pan'}
-            sequencerName={sequencerName}
-            name={'pan'}
-            label={'PAN'}
-            min={-1}
-          />
+          <ChannelControls sequencerName={sequencerName} channel={channel?.current} />
         </ControlsContainer>
         {/*<button*/}
         {/*  onClick={() => {*/}
@@ -145,42 +131,7 @@ const KickSequencer = memo(() => {
       </Meta>
       <Panel>
         <ControlsContainer>
-          <EffectControls
-            node={synth?.current.envelope}
-            param={'attack'}
-            sequencerName={sequencerName}
-            name={'attack'}
-            label={'ATK'}
-            step={0.001}
-            toFixed={3}
-          />
-          <EffectControls
-            node={synth?.current.envelope}
-            param={'decay'}
-            sequencerName={sequencerName}
-            name={'decay'}
-            label={'DEC'}
-            step={0.001}
-            toFixed={3}
-          />
-          <EffectControls
-            node={synth?.current.envelope}
-            param={'sustain'}
-            sequencerName={sequencerName}
-            name={'sustain'}
-            label={'SUS'}
-            step={0.001}
-            toFixed={3}
-          />
-          <EffectControls
-            node={synth?.current.envelope}
-            param={'release'}
-            sequencerName={sequencerName}
-            name={'release'}
-            label={'REL'}
-            step={0.001}
-            toFixed={3}
-          />
+          <EnvelopeControls sequencerName={sequencerName} envelope={synth?.current?.envelope} />
         </ControlsContainer>
       </Panel>
     </Fragment>

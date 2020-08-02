@@ -41,6 +41,7 @@ const Master = () => {
       </EffectControlButton>
       <PlayButton
         onClick={() => {
+          console.log(context.state);
           if (context.state !== 'running') {
             context.resume();
           }

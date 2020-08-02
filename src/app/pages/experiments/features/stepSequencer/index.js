@@ -22,6 +22,8 @@ import drawSteps from 'utils/helpers/drawSteps';
 import isStepOn from 'utils/helpers/isStepOn';
 
 import { Panel, Meta, Steps, ControlsContainer, EffectControls } from '../../ui';
+import ChannelControls from '../channelControls';
+import EnvelopeControls from '../envelopeControls';
 
 const notes = ['F#4', 'E4', 'C#4', 'A4'];
 //const notes = ['A4', 'D3', 'E3', 'G4', 'F#4'];
@@ -149,25 +151,7 @@ const StepSequencer = memo(() => {
       </Panel>
       <Meta>
         <ControlsContainer>
-          <EffectControls
-            node={channel?.current}
-            param={'volume'}
-            sequencerName={sequencerName}
-            name={'volume'}
-            label={'VOL'}
-            step={1}
-            min={-60}
-            max={20}
-            showPercentageValue
-          />
-          <EffectControls
-            node={channel?.current}
-            param={'pan'}
-            sequencerName={sequencerName}
-            name={'pan'}
-            label={'PAN'}
-            min={-1}
-          />
+          <ChannelControls sequencerName={sequencerName} channel={channel?.current} />
         </ControlsContainer>
         {/*<button*/}
         {/*  onClick={() => {*/}
@@ -183,21 +167,21 @@ const StepSequencer = memo(() => {
           <EffectControls
             node={distortion?.current}
             sequencerName={sequencerName}
-            name={'distortion'}
+            effectName={'distortion'}
             label={'DIS'}
             showPercentageValue
           />
           <EffectControls
             node={reverb?.current}
             sequencerName={sequencerName}
-            name={'reverb'}
+            effectName={'reverb'}
             label={'REV'}
             showPercentageValue
           />
           <EffectControls
             node={delay?.current}
             sequencerName={sequencerName}
-            name={'delay'}
+            effectName={'delay'}
             label={'DLY'}
             showPercentageValue
           />

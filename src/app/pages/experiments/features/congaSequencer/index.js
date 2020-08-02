@@ -26,6 +26,8 @@ import drawSteps from 'utils/helpers/drawSteps';
 import isStepOn from 'utils/helpers/isStepOn';
 
 import { Panel, Meta, Steps, ControlsContainer, EffectControls } from '../../ui';
+import ChannelControls from '../channelControls';
+import EnvelopeControls from '../envelopeControls';
 
 const notes = ['C1'];
 //const notes = ['A4', 'D3', 'E3', 'G4', 'F#4'];
@@ -79,13 +81,16 @@ const CongaSequencer = memo(() => {
 
   const gain = useRef(new Gain(2).toDestination());
 
-  const bell = useRef(
+  const synth = useRef(
     new MetalSynth({
       harmonicity: 12,
       resonance: 1000,
       modulationIndex: 20,
       envelope: {
-        decay: 0.4
+        attack: 0.001,
+        decay: 0.4,
+        sustain: 0,
+        release: 0.2
       },
       volume: -15
     }).chain(
@@ -111,7 +116,7 @@ const CongaSequencer = memo(() => {
       const velocity = random(0.5, 1);
 
       if (isStepOn(sequencerName, i, column)) {
-        bell.current.triggerAttackRelease('C1', noteInterval, time, velocity);
+        synth.current.triggerAttackRelease('C1', noteInterval, time, velocity);
       }
     }
 
@@ -128,25 +133,7 @@ const CongaSequencer = memo(() => {
       </Panel>
       <Meta>
         <ControlsContainer>
-          <EffectControls
-            node={channel?.current}
-            param={'volume'}
-            sequencerName={sequencerName}
-            name={'volume'}
-            label={'VOL'}
-            step={1}
-            min={-60}
-            max={20}
-            showPercentageValue
-          />
-          <EffectControls
-            node={channel?.current}
-            param={'pan'}
-            sequencerName={sequencerName}
-            name={'pan'}
-            label={'PAN'}
-            min={-1}
-          />
+          <ChannelControls sequencerName={sequencerName} channel={channel?.current} />
         </ControlsContainer>
         {/*<button*/}
         {/*  onClick={() => {*/}
@@ -159,24 +146,25 @@ const CongaSequencer = memo(() => {
       </Meta>
       <Panel>
         <ControlsContainer>
+          <EnvelopeControls sequencerName={sequencerName} envelope={synth?.current?.envelope} />
           <EffectControls
             showPercentageValue
             node={distortion?.current}
             sequencerName={sequencerName}
-            name={'distortion'}
+            effectName={'distortion'}
             label={'DIS'}
           />
           <EffectControls
             showPercentageValue
             node={reverb?.current}
             sequencerName={sequencerName}
-            name={'reverb'}
+            effectName={'reverb'}
             label={'REV'}
           />
           {/*<EffectControls*/}
           {/*  node={delay?.current}*/}
           {/*  sequencerName={sequencerName}*/}
-          {/*  name={'delay'}*/}
+          {/*  effectName={'delay'}*/}
           {/*  label={'DLY'}*/}
           {/*  showPercentageValue*/}
           {/*/>*/}
