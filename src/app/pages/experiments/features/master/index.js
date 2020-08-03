@@ -1,9 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Transport, Destination, context } from 'tone';
 
-import './styles.scss';
-
-import Tempo from './tempo';
+import './styles.css';
 
 const sequencerName = 'master';
 
@@ -11,13 +9,17 @@ import { Panel, Meta, PlayButton, Steps, EffectControls } from '../../ui';
 import EffectControlButton from '../../ui/effectCtrlButton';
 
 const Master = () => {
-  const controlName = `${sequencerName}__effect-ctrl--volume`;
+  useEffect(() => {
+    Transport.scheduleRepeat((time, column) => {
+      //console.log(time, column);
+    }, '8n');
+  }, []);
 
   return (
     <div className={'master'}>
       <EffectControlButton
         showPercentageValue
-        controlName={controlName}
+        controlName={`${sequencerName}__effect-ctrl--volume`}
         node={Destination}
         param={'volume'}
         step={1}
@@ -26,10 +28,10 @@ const Master = () => {
       >
         +
       </EffectControlButton>
-      <span className={`effect-value ${controlName}`} />
+      <span className={`effect-value ${sequencerName}__effect-ctrl--volume`} />
       <EffectControlButton
         showPercentageValue
-        controlName={controlName}
+        controlName={`${sequencerName}__effect-ctrl--volume`}
         node={Destination}
         param={'volume'}
         dec
@@ -41,21 +43,44 @@ const Master = () => {
       </EffectControlButton>
       <PlayButton
         onClick={() => {
-          console.log(context.state);
           if (context.state !== 'running') {
             context.resume();
           }
-          console.log(Transport.state);
+          console.log('audio context is', context.state);
           Transport.state === 'stopped' && Transport.start();
+          console.log('transport is', Transport.state);
         }}
       />
       <PlayButton
         onClick={() => {
-          console.log(Transport.state);
           Transport.state === 'started' && Transport.stop();
+          console.log('transport is', Transport.state);
         }}
       />
-      <Tempo />
+      <EffectControlButton
+        controlName={`${sequencerName}__effect-ctrl--tempo`}
+        node={Transport}
+        param={'bpm'}
+        step={1}
+        min={60}
+        max={240}
+        toFixed={0}
+      >
+        +
+      </EffectControlButton>
+      <span className={`effect-value ${sequencerName}__effect-ctrl--tempo`} />
+      <EffectControlButton
+        controlName={`${sequencerName}__effect-ctrl--tempo`}
+        node={Transport}
+        param={'bpm'}
+        dec
+        step={1}
+        min={60}
+        max={240}
+        toFixed={0}
+      >
+        -
+      </EffectControlButton>
     </div>
   );
 };
