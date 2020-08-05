@@ -26,9 +26,11 @@
 
 .effect-control .effect-control__value {
     grid-area: value;
+    width: 5ch;
+    text-align: center;
 }
 
-.effect-control__value::before {
+.effect-control .effect-control__value::before {
     width: 40px;
     height: 40px;
     content: attr(data-value);

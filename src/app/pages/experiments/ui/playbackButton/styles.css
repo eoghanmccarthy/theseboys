@@ -47,6 +47,10 @@
     background-color: white;
 }
 
+.playback-button.disabled {
+    pointer-events: none;
+}
+
 .playback-button:focus {
     outline: none;
 }

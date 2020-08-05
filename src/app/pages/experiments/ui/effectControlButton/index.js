@@ -48,8 +48,6 @@ const EffectControlButton = memo(
           const previous = params[param];
           const val = !dec ? Math.min(previous + step, max) : Math.max(previous - step, min);
 
-          console.log(val);
-
           document
             .querySelector(`.effect-control__value.${controlName}`)
             .setAttribute(

@@ -38,6 +38,8 @@ const Master = () => {
             console.log('audio context is', context.state);
             Transport.state === 'stopped' && Transport.start();
             console.log('transport is', Transport.state);
+            document.querySelector('.playback-button.play').classList.add('disabled');
+            document.querySelector('.playback-button.stop').classList.remove('disabled');
           }}
         />
         <PlaybackButton
@@ -45,6 +47,8 @@ const Master = () => {
           onClick={() => {
             Transport.state === 'started' && Transport.stop();
             console.log('transport is', Transport.state);
+            document.querySelector('.playback-button.stop').classList.add('disabled');
+            document.querySelector('.playback-button.play').classList.remove('disabled');
           }}
         />
       </div>

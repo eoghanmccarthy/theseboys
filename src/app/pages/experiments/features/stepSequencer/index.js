@@ -21,7 +21,15 @@ import stepDataInitialState from 'utils/helpers/stepDataInitialState';
 import drawSteps from 'utils/helpers/drawSteps';
 import isStepOn from 'utils/helpers/isStepOn';
 
-import { Panel, Meta, Steps, ControlsContainer, EffectControl, TrackContainer } from '../../ui';
+import {
+  Panel,
+  Meta,
+  Steps,
+  ControlsContainer,
+  EffectControl,
+  TrackContainer,
+  MuteButton
+} from '../../ui';
 import ChannelControls from '../channelControls';
 import EnvelopeControls from '../envelopeControls';
 
@@ -146,14 +154,7 @@ const StepSequencer = memo(() => {
   return (
     <TrackContainer>
       <Meta>
-        <button
-          onClick={() => {
-            const { mute } = channel?.current.get();
-            channel?.current.set({ mute: !mute });
-          }}
-        >
-          mute
-        </button>
+        <MuteButton node={channel?.current} sequencerName={sequencerName} />
       </Meta>
       <Panel>
         <Steps sequencer={sequencerName} steps={stepsRef?.current} />
