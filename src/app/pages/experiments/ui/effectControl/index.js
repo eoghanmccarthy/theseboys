@@ -1,8 +1,9 @@
 import React, { memo } from 'react';
+import cx from 'classnames';
 
 import './styles.css';
 
-import EffectControlButton from '../effectCtrlButton';
+import EffectControlButton from '../effectControlButton';
 
 const EffectControl = memo(
   ({
@@ -10,6 +11,7 @@ const EffectControl = memo(
     sequencerName,
     effectName,
     param = 'wet',
+    orientation = 'vertical',
     label,
     step = 0.1,
     min = 0,
@@ -24,8 +26,8 @@ const EffectControl = memo(
     const controlName = `${sequencerName}__effect-ctrl--${effectName}`;
 
     return (
-      <div className={'step-seq__effect-ctrls'}>
-        <span className={`effect-label ${controlName}`}>{label}</span>
+      <div className={cx('effect-control', { [orientation]: orientation })}>
+        <span className={`effect-control__label ${controlName}`}>{label}</span>
         <EffectControlButton
           controlName={controlName}
           node={node}
@@ -38,7 +40,7 @@ const EffectControl = memo(
         >
           +
         </EffectControlButton>
-        <span className={`effect-value ${controlName}`} />
+        <span className={`effect-control__value ${controlName}`} />
         <EffectControlButton
           controlName={controlName}
           node={node}

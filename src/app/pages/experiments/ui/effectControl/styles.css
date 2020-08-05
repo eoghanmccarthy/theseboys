@@ -1,0 +1,35 @@
+.effect-control {
+    display: grid;
+    font-size: 14px;
+}
+
+.effect-control.vertical {
+    grid-template-areas:
+			"label"
+			"inc"
+            "value"
+            "dec";
+    row-gap: var(--spacing-12);
+    justify-items: center;
+}
+
+.effect-control.horizontal {
+    grid-template-areas:
+			"label dec value inc";
+    column-gap: var(--spacing-12);
+    align-items: center;
+}
+
+.effect-control .effect-control__label {
+    grid-area: label;
+}
+
+.effect-control .effect-control__value {
+    grid-area: value;
+}
+
+.effect-control__value::before {
+    width: 40px;
+    height: 40px;
+    content: attr(data-value);
+}

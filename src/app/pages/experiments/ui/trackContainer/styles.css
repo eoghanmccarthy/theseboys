@@ -1,0 +1,6 @@
+.track-container {
+    display: grid;
+    grid-template-columns: 100px 412px 120px 200px 320px;
+    grid-template-rows: 212px;
+    grid-column-gap: 5px;
+}

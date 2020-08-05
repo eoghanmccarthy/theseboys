@@ -2,7 +2,7 @@ import React from 'react';
 
 import './index.css';
 
-import { Panel, Meta, PlayButton } from './ui';
+import { Panel, Meta, PlaybackButton } from './ui';
 import Oscillator from 'features/oscillator';
 
 import useBell01 from 'features/sounds/useBell01';
@@ -33,35 +33,35 @@ const Experiments = () => {
       <StepSequencer />
       <KickSequencer />
       <CongaSequencer />
-      <Meta>
-        <PlayButton onClick={() => conga01.trigger()} />
-      </Meta>
-      <Panel />
-      <Meta>
-        <PlayButton onClick={() => kick02.trigger()} />
-      </Meta>
-      <Panel />
-      <Meta>
-        <PlayButton onClick={() => kick01.trigger()} />
-      </Meta>
-      <Panel />
-      <Meta>
-        <PlayButton onClick={() => snare01.trigger()} />
-      </Meta>
-      <Panel />
-      <Meta>
-        <PlayButton onClick={() => snare02.trigger()} />
-      </Meta>
-      <Panel />
-      <Meta>
-        <PlayButton onClick={() => monoSynth.trigger()} />
-      </Meta>
-      <Panel />
-      <RandomSequencer />
-      <Meta>ppp</Meta>
-      <Panel>
-        <Oscillator />
-      </Panel>
+      {/*<Meta>*/}
+      {/*  <PlaybackButton onClick={() => conga01.trigger()} />*/}
+      {/*</Meta>*/}
+      {/*<Panel />*/}
+      {/*<Meta>*/}
+      {/*  <PlaybackButton onClick={() => kick02.trigger()} />*/}
+      {/*</Meta>*/}
+      {/*<Panel />*/}
+      {/*<Meta>*/}
+      {/*  <PlaybackButton onClick={() => kick01.trigger()} />*/}
+      {/*</Meta>*/}
+      {/*<Panel />*/}
+      {/*<Meta>*/}
+      {/*  <PlaybackButton onClick={() => snare01.trigger()} />*/}
+      {/*</Meta>*/}
+      {/*<Panel />*/}
+      {/*<Meta>*/}
+      {/*  <PlaybackButton onClick={() => snare02.trigger()} />*/}
+      {/*</Meta>*/}
+      {/*<Panel />*/}
+      {/*<Meta>*/}
+      {/*  <PlaybackButton onClick={() => monoSynth.trigger()} />*/}
+      {/*</Meta>*/}
+      {/*<Panel />*/}
+      {/*<RandomSequencer />*/}
+      {/*<Meta>ppp</Meta>*/}
+      {/*<Panel>*/}
+      {/*  <Oscillator />*/}
+      {/*</Panel>*/}
     </main>
   );
 };

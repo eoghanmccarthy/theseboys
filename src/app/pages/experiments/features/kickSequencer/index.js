@@ -1,10 +1,8 @@
 import React, { Fragment, useRef, memo, useEffect } from 'react';
 import { useImmer } from 'use-immer';
 import {
-  PolySynth,
   Reverb,
   FeedbackDelay,
-  DuoSynth,
   Destination,
   Sequence,
   Draw,
@@ -24,7 +22,7 @@ import stepDataInitialState from 'utils/helpers/stepDataInitialState';
 import drawSteps from 'utils/helpers/drawSteps';
 import isStepOn from 'utils/helpers/isStepOn';
 
-import { Panel, Meta, Steps, ControlsContainer, EffectControls } from '../../ui';
+import { Panel, Meta, Steps, ControlsContainer, EffectControl, TrackContainer } from '../../ui';
 import ChannelControls from '../channelControls';
 import EnvelopeControls from '../envelopeControls';
 
@@ -53,7 +51,7 @@ const KickSequencer = memo(() => {
   const channel = useRef(
     new Channel({
       pan: 0,
-      volume: 10,
+      volume: 12,
       mute: false,
       solo: false
     })
@@ -70,6 +68,24 @@ const KickSequencer = memo(() => {
 
   const gain = useRef(new Gain(2).toDestination());
 
+  const delay = useRef(
+    new FeedbackDelay({
+      delayTime: `${Math.floor(numCols / 2)}n`,
+      feedback: 1 / 3,
+      wet: 0.0
+    })
+  );
+
+  const distortion = useRef(new Distortion({ distortion: 1, oversample: '4x', wet: 0.0 }));
+
+  const reverb = useRef(
+    new Reverb({
+      decay: 4,
+      wet: 0.0,
+      preDelay: 0.25
+    })
+  );
+
   const synth = useRef(
     new MembraneSynth({
       pitchDecay: 0.01,
@@ -83,7 +99,15 @@ const KickSequencer = memo(() => {
         sustain: 0,
         release: 1.4
       }
-    }).chain(channel.current, compressor.current, gain.current, Destination)
+    }).chain(
+      channel.current,
+      compressor.current,
+      gain.current,
+      delay.current,
+      distortion.current,
+      reverb.current,
+      Destination
+    )
   );
 
   useEffect(() => {
@@ -115,7 +139,7 @@ const KickSequencer = memo(() => {
   };
 
   return (
-    <Fragment>
+    <TrackContainer>
       <Meta>
         <button onClick={() => onTriggerAttackRelease(noteInterval)}>sample</button>
         <button
@@ -137,10 +161,35 @@ const KickSequencer = memo(() => {
       </Meta>
       <Panel>
         <ControlsContainer>
+          <EffectControl
+            node={distortion?.current}
+            sequencerName={sequencerName}
+            effectName={'distortion'}
+            label={'DIS'}
+            showPercentageValue
+          />
+          <EffectControl
+            node={reverb?.current}
+            sequencerName={sequencerName}
+            effectName={'reverb'}
+            label={'REV'}
+            showPercentageValue
+          />
+          <EffectControl
+            node={delay?.current}
+            sequencerName={sequencerName}
+            effectName={'delay'}
+            label={'DLY'}
+            showPercentageValue
+          />
+        </ControlsContainer>
+      </Panel>
+      <Panel>
+        <ControlsContainer>
           <EnvelopeControls sequencerName={sequencerName} envelope={synth?.current?.envelope} />
         </ControlsContainer>
       </Panel>
-    </Fragment>
+    </TrackContainer>
   );
 });
 

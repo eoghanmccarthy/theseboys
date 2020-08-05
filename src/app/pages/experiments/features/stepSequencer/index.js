@@ -21,7 +21,7 @@ import stepDataInitialState from 'utils/helpers/stepDataInitialState';
 import drawSteps from 'utils/helpers/drawSteps';
 import isStepOn from 'utils/helpers/isStepOn';
 
-import { Panel, Meta, Steps, ControlsContainer, EffectControls } from '../../ui';
+import { Panel, Meta, Steps, ControlsContainer, EffectControl, TrackContainer } from '../../ui';
 import ChannelControls from '../channelControls';
 import EnvelopeControls from '../envelopeControls';
 
@@ -50,7 +50,7 @@ const StepSequencer = memo(() => {
   const channel = useRef(
     new Channel({
       pan: 0,
-      volume: 10,
+      volume: 12,
       mute: false,
       solo: false
     })
@@ -144,7 +144,7 @@ const StepSequencer = memo(() => {
   };
 
   return (
-    <Fragment>
+    <TrackContainer>
       <Meta>
         <button
           onClick={() => {
@@ -162,32 +162,24 @@ const StepSequencer = memo(() => {
         <ControlsContainer>
           <ChannelControls sequencerName={sequencerName} channel={channel?.current} />
         </ControlsContainer>
-        {/*<button*/}
-        {/*  onClick={() => {*/}
-        {/*    const { mute } = channel?.current.get();*/}
-        {/*    channel?.current.set({ mute: !mute });*/}
-        {/*  }}*/}
-        {/*>*/}
-        {/*  mute*/}
-        {/*</button>*/}
       </Meta>
       <Panel>
         <ControlsContainer>
-          <EffectControls
+          <EffectControl
             node={distortion?.current}
             sequencerName={sequencerName}
             effectName={'distortion'}
             label={'DIS'}
             showPercentageValue
           />
-          <EffectControls
+          <EffectControl
             node={reverb?.current}
             sequencerName={sequencerName}
             effectName={'reverb'}
             label={'REV'}
             showPercentageValue
           />
-          <EffectControls
+          <EffectControl
             node={delay?.current}
             sequencerName={sequencerName}
             effectName={'delay'}
@@ -196,7 +188,8 @@ const StepSequencer = memo(() => {
           />
         </ControlsContainer>
       </Panel>
-    </Fragment>
+      <Panel />
+    </TrackContainer>
   );
 });
 

@@ -5,8 +5,8 @@ import './styles.css';
 
 const sequencerName = 'master';
 
-import { Panel, Meta, PlayButton, Steps, EffectControls } from '../../ui';
-import EffectControlButton from '../../ui/effectCtrlButton';
+import { Panel, Meta, PlaybackButton, Steps, EffectControl } from '../../ui';
+import EffectControlButton from '../../ui/effectControlButton';
 
 const Master = () => {
   useEffect(() => {
@@ -17,70 +17,49 @@ const Master = () => {
 
   return (
     <div className={'master'}>
-      <EffectControlButton
-        showPercentageValue
-        controlName={`${sequencerName}__effect-ctrl--volume`}
+      <EffectControl
         node={Destination}
         param={'volume'}
+        sequencerName={sequencerName}
+        effectName={'volume'}
+        orientation={'horizontal'}
+        label={'VOL'}
         step={1}
         min={-60}
         max={20}
-      >
-        +
-      </EffectControlButton>
-      <span className={`effect-value ${sequencerName}__effect-ctrl--volume`} />
-      <EffectControlButton
         showPercentageValue
-        controlName={`${sequencerName}__effect-ctrl--volume`}
-        node={Destination}
-        param={'volume'}
-        dec
-        step={1}
-        min={-60}
-        max={20}
-      >
-        -
-      </EffectControlButton>
-      <PlayButton
-        onClick={() => {
-          if (context.state !== 'running') {
-            context.resume();
-          }
-          console.log('audio context is', context.state);
-          Transport.state === 'stopped' && Transport.start();
-          console.log('transport is', Transport.state);
-        }}
       />
-      <PlayButton
-        onClick={() => {
-          Transport.state === 'started' && Transport.stop();
-          console.log('transport is', Transport.state);
-        }}
-      />
-      <EffectControlButton
-        controlName={`${sequencerName}__effect-ctrl--tempo`}
+      <div className={'playback-controls'}>
+        <PlaybackButton
+          onClick={() => {
+            if (context.state !== 'running') {
+              context.resume();
+            }
+            console.log('audio context is', context.state);
+            Transport.state === 'stopped' && Transport.start();
+            console.log('transport is', Transport.state);
+          }}
+        />
+        <PlaybackButton
+          type={'stop'}
+          onClick={() => {
+            Transport.state === 'started' && Transport.stop();
+            console.log('transport is', Transport.state);
+          }}
+        />
+      </div>
+      <EffectControl
         node={Transport}
         param={'bpm'}
+        sequencerName={sequencerName}
+        effectName={'bpm'}
+        orientation={'horizontal'}
+        label={'BPM'}
         step={1}
         min={60}
         max={240}
         toFixed={0}
-      >
-        +
-      </EffectControlButton>
-      <span className={`effect-value ${sequencerName}__effect-ctrl--tempo`} />
-      <EffectControlButton
-        controlName={`${sequencerName}__effect-ctrl--tempo`}
-        node={Transport}
-        param={'bpm'}
-        dec
-        step={1}
-        min={60}
-        max={240}
-        toFixed={0}
-      >
-        -
-      </EffectControlButton>
+      />
     </div>
   );
 };

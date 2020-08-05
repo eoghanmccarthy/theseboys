@@ -1,8 +1,9 @@
 import Panel from './panel';
 import Meta from './meta';
-import PlayButton from './playButton';
+import PlaybackButton from './playbackButton';
 import Steps from './steps';
 import ControlsContainer from './controlsContainer';
-import EffectControls from './effectCtrls';
+import EffectControl from './effectControl';
+import TrackContainer from './trackContainer';
 
-export { Panel, Meta, PlayButton, Steps, ControlsContainer, EffectControls };
+export { Panel, Meta, PlaybackButton, Steps, ControlsContainer, EffectControl, TrackContainer };

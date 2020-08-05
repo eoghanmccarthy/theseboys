@@ -1,13 +1,13 @@
 import React, { Fragment, memo } from 'react';
 
-import { EffectControls } from '../../ui';
+import { EffectControl } from '../../ui';
 
 const ChannelControls = memo(({ sequencerName, channel }) => {
   if (!channel) return null;
 
   return (
     <Fragment>
-      <EffectControls
+      <EffectControl
         node={channel}
         param={'volume'}
         sequencerName={sequencerName}
@@ -18,7 +18,7 @@ const ChannelControls = memo(({ sequencerName, channel }) => {
         max={20}
         showPercentageValue
       />
-      <EffectControls
+      <EffectControl
         node={channel}
         param={'pan'}
         sequencerName={sequencerName}

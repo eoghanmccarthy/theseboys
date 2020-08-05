@@ -25,7 +25,7 @@ import stepDataInitialState from 'utils/helpers/stepDataInitialState';
 import drawSteps from 'utils/helpers/drawSteps';
 import isStepOn from 'utils/helpers/isStepOn';
 
-import { Panel, Meta, Steps, ControlsContainer, EffectControls } from '../../ui';
+import { Panel, Meta, Steps, ControlsContainer, EffectControl, TrackContainer } from '../../ui';
 import ChannelControls from '../channelControls';
 import EnvelopeControls from '../envelopeControls';
 
@@ -132,7 +132,7 @@ const CongaSequencer = memo(() => {
   };
 
   return (
-    <Fragment>
+    <TrackContainer>
       <Meta>
         <button onClick={() => onTriggerAttackRelease(noteInterval)}>sample</button>
         <button
@@ -151,33 +151,24 @@ const CongaSequencer = memo(() => {
         <ControlsContainer>
           <ChannelControls sequencerName={sequencerName} channel={channel?.current} />
         </ControlsContainer>
-        {/*<button*/}
-        {/*  onClick={() => {*/}
-        {/*    const { mute } = channel?.current.get();*/}
-        {/*    channel?.current.set({ mute: !mute });*/}
-        {/*  }}*/}
-        {/*>*/}
-        {/*  mute*/}
-        {/*</button>*/}
       </Meta>
       <Panel>
         <ControlsContainer>
-          <EnvelopeControls sequencerName={sequencerName} envelope={synth?.current?.envelope} />
-          <EffectControls
+          <EffectControl
             showPercentageValue
             node={distortion?.current}
             sequencerName={sequencerName}
             effectName={'distortion'}
             label={'DIS'}
           />
-          <EffectControls
+          <EffectControl
             showPercentageValue
             node={reverb?.current}
             sequencerName={sequencerName}
             effectName={'reverb'}
             label={'REV'}
           />
-          {/*<EffectControls*/}
+          {/*<EffectControl*/}
           {/*  node={delay?.current}*/}
           {/*  sequencerName={sequencerName}*/}
           {/*  effectName={'delay'}*/}
@@ -186,7 +177,12 @@ const CongaSequencer = memo(() => {
           {/*/>*/}
         </ControlsContainer>
       </Panel>
-    </Fragment>
+      <Panel>
+        <ControlsContainer>
+          <EnvelopeControls sequencerName={sequencerName} envelope={synth?.current?.envelope} />
+        </ControlsContainer>
+      </Panel>
+    </TrackContainer>
   );
 });
 
