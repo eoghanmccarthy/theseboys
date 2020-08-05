@@ -26,6 +26,7 @@ import {
   Panel,
   Meta,
   MuteButton,
+  HitButton,
   Steps,
   ControlsContainer,
   EffectControl,
@@ -149,7 +150,10 @@ const KickSequencer = memo(() => {
   return (
     <TrackContainer>
       <Meta>
-        <button onClick={() => onTriggerAttackRelease(noteInterval)}>sample</button>
+        <HitButton
+          sequencerName={sequencerName}
+          onClick={() => onTriggerAttackRelease(noteInterval)}
+        />
         <MuteButton node={channel?.current} sequencerName={sequencerName} />
       </Meta>
       <Panel>

@@ -2,6 +2,7 @@ import Panel from './panel';
 import Meta from './meta';
 import PlaybackButton from './playbackButton';
 import MuteButton from './muteButton';
+import HitButton from './hitButton';
 import Steps from './steps';
 import ControlsContainer from './controlsContainer';
 import EffectControl from './effectControl';
@@ -12,6 +13,7 @@ export {
   Meta,
   PlaybackButton,
   MuteButton,
+  HitButton,
   Steps,
   ControlsContainer,
   EffectControl,

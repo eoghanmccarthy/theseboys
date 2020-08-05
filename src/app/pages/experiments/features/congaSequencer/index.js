@@ -32,7 +32,8 @@ import {
   ControlsContainer,
   EffectControl,
   TrackContainer,
-  MuteButton
+  MuteButton,
+  HitButton
 } from '../../ui';
 import ChannelControls from '../channelControls';
 import EnvelopeControls from '../envelopeControls';
@@ -142,7 +143,10 @@ const CongaSequencer = memo(() => {
   return (
     <TrackContainer>
       <Meta>
-        <button onClick={() => onTriggerAttackRelease(noteInterval)}>sample</button>
+        <HitButton
+          sequencerName={sequencerName}
+          onClick={() => onTriggerAttackRelease(noteInterval)}
+        />
         <MuteButton node={channel?.current} sequencerName={sequencerName} />
       </Meta>
       <Panel>
