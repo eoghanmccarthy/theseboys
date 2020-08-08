@@ -11,7 +11,8 @@ import {
   Channel,
   Compressor,
   Gain,
-  MembraneSynth
+  MembraneSynth,
+  EQ3
 } from 'tone';
 
 //https://tone-demos.glitch.me/
@@ -34,6 +35,7 @@ import {
 } from '../../ui';
 import ChannelControls from '../channelControls';
 import EnvelopeControls from '../envelopeControls';
+import Eq3Controls from '../eq3Controls';
 
 const notes = ['C1'];
 //const notes = ['A4', 'D3', 'E3', 'G4', 'F#4'];
@@ -77,6 +79,8 @@ const KickSequencer = memo(() => {
 
   const gain = useRef(new Gain(2).toDestination());
 
+  const eq3 = useRef(new EQ3({ low: 0, mid: 0, high: 0 }));
+
   const delay = useRef(
     new FeedbackDelay({
       delayTime: `${Math.floor(numCols / 2)}n`,
@@ -115,6 +119,7 @@ const KickSequencer = memo(() => {
       delay.current,
       distortion.current,
       reverb.current,
+      eq3.current,
       Destination
     )
   );
@@ -191,6 +196,7 @@ const KickSequencer = memo(() => {
       </Panel>
       <Panel>
         <ControlsContainer>
+          <Eq3Controls sequencerName={sequencerName} eq3={eq3?.current} />
           <EnvelopeControls sequencerName={sequencerName} envelope={synth?.current?.envelope} />
         </ControlsContainer>
       </Panel>

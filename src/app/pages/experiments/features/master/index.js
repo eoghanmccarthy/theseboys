@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { Transport, Destination, context } from 'tone';
+import React, { useEffect, useRef } from 'react';
+import { Transport, Destination, Recorder, context, Synth } from 'tone';
 
 import './styles.css';
 
@@ -10,13 +10,37 @@ import EffectControlButton from '../../ui/effectControlButton';
 
 const Master = () => {
   useEffect(() => {
-    Transport.scheduleRepeat((time, column) => {
-      //console.log(time, column);
+    Transport.scheduleRepeat(time => {
+      //document.querySelector('.transport-time').setAttribute('data-time', time.toFixed(1));
     }, '8n');
   }, []);
 
+  const recorder = useRef(new Recorder());
+
+  useEffect(() => {
+    Destination.connect(recorder.current);
+  }, []);
+
+  const handleStopRecording = async () => {
+    const recording = await recorder.current.stop();
+    console.log(recording);
+    const url = URL.createObjectURL(recording);
+
+    const anchor = document.createElement('a');
+    anchor.download = 'recording.webm';
+    anchor.href = url;
+    anchor.click();
+  };
+
   return (
     <div className={'master'}>
+      {/*<button*/}
+      {/*  onClick={() => {*/}
+      {/*    synth.current.triggerAttackRelease('C3', 0.5);*/}
+      {/*  }}*/}
+      {/*>*/}
+      {/*  pppp*/}
+      {/*</button>*/}
       <EffectControl
         node={Destination}
         param={'volume'}
@@ -29,6 +53,17 @@ const Master = () => {
         max={20}
         showPercentageValue
       />
+      <button
+        onClick={() => {
+          if (recorder?.current?.state === 'stopped') {
+            recorder.current.start();
+          } else {
+            handleStopRecording();
+          }
+        }}
+      >
+        record
+      </button>
       <div className={'playback-controls'}>
         <PlaybackButton
           onClick={() => {
