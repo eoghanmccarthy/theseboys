@@ -1,12 +1,11 @@
 import React, { useEffect, useRef } from 'react';
-import { Transport, Destination, Recorder, context, Synth } from 'tone';
+import { Transport, Destination, Recorder, context } from 'tone';
 
 import './styles.css';
 
 const sequencerName = 'master';
 
-import { Panel, Meta, PlaybackButton, Steps, EffectControl } from '../../ui';
-import EffectControlButton from '../../ui/effectControlButton';
+import { PlaybackButton, EffectControl } from '../../ui';
 
 const Master = () => {
   useEffect(() => {
@@ -34,13 +33,6 @@ const Master = () => {
 
   return (
     <div className={'master'}>
-      {/*<button*/}
-      {/*  onClick={() => {*/}
-      {/*    synth.current.triggerAttackRelease('C3', 0.5);*/}
-      {/*  }}*/}
-      {/*>*/}
-      {/*  pppp*/}
-      {/*</button>*/}
       <EffectControl
         node={Destination}
         param={'volume'}
@@ -54,11 +46,19 @@ const Master = () => {
         showPercentageValue
       />
       <button
+        id={'record-button'}
+        data-recorder-status={'off'}
         onClick={() => {
-          if (recorder?.current?.state === 'stopped') {
-            recorder.current.start();
-          } else {
-            handleStopRecording();
+          const element = document.querySelector('#record-button');
+
+          const status = element.getAttribute('data-recorder-status');
+
+          if (status === 'off') {
+            element.setAttribute('data-recorder-status', 'stand-by');
+          }
+
+          if (status === 'stand-by') {
+            element.setAttribute('data-recorder-status', 'off');
           }
         }}
       >
@@ -70,9 +70,20 @@ const Master = () => {
             if (context.state !== 'running') {
               context.resume();
             }
+
             console.log('audio context is', context.state);
+
+            const recorderElement = document.querySelector('#record-button');
+            const recorderStatus = recorderElement.getAttribute('data-recorder-status');
+
+            if (recorderStatus === 'stand-by' && recorder?.current?.state === 'stopped') {
+              recorder.current.start();
+              recorderElement.setAttribute('data-recorder-status', 'on');
+            }
+
             Transport.state === 'stopped' && Transport.start();
             console.log('transport is', Transport.state);
+
             document.querySelector('.playback-button.play').classList.add('disabled');
             document.querySelector('.playback-button.stop').classList.remove('disabled');
           }}
@@ -80,6 +91,18 @@ const Master = () => {
         <PlaybackButton
           type={'stop'}
           onClick={() => {
+            const recorderElement = document.querySelector('#record-button');
+
+            const recorderStatus = recorderElement.getAttribute('data-recorder-status');
+
+            if (recorderStatus === 'on' || recorderStatus === 'stand-by') {
+              recorderElement.setAttribute('data-recorder-status', 'off');
+
+              if (recorder?.current?.state === 'started') {
+                handleStopRecording();
+              }
+            }
+
             Transport.state === 'started' && Transport.stop();
             console.log('transport is', Transport.state);
             document.querySelector('.playback-button.stop').classList.add('disabled');
