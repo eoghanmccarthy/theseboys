@@ -17,11 +17,3 @@
   margin-right: var(--spacing-12);
 }
 
-.master #record-button[data-recorder-status = 'stand-by'] {
-  background-color: blue;
-}
-
-.master #record-button[data-recorder-status = 'on'] {
-  background-color: red;
-}
-

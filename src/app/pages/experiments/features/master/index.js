@@ -5,7 +5,7 @@ import './styles.css';
 
 const sequencerName = 'master';
 
-import { PlaybackButton, EffectControl } from '../../ui';
+import { PlaybackButton, RecordButton, EffectControl } from '../../ui';
 
 const Master = () => {
   useEffect(() => {
@@ -14,7 +14,7 @@ const Master = () => {
     }, '8n');
   }, []);
 
-  const recorder = useRef(new Recorder());
+  const recorder = useRef(new Recorder({ mimeType: 'video/webm' }));
 
   useEffect(() => {
     Destination.connect(recorder.current);
@@ -45,9 +45,7 @@ const Master = () => {
         max={20}
         showPercentageValue
       />
-      <button
-        id={'record-button'}
-        data-recorder-status={'off'}
+      <RecordButton
         onClick={() => {
           const element = document.querySelector('#record-button');
 
@@ -63,7 +61,7 @@ const Master = () => {
         }}
       >
         record
-      </button>
+      </RecordButton>
       <div className={'playback-controls'}>
         <PlaybackButton
           onClick={() => {

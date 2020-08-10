@@ -1,6 +1,7 @@
 import Panel from './panel';
 import Meta from './meta';
 import PlaybackButton from './playbackButton';
+import RecordButton from './recordButton';
 import MuteButton from './muteButton';
 import HitButton from './hitButton';
 import Steps from './steps';
@@ -12,6 +13,7 @@ export {
   Panel,
   Meta,
   PlaybackButton,
+  RecordButton,
   MuteButton,
   HitButton,
   Steps,
