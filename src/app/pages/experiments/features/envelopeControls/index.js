@@ -1,13 +1,13 @@
 import React, { Fragment, memo } from 'react';
 
-import { EffectControl } from '../../ui';
+import { SliderControl } from '../../ui';
 
 const EnvelopeControls = memo(({ sequencerName, envelope }) => {
   if (!envelope) return null;
 
   return (
     <Fragment>
-      <EffectControl
+      <SliderControl
         node={envelope}
         param={'attack'}
         sequencerName={sequencerName}
@@ -17,7 +17,7 @@ const EnvelopeControls = memo(({ sequencerName, envelope }) => {
         max={5}
         toFixed={3}
       />
-      <EffectControl
+      <SliderControl
         node={envelope}
         param={'decay'}
         sequencerName={sequencerName}
@@ -27,7 +27,7 @@ const EnvelopeControls = memo(({ sequencerName, envelope }) => {
         max={5}
         toFixed={3}
       />
-      <EffectControl
+      <SliderControl
         node={envelope}
         param={'sustain'}
         sequencerName={sequencerName}
@@ -37,7 +37,7 @@ const EnvelopeControls = memo(({ sequencerName, envelope }) => {
         max={5}
         toFixed={3}
       />
-      <EffectControl
+      <SliderControl
         node={envelope}
         param={'release'}
         sequencerName={sequencerName}

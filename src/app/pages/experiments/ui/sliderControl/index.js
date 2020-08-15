@@ -45,7 +45,9 @@ const SliderControl = memo(
         .querySelector(`.slider-control__value.${controlName}`)
         .setAttribute(
           'data-value',
-          showPercentageValue ? Math.round(interpolateValue(val)).toString() : val.toFixed(toFixed)
+          showPercentageValue
+            ? Math.round(interpolateValue(val)).toString()
+            : parseFloat(val).toFixed(toFixed)
         );
     };
 
@@ -54,6 +56,7 @@ const SliderControl = memo(
         <span className={`slider-control__label ${controlName}`}>{label}</span>
         <input
           className={cx('slider-control__slider', controlName)}
+          orient={orientation}
           type={'range'}
           step={step}
           max={max}

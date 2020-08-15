@@ -17,8 +17,8 @@ import RandomSequencer from './features/randomSequencer';
 import StepSequencer from './features/stepSequencer';
 import KickSequencer from './features/kickSequencer';
 import CongaSequencer from './features/congaSequencer';
-import NoiseSequencer from './features/noiseSequencer';
-import ClosedNoiseSequencer from './features/closedNoiseSequencer';
+import NoiseSequencer01 from './features/noiseSequencer01';
+import NoiseSequencer02 from './features/noiseSequencer02';
 
 const Experiments = () => {
   const bell01 = useBell01();
@@ -32,11 +32,11 @@ const Experiments = () => {
   return (
     <main className={'me__content experiments'}>
       <Master />
-      <StepSequencer />
+      {/*<StepSequencer />*/}
       <KickSequencer />
       <CongaSequencer />
-      <NoiseSequencer />
-      <ClosedNoiseSequencer />
+      <NoiseSequencer01 />
+      <NoiseSequencer02 />
       {/*<Meta>*/}
       {/*  <PlaybackButton onClick={() => conga01.trigger()} />*/}
       {/*</Meta>*/}

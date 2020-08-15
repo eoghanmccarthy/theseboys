@@ -51,9 +51,9 @@ const noteInterval = `${numCols * 2}n`;
 
 const noteIndices = newArray(numCols);
 
-const sequencerName = 'hi-hat';
+const sequencerName = 'noise-synth';
 
-const NoiseSequencer = memo(() => {
+const NoiseSequencer02 = memo(() => {
   const [data, setData] = useImmer(() => stepDataInitialState(numRows, numCols));
 
   const stepsRef = useRef(data);
@@ -93,16 +93,10 @@ const NoiseSequencer = memo(() => {
 
   const synth = useRef(
     new NoiseSynth({
-      volume: -8,
-      noise: {
-        type: 'white',
-        playbackRate: 5
-      },
+      volume: -14,
       envelope: {
-        attack: 0.001,
-        decay: 0.3,
-        sustain: 0,
-        release: 0.3
+        attack: 0.01,
+        decay: 0.15
       }
     }).chain(channel.current, Destination)
   );
@@ -186,4 +180,4 @@ const NoiseSequencer = memo(() => {
   );
 });
 
-export default NoiseSequencer;
+export default NoiseSequencer02;
