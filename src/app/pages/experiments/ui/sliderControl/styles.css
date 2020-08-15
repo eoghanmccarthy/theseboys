@@ -1,0 +1,62 @@
+.slider-control {
+    display: grid;
+    font-size: 14px;
+}
+
+.slider-control.vertical {
+    grid-template-areas:
+			"value"
+			"slider"
+            "label";
+    row-gap: var(--spacing-12);
+    justify-items: center;
+}
+
+.slider-control.horizontal {
+    grid-template-areas:
+			"label slider value";
+    column-gap: var(--spacing-8);
+    align-items: center;
+}
+
+.slider-control input[type=range] {
+    grid-area: slider;
+    width: 120px;
+}
+
+.slider-control input[type=range]::-webkit-slider-runnable-track {
+    -webkit-appearance: none;
+    background: white;
+    height: 2px;
+}
+
+.slider-control input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    border-radius: 50%;
+    height: 20px;
+    width: 20px;
+    position: relative;
+    bottom: 7px;
+    background: black;
+    cursor: grab;
+}
+
+.slider-control input[type=range]::-webkit-slider-thumb:active {
+    cursor: grabbing;
+}
+
+.slider-control .slider-control__label {
+    grid-area: label;
+    width: 5ch;
+    text-align: center;
+}
+
+.slider-control .slider-control__value {
+    grid-area: value;
+    width: 5ch;
+    text-align: center;
+}
+
+.slider-control .slider-control__value::before {
+    content: attr(data-value);
+}

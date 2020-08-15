@@ -16,12 +16,14 @@
 .effect-control.horizontal {
     grid-template-areas:
 			"label dec value inc";
-    column-gap: var(--spacing-12);
+    column-gap: var(--spacing-8);
     align-items: center;
 }
 
 .effect-control .effect-control__label {
     grid-area: label;
+    width: 5ch;
+    text-align: center;
 }
 
 .effect-control .effect-control__value {

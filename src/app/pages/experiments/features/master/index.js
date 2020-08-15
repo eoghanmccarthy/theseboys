@@ -5,7 +5,7 @@ import './styles.css';
 
 const sequencerName = 'master';
 
-import { PlaybackButton, RecordButton, EffectControl } from '../../ui';
+import { PlaybackButton, RecordButton, EffectControl, SliderControl } from '../../ui';
 
 const Master = () => {
   useEffect(() => {
@@ -33,7 +33,7 @@ const Master = () => {
 
   return (
     <div className={'master'}>
-      <EffectControl
+      <SliderControl
         node={Destination}
         param={'volume'}
         sequencerName={sequencerName}
@@ -41,28 +41,28 @@ const Master = () => {
         orientation={'horizontal'}
         label={'VOL'}
         step={1}
-        min={-60}
         max={20}
+        min={-60}
         showPercentageValue
       />
-      <RecordButton
-        onClick={() => {
-          const element = document.querySelector('#record-button');
-
-          const status = element.getAttribute('data-recorder-status');
-
-          if (status === 'off') {
-            element.setAttribute('data-recorder-status', 'stand-by');
-          }
-
-          if (status === 'stand-by') {
-            element.setAttribute('data-recorder-status', 'off');
-          }
-        }}
-      >
-        record
-      </RecordButton>
       <div className={'playback-controls'}>
+        <RecordButton
+          onClick={() => {
+            const element = document.querySelector('#record-button');
+
+            const status = element.getAttribute('data-recorder-status');
+
+            if (status === 'off') {
+              element.setAttribute('data-recorder-status', 'stand-by');
+            }
+
+            if (status === 'stand-by') {
+              element.setAttribute('data-recorder-status', 'off');
+            }
+          }}
+        >
+          record
+        </RecordButton>
         <PlaybackButton
           onClick={() => {
             if (context.state !== 'running') {

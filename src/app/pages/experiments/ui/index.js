@@ -7,6 +7,7 @@ import HitButton from './hitButton';
 import Steps from './steps';
 import ControlsContainer from './controlsContainer';
 import EffectControl from './effectControl';
+import SliderControl from './sliderControl';
 import TrackContainer from './trackContainer';
 
 export {
@@ -19,5 +20,6 @@ export {
   Steps,
   ControlsContainer,
   EffectControl,
+  SliderControl,
   TrackContainer
 };
