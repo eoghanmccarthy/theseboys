@@ -3,19 +3,19 @@ import classNames from 'classnames';
 
 import './styles.css';
 
-const Step = memo(({ sequencerName, trackIndex, stepIndex }) => {
+const Step = memo(({ trackId, trackIndex, stepIndex }) => {
   return (
     <div
       key={stepIndex}
       className={classNames(
         `step-seq__step`,
-        `${sequencerName}__step`,
+        `${trackId}__step`,
         `track-${trackIndex}-step-${stepIndex}`
       )}
       data-step-status={'off'}
       onClick={() => {
         const elem = document.querySelector(
-          `.${sequencerName}__step.track-${trackIndex}-step-${stepIndex}`
+          `.${trackId}__step.track-${trackIndex}-step-${stepIndex}`
         );
         if (elem.getAttribute('data-step-status') === 'off') {
           elem.setAttribute('data-step-status', 'on');

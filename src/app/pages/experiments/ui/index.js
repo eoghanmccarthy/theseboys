@@ -8,7 +8,9 @@ import Steps from './steps';
 import ControlsContainer from './controlsContainer';
 import EffectControl from './effectControl';
 import SliderControl from './sliderControl';
-import TrackContainer from './trackContainer';
+import ButtonGroup from './buttonGroup';
+import ControlsGroup from './controlsGroup';
+import { TrackContainer, TrackMeta, TrackSteps, TrackControls } from './track';
 
 export {
   Panel,
@@ -21,5 +23,10 @@ export {
   ControlsContainer,
   EffectControl,
   SliderControl,
-  TrackContainer
+  ButtonGroup,
+  ControlsGroup,
+  TrackContainer,
+  TrackMeta,
+  TrackSteps,
+  TrackControls
 };

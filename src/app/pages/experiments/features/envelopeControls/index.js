@@ -2,7 +2,7 @@ import React, { Fragment, memo } from 'react';
 
 import { SliderControl } from '../../ui';
 
-const EnvelopeControls = memo(({ sequencerName, envelope }) => {
+const EnvelopeControls = memo(({ trackId, envelope }) => {
   if (!envelope) return null;
 
   return (
@@ -10,7 +10,7 @@ const EnvelopeControls = memo(({ sequencerName, envelope }) => {
       <SliderControl
         node={envelope}
         param={'attack'}
-        sequencerName={sequencerName}
+        trackId={trackId}
         effectName={'attack'}
         label={'ATK'}
         step={0.001}
@@ -20,7 +20,7 @@ const EnvelopeControls = memo(({ sequencerName, envelope }) => {
       <SliderControl
         node={envelope}
         param={'decay'}
-        sequencerName={sequencerName}
+        trackId={trackId}
         effectName={'decay'}
         label={'DEC'}
         step={0.001}
@@ -30,7 +30,7 @@ const EnvelopeControls = memo(({ sequencerName, envelope }) => {
       <SliderControl
         node={envelope}
         param={'sustain'}
-        sequencerName={sequencerName}
+        trackId={trackId}
         effectName={'sustain'}
         label={'SUS'}
         step={0.001}
@@ -40,7 +40,7 @@ const EnvelopeControls = memo(({ sequencerName, envelope }) => {
       <SliderControl
         node={envelope}
         param={'release'}
-        sequencerName={sequencerName}
+        trackId={trackId}
         effectName={'release'}
         label={'REL'}
         step={0.001}

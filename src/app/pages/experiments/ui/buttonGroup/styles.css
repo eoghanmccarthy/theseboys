@@ -1,0 +1,17 @@
+.button-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.button-group.vertical {
+    flex-direction: column;
+}
+
+.button-group.horizontal *:not(:last-child) {
+    margin-right: var(--spacing-12);
+}
+
+.button-group.vertical *:not(:last-child) {
+    margin-bottom: var(--spacing-12);
+}

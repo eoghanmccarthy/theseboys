@@ -8,7 +8,7 @@ import EffectControlButton from '../effectControlButton';
 const EffectControl = memo(
   ({
     node,
-    sequencerName,
+    trackId,
     effectName,
     param = 'wet',
     orientation = 'vertical',
@@ -23,7 +23,7 @@ const EffectControl = memo(
       return null;
     }
 
-    const controlName = `${sequencerName}__effect-ctrl--${effectName}`;
+    const controlName = `${trackId}__effect-ctrl--${effectName}`;
 
     return (
       <div className={cx('effect-control', { [orientation]: orientation })}>

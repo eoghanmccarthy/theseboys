@@ -31,7 +31,11 @@ import {
   Steps,
   ControlsContainer,
   EffectControl,
-  TrackContainer
+  ButtonGroup,
+  TrackContainer,
+  TrackMeta,
+  TrackSteps,
+  TrackControls
 } from '../../ui';
 import ChannelControls from '../channelControls';
 import EnvelopeControls from '../envelopeControls';
@@ -43,15 +47,13 @@ const notes = ['C1'];
 
 const numRows = notes.length;
 
-const numCols = 8;
+const numCols = 16;
 
-const noteInterval = `${numCols * 2}n`;
+const noteInterval = `${numCols}n`;
 
 const noteIndices = newArray(numCols);
 
-const sequencerName = 'step-seq-002';
-
-const KickSequencer = memo(() => {
+const KickSequencer = memo(({ trackId }) => {
   const [data, setData] = useImmer(() => stepDataInitialState(numRows, numCols));
 
   const stepsRef = useRef(data);
@@ -142,64 +144,64 @@ const KickSequencer = memo(() => {
     for (let i = 0; i < stepsRef.current.length; i++) {
       const velocity = random(0.5, 1);
 
-      if (isStepOn(sequencerName, i, column)) {
+      if (isStepOn(trackId, i, column)) {
         onTriggerAttackRelease(noteInterval, time, velocity);
       }
     }
 
     Draw.schedule(() => {
-      drawSteps(sequencerName, numCols, column);
+      drawSteps(trackId, numCols, column);
     }, time);
   };
 
   return (
     <TrackContainer>
-      <Meta>
-        <HitButton
-          sequencerName={sequencerName}
-          onClick={() => onTriggerAttackRelease(noteInterval)}
-        />
-        <MuteButton node={channel?.current} sequencerName={sequencerName} />
-      </Meta>
-      <Panel>
-        <Steps sequencer={sequencerName} steps={stepsRef?.current} />
-      </Panel>
-      <Meta>
-        <ControlsContainer>
-          <ChannelControls sequencerName={sequencerName} channel={channel?.current} />
-        </ControlsContainer>
-      </Meta>
-      <Panel>
-        <ControlsContainer>
-          <EffectControl
-            node={distortion?.current}
-            sequencerName={sequencerName}
-            effectName={'distortion'}
-            label={'DIS'}
-            showPercentageValue
-          />
-          <EffectControl
-            node={reverb?.current}
-            sequencerName={sequencerName}
-            effectName={'reverb'}
-            label={'REV'}
-            showPercentageValue
-          />
-          <EffectControl
-            node={delay?.current}
-            sequencerName={sequencerName}
-            effectName={'delay'}
-            label={'DLY'}
-            showPercentageValue
-          />
-        </ControlsContainer>
-      </Panel>
-      <Panel>
-        <ControlsContainer>
-          <Eq3Controls sequencerName={sequencerName} eq3={eq3?.current} />
-          <EnvelopeControls sequencerName={sequencerName} envelope={synth?.current?.envelope} />
-        </ControlsContainer>
-      </Panel>
+      <TrackMeta>
+        <ButtonGroup>
+          <HitButton trackId={trackId} onClick={() => onTriggerAttackRelease(noteInterval)} />
+          <MuteButton node={channel?.current} trackId={trackId} />
+        </ButtonGroup>
+        <ChannelControls trackId={trackId} channel={channel?.current} />
+      </TrackMeta>
+      <TrackSteps>
+        <Panel>
+          <Steps trackId={trackId} steps={stepsRef?.current} />
+        </Panel>
+      </TrackSteps>
+      <TrackControls>
+        <Meta></Meta>
+        <Panel>
+          <ControlsContainer>
+            <EffectControl
+              node={distortion?.current}
+              trackId={trackId}
+              effectName={'distortion'}
+              label={'DIS'}
+              showPercentageValue
+            />
+            <EffectControl
+              node={reverb?.current}
+              trackId={trackId}
+              effectName={'reverb'}
+              label={'REV'}
+              showPercentageValue
+            />
+            <EffectControl
+              node={delay?.current}
+              trackId={trackId}
+              effectName={'delay'}
+              label={'DLY'}
+              showPercentageValue
+            />
+          </ControlsContainer>
+        </Panel>
+        <Panel>
+          <ControlsContainer>
+            <Eq3Controls trackId={trackId} eq3={eq3?.current} />
+            <EnvelopeControls trackId={trackId} envelope={synth?.current?.envelope} />
+          </ControlsContainer>
+        </Panel>
+      </TrackControls>
     </TrackContainer>
   );
 });

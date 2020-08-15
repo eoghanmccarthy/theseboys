@@ -3,9 +3,9 @@ import cx from 'classnames';
 
 import './styles.css';
 
-const HitButton = memo(({ sequencerName, onClick }) => {
+const HitButton = memo(({ trackId, onClick }) => {
   return (
-    <button className={cx(`hit-button ${sequencerName}__hit`)} onClick={onClick}>
+    <button className={cx(`hit-button ${trackId}__hit`)} onClick={onClick}>
       hit
     </button>
   );

@@ -8,7 +8,7 @@ import interpolate from 'utils/helpers/interpolate';
 const SliderControl = memo(
   ({
     node,
-    sequencerName,
+    trackId,
     effectName,
     param = 'wet',
     orientation = 'vertical',
@@ -23,7 +23,7 @@ const SliderControl = memo(
       return null;
     }
 
-    const controlName = `${sequencerName}__slider-control--${effectName}`;
+    const controlName = `${trackId}__slider-control--${effectName}`;
 
     useEffect(() => {
       handleSetInputValue(node.get()[param]);

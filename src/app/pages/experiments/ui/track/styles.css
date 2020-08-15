@@ -1,0 +1,29 @@
+.track-container {
+    display: grid;
+    grid-template-columns: 1180px;
+    grid-template-rows: 80px 80px 212px;
+    grid-template-areas:
+            "meta"
+			"steps"
+            "controls";
+    grid-row-gap: 5px;
+}
+
+.track__meta {
+    grid-area: meta;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.track__steps {
+    grid-area: steps;
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.track__controls {
+    grid-area: controls;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}

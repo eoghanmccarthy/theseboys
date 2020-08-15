@@ -3,7 +3,7 @@ import { Transport, Destination, Recorder, context } from 'tone';
 
 import './styles.css';
 
-const sequencerName = 'master';
+const trackId = 'master';
 
 import { PlaybackButton, RecordButton, EffectControl, SliderControl } from '../../ui';
 
@@ -36,7 +36,7 @@ const Master = () => {
       <SliderControl
         node={Destination}
         param={'volume'}
-        sequencerName={sequencerName}
+        trackId={trackId}
         effectName={'volume'}
         orientation={'horizontal'}
         label={'VOL'}
@@ -111,7 +111,7 @@ const Master = () => {
       <EffectControl
         node={Transport}
         param={'bpm'}
-        sequencerName={sequencerName}
+        trackId={trackId}
         effectName={'bpm'}
         orientation={'horizontal'}
         label={'BPM'}

@@ -2,7 +2,7 @@ import React, { Fragment, memo } from 'react';
 
 import { EffectControl } from '../../ui';
 
-const Eq3Controls = memo(({ sequencerName, eq3 }) => {
+const Eq3Controls = memo(({ trackId, eq3 }) => {
   if (!eq3) return null;
 
   return (
@@ -10,7 +10,7 @@ const Eq3Controls = memo(({ sequencerName, eq3 }) => {
       <EffectControl
         node={eq3}
         param={'low'}
-        sequencerName={sequencerName}
+        trackId={trackId}
         effectName={'low'}
         label={'LOW'}
         step={1}
@@ -21,7 +21,7 @@ const Eq3Controls = memo(({ sequencerName, eq3 }) => {
       <EffectControl
         node={eq3}
         param={'mid'}
-        sequencerName={sequencerName}
+        trackId={trackId}
         effectName={'mid'}
         label={'MID'}
         step={1}
@@ -32,7 +32,7 @@ const Eq3Controls = memo(({ sequencerName, eq3 }) => {
       <EffectControl
         node={eq3}
         param={'high'}
-        sequencerName={sequencerName}
+        trackId={trackId}
         effectName={'high'}
         label={'HIH'}
         step={1}

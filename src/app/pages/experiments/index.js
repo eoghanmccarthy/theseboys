@@ -32,11 +32,11 @@ const Experiments = () => {
   return (
     <main className={'me__content experiments'}>
       <Master />
-      {/*<StepSequencer />*/}
-      <KickSequencer />
-      <CongaSequencer />
-      <NoiseSequencer01 />
-      <NoiseSequencer02 />
+      {/*<StepSequencer trackId={'001'} />*/}
+      <KickSequencer trackId={'kick'} />
+      <CongaSequencer trackId={'conga'} />
+      <NoiseSequencer01 trackId={'hi-hat'} />
+      <NoiseSequencer02 trackId={'closed-hi-hat'} />
       {/*<Meta>*/}
       {/*  <PlaybackButton onClick={() => conga01.trigger()} />*/}
       {/*</Meta>*/}

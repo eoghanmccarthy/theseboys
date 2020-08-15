@@ -45,9 +45,7 @@ const noteInterval = `${numCols * 2}n`;
 
 const noteIndices = newArray(numCols);
 
-const sequencerName = 'step-seq-001';
-
-const StepSequencer = memo(() => {
+const StepSequencer = memo(({ trackId }) => {
   const [data, setData] = useImmer(() => stepDataInitialState(numRows, numCols));
 
   const stepsRef = useRef(data);
@@ -136,7 +134,7 @@ const StepSequencer = memo(() => {
     let notesToPlay = [];
 
     for (let i = 0; i < stepsRef.current.length; i++) {
-      if (isStepOn(sequencerName, i, column)) {
+      if (isStepOn(trackId, i, column)) {
         const note = notes[i];
         notesToPlay.push(note);
       }
@@ -147,42 +145,42 @@ const StepSequencer = memo(() => {
     synth.current.triggerAttackRelease(notesToPlay, noteInterval, time, velocity);
 
     Draw.schedule(() => {
-      drawSteps(sequencerName, numCols, column);
+      drawSteps(trackId, numCols, column);
     }, time);
   };
 
   return (
     <TrackContainer>
       <Meta>
-        <MuteButton node={channel?.current} sequencerName={sequencerName} />
+        <MuteButton node={channel?.current} trackId={trackId} />
       </Meta>
       <Panel>
-        <Steps sequencer={sequencerName} steps={stepsRef?.current} />
+        <Steps trackId={trackId} steps={stepsRef?.current} />
       </Panel>
       <Meta>
         <ControlsContainer>
-          <ChannelControls sequencerName={sequencerName} channel={channel?.current} />
+          <ChannelControls trackId={trackId} channel={channel?.current} />
         </ControlsContainer>
       </Meta>
       <Panel>
         <ControlsContainer>
           <EffectControl
             node={distortion?.current}
-            sequencerName={sequencerName}
+            trackId={trackId}
             effectName={'distortion'}
             label={'DIS'}
             showPercentageValue
           />
           <EffectControl
             node={reverb?.current}
-            sequencerName={sequencerName}
+            trackId={trackId}
             effectName={'reverb'}
             label={'REV'}
             showPercentageValue
           />
           <EffectControl
             node={delay?.current}
-            sequencerName={sequencerName}
+            trackId={trackId}
             effectName={'delay'}
             label={'DLY'}
             showPercentageValue

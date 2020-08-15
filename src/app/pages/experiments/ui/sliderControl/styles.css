@@ -1,3 +1,14 @@
+input[type="range"] {
+    --thumbSize: 18px;
+    --trackSize: 8px;
+    --thumbBg: #fff;
+    --trackBg: #f2f2f2;
+    --progressBg: #262626;
+
+    /* webkit progress workaround */
+    --webkitProgressPercent: 0%;
+}
+
 .slider-control {
     display: grid;
     font-size: 14px;
@@ -5,7 +16,7 @@
 
 .slider-control.vertical {
     grid-template-areas:
-			"value"
+            "value"
 			"slider"
             "label";
     row-gap: var(--spacing-12);

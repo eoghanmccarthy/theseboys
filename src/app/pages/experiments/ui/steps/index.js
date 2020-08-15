@@ -4,7 +4,7 @@ import './styles.css';
 
 import Step from '../step';
 
-const Steps = memo(({ sequencer, steps }) => {
+const Steps = memo(({ trackId, steps }) => {
   if (!steps) return null;
 
   return (
@@ -12,12 +12,7 @@ const Steps = memo(({ sequencer, steps }) => {
       {steps.map((rowData, trackIndex) => (
         <div key={trackIndex} className={`row`}>
           {rowData.map((stepValue, stepIndex) => (
-            <Step
-              key={stepIndex}
-              sequencerName={sequencer}
-              trackIndex={trackIndex}
-              stepIndex={stepIndex}
-            />
+            <Step key={stepIndex} trackId={trackId} trackIndex={trackIndex} stepIndex={stepIndex} />
           ))}
         </div>
       ))}

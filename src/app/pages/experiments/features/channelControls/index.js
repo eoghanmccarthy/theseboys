@@ -1,16 +1,17 @@
 import React, { Fragment, memo } from 'react';
 
-import { EffectControl } from '../../ui';
+import { ControlsGroup, EffectControl } from '../../ui';
 
-const ChannelControls = memo(({ sequencerName, channel }) => {
+const ChannelControls = memo(({ trackId, channel }) => {
   if (!channel) return null;
 
   return (
-    <Fragment>
+    <ControlsGroup orientation={'horizontal'}>
       <EffectControl
+        trackId={trackId}
+        orientation={'horizontal'}
         node={channel}
         param={'volume'}
-        sequencerName={sequencerName}
         effectName={'volume'}
         label={'VOL'}
         step={1}
@@ -19,14 +20,15 @@ const ChannelControls = memo(({ sequencerName, channel }) => {
         showPercentageValue
       />
       <EffectControl
+        trackId={trackId}
+        orientation={'horizontal'}
         node={channel}
         param={'pan'}
-        sequencerName={sequencerName}
         effectName={'pan'}
         label={'PAN'}
         min={-1}
       />
-    </Fragment>
+    </ControlsGroup>
   );
 });
 
