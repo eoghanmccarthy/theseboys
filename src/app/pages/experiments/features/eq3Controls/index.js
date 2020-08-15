@@ -1,16 +1,16 @@
-import React, { Fragment, memo } from 'react';
+import React, { memo } from 'react';
 
-import { EffectControl } from '../../ui';
+import { SliderControl, ControlsGroup } from '../../ui';
 
 const Eq3Controls = memo(({ trackId, eq3 }) => {
   if (!eq3) return null;
 
   return (
-    <Fragment>
-      <EffectControl
+    <ControlsGroup orientation={'horizontal'}>
+      <SliderControl
+        trackId={trackId}
         node={eq3}
         param={'low'}
-        trackId={trackId}
         effectName={'low'}
         label={'LOW'}
         step={1}
@@ -18,10 +18,10 @@ const Eq3Controls = memo(({ trackId, eq3 }) => {
         max={20}
         showPercentageValue
       />
-      <EffectControl
+      <SliderControl
+        trackId={trackId}
         node={eq3}
         param={'mid'}
-        trackId={trackId}
         effectName={'mid'}
         label={'MID'}
         step={1}
@@ -29,10 +29,10 @@ const Eq3Controls = memo(({ trackId, eq3 }) => {
         max={20}
         showPercentageValue
       />
-      <EffectControl
+      <SliderControl
+        trackId={trackId}
         node={eq3}
         param={'high'}
-        trackId={trackId}
         effectName={'high'}
         label={'HIH'}
         step={1}
@@ -40,7 +40,7 @@ const Eq3Controls = memo(({ trackId, eq3 }) => {
         max={20}
         showPercentageValue
       />
-    </Fragment>
+    </ControlsGroup>
   );
 });
 

@@ -1,12 +1,11 @@
 .track-container {
     display: grid;
-    grid-template-columns: 1180px;
-    grid-template-rows: 80px 80px 212px;
     grid-template-areas:
             "meta"
 			"steps"
             "controls";
     grid-row-gap: 5px;
+    width: 1180px;
 }
 
 .track__meta {
@@ -14,16 +13,21 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    height: 72px;
 }
 
 .track__steps {
     grid-area: steps;
-    display: grid;
-    grid-template-columns: 1fr;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 72px;
 }
 
 .track__controls {
     grid-area: controls;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+    height: 212px;
+    background-color: var(--color-bluegrey-700);
 }

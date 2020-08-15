@@ -33,10 +33,42 @@ const Experiments = () => {
     <main className={'me__content experiments'}>
       <Master />
       {/*<StepSequencer trackId={'001'} />*/}
-      <KickSequencer trackId={'kick'} />
-      <CongaSequencer trackId={'conga'} />
-      <NoiseSequencer01 trackId={'hi-hat'} />
-      <NoiseSequencer02 trackId={'closed-hi-hat'} />
+      <KickSequencer
+        trackId={'kick'}
+        channelDefaults={{
+          pan: 0,
+          volume: 12,
+          mute: false,
+          solo: false
+        }}
+      />
+      <CongaSequencer
+        trackId={'conga'}
+        channelDefaults={{
+          pan: 0,
+          volume: 10,
+          mute: false,
+          solo: false
+        }}
+      />
+      <NoiseSequencer01
+        trackId={'hi-hat'}
+        channelDefaults={{
+          pan: 0,
+          volume: 10,
+          mute: false,
+          solo: false
+        }}
+      />
+      <NoiseSequencer02
+        trackId={'closed-hi-hat'}
+        channelDefaults={{
+          pan: 0,
+          volume: 10,
+          mute: false,
+          solo: false
+        }}
+      />
       {/*<Meta>*/}
       {/*  <PlaybackButton onClick={() => conga01.trigger()} />*/}
       {/*</Meta>*/}

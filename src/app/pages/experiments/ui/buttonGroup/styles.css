@@ -8,10 +8,10 @@
     flex-direction: column;
 }
 
-.button-group.horizontal *:not(:last-child) {
+.button-group.horizontal > *:not(:last-child) {
     margin-right: var(--spacing-12);
 }
 
-.button-group.vertical *:not(:last-child) {
+.button-group.vertical > *:not(:last-child) {
     margin-bottom: var(--spacing-12);
 }

@@ -52,7 +52,7 @@ const noteInterval = `${numCols * 2}n`;
 
 const noteIndices = newArray(numCols);
 
-const CongaSequencer = memo(({ trackId }) => {
+const CongaSequencer = memo(({ trackId, channelDefaults }) => {
   const [data, setData] = useImmer(() => stepDataInitialState(numRows, numCols));
 
   const stepsRef = useRef(data);
@@ -60,14 +60,7 @@ const CongaSequencer = memo(({ trackId }) => {
 
   const sequence = useRef();
 
-  const channel = useRef(
-    new Channel({
-      pan: 0,
-      volume: 10,
-      mute: false,
-      solo: false
-    })
-  );
+  const channel = useRef(new Channel(channelDefaults));
 
   const compressor = useRef(
     new Compressor({
@@ -144,15 +137,15 @@ const CongaSequencer = memo(({ trackId }) => {
     <TrackContainer>
       <TrackMeta>
         <ButtonGroup>
-          <HitButton trackId={trackId} onClick={() => onTriggerAttackRelease(noteInterval)} />
           <MuteButton trackId={trackId} node={channel?.current} />
         </ButtonGroup>
         <ChannelControls trackId={trackId} channel={channel?.current} />
       </TrackMeta>
       <TrackSteps>
-        <Panel>
-          <Steps trackId={trackId} steps={stepsRef?.current} />
-        </Panel>
+        <ButtonGroup>
+          <HitButton trackId={trackId} onClick={() => onTriggerAttackRelease(noteInterval)} />
+        </ButtonGroup>
+        <Steps trackId={trackId} steps={stepsRef?.current} />
       </TrackSteps>
       <TrackControls>
         <Meta></Meta>

@@ -25,7 +25,6 @@ import isStepOn from 'utils/helpers/isStepOn';
 
 import {
   Panel,
-  Meta,
   MuteButton,
   HitButton,
   Steps,
@@ -53,7 +52,7 @@ const noteInterval = `${numCols}n`;
 
 const noteIndices = newArray(numCols);
 
-const KickSequencer = memo(({ trackId }) => {
+const KickSequencer = memo(({ trackId, channelDefaults }) => {
   const [data, setData] = useImmer(() => stepDataInitialState(numRows, numCols));
 
   const stepsRef = useRef(data);
@@ -61,14 +60,7 @@ const KickSequencer = memo(({ trackId }) => {
 
   const sequence = useRef();
 
-  const channel = useRef(
-    new Channel({
-      pan: 0,
-      volume: 12,
-      mute: false,
-      solo: false
-    })
-  );
+  const channel = useRef(new Channel(channelDefaults));
 
   const compressor = useRef(
     new Compressor({
@@ -79,7 +71,7 @@ const KickSequencer = memo(({ trackId }) => {
     })
   );
 
-  const gain = useRef(new Gain(2).toDestination());
+  const gain = useRef(new Gain(2));
 
   const eq3 = useRef(new EQ3({ low: 0, mid: 0, high: 0 }));
 
@@ -145,7 +137,7 @@ const KickSequencer = memo(({ trackId }) => {
       const velocity = random(0.5, 1);
 
       if (isStepOn(trackId, i, column)) {
-        onTriggerAttackRelease(noteInterval, time, velocity);
+        onTriggerAttackRelease(noteInterval, time, 1);
       }
     }
 
@@ -158,37 +150,47 @@ const KickSequencer = memo(({ trackId }) => {
     <TrackContainer>
       <TrackMeta>
         <ButtonGroup>
-          <HitButton trackId={trackId} onClick={() => onTriggerAttackRelease(noteInterval)} />
           <MuteButton node={channel?.current} trackId={trackId} />
         </ButtonGroup>
         <ChannelControls trackId={trackId} channel={channel?.current} />
+        <button
+          onClick={() => {
+            const elem = document.querySelector(`.track__controls.${trackId}`);
+            const display = elem.style.display;
+
+            elem.style.display = display !== 'none' ? 'none' : 'grid';
+          }}
+        >
+          hide
+        </button>
       </TrackMeta>
       <TrackSteps>
-        <Panel>
-          <Steps trackId={trackId} steps={stepsRef?.current} />
-        </Panel>
+        <ButtonGroup>
+          <HitButton trackId={trackId} onClick={() => onTriggerAttackRelease(noteInterval)} />
+        </ButtonGroup>
+        <Steps trackId={trackId} steps={stepsRef?.current} />
       </TrackSteps>
-      <TrackControls>
-        <Meta></Meta>
+      <TrackControls trackId={trackId}>
+        <Eq3Controls trackId={trackId} eq3={eq3?.current} />
         <Panel>
           <ControlsContainer>
             <EffectControl
-              node={distortion?.current}
               trackId={trackId}
+              node={distortion?.current}
               effectName={'distortion'}
               label={'DIS'}
               showPercentageValue
             />
             <EffectControl
-              node={reverb?.current}
               trackId={trackId}
+              node={reverb?.current}
               effectName={'reverb'}
               label={'REV'}
               showPercentageValue
             />
             <EffectControl
-              node={delay?.current}
               trackId={trackId}
+              node={delay?.current}
               effectName={'delay'}
               label={'DLY'}
               showPercentageValue
@@ -197,7 +199,6 @@ const KickSequencer = memo(({ trackId }) => {
         </Panel>
         <Panel>
           <ControlsContainer>
-            <Eq3Controls trackId={trackId} eq3={eq3?.current} />
             <EnvelopeControls trackId={trackId} envelope={synth?.current?.envelope} />
           </ControlsContainer>
         </Panel>

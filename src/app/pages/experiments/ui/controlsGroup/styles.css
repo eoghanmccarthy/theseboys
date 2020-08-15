@@ -1,6 +1,6 @@
 .controls-group {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
 }
 
@@ -8,10 +8,10 @@
     flex-direction: column;
 }
 
-.controls-group.horizontal *:not(:last-child) {
+.controls-group.horizontal > *:not(:last-child) {
     margin-right: var(--spacing-12);
 }
 
-.controls-group.vertical *:not(:last-child) {
+.controls-group.vertical > *:not(:last-child) {
     margin-bottom: var(--spacing-12);
 }

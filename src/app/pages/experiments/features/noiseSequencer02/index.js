@@ -15,7 +15,8 @@ import {
   Gain,
   MembraneSynth,
   MetalSynth,
-  NoiseSynth
+  NoiseSynth,
+  EQ3
 } from 'tone';
 
 //https://tone-demos.glitch.me/
@@ -42,6 +43,7 @@ import {
 } from '../../ui';
 import ChannelControls from '../channelControls';
 import EnvelopeControls from '../envelopeControls';
+import Eq3Controls from '../eq3Controls';
 
 const notes = ['C1'];
 //const notes = ['A4', 'D3', 'E3', 'G4', 'F#4'];
@@ -55,7 +57,7 @@ const noteInterval = `${numCols * 2}n`;
 
 const noteIndices = newArray(numCols);
 
-const NoiseSequencer02 = memo(({ trackId }) => {
+const NoiseSequencer02 = memo(({ trackId, channelDefaults }) => {
   const [data, setData] = useImmer(() => stepDataInitialState(numRows, numCols));
 
   const stepsRef = useRef(data);
@@ -63,14 +65,9 @@ const NoiseSequencer02 = memo(({ trackId }) => {
 
   const sequence = useRef();
 
-  const channel = useRef(
-    new Channel({
-      pan: 0,
-      volume: 10,
-      mute: false,
-      solo: false
-    })
-  );
+  const channel = useRef(new Channel(channelDefaults).toDestination());
+
+  const eq3 = useRef(new EQ3({ low: -60, mid: -22, high: 7 }));
 
   const compressor = useRef(
     new Compressor({
@@ -100,7 +97,7 @@ const NoiseSequencer02 = memo(({ trackId }) => {
         attack: 0.01,
         decay: 0.15
       }
-    }).chain(channel.current, Destination)
+    }).chain(channel.current, gain.current)
   );
 
   useEffect(() => {
@@ -135,18 +132,18 @@ const NoiseSequencer02 = memo(({ trackId }) => {
     <TrackContainer>
       <TrackMeta>
         <ButtonGroup>
-          <HitButton trackId={trackId} onClick={() => onTriggerAttackRelease(noteInterval)} />
           <MuteButton node={channel?.current} trackId={trackId} />
         </ButtonGroup>
         <ChannelControls trackId={trackId} channel={channel?.current} />
       </TrackMeta>
       <TrackSteps>
-        <Panel>
-          <Steps trackId={trackId} steps={stepsRef?.current} />
-        </Panel>
+        <ButtonGroup>
+          <HitButton trackId={trackId} onClick={() => onTriggerAttackRelease(noteInterval)} />
+        </ButtonGroup>
+        <Steps trackId={trackId} steps={stepsRef?.current} />
       </TrackSteps>
       <TrackControls>
-        <Meta></Meta>
+        <Eq3Controls trackId={trackId} eq3={eq3?.current} />
         <Panel>
           <ControlsContainer>
             <EffectControl

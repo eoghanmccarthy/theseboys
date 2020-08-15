@@ -33,9 +33,8 @@ const EnvelopeControls = memo(({ trackId, envelope }) => {
         trackId={trackId}
         effectName={'sustain'}
         label={'SUS'}
-        step={0.001}
-        max={5}
-        toFixed={3}
+        step={0.01}
+        showPercentageValue
       />
       <SliderControl
         node={envelope}
