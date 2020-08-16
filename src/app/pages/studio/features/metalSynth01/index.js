@@ -71,17 +71,25 @@ const MetalSynth01 = memo(({ trackId, channelDefaults }) => {
     })
   );
 
-  const distortion = useRef(new Distortion({ distortion: 1, oversample: '4x', wet: 0.6 }));
+  const delay = useRef(
+    new FeedbackDelay({
+      delayTime: `${Math.floor(numCols / 2)}n`,
+      feedback: 1 / 3,
+      wet: 0.0
+    })
+  );
+
+  const distortion = useRef(new Distortion({ distortion: 1, oversample: '4x', wet: 0.0 }));
 
   const reverb = useRef(
     new Reverb({
       decay: 4,
-      wet: 0.2,
+      wet: 0.6,
       preDelay: 0.25
     })
   );
 
-  const gain = useRef(new Gain(2).toDestination());
+  const gain = useRef(new Gain(2));
 
   const synth = useRef(
     new MetalSynth({
@@ -89,18 +97,19 @@ const MetalSynth01 = memo(({ trackId, channelDefaults }) => {
       resonance: 1000,
       modulationIndex: 20,
       envelope: {
-        attack: 0.001,
+        attack: 2.393,
         decay: 0.4,
-        sustain: 0,
-        release: 0.2
+        sustain: 0.512,
+        release: 0.067
       },
       volume: -15
     }).chain(
       channel.current,
-      compressor.current,
-      gain.current,
       distortion.current,
       reverb.current,
+      delay.current,
+      compressor.current,
+      gain.current,
       Destination
     )
   );
@@ -153,25 +162,25 @@ const MetalSynth01 = memo(({ trackId, channelDefaults }) => {
           <ControlsContainer>
             <EffectControl
               trackId={trackId}
-              showPercentageValue
               node={distortion?.current}
               effectName={'distortion'}
               label={'DIS'}
+              showPercentageValue
             />
             <EffectControl
               trackId={trackId}
-              showPercentageValue
               node={reverb?.current}
               effectName={'reverb'}
               label={'REV'}
+              showPercentageValue
             />
-            {/*<EffectControl*/}
-            {/*  node={delay?.current}*/}
-            {/*  trackId={trackId}*/}
-            {/*  effectName={'delay'}*/}
-            {/*  label={'DLY'}*/}
-            {/*  showPercentageValue*/}
-            {/*/>*/}
+            <EffectControl
+              trackId={trackId}
+              node={delay?.current}
+              effectName={'delay'}
+              label={'DLY'}
+              showPercentageValue
+            />
           </ControlsContainer>
         </Panel>
         <EnvelopeControls trackId={trackId} envelope={synth?.current?.envelope} />

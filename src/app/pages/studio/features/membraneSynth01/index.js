@@ -108,12 +108,12 @@ const MembraneSynth01 = memo(({ trackId, channelDefaults }) => {
       }
     }).chain(
       channel.current,
-      compressor.current,
-      gain.current,
       delay.current,
       distortion.current,
       reverb.current,
       eq3.current,
+      compressor.current,
+      gain.current,
       Destination
     )
   );

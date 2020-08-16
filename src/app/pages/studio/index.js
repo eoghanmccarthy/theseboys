@@ -44,8 +44,8 @@ const Experiments = () => {
       <MetalSynth01
         trackId={'conga'}
         channelDefaults={{
-          pan: 0,
-          volume: 10,
+          pan: 0.7,
+          volume: 12,
           mute: false,
           solo: false
         }}
