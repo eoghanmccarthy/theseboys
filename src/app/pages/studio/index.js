@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
 import './index.css';
 
 import Oscillator from 'features/oscillator';
+import Main from 'global/main';
+import Footer from 'global/footer';
 
 import useBell01 from 'features/sounds/useBell01';
 import useConga01 from 'features/sounds/useConga01';
@@ -29,75 +31,78 @@ const Experiments = () => {
   const monoSynth = useMonoSynth();
 
   return (
-    <main className={'me__content experiments'}>
-      <Master />
-      {/*<StepSequencer trackId={'001'} />*/}
-      <MembraneSynth01
-        trackId={'kick'}
-        channelDefaults={{
-          pan: 0,
-          volume: 12,
-          mute: false,
-          solo: false
-        }}
-      />
-      <MetalSynth01
-        trackId={'conga'}
-        channelDefaults={{
-          pan: 0.7,
-          volume: 12,
-          mute: false,
-          solo: false
-        }}
-      />
-      <NoiseSynth01
-        trackId={'hi-hat'}
-        channelDefaults={{
-          pan: -0.6,
-          volume: 10,
-          mute: false,
-          solo: false
-        }}
-      />
-      <NoiseSynth02
-        trackId={'closed-hi-hat'}
-        channelDefaults={{
-          pan: 0.8,
-          volume: 10,
-          mute: false,
-          solo: false
-        }}
-      />
-      {/*<Meta>*/}
-      {/*  <PlaybackButton onClick={() => conga01.trigger()} />*/}
-      {/*</Meta>*/}
-      {/*<Panel />*/}
-      {/*<Meta>*/}
-      {/*  <PlaybackButton onClick={() => kick02.trigger()} />*/}
-      {/*</Meta>*/}
-      {/*<Panel />*/}
-      {/*<Meta>*/}
-      {/*  <PlaybackButton onClick={() => kick01.trigger()} />*/}
-      {/*</Meta>*/}
-      {/*<Panel />*/}
-      {/*<Meta>*/}
-      {/*  <PlaybackButton onClick={() => snare01.trigger()} />*/}
-      {/*</Meta>*/}
-      {/*<Panel />*/}
-      {/*<Meta>*/}
-      {/*  <PlaybackButton onClick={() => snare02.trigger()} />*/}
-      {/*</Meta>*/}
-      {/*<Panel />*/}
-      {/*<Meta>*/}
-      {/*  <PlaybackButton onClick={() => monoSynth.trigger()} />*/}
-      {/*</Meta>*/}
-      {/*<Panel />*/}
-      {/*<RandomSequencer />*/}
-      {/*<Meta>ppp</Meta>*/}
-      {/*<Panel>*/}
-      {/*  <Oscillator />*/}
-      {/*</Panel>*/}
-    </main>
+    <Fragment>
+      <Main className={'studio'}>
+        <Master />
+        {/*<StepSequencer trackId={'001'} />*/}
+        <MembraneSynth01
+          trackId={'kick'}
+          channelDefaults={{
+            pan: 0,
+            volume: 12,
+            mute: false,
+            solo: false
+          }}
+        />
+        <MetalSynth01
+          trackId={'conga'}
+          channelDefaults={{
+            pan: 0.7,
+            volume: 12,
+            mute: false,
+            solo: false
+          }}
+        />
+        <NoiseSynth01
+          trackId={'hi-hat'}
+          channelDefaults={{
+            pan: -0.6,
+            volume: 10,
+            mute: false,
+            solo: false
+          }}
+        />
+        <NoiseSynth02
+          trackId={'closed-hi-hat'}
+          channelDefaults={{
+            pan: 0.8,
+            volume: 10,
+            mute: false,
+            solo: false
+          }}
+        />
+        {/*<Meta>*/}
+        {/*  <PlaybackButton onClick={() => conga01.trigger()} />*/}
+        {/*</Meta>*/}
+        {/*<Panel />*/}
+        {/*<Meta>*/}
+        {/*  <PlaybackButton onClick={() => kick02.trigger()} />*/}
+        {/*</Meta>*/}
+        {/*<Panel />*/}
+        {/*<Meta>*/}
+        {/*  <PlaybackButton onClick={() => kick01.trigger()} />*/}
+        {/*</Meta>*/}
+        {/*<Panel />*/}
+        {/*<Meta>*/}
+        {/*  <PlaybackButton onClick={() => snare01.trigger()} />*/}
+        {/*</Meta>*/}
+        {/*<Panel />*/}
+        {/*<Meta>*/}
+        {/*  <PlaybackButton onClick={() => snare02.trigger()} />*/}
+        {/*</Meta>*/}
+        {/*<Panel />*/}
+        {/*<Meta>*/}
+        {/*  <PlaybackButton onClick={() => monoSynth.trigger()} />*/}
+        {/*</Meta>*/}
+        {/*<Panel />*/}
+        {/*<RandomSequencer />*/}
+        {/*<Meta>ppp</Meta>*/}
+        {/*<Panel>*/}
+        {/*  <Oscillator />*/}
+        {/*</Panel>*/}
+      </Main>
+      <Footer />
+    </Fragment>
   );
 };
 

@@ -1,2 +1,2 @@
-export const AUDIO_DATA_SAVE_TRACK = 'audio-data/SAVE_TRACK';
-export const AUDIO_DATA_LOAD_TRACK = 'audio-data/LOAD_TRACK';
+export const AUDIO_DATA_SAVE_SONG = 'audio-data/SAVE_SONG';
+export const AUDIO_DATA_LOAD_SONG = 'audio-data/LOAD_SONG';

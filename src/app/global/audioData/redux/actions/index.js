@@ -1,15 +1,15 @@
 import * as types from '../actionTypes';
 
-export const saveTrack = payload => {
+export const saveSong = payload => {
   return {
-    type: types.AUDIO_DATA_SAVE_TRACK,
+    type: types.AUDIO_DATA_SAVE_SONG,
     payload
   };
 };
 
-export const loadTrack = payload => {
+export const loadSong = payload => {
   return {
-    type: types.AUDIO_DATA_LOAD_TRACK,
+    type: types.AUDIO_DATA_LOAD_SONG,
     payload
   };
 };

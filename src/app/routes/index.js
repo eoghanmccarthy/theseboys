@@ -6,14 +6,13 @@ import Footer from 'global/footer';
 import Home from '../pages/home';
 import Studio from '../pages/studio';
 
-const Routes = ({ location }) => (
+const Routes = () => (
   <div className={'me'}>
     <Switch>
       <Route exact path="/" render={() => <Home />} />
       <Route exact path="/studio" render={() => <Studio />} />
       <Route render={() => <Home />} />
     </Switch>
-    <Footer />
   </div>
 );
 

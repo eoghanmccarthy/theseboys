@@ -9,7 +9,7 @@ const Footer = () => {
   const auth = useSelector(state => state.app.authentication);
 
   return (
-    <footer className={'footer'}>
+    <footer className={'me__footer'}>
       <Logo />
     </footer>
   );

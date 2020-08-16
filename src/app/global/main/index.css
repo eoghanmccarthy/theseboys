@@ -1,0 +1,4 @@
+.me__main {
+    grid-area: main;
+    padding: var(--spacing-md) 0;
+}

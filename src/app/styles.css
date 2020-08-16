@@ -14,8 +14,3 @@
 	min-height: 100vh;
 	overflow: visible;
 }
-
-.me__content {
-	grid-area: main;
-	padding: var(--spacing-md) 0;
-}
