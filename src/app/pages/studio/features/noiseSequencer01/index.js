@@ -1,8 +1,10 @@
-import React, { useRef, memo, useEffect } from 'react';
+import React, { Fragment, useRef, memo, useEffect } from 'react';
 import { useImmer } from 'use-immer';
 import {
+  PolySynth,
   Reverb,
   FeedbackDelay,
+  DuoSynth,
   Destination,
   Sequence,
   Draw,
@@ -12,6 +14,8 @@ import {
   Compressor,
   Gain,
   MembraneSynth,
+  MetalSynth,
+  NoiseSynth,
   EQ3
 } from 'tone';
 
@@ -25,13 +29,14 @@ import isStepOn from 'utils/helpers/isStepOn';
 
 import {
   Panel,
-  MuteButton,
-  HitButton,
+  Meta,
   Steps,
   ControlsContainer,
   EffectControl,
-  ButtonGroup,
   TrackContainer,
+  MuteButton,
+  HitButton,
+  ButtonGroup,
   TrackMeta,
   TrackSteps,
   TrackControls
@@ -52,7 +57,7 @@ const noteInterval = `${numCols}n`;
 
 const noteIndices = newArray(numCols);
 
-const KickSequencer = memo(({ trackId, channelDefaults }) => {
+const NoiseSequencer01 = memo(({ trackId, channelDefaults }) => {
   const [data, setData] = useImmer(() => stepDataInitialState(numRows, numCols));
 
   const stepsRef = useRef(data);
@@ -61,6 +66,8 @@ const KickSequencer = memo(({ trackId, channelDefaults }) => {
   const sequence = useRef();
 
   const channel = useRef(new Channel(channelDefaults));
+
+  const eq3 = useRef(new EQ3({ low: -60, mid: -48, high: 12 }));
 
   const compressor = useRef(
     new Compressor({
@@ -71,51 +78,32 @@ const KickSequencer = memo(({ trackId, channelDefaults }) => {
     })
   );
 
-  const gain = useRef(new Gain(2));
-
-  const eq3 = useRef(new EQ3({ low: 0, mid: 0, high: 0 }));
-
-  const delay = useRef(
-    new FeedbackDelay({
-      delayTime: `${Math.floor(numCols / 2)}n`,
-      feedback: 1 / 3,
-      wet: 0.0
-    })
-  );
-
-  const distortion = useRef(new Distortion({ distortion: 1, oversample: '4x', wet: 0.0 }));
+  const distortion = useRef(new Distortion({ distortion: 1, oversample: '4x', wet: 0.6 }));
 
   const reverb = useRef(
     new Reverb({
       decay: 4,
-      wet: 0.0,
+      wet: 0.2,
       preDelay: 0.25
     })
   );
 
+  const gain = useRef(new Gain(2));
+
   const synth = useRef(
-    new MembraneSynth({
-      pitchDecay: 0.01,
-      octaves: 6,
-      oscillator: {
-        type: 'square4'
+    new NoiseSynth({
+      volume: -8,
+      noise: {
+        type: 'white',
+        playbackRate: 5
       },
       envelope: {
         attack: 0.001,
-        decay: 0.2,
+        decay: 0.3,
         sustain: 0,
-        release: 1.4
+        release: 0.3
       }
-    }).chain(
-      channel.current,
-      compressor.current,
-      gain.current,
-      delay.current,
-      distortion.current,
-      reverb.current,
-      eq3.current,
-      Destination
-    )
+    }).chain(channel.current, eq3.current, Destination)
   );
 
   useEffect(() => {
@@ -129,7 +117,7 @@ const KickSequencer = memo(({ trackId, channelDefaults }) => {
   const onTriggerAttackRelease = (duration, time, velocity) => {
     if (!synth) return;
 
-    synth.current.triggerAttackRelease('C1', duration, time, velocity);
+    synth.current.triggerAttackRelease(duration, time, velocity);
   };
 
   const onSequenceStep = (time, column) => {
@@ -137,7 +125,7 @@ const KickSequencer = memo(({ trackId, channelDefaults }) => {
       const velocity = random(0.5, 1);
 
       if (isStepOn(trackId, i, column)) {
-        onTriggerAttackRelease(noteInterval, time, 1);
+        onTriggerAttackRelease(noteInterval, time, velocity);
       }
     }
 
@@ -153,16 +141,6 @@ const KickSequencer = memo(({ trackId, channelDefaults }) => {
           <MuteButton node={channel?.current} trackId={trackId} />
         </ButtonGroup>
         <ChannelControls trackId={trackId} channel={channel?.current} />
-        <button
-          onClick={() => {
-            const elem = document.querySelector(`.track__controls.${trackId}`);
-            const display = elem.style.display;
-
-            elem.style.display = display !== 'none' ? 'none' : 'grid';
-          }}
-        >
-          hide
-        </button>
       </TrackMeta>
       <TrackSteps>
         <ButtonGroup>
@@ -170,41 +148,37 @@ const KickSequencer = memo(({ trackId, channelDefaults }) => {
         </ButtonGroup>
         <Steps trackId={trackId} steps={stepsRef?.current} />
       </TrackSteps>
-      <TrackControls trackId={trackId}>
+      <TrackControls>
         <Eq3Controls trackId={trackId} eq3={eq3?.current} />
         <Panel>
           <ControlsContainer>
             <EffectControl
-              trackId={trackId}
+              showPercentageValue
               node={distortion?.current}
+              trackId={trackId}
               effectName={'distortion'}
               label={'DIS'}
-              showPercentageValue
             />
             <EffectControl
-              trackId={trackId}
+              showPercentageValue
               node={reverb?.current}
+              trackId={trackId}
               effectName={'reverb'}
               label={'REV'}
-              showPercentageValue
             />
-            <EffectControl
-              trackId={trackId}
-              node={delay?.current}
-              effectName={'delay'}
-              label={'DLY'}
-              showPercentageValue
-            />
+            {/*<EffectControl*/}
+            {/*  node={delay?.current}*/}
+            {/*  trackId={trackId}*/}
+            {/*  effectName={'delay'}*/}
+            {/*  label={'DLY'}*/}
+            {/*  showPercentageValue*/}
+            {/*/>*/}
           </ControlsContainer>
         </Panel>
-        <Panel>
-          <ControlsContainer>
-            <EnvelopeControls trackId={trackId} envelope={synth?.current?.envelope} />
-          </ControlsContainer>
-        </Panel>
+        <EnvelopeControls trackId={trackId} envelope={synth?.current?.envelope} />
       </TrackControls>
     </TrackContainer>
   );
 });
 
-export default KickSequencer;
+export default NoiseSequencer01;

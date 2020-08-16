@@ -5,7 +5,7 @@ import './styles.css';
 
 const trackId = 'master';
 
-import { PlaybackButton, RecordButton, EffectControl, SliderControl } from '../../ui';
+import { PlaybackButton, RecordButton, EffectControl, SliderControl, ButtonGroup } from '../../ui';
 
 const Master = () => {
   useEffect(() => {
@@ -45,7 +45,7 @@ const Master = () => {
         min={-60}
         showPercentageValue
       />
-      <div className={'playback-controls'}>
+      <ButtonGroup>
         <RecordButton
           onClick={() => {
             const element = document.querySelector('#record-button');
@@ -107,7 +107,7 @@ const Master = () => {
             document.querySelector('.playback-button.play').classList.remove('disabled');
           }}
         />
-      </div>
+      </ButtonGroup>
       <EffectControl
         node={Transport}
         param={'bpm'}

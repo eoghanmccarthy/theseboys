@@ -26,8 +26,11 @@
 
 .track__controls {
     grid-area: controls;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    display: flex;
     height: 212px;
     background-color: var(--color-bluegrey-700);
+}
+
+.track__controls > * {
+    flex: 1;
 }

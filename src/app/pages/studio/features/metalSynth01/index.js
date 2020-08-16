@@ -46,13 +46,13 @@ const notes = ['C1'];
 
 const numRows = notes.length;
 
-const numCols = 8;
+const numCols = 16;
 
-const noteInterval = `${numCols * 2}n`;
+const noteInterval = `${numCols}n`;
 
 const noteIndices = newArray(numCols);
 
-const CongaSequencer = memo(({ trackId, channelDefaults }) => {
+const MetalSynth01 = memo(({ trackId, channelDefaults }) => {
   const [data, setData] = useImmer(() => stepDataInitialState(numRows, numCols));
 
   const stepsRef = useRef(data);
@@ -174,14 +174,10 @@ const CongaSequencer = memo(({ trackId, channelDefaults }) => {
             {/*/>*/}
           </ControlsContainer>
         </Panel>
-        <Panel>
-          <ControlsContainer>
-            <EnvelopeControls trackId={trackId} envelope={synth?.current?.envelope} />
-          </ControlsContainer>
-        </Panel>
+        <EnvelopeControls trackId={trackId} envelope={synth?.current?.envelope} />
       </TrackControls>
     </TrackContainer>
   );
 });
 
-export default CongaSequencer;
+export default MetalSynth01;

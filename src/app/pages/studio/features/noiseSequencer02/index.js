@@ -29,7 +29,6 @@ import isStepOn from 'utils/helpers/isStepOn';
 
 import {
   Panel,
-  Meta,
   Steps,
   ControlsContainer,
   EffectControl,
@@ -51,13 +50,13 @@ const notes = ['C1'];
 
 const numRows = notes.length;
 
-const numCols = 8;
+const numCols = 16;
 
-const noteInterval = `${numCols * 2}n`;
+const noteInterval = `${numCols}n`;
 
 const noteIndices = newArray(numCols);
 
-const NoiseSequencer01 = memo(({ trackId, channelDefaults }) => {
+const NoiseSequencer02 = memo(({ trackId, channelDefaults }) => {
   const [data, setData] = useImmer(() => stepDataInitialState(numRows, numCols));
 
   const stepsRef = useRef(data);
@@ -65,9 +64,9 @@ const NoiseSequencer01 = memo(({ trackId, channelDefaults }) => {
 
   const sequence = useRef();
 
-  const channel = useRef(new Channel(channelDefaults));
+  const channel = useRef(new Channel(channelDefaults).toDestination());
 
-  const eq3 = useRef(new EQ3({ low: 0, mid: 0, high: 0 }));
+  const eq3 = useRef(new EQ3({ low: -60, mid: -22, high: 7 }).toDestination());
 
   const compressor = useRef(
     new Compressor({
@@ -88,22 +87,16 @@ const NoiseSequencer01 = memo(({ trackId, channelDefaults }) => {
     })
   );
 
-  const gain = useRef(new Gain(2));
+  const gain = useRef(new Gain(2).toDestination());
 
   const synth = useRef(
     new NoiseSynth({
-      volume: -8,
-      noise: {
-        type: 'white',
-        playbackRate: 5
-      },
+      volume: -14,
       envelope: {
-        attack: 0.001,
-        decay: 0.3,
-        sustain: 0,
-        release: 0.3
+        attack: 0.01,
+        decay: 0.15
       }
-    }).chain(channel.current, eq3.current, Destination)
+    }).chain(channel.current, eq3.current, gain.current)
   );
 
   useEffect(() => {
@@ -175,14 +168,10 @@ const NoiseSequencer01 = memo(({ trackId, channelDefaults }) => {
             {/*/>*/}
           </ControlsContainer>
         </Panel>
-        <Panel>
-          <ControlsContainer>
-            <EnvelopeControls trackId={trackId} envelope={synth?.current?.envelope} />
-          </ControlsContainer>
-        </Panel>
+        <EnvelopeControls trackId={trackId} envelope={synth?.current?.envelope} />
       </TrackControls>
     </TrackContainer>
   );
 });
 
-export default NoiseSequencer01;
+export default NoiseSequencer02;

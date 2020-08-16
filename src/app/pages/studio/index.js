@@ -2,7 +2,6 @@ import React from 'react';
 
 import './index.css';
 
-import { Panel, Meta, PlaybackButton } from './ui';
 import Oscillator from 'features/oscillator';
 
 import useBell01 from 'features/sounds/useBell01';
@@ -15,10 +14,10 @@ import useMonoSynth from 'features/sounds/useMonoSynth';
 import Master from './features/master';
 import RandomSequencer from './features/randomSequencer';
 import StepSequencer from './features/stepSequencer';
-import KickSequencer from './features/kickSequencer';
-import CongaSequencer from './features/congaSequencer';
-import NoiseSequencer01 from './features/noiseSequencer01';
-import NoiseSequencer02 from './features/noiseSequencer02';
+import MembraneSynth01 from './features/membraneSynth01';
+import MetalSynth01 from './features/metalSynth01';
+import NoiseSynth01 from './features/noiseSequencer01';
+import NoiseSynth02 from './features/noiseSequencer02';
 
 const Experiments = () => {
   const bell01 = useBell01();
@@ -33,7 +32,7 @@ const Experiments = () => {
     <main className={'me__content experiments'}>
       <Master />
       {/*<StepSequencer trackId={'001'} />*/}
-      <KickSequencer
+      <MembraneSynth01
         trackId={'kick'}
         channelDefaults={{
           pan: 0,
@@ -42,7 +41,7 @@ const Experiments = () => {
           solo: false
         }}
       />
-      <CongaSequencer
+      <MetalSynth01
         trackId={'conga'}
         channelDefaults={{
           pan: 0,
@@ -51,19 +50,19 @@ const Experiments = () => {
           solo: false
         }}
       />
-      <NoiseSequencer01
+      <NoiseSynth01
         trackId={'hi-hat'}
         channelDefaults={{
-          pan: 0,
+          pan: -0.6,
           volume: 10,
           mute: false,
           solo: false
         }}
       />
-      <NoiseSequencer02
+      <NoiseSynth02
         trackId={'closed-hi-hat'}
         channelDefaults={{
-          pan: 0,
+          pan: 0.8,
           volume: 10,
           mute: false,
           solo: false

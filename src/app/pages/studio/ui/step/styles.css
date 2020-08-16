@@ -1,7 +1,6 @@
 .step-seq__step {
     width: 24px;
     height: 24px;
-    background-color: var(--color-bluegrey-800);
     border: 1px solid var(--color-bluegrey-900);
     border-radius: 100%;
     cursor: pointer;

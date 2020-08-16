@@ -1,16 +1,16 @@
-import React, { Fragment, memo } from 'react';
+import React, { memo } from 'react';
 
-import { SliderControl } from '../../ui';
+import { SliderControl, ControlsGroup } from '../../ui';
 
 const EnvelopeControls = memo(({ trackId, envelope }) => {
   if (!envelope) return null;
 
   return (
-    <Fragment>
+    <ControlsGroup orientation={'horizontal'}>
       <SliderControl
+        trackId={trackId}
         node={envelope}
         param={'attack'}
-        trackId={trackId}
         effectName={'attack'}
         label={'ATK'}
         step={0.001}
@@ -18,9 +18,9 @@ const EnvelopeControls = memo(({ trackId, envelope }) => {
         toFixed={3}
       />
       <SliderControl
+        trackId={trackId}
         node={envelope}
         param={'decay'}
-        trackId={trackId}
         effectName={'decay'}
         label={'DEC'}
         step={0.001}
@@ -28,25 +28,25 @@ const EnvelopeControls = memo(({ trackId, envelope }) => {
         toFixed={3}
       />
       <SliderControl
+        trackId={trackId}
         node={envelope}
         param={'sustain'}
-        trackId={trackId}
         effectName={'sustain'}
         label={'SUS'}
-        step={0.01}
-        showPercentageValue
+        step={0.001}
+        toFixed={3}
       />
       <SliderControl
+        trackId={trackId}
         node={envelope}
         param={'release'}
-        trackId={trackId}
         effectName={'release'}
         label={'REL'}
         step={0.001}
         max={5}
         toFixed={3}
       />
-    </Fragment>
+    </ControlsGroup>
   );
 });
 

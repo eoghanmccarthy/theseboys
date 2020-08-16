@@ -58,10 +58,11 @@ input[type="range"] {
 
 .slider-control input[type=range]::-webkit-slider-thumb {
     -webkit-appearance: none;
-    border-radius: 50%;
+    position: relative;
+    bottom: 7px;
     width: 14px;
     height: 14px;
-    bottom: 7px;
+    border-radius: 50%;
     cursor: grab;
 }
 
