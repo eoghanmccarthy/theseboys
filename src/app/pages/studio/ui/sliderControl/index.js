@@ -23,7 +23,7 @@ const SliderControl = memo(
       return null;
     }
 
-    const controlName = `${trackId}__slider-control--${effectName}`;
+    const controlName = `${trackId}__slider-control--${node}-${effectName}`;
 
     useEffect(() => {
       handleSetInputValue(node.get()[param]);

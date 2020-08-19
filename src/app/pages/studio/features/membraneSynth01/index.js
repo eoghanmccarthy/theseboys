@@ -38,6 +38,7 @@ import {
 } from '../../ui';
 import ChannelControls from '../channelControls';
 import EnvelopeControls from '../envelopeControls';
+import CompressorControls from '../compressorControls';
 import Eq3Controls from '../eq3Controls';
 
 const notes = ['C1'];
@@ -73,7 +74,7 @@ const MembraneSynth01 = memo(({ trackId, channelDefaults }) => {
 
   const gain = useRef(new Gain(2));
 
-  const eq3 = useRef(new EQ3({ low: 0, mid: 0, high: 0 }));
+  const eq3 = useRef(new EQ3({ low: -21, mid: -56, high: -54 }));
 
   const delay = useRef(
     new FeedbackDelay({
@@ -101,21 +102,12 @@ const MembraneSynth01 = memo(({ trackId, channelDefaults }) => {
         type: 'square4'
       },
       envelope: {
-        attack: 0.001,
-        decay: 0.2,
-        sustain: 0,
-        release: 1.4
+        attack: 0.09,
+        decay: 0.45,
+        sustain: 0.1,
+        release: 0.3
       }
-    }).chain(
-      channel.current,
-      delay.current,
-      distortion.current,
-      reverb.current,
-      eq3.current,
-      compressor.current,
-      gain.current,
-      Destination
-    )
+    }).chain(channel.current, eq3.current, gain.current, Destination)
   );
 
   useEffect(() => {
@@ -172,31 +164,30 @@ const MembraneSynth01 = memo(({ trackId, channelDefaults }) => {
       </TrackSteps>
       <TrackControls trackId={trackId}>
         <Eq3Controls trackId={trackId} eq3={eq3?.current} />
-        <Panel>
-          <ControlsContainer>
-            <EffectControl
-              trackId={trackId}
-              node={distortion?.current}
-              effectName={'distortion'}
-              label={'DIS'}
-              showPercentageValue
-            />
-            <EffectControl
-              trackId={trackId}
-              node={reverb?.current}
-              effectName={'reverb'}
-              label={'REV'}
-              showPercentageValue
-            />
-            <EffectControl
-              trackId={trackId}
-              node={delay?.current}
-              effectName={'delay'}
-              label={'DLY'}
-              showPercentageValue
-            />
-          </ControlsContainer>
-        </Panel>
+        {/*<CompressorControls trackId={trackId} compressor={compressor.current} />*/}
+        <ControlsContainer>
+          <EffectControl
+            trackId={trackId}
+            node={distortion?.current}
+            effectName={'distortion'}
+            label={'DIS'}
+            showPercentageValue
+          />
+          <EffectControl
+            trackId={trackId}
+            node={reverb?.current}
+            effectName={'reverb'}
+            label={'REV'}
+            showPercentageValue
+          />
+          <EffectControl
+            trackId={trackId}
+            node={delay?.current}
+            effectName={'delay'}
+            label={'DLY'}
+            showPercentageValue
+          />
+        </ControlsContainer>
         <EnvelopeControls trackId={trackId} envelope={synth?.current?.envelope} />
       </TrackControls>
     </TrackContainer>

@@ -52,12 +52,16 @@ const Master = () => {
 
             const status = element.getAttribute('data-recorder-status');
 
-            if (status === 'off') {
+            if (status === 'off' && Transport.state === 'stopped') {
               element.setAttribute('data-recorder-status', 'stand-by');
             }
 
-            if (status === 'stand-by') {
+            if (status === 'stand-by' || status === 'on') {
               element.setAttribute('data-recorder-status', 'off');
+
+              if (recorder?.current?.state === 'started') {
+                handleStopRecording();
+              }
             }
           }}
         >
@@ -74,37 +78,28 @@ const Master = () => {
             const recorderElement = document.querySelector('#record-button');
             const recorderStatus = recorderElement.getAttribute('data-recorder-status');
 
-            if (recorderStatus === 'stand-by' && recorder?.current?.state === 'stopped') {
-              recorder.current.start();
-              recorderElement.setAttribute('data-recorder-status', 'on');
+            if (Transport.state === 'stopped') {
+              if (recorderStatus === 'stand-by' && recorder?.current?.state === 'stopped') {
+                recorder.current.start();
+                recorderElement.setAttribute('data-recorder-status', 'on');
+              }
+
+              Transport.start();
+              console.log('transport is', Transport.state);
+              document.querySelector('.playback-button.play').classList.add('disabled');
+              document.querySelector('.playback-button.stop').classList.remove('disabled');
             }
-
-            Transport.state === 'stopped' && Transport.start();
-            console.log('transport is', Transport.state);
-
-            document.querySelector('.playback-button.play').classList.add('disabled');
-            document.querySelector('.playback-button.stop').classList.remove('disabled');
           }}
         />
         <PlaybackButton
           type={'stop'}
           onClick={() => {
-            const recorderElement = document.querySelector('#record-button');
-
-            const recorderStatus = recorderElement.getAttribute('data-recorder-status');
-
-            if (recorderStatus === 'on' || recorderStatus === 'stand-by') {
-              recorderElement.setAttribute('data-recorder-status', 'off');
-
-              if (recorder?.current?.state === 'started') {
-                handleStopRecording();
-              }
+            if (Transport.state === 'started') {
+              Transport.stop();
+              console.log('transport is', Transport.state);
+              document.querySelector('.playback-button.stop').classList.add('disabled');
+              document.querySelector('.playback-button.play').classList.remove('disabled');
             }
-
-            Transport.state === 'started' && Transport.stop();
-            console.log('transport is', Transport.state);
-            document.querySelector('.playback-button.stop').classList.add('disabled');
-            document.querySelector('.playback-button.play').classList.remove('disabled');
           }}
         />
       </ButtonGroup>

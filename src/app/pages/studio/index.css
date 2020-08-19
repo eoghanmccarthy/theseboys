@@ -1,5 +1,5 @@
 .me__main.studio {
     display: grid;
-    grid-row-gap: 10px;
+    grid-row-gap: var(--spacing-12);
     margin: 0 auto;
 }

@@ -97,7 +97,7 @@ const MetalSynth01 = memo(({ trackId, channelDefaults }) => {
       resonance: 1000,
       modulationIndex: 20,
       envelope: {
-        attack: 2.393,
+        attack: 2.0,
         decay: 0.4,
         sustain: 0.512,
         release: 0.067
@@ -158,31 +158,29 @@ const MetalSynth01 = memo(({ trackId, channelDefaults }) => {
       </TrackSteps>
       <TrackControls>
         <Meta></Meta>
-        <Panel>
-          <ControlsContainer>
-            <EffectControl
-              trackId={trackId}
-              node={distortion?.current}
-              effectName={'distortion'}
-              label={'DIS'}
-              showPercentageValue
-            />
-            <EffectControl
-              trackId={trackId}
-              node={reverb?.current}
-              effectName={'reverb'}
-              label={'REV'}
-              showPercentageValue
-            />
-            <EffectControl
-              trackId={trackId}
-              node={delay?.current}
-              effectName={'delay'}
-              label={'DLY'}
-              showPercentageValue
-            />
-          </ControlsContainer>
-        </Panel>
+        <ControlsContainer>
+          <EffectControl
+            trackId={trackId}
+            node={distortion?.current}
+            effectName={'distortion'}
+            label={'DIS'}
+            showPercentageValue
+          />
+          <EffectControl
+            trackId={trackId}
+            node={reverb?.current}
+            effectName={'reverb'}
+            label={'REV'}
+            showPercentageValue
+          />
+          <EffectControl
+            trackId={trackId}
+            node={delay?.current}
+            effectName={'delay'}
+            label={'DLY'}
+            showPercentageValue
+          />
+        </ControlsContainer>
         <EnvelopeControls trackId={trackId} envelope={synth?.current?.envelope} />
       </TrackControls>
     </TrackContainer>

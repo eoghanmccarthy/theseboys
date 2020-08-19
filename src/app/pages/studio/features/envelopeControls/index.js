@@ -14,7 +14,7 @@ const EnvelopeControls = memo(({ trackId, envelope }) => {
         effectName={'attack'}
         label={'ATK'}
         step={0.001}
-        max={5}
+        max={2}
         toFixed={3}
       />
       <SliderControl
@@ -24,7 +24,7 @@ const EnvelopeControls = memo(({ trackId, envelope }) => {
         effectName={'decay'}
         label={'DEC'}
         step={0.001}
-        max={5}
+        max={2}
         toFixed={3}
       />
       <SliderControl

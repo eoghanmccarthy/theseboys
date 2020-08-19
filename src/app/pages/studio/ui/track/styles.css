@@ -4,7 +4,7 @@
             "meta"
 			"steps"
             "controls";
-    grid-row-gap: 5px;
+    grid-row-gap: var(--spacing-4);
     width: 1180px;
 }
 
@@ -13,7 +13,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 72px;
+    height: 60px;
+    padding: 0 var(--spacing-12);
 }
 
 .track__steps {
@@ -22,6 +23,12 @@
     justify-content: space-between;
     align-items: center;
     height: 72px;
+    padding: 0 var(--spacing-12);
+    background-color: var(--color-bluegrey-800);
+}
+
+.track__steps > *:not(:last-child) {
+    margin-right: var(--spacing-12);
 }
 
 .track__controls {

@@ -64,9 +64,9 @@ const NoiseSequencer02 = memo(({ trackId, channelDefaults }) => {
 
   const sequence = useRef();
 
-  const channel = useRef(new Channel(channelDefaults).toDestination());
+  const channel = useRef(new Channel(channelDefaults));
 
-  const eq3 = useRef(new EQ3({ low: -60, mid: -22, high: 7 }).toDestination());
+  const eq3 = useRef(new EQ3({ low: -60, mid: -60, high: 7 }));
 
   const compressor = useRef(
     new Compressor({
@@ -87,16 +87,17 @@ const NoiseSequencer02 = memo(({ trackId, channelDefaults }) => {
     })
   );
 
-  const gain = useRef(new Gain(2).toDestination());
+  const gain = useRef(new Gain(2));
 
   const synth = useRef(
     new NoiseSynth({
       volume: -14,
       envelope: {
         attack: 0.01,
-        decay: 0.15
+        decay: 0.15,
+        release: 0.06
       }
-    }).chain(channel.current, eq3.current, gain.current)
+    }).chain(channel.current, eq3.current, gain.current, Destination)
   );
 
   useEffect(() => {
@@ -143,31 +144,29 @@ const NoiseSequencer02 = memo(({ trackId, channelDefaults }) => {
       </TrackSteps>
       <TrackControls>
         <Eq3Controls trackId={trackId} eq3={eq3?.current} />
-        <Panel>
-          <ControlsContainer>
-            <EffectControl
-              showPercentageValue
-              node={distortion?.current}
-              trackId={trackId}
-              effectName={'distortion'}
-              label={'DIS'}
-            />
-            <EffectControl
-              showPercentageValue
-              node={reverb?.current}
-              trackId={trackId}
-              effectName={'reverb'}
-              label={'REV'}
-            />
-            {/*<EffectControl*/}
-            {/*  node={delay?.current}*/}
-            {/*  trackId={trackId}*/}
-            {/*  effectName={'delay'}*/}
-            {/*  label={'DLY'}*/}
-            {/*  showPercentageValue*/}
-            {/*/>*/}
-          </ControlsContainer>
-        </Panel>
+        <ControlsContainer>
+          <EffectControl
+            showPercentageValue
+            node={distortion?.current}
+            trackId={trackId}
+            effectName={'distortion'}
+            label={'DIS'}
+          />
+          <EffectControl
+            showPercentageValue
+            node={reverb?.current}
+            trackId={trackId}
+            effectName={'reverb'}
+            label={'REV'}
+          />
+          {/*<EffectControl*/}
+          {/*  node={delay?.current}*/}
+          {/*  trackId={trackId}*/}
+          {/*  effectName={'delay'}*/}
+          {/*  label={'DLY'}*/}
+          {/*  showPercentageValue*/}
+          {/*/>*/}
+        </ControlsContainer>
         <EnvelopeControls trackId={trackId} envelope={synth?.current?.envelope} />
       </TrackControls>
     </TrackContainer>

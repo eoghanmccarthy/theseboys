@@ -150,31 +150,29 @@ const NoiseSequencer01 = memo(({ trackId, channelDefaults }) => {
       </TrackSteps>
       <TrackControls>
         <Eq3Controls trackId={trackId} eq3={eq3?.current} />
-        <Panel>
-          <ControlsContainer>
-            <EffectControl
-              showPercentageValue
-              node={distortion?.current}
-              trackId={trackId}
-              effectName={'distortion'}
-              label={'DIS'}
-            />
-            <EffectControl
-              showPercentageValue
-              node={reverb?.current}
-              trackId={trackId}
-              effectName={'reverb'}
-              label={'REV'}
-            />
-            {/*<EffectControl*/}
-            {/*  node={delay?.current}*/}
-            {/*  trackId={trackId}*/}
-            {/*  effectName={'delay'}*/}
-            {/*  label={'DLY'}*/}
-            {/*  showPercentageValue*/}
-            {/*/>*/}
-          </ControlsContainer>
-        </Panel>
+        <ControlsContainer>
+          <EffectControl
+            showPercentageValue
+            node={distortion?.current}
+            trackId={trackId}
+            effectName={'distortion'}
+            label={'DIS'}
+          />
+          <EffectControl
+            showPercentageValue
+            node={reverb?.current}
+            trackId={trackId}
+            effectName={'reverb'}
+            label={'REV'}
+          />
+          {/*<EffectControl*/}
+          {/*  node={delay?.current}*/}
+          {/*  trackId={trackId}*/}
+          {/*  effectName={'delay'}*/}
+          {/*  label={'DLY'}*/}
+          {/*  showPercentageValue*/}
+          {/*/>*/}
+        </ControlsContainer>
         <EnvelopeControls trackId={trackId} envelope={synth?.current?.envelope} />
       </TrackControls>
     </TrackContainer>

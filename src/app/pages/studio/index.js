@@ -57,7 +57,7 @@ const Experiments = () => {
           trackId={'hi-hat'}
           channelDefaults={{
             pan: -0.6,
-            volume: 10,
+            volume: 0,
             mute: false,
             solo: false
           }}
@@ -66,7 +66,7 @@ const Experiments = () => {
           trackId={'closed-hi-hat'}
           channelDefaults={{
             pan: 0.8,
-            volume: 10,
+            volume: -8,
             mute: false,
             solo: false
           }}
