@@ -1,63 +1,32 @@
-input[type="range"] {
-    --thumbSize: 18px;
-    --trackSize: 8px;
-    --thumbBg: #fff;
-    --trackBg: #f2f2f2;
-    --progressBg: #262626;
-
-    /* webkit progress workaround */
-    --webkitProgressPercent: 0%;
-}
-
-.slider-control {
-    display: grid;
-    font-size: 14px;
-}
-
-.slider-control.vertical {
-    grid-template-areas:
-            "value"
-			"slider"
-            "label";
-    row-gap: var(--spacing-12);
-    justify-items: center;
-}
-
-.slider-control.horizontal {
-    grid-template-areas:
-			"label slider value";
-    column-gap: var(--spacing-8);
-    align-items: center;
-}
-
-.slider-control input[type=range] {
+.ui-control input[type=range] {
     -webkit-appearance: none;
     grid-area: slider;
-    width: 120px;
+    width: 100%;
     height: 2px;
+    margin: 0;
 }
 
-.slider-control input[type=range][orient=vertical] {
+.ui-control input[type=range][orient=vertical] {
     -webkit-appearance: slider-vertical;
     width: 2px;
-    height: 100px;
+    height: 100%;
 }
 
-.slider-control input[type=range]:focus {
+.ui-control input[type=range]:focus {
     outline: 0;
 }
 
-.slider-control input[type=range]::-webkit-slider-runnable-track {
+.ui-control input[type=range]::-webkit-slider-runnable-track {
     -webkit-appearance: none;
-    background: white;
+    background: var(--color-bluegrey-400);
     height: 2px;
 }
 
-.slider-control input[type=range][orient=vertical]::-webkit-slider-runnable-track {
+.ui-control input[type=range][orient=vertical]::-webkit-slider-runnable-track {
     width: 2px;
 }
 
-.slider-control input[type=range]::-webkit-slider-thumb {
+.ui-control input[type=range]::-webkit-slider-thumb {
     -webkit-appearance: none;
     position: relative;
     bottom: 7px;
@@ -68,28 +37,12 @@ input[type="range"] {
     cursor: grab;
 }
 
-.slider-control input[type=range][orient=vertical]::-webkit-slider-thumb {
+.ui-control input[type=range][orient=vertical]::-webkit-slider-thumb {
     left: 7px;
     bottom: 0;
     background-color: var(--color-bluegrey-800);
 }
 
-.slider-control input[type=range]::-webkit-slider-thumb:active {
+.ui-control input[type=range]::-webkit-slider-thumb:active {
     cursor: grabbing;
-}
-
-.slider-control .slider-control__label {
-    grid-area: label;
-    width: 5ch;
-    text-align: center;
-}
-
-.slider-control .slider-control__value {
-    grid-area: value;
-    width: 5ch;
-    text-align: center;
-}
-
-.slider-control .slider-control__value::before {
-    content: attr(data-value);
 }

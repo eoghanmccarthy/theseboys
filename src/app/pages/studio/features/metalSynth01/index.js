@@ -1,7 +1,6 @@
-import React, { Fragment, useRef, memo, useEffect } from 'react';
+import React, { useRef, memo, useEffect } from 'react';
 import { useImmer } from 'use-immer';
 import {
-  PolySynth,
   Reverb,
   FeedbackDelay,
   Destination,
@@ -24,18 +23,17 @@ import drawSteps from 'utils/helpers/drawSteps';
 import isStepOn from 'utils/helpers/isStepOn';
 
 import {
-  Panel,
   Meta,
   Steps,
-  ControlsContainer,
-  EffectControl,
+  ButtonControl,
   TrackContainer,
   TrackMeta,
   TrackSteps,
   TrackControls,
   MuteButton,
   HitButton,
-  ButtonGroup
+  ButtonGroup,
+  ControlGroup
 } from '../../ui';
 import ChannelControls from '../channelControls';
 import EnvelopeControls from '../envelopeControls';
@@ -158,29 +156,29 @@ const MetalSynth01 = memo(({ trackId, channelDefaults }) => {
       </TrackSteps>
       <TrackControls>
         <Meta></Meta>
-        <ControlsContainer>
-          <EffectControl
+        <ControlGroup orientation={'horizontal'} title={'effects'}>
+          <ButtonControl
             trackId={trackId}
             node={distortion?.current}
             effectName={'distortion'}
             label={'DIS'}
             showPercentageValue
           />
-          <EffectControl
+          <ButtonControl
             trackId={trackId}
             node={reverb?.current}
             effectName={'reverb'}
             label={'REV'}
             showPercentageValue
           />
-          <EffectControl
+          <ButtonControl
             trackId={trackId}
             node={delay?.current}
             effectName={'delay'}
             label={'DLY'}
             showPercentageValue
           />
-        </ControlsContainer>
+        </ControlGroup>
         <EnvelopeControls trackId={trackId} envelope={synth?.current?.envelope} />
       </TrackControls>
     </TrackContainer>

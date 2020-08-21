@@ -5,7 +5,7 @@ import './styles.css';
 
 const trackId = 'master';
 
-import { PlaybackButton, RecordButton, EffectControl, SliderControl, ButtonGroup } from '../../ui';
+import { PlaybackButton, RecordButton, ButtonControl, SliderControl, ButtonGroup } from '../../ui';
 
 const Master = () => {
   useEffect(() => {
@@ -103,7 +103,7 @@ const Master = () => {
           }}
         />
       </ButtonGroup>
-      <EffectControl
+      <ButtonControl
         node={Transport}
         param={'bpm'}
         trackId={trackId}

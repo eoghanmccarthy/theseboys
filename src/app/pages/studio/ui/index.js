@@ -6,10 +6,10 @@ import MuteButton from './muteButton';
 import HitButton from './hitButton';
 import Steps from './steps';
 import ControlsContainer from './controlsContainer';
-import EffectControl from './effectControl';
+import ButtonControl from './buttonControl';
 import SliderControl from './sliderControl';
 import ButtonGroup from './buttonGroup';
-import ControlsGroup from './controlsGroup';
+import ControlGroup from './controlGroup';
 import { TrackContainer, TrackMeta, TrackSteps, TrackControls } from './track';
 
 export {
@@ -21,10 +21,10 @@ export {
   HitButton,
   Steps,
   ControlsContainer,
-  EffectControl,
+  ButtonControl,
   SliderControl,
   ButtonGroup,
-  ControlsGroup,
+  ControlGroup,
   TrackContainer,
   TrackMeta,
   TrackSteps,

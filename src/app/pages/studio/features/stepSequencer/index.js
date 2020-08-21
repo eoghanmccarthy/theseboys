@@ -26,7 +26,7 @@ import {
   Meta,
   Steps,
   ControlsContainer,
-  EffectControl,
+  ButtonControl,
   TrackContainer,
   MuteButton
 } from '../../ui';
@@ -164,21 +164,21 @@ const StepSequencer = memo(({ trackId }) => {
       </Meta>
       <Panel>
         <ControlsContainer>
-          <EffectControl
+          <ButtonControl
             node={distortion?.current}
             trackId={trackId}
             effectName={'distortion'}
             label={'DIS'}
             showPercentageValue
           />
-          <EffectControl
+          <ButtonControl
             node={reverb?.current}
             trackId={trackId}
             effectName={'reverb'}
             label={'REV'}
             showPercentageValue
           />
-          <EffectControl
+          <ButtonControl
             node={delay?.current}
             trackId={trackId}
             effectName={'delay'}

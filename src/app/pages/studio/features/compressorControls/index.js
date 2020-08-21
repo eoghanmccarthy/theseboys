@@ -1,12 +1,12 @@
 import React, { memo } from 'react';
 
-import { SliderControl, ControlsGroup } from '../../ui';
+import { SliderControl, ControlGroup } from '../../ui';
 
 const CompressorControls = memo(({ trackId, compressor }) => {
   if (!compressor) return null;
 
   return (
-    <ControlsGroup orientation={'horizontal'}>
+    <ControlGroup orientation={'horizontal'} title={'compressor'}>
       <SliderControl
         trackId={trackId}
         node={compressor}
@@ -21,7 +21,7 @@ const CompressorControls = memo(({ trackId, compressor }) => {
         trackId={trackId}
         node={compressor}
         param={'attack'}
-        effectName={'attack'}
+        effectName={'compressor-attack'}
         label={'ATK'}
         step={0.001}
         toFixed={3}
@@ -30,12 +30,12 @@ const CompressorControls = memo(({ trackId, compressor }) => {
         trackId={trackId}
         node={compressor}
         param={'release'}
-        effectName={'release'}
+        effectName={'compressor-release'}
         label={'REL'}
         step={0.001}
         toFixed={3}
       />
-    </ControlsGroup>
+    </ControlGroup>
   );
 });
 

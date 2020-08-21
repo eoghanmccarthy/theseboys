@@ -3,6 +3,8 @@ import cx from 'classnames';
 
 import './styles.css';
 
+import Control from '../control';
+
 import interpolate from 'utils/helpers/interpolate';
 
 const SliderControl = memo(
@@ -23,7 +25,7 @@ const SliderControl = memo(
       return null;
     }
 
-    const controlName = `${trackId}__slider-control--${node}-${effectName}`;
+    const name = `${trackId}__control--${effectName}`;
 
     useEffect(() => {
       handleSetInputValue(node.get()[param]);
@@ -37,12 +39,12 @@ const SliderControl = memo(
     });
 
     const handleSetInputValue = val => {
-      document.querySelector(`.slider-control__slider.${controlName}`).setAttribute('value', val);
+      document.querySelector(`.control__slider.${name}`).setAttribute('value', val);
     };
 
     const handleSetValueLabel = val => {
       document
-        .querySelector(`.slider-control__value.${controlName}`)
+        .querySelector(`.ui-control__value.${name}`)
         .setAttribute(
           'data-value',
           showPercentageValue
@@ -52,10 +54,9 @@ const SliderControl = memo(
     };
 
     return (
-      <div className={cx('slider-control', { [orientation]: orientation })}>
-        <span className={`slider-control__label ${controlName}`}>{label}</span>
+      <Control orientation={orientation} controlName={name} label={label}>
         <input
-          className={cx('slider-control__slider', controlName)}
+          className={cx('control__slider', name)}
           orient={orientation}
           type={'range'}
           step={step}
@@ -70,8 +71,7 @@ const SliderControl = memo(
             node.set({ [param]: val });
           }}
         />
-        <span className={`slider-control__value ${controlName}`} />
-      </div>
+      </Control>
     );
   }
 );

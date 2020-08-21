@@ -22,7 +22,7 @@ const EffectControlButton = memo(
 
     useEffect(() => {
       document
-        .querySelector(`.effect-control__value.${controlName}`)
+        .querySelector(`.ui-control__value.${controlName}`)
         .setAttribute(
           'data-value',
           showPercentageValue
@@ -39,7 +39,7 @@ const EffectControlButton = memo(
 
     return (
       <button
-        className={cx('effect-control__button', controlName, {
+        className={cx('ui-control__button', controlName, {
           inc: !dec,
           dec: dec
         })}
@@ -49,7 +49,7 @@ const EffectControlButton = memo(
           const val = !dec ? Math.min(previous + step, max) : Math.max(previous - step, min);
 
           document
-            .querySelector(`.effect-control__value.${controlName}`)
+            .querySelector(`.ui-control__value.${controlName}`)
             .setAttribute(
               'data-value',
               showPercentageValue

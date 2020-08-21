@@ -1,9 +1,9 @@
-.track-container {
+.track {
     display: grid;
     grid-template-areas:
             "meta"
 			"steps"
-            "controls";
+            "controllers";
     grid-row-gap: var(--spacing-4);
     width: 1180px;
 }
@@ -32,12 +32,17 @@
 }
 
 .track__controls {
-    grid-area: controls;
+    grid-area: controllers;
     display: flex;
-    height: 212px;
+    height: 222px;
+    padding: var(--spacing-20) var(--spacing-20) var(--spacing-16);
     background-color: var(--color-bluegrey-700);
 }
 
 .track__controls > * {
     flex: 1;
+}
+
+.track__controls > *:not(:last-child) {
+    margin-right: var(--spacing-20);
 }

@@ -1,11 +1,9 @@
 import React, { memo } from 'react';
-import cx from 'classnames';
 
-import './styles.css';
+import Control from '../control';
+import ControlButton from '../controlButton';
 
-import EffectControlButton from '../effectControlButton';
-
-const EffectControl = memo(
+const ButtonControl = memo(
   ({
     node,
     trackId,
@@ -23,12 +21,11 @@ const EffectControl = memo(
       return null;
     }
 
-    const controlName = `${trackId}__effect-ctrl--${effectName}`;
+    const controlName = `${trackId}__control--${effectName}`;
 
     return (
-      <div className={cx('effect-control', { [orientation]: orientation })}>
-        <span className={`effect-control__label ${controlName}`}>{label}</span>
-        <EffectControlButton
+      <Control orientation={orientation} controlName={controlName} label={label}>
+        <ControlButton
           controlName={controlName}
           node={node}
           param={param}
@@ -39,9 +36,8 @@ const EffectControl = memo(
           toFixed={toFixed}
         >
           +
-        </EffectControlButton>
-        <span className={`effect-control__value ${controlName}`} />
-        <EffectControlButton
+        </ControlButton>
+        <ControlButton
           controlName={controlName}
           node={node}
           param={param}
@@ -53,10 +49,10 @@ const EffectControl = memo(
           toFixed={toFixed}
         >
           -
-        </EffectControlButton>
-      </div>
+        </ControlButton>
+      </Control>
     );
   }
 );
 
-export default EffectControl;
+export default ButtonControl;

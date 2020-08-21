@@ -1,10 +1,8 @@
-import React, { Fragment, useRef, memo, useEffect } from 'react';
+import React, { useRef, memo, useEffect } from 'react';
 import { useImmer } from 'use-immer';
 import {
-  PolySynth,
   Reverb,
   FeedbackDelay,
-  DuoSynth,
   Destination,
   Sequence,
   Draw,
@@ -13,8 +11,6 @@ import {
   Channel,
   Compressor,
   Gain,
-  MembraneSynth,
-  MetalSynth,
   NoiseSynth,
   EQ3
 } from 'tone';
@@ -28,17 +24,16 @@ import drawSteps from 'utils/helpers/drawSteps';
 import isStepOn from 'utils/helpers/isStepOn';
 
 import {
-  Panel,
   Steps,
-  ControlsContainer,
-  EffectControl,
+  ButtonControl,
   TrackContainer,
   MuteButton,
   HitButton,
   ButtonGroup,
   TrackMeta,
   TrackSteps,
-  TrackControls
+  TrackControls,
+  ControlGroup
 } from '../../ui';
 import ChannelControls from '../channelControls';
 import EnvelopeControls from '../envelopeControls';
@@ -144,29 +139,29 @@ const NoiseSequencer02 = memo(({ trackId, channelDefaults }) => {
       </TrackSteps>
       <TrackControls>
         <Eq3Controls trackId={trackId} eq3={eq3?.current} />
-        <ControlsContainer>
-          <EffectControl
+        <ControlGroup orientation={'horizontal'} title={'effects'}>
+          <ButtonControl
             showPercentageValue
             node={distortion?.current}
             trackId={trackId}
             effectName={'distortion'}
             label={'DIS'}
           />
-          <EffectControl
+          <ButtonControl
             showPercentageValue
             node={reverb?.current}
             trackId={trackId}
             effectName={'reverb'}
             label={'REV'}
           />
-          {/*<EffectControl*/}
+          {/*<ButtonControl*/}
           {/*  node={delay?.current}*/}
           {/*  trackId={trackId}*/}
           {/*  effectName={'delay'}*/}
           {/*  label={'DLY'}*/}
           {/*  showPercentageValue*/}
           {/*/>*/}
-        </ControlsContainer>
+        </ControlGroup>
         <EnvelopeControls trackId={trackId} envelope={synth?.current?.envelope} />
       </TrackControls>
     </TrackContainer>

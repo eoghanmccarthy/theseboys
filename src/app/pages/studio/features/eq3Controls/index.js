@@ -1,12 +1,12 @@
 import React, { memo } from 'react';
 
-import { SliderControl, ControlsGroup } from '../../ui';
+import { SliderControl, ControlGroup } from '../../ui';
 
 const Eq3Controls = memo(({ trackId, eq3 }) => {
   if (!eq3) return null;
 
   return (
-    <ControlsGroup orientation={'horizontal'}>
+    <ControlGroup orientation={'horizontal'} title={'equaliser'}>
       <SliderControl
         trackId={trackId}
         node={eq3}
@@ -40,7 +40,7 @@ const Eq3Controls = memo(({ trackId, eq3 }) => {
         max={20}
         showPercentageValue
       />
-    </ControlsGroup>
+    </ControlGroup>
   );
 });
 

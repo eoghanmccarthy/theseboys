@@ -1,3 +1,10 @@
+.me__main.index {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .me__main.index svg {
     display: block;
     height: 50vh;
@@ -8,4 +15,17 @@
 
 .me__main.index svg path {
     fill: var(--color-primary);
+}
+
+.me__main .social-links {
+    display: flex;
+}
+
+.me__main .social-links > :not(:last-child) {
+    margin-right: var(--spacing-12);
+}
+
+.me__main .social-links .social-twitter {
+    width: 24px;
+    height: 24px;
 }

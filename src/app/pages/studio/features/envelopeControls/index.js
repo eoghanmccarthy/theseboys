@@ -1,12 +1,12 @@
 import React, { memo } from 'react';
 
-import { SliderControl, ControlsGroup } from '../../ui';
+import { SliderControl, ControlGroup } from '../../ui';
 
 const EnvelopeControls = memo(({ trackId, envelope }) => {
   if (!envelope) return null;
 
   return (
-    <ControlsGroup orientation={'horizontal'}>
+    <ControlGroup orientation={'horizontal'} title={'envelope'}>
       <SliderControl
         trackId={trackId}
         node={envelope}
@@ -46,7 +46,7 @@ const EnvelopeControls = memo(({ trackId, envelope }) => {
         max={5}
         toFixed={3}
       />
-    </ControlsGroup>
+    </ControlGroup>
   );
 });
 

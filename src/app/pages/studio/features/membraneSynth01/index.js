@@ -24,12 +24,11 @@ import drawSteps from 'utils/helpers/drawSteps';
 import isStepOn from 'utils/helpers/isStepOn';
 
 import {
-  Panel,
   MuteButton,
   HitButton,
   Steps,
-  ControlsContainer,
-  EffectControl,
+  ControlGroup,
+  ButtonControl,
   ButtonGroup,
   TrackContainer,
   TrackMeta,
@@ -107,7 +106,7 @@ const MembraneSynth01 = memo(({ trackId, channelDefaults }) => {
         sustain: 0.1,
         release: 0.3
       }
-    }).chain(channel.current, eq3.current, gain.current, Destination)
+    }).chain(channel.current, eq3.current, compressor.current, gain.current, Destination)
   );
 
   useEffect(() => {
@@ -164,30 +163,30 @@ const MembraneSynth01 = memo(({ trackId, channelDefaults }) => {
       </TrackSteps>
       <TrackControls trackId={trackId}>
         <Eq3Controls trackId={trackId} eq3={eq3?.current} />
-        {/*<CompressorControls trackId={trackId} compressor={compressor.current} />*/}
-        <ControlsContainer>
-          <EffectControl
+        <CompressorControls trackId={trackId} compressor={compressor.current} />
+        <ControlGroup orientation={'horizontal'} title={'effects'}>
+          <ButtonControl
             trackId={trackId}
             node={distortion?.current}
             effectName={'distortion'}
             label={'DIS'}
             showPercentageValue
           />
-          <EffectControl
+          <ButtonControl
             trackId={trackId}
             node={reverb?.current}
             effectName={'reverb'}
             label={'REV'}
             showPercentageValue
           />
-          <EffectControl
+          <ButtonControl
             trackId={trackId}
             node={delay?.current}
             effectName={'delay'}
             label={'DLY'}
             showPercentageValue
           />
-        </ControlsContainer>
+        </ControlGroup>
         <EnvelopeControls trackId={trackId} envelope={synth?.current?.envelope} />
       </TrackControls>
     </TrackContainer>

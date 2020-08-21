@@ -3,7 +3,7 @@ import React, { memo } from 'react';
 import './styles.css';
 
 const TrackContainer = memo(({ children }) => {
-  return <div className={'track-container'}>{children}</div>;
+  return <div className={'track'}>{children}</div>;
 });
 
 const TrackMeta = memo(({ children }) => {
