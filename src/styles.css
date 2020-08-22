@@ -1,5 +1,5 @@
-//https://tobiasahlin.com/blog/layered-smooth-box-shadows/
-//https://sassme.jim-nielsen.com/
+/*https://tobiasahlin.com/blog/layered-smooth-box-shadows/*/
+/*https://sassme.jim-nielsen.com/*/
 
 @import url("https://fonts.googleapis.com/css?family=Roboto+Mono:100,100i,300,300i");
 
@@ -86,7 +86,8 @@ a {
 	color: var(--color-grey-500);
 	text-decoration: none;
 	letter-spacing: 0.1em;
-	&:hover {
-		text-decoration: none;
-	}
+}
+
+a:hover {
+	text-decoration: none;
 }

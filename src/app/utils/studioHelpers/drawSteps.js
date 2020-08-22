@@ -1,5 +1,13 @@
-export default (sequencer, stepTotal, step) => {
-  const elements = document.getElementsByClassName(`${sequencer}__step`);
+/**
+ * Sets playback status data attribute
+ *
+ * @param {string} track Track name
+ * @param {number} stepTotal Total number of steps
+ * @param {number} step Step index
+ */
+
+export default (track, stepTotal, step) => {
+  const elements = document.getElementsByClassName(`${track}__step`);
 
   for (let i = 0; i < elements.length; i++) {
     const currentStep = (i - step) % stepTotal === 0;
