@@ -3,7 +3,7 @@ import cx from 'classnames';
 
 import './styles.css';
 
-import interpolate from 'utils/helpers/interpolate';
+import interpolate from 'utils/studioHelpers/interpolate';
 
 const EffectControlButton = memo(
   ({

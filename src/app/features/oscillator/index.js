@@ -3,7 +3,7 @@ import { Oscillator as Osc, Distortion, Destination, Filter } from 'tone';
 
 import './index.css';
 
-import interpolate from 'utils/helpers/interpolate';
+import interpolate from 'utils/studioHelpers/interpolate';
 import usePointer from 'utils/hooks/usePointer';
 
 const Oscillator = () => {

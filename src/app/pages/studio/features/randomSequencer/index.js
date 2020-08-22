@@ -17,9 +17,9 @@ import {
 
 import './styles.css';
 
-import random from 'utils/helpers/random';
-import newArray from 'utils/helpers/newArray';
-import stepDataInitialState from 'utils/helpers/stepDataInitialState';
+import random from 'utils/studioHelpers/random';
+import newArray from 'utils/studioHelpers/newArray';
+import stepDataInitialState from 'utils/studioHelpers/stepDataInitialState';
 
 import { Panel, Meta, PlaybackButton } from '../../ui';
 

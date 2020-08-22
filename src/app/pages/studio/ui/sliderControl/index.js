@@ -5,7 +5,7 @@ import './styles.css';
 
 import Control from '../control';
 
-import interpolate from 'utils/helpers/interpolate';
+import interpolate from 'utils/studioHelpers/interpolate';
 
 const SliderControl = memo(
   ({

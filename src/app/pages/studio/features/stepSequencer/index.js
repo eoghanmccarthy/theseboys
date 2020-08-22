@@ -15,11 +15,11 @@ import {
 
 //https://tone-demos.glitch.me/
 
-import random from 'utils/helpers/random';
-import newArray from 'utils/helpers/newArray';
-import stepDataInitialState from 'utils/helpers/stepDataInitialState';
-import drawSteps from 'utils/helpers/drawSteps';
-import isStepOn from 'utils/helpers/isStepOn';
+import random from 'utils/studioHelpers/random';
+import newArray from 'utils/studioHelpers/newArray';
+import stepDataInitialState from 'utils/studioHelpers/stepDataInitialState';
+import drawSteps from 'utils/studioHelpers/drawSteps';
+import isStepOn from 'utils/studioHelpers/isStepOn';
 
 import {
   Panel,
