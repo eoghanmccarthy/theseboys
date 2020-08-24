@@ -10,6 +10,7 @@ module.exports = {
     filename: '[name].[chunkhash].js',
     chunkFilename: '[id].[chunkhash].js'
   },
+  devtool: 'source-map',
   resolve: {
     alias: {
       src: path.resolve(__dirname, 'src/'),

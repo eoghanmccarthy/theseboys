@@ -6,7 +6,6 @@ const CircularDependencyPlugin = require('circular-dependency-plugin');
 
 module.exports = merge(common, {
   mode: 'development',
-  devtool: 'inline-source-map',
   devServer: {
     publicPath: '/',
     contentBase: path.resolve(__dirname, 'dist/'),
