@@ -3,9 +3,11 @@ import classNames from 'classnames';
 
 import './styles.css';
 
+import Button from 'componentLib/button';
+
 const PlaybackButton = memo(({ type = 'play', isActive = false, onClick }) => {
   return (
-    <button
+    <Button
       className={classNames('playback-button', { [type]: type, active: isActive })}
       onClick={onClick}
     />

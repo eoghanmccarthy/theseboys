@@ -1,31 +1,17 @@
-.mute-button {
+.button.mute-button {
     align-self: center;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 50px;
-    height: 50px;
     color: white;
-    background-color: transparent;
-    border: 1px solid var(--color-bluegrey-600);
-    border-radius: 50%;
-    transition: all .25s;
 }
 
-.mute-button:hover {
-    border-color: var(--color-tertiary);
+.button.mute-button:hover {
+    border-color: white;
 }
 
-.mute-button.disabled {
-    pointer-events: none;
-}
-
-.mute-button.active {
+.button.mute-button.active {
     border-color: var(--color-tertiary);
     background-color: var(--color-tertiary);
-}
-
-.mute-button:focus {
-    outline: none;
 }

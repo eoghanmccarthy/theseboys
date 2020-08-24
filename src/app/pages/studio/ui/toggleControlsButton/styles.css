@@ -1,34 +1,26 @@
-.toggle-controls-button {
+.button.toggle-controls-button {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 50px;
-    height: 50px;
-    background-color: transparent;
     border: none;
-    transition: all .25s;
 }
 
-.toggle-controls-button[data-status=expanded] {
+.button.toggle-controls-button[data-status=expanded] {
     transform: rotate(180deg);
 }
 
-.toggle-controls-button > span {
+.button.toggle-controls-button > span {
     width: 12px;
     height: 1px;
     background-color: white;
     transform-origin: center;
 }
 
-.toggle-controls-button > span:first-child {
+.button.toggle-controls-button > span:first-child {
     margin-right: -4px;
     transform: rotate(45deg);
 }
 
-.toggle-controls-button > span:last-child {
+.button.toggle-controls-button > span:last-child {
     transform: rotate(-45deg);
-}
-
-.toggle-controls-button:focus {
-    outline: none;
 }

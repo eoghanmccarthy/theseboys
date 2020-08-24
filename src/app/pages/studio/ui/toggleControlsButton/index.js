@@ -3,10 +3,12 @@ import cx from 'classnames';
 
 import './styles.css';
 
+import Button from 'componentLib/button';
+
 const ToggleControlsButton = memo(({ trackId }) => {
   return (
-    <button
-      className={cx('toggle-controls-button', { [trackId]: trackId })}
+    <Button
+      className={cx('toggle-controls-button', `${trackId}`)}
       data-status={'expanded'}
       onClick={() => {
         const elem = document.querySelector(`.track__controls.${trackId}`);
@@ -27,7 +29,7 @@ const ToggleControlsButton = memo(({ trackId }) => {
     >
       <span />
       <span />
-    </button>
+    </Button>
   );
 });
 

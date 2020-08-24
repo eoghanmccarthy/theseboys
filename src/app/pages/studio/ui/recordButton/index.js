@@ -2,8 +2,10 @@ import React, { memo } from 'react';
 
 import './styles.css';
 
+import Button from 'componentLib/button';
+
 const RecordButton = memo(({ onClick }) => {
-  return <button id={'record-button'} data-recorder-status={'off'} onClick={onClick} />;
+  return <Button className={'record-button'} data-recorder-status={'off'} onClick={onClick} />;
 });
 
 export default RecordButton;

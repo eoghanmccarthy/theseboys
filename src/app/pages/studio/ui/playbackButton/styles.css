@@ -1,56 +1,41 @@
-.playback-button {
+.button.playback-button {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     z-index: 999;
-    width: 50px;
-    height: 50px;
-    background-color: transparent;
-    border: 1px solid var(--color-bluegrey-600);
-    border-radius: 50%;
-    transition: all .25s;
 }
 
-.playback-button.play:after {
+.button.playback-button:after {
     content: "";
     display: block;
     position: relative;
+    transition: all .25s;
+}
+
+.button.playback-button.play:after {
     left: 3px;
     width: 0;
     height: 0;
     border-style: solid;
     border-width: 10px 0 10px 20px;
     border-color: transparent transparent transparent var(--color-bluegrey-600);
-    transition: all .25s;
 }
 
-.playback-button:hover {
+.button.playback-button:hover {
     border-color: white;
 }
 
-.playback-button.play:hover:after {
+.button.playback-button.play:hover:after {
     border-left-color: white;
 }
 
-.playback-button.stop:after {
-    content: "";
-    display: block;
-    position: relative;
+.button.playback-button.stop:after {
     width: 16px;
     height: 16px;
     background-color: var(--color-bluegrey-600);
-    transition: all .25s;
 }
 
-.playback-button.stop:hover:after {
+.button.playback-button.stop:hover:after {
     background-color: white;
-}
-
-.playback-button.disabled {
-    pointer-events: none;
-}
-
-.playback-button:focus {
-    outline: none;
 }

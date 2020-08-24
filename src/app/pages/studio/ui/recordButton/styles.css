@@ -1,18 +1,12 @@
-#record-button {
+.button.record-button {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     z-index: 999;
-    width: 50px;
-    height: 50px;
-    background-color: transparent;
-    border: 1px solid var(--color-bluegrey-600);
-    border-radius: 50%;
-    transition: all .25s;
 }
 
-#record-button:after {
+.button.record-button:after {
     content: "";
     display: block;
     position: relative;
@@ -23,26 +17,18 @@
     transition: all .25s;
 }
 
-#record-button:hover {
+.button.record-button:hover {
     border-color: white;
 }
 
-#record-button:hover:after {
+.button.record-button:hover:after {
     border-left-color: white;
 }
 
-#record-button[data-recorder-status = 'stand-by'] {
+.button.record-button[data-recorder-status = 'stand-by'] {
     background-color: blue;
 }
 
-#record-button[data-recorder-status = 'on'] {
+.button.record-button[data-recorder-status = 'on'] {
     background-color: red;
-}
-
-#record-button.disabled {
-    pointer-events: none;
-}
-
-#record-button:focus {
-    outline: none;
 }

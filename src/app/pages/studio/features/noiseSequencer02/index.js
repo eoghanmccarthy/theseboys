@@ -75,7 +75,7 @@ const NoiseSequencer02 = memo(({ trackId, channelDefaults }) => {
     })
   );
 
-  const filter = useRef(new Filter({ Q: 2, frequency: 1000 }));
+  const filter = useRef(new Filter({ Q: 2, frequency: 8000 }));
 
   const distortion = useRef(new Distortion({ distortion: 1, oversample: '4x', wet: 0.6 }));
 

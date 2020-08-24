@@ -48,7 +48,7 @@ const Master = () => {
       <ButtonGroup>
         <RecordButton
           onClick={() => {
-            const element = document.querySelector('#record-button');
+            const element = document.querySelector('.record-button');
 
             const status = element.getAttribute('data-recorder-status');
 
@@ -75,7 +75,7 @@ const Master = () => {
 
             console.log('audio context is', context.state);
 
-            const recorderElement = document.querySelector('#record-button');
+            const recorderElement = document.querySelector('.record-button');
             const recorderStatus = recorderElement.getAttribute('data-recorder-status');
 
             if (Transport.state === 'stopped') {

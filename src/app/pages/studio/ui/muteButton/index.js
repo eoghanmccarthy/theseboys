@@ -3,17 +3,19 @@ import cx from 'classnames';
 
 import './styles.css';
 
+import Button from 'componentLib/button';
+
 const MuteButton = memo(({ node, trackId }) => {
   if (!node) return null;
 
   return (
-    <button
-      className={cx(`mute-button ${trackId}__mute`)}
+    <Button
+      className={cx(`mute-button`, `${trackId}`)}
       onClick={() => {
         const { mute } = node.get();
         node.set({ mute: !mute });
 
-        const element = document.querySelector(`.${trackId}__mute`);
+        const element = document.querySelector(`.mute-button.${trackId}`);
 
         if (!mute) {
           element.classList.add('active');
@@ -23,7 +25,7 @@ const MuteButton = memo(({ node, trackId }) => {
       }}
     >
       mute
-    </button>
+    </Button>
   );
 });
 

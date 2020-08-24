@@ -3,11 +3,13 @@ import cx from 'classnames';
 
 import './styles.css';
 
+import Button from 'componentLib/button';
+
 const HitButton = memo(({ trackId, onClick }) => {
   return (
-    <button className={cx(`hit-button ${trackId}__hit`)} onClick={onClick}>
+    <Button className={cx(`hit-button`, `${trackId}`)} onClick={onClick}>
       hit
-    </button>
+    </Button>
   );
 });
 
