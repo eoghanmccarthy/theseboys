@@ -33,7 +33,8 @@ import {
   TrackContainer,
   TrackMeta,
   TrackSteps,
-  TrackControls
+  TrackControls,
+  ToggleControlsButton
 } from '../../ui';
 import ChannelControls from '../channelControls';
 import EnvelopeControls from '../envelopeControls';
@@ -143,17 +144,10 @@ const MembraneSynth01 = memo(({ trackId, channelDefaults }) => {
         <ButtonGroup>
           <MuteButton node={channel?.current} trackId={trackId} />
         </ButtonGroup>
-        <ChannelControls trackId={trackId} channel={channel?.current} />
-        <button
-          onClick={() => {
-            const elem = document.querySelector(`.track__controls.${trackId}`);
-            const display = elem.style.display;
-
-            elem.style.display = display !== 'none' ? 'none' : 'flex';
-          }}
-        >
-          hide
-        </button>
+        <ButtonGroup>
+          <ChannelControls trackId={trackId} channel={channel?.current} />
+          <ToggleControlsButton trackId={trackId} />
+        </ButtonGroup>
       </TrackMeta>
       <TrackSteps>
         <ButtonGroup>

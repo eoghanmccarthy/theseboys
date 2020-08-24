@@ -11,6 +11,7 @@ import {
   Channel,
   Compressor,
   Gain,
+  Filter,
   NoiseSynth,
   EQ3
 } from 'tone';
@@ -33,10 +34,12 @@ import {
   TrackMeta,
   TrackSteps,
   TrackControls,
-  ControlGroup
+  ControlGroup,
+  ToggleControlsButton
 } from '../../ui';
 import ChannelControls from '../channelControls';
 import EnvelopeControls from '../envelopeControls';
+import FilterControls from '../filterControls';
 import Eq3Controls from '../eq3Controls';
 
 const notes = ['C1'];
@@ -72,15 +75,9 @@ const NoiseSequencer02 = memo(({ trackId, channelDefaults }) => {
     })
   );
 
-  const distortion = useRef(new Distortion({ distortion: 1, oversample: '4x', wet: 0.6 }));
+  const filter = useRef(new Filter({ Q: 2, frequency: 1000 }));
 
-  const reverb = useRef(
-    new Reverb({
-      decay: 4,
-      wet: 0.2,
-      preDelay: 0.25
-    })
-  );
+  const distortion = useRef(new Distortion({ distortion: 1, oversample: '4x', wet: 0.6 }));
 
   const gain = useRef(new Gain(2));
 
@@ -92,7 +89,7 @@ const NoiseSequencer02 = memo(({ trackId, channelDefaults }) => {
         decay: 0.15,
         release: 0.06
       }
-    }).chain(channel.current, eq3.current, gain.current, Destination)
+    }).chain(channel.current, eq3.current, filter.current, gain.current, Destination)
   );
 
   useEffect(() => {
@@ -129,7 +126,10 @@ const NoiseSequencer02 = memo(({ trackId, channelDefaults }) => {
         <ButtonGroup>
           <MuteButton node={channel?.current} trackId={trackId} />
         </ButtonGroup>
-        <ChannelControls trackId={trackId} channel={channel?.current} />
+        <ButtonGroup>
+          <ChannelControls trackId={trackId} channel={channel?.current} />
+          <ToggleControlsButton trackId={trackId} />
+        </ButtonGroup>
       </TrackMeta>
       <TrackSteps>
         <ButtonGroup>
@@ -137,31 +137,25 @@ const NoiseSequencer02 = memo(({ trackId, channelDefaults }) => {
         </ButtonGroup>
         <Steps trackId={trackId} steps={stepsRef?.current} />
       </TrackSteps>
-      <TrackControls>
+      <TrackControls trackId={trackId}>
         <Eq3Controls trackId={trackId} eq3={eq3?.current} />
-        <ControlGroup orientation={'horizontal'} title={'effects'}>
-          <ButtonControl
-            showPercentageValue
-            node={distortion?.current}
-            trackId={trackId}
-            effectName={'distortion'}
-            label={'DIS'}
-          />
-          <ButtonControl
-            showPercentageValue
-            node={reverb?.current}
-            trackId={trackId}
-            effectName={'reverb'}
-            label={'REV'}
-          />
-          {/*<ButtonControl*/}
-          {/*  node={delay?.current}*/}
-          {/*  trackId={trackId}*/}
-          {/*  effectName={'delay'}*/}
-          {/*  label={'DLY'}*/}
-          {/*  showPercentageValue*/}
-          {/*/>*/}
-        </ControlGroup>
+        <FilterControls trackId={trackId} filter={filter?.current} />
+        {/*<ControlGroup orientation={'horizontal'} title={'effects'}>*/}
+        {/*  <ButtonControl*/}
+        {/*    showPercentageValue*/}
+        {/*    node={distortion?.current}*/}
+        {/*    trackId={trackId}*/}
+        {/*    effectName={'distortion'}*/}
+        {/*    label={'DIS'}*/}
+        {/*  />*/}
+        {/*  <ButtonControl*/}
+        {/*    node={delay?.current}*/}
+        {/*    trackId={trackId}*/}
+        {/*    effectName={'delay'}*/}
+        {/*    label={'DLY'}*/}
+        {/*    showPercentageValue*/}
+        {/*  />*/}
+        {/*</ControlGroup>*/}
         <EnvelopeControls trackId={trackId} envelope={synth?.current?.envelope} />
       </TrackControls>
     </TrackContainer>

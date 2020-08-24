@@ -35,6 +35,10 @@
     width: 100px;
 }
 
+.ui-control.button-control.horizontal .ui-control__controls {
+    transform: rotate(180deg);
+}
+
 .ui-control .ui-control__label {
     grid-area: label;
     width: 5ch;

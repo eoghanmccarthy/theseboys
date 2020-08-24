@@ -33,7 +33,8 @@ import {
   MuteButton,
   HitButton,
   ButtonGroup,
-  ControlGroup
+  ControlGroup,
+  ToggleControlsButton
 } from '../../ui';
 import ChannelControls from '../channelControls';
 import EnvelopeControls from '../envelopeControls';
@@ -146,7 +147,10 @@ const MetalSynth01 = memo(({ trackId, channelDefaults }) => {
         <ButtonGroup>
           <MuteButton trackId={trackId} node={channel?.current} />
         </ButtonGroup>
-        <ChannelControls trackId={trackId} channel={channel?.current} />
+        <ButtonGroup>
+          <ChannelControls trackId={trackId} channel={channel?.current} />
+          <ToggleControlsButton trackId={trackId} />
+        </ButtonGroup>
       </TrackMeta>
       <TrackSteps>
         <ButtonGroup>
@@ -154,7 +158,7 @@ const MetalSynth01 = memo(({ trackId, channelDefaults }) => {
         </ButtonGroup>
         <Steps trackId={trackId} steps={stepsRef?.current} />
       </TrackSteps>
-      <TrackControls>
+      <TrackControls trackId={trackId}>
         <Meta></Meta>
         <ControlGroup orientation={'horizontal'} title={'effects'}>
           <ButtonControl

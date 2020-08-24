@@ -24,7 +24,12 @@ const ButtonControl = memo(
     const controlName = `${trackId}__control--${effectName}`;
 
     return (
-      <Control orientation={orientation} controlName={controlName} label={label}>
+      <Control
+        type={'button-control'}
+        orientation={orientation}
+        controlName={controlName}
+        label={label}
+      >
         <ControlButton
           controlName={controlName}
           node={node}

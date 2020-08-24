@@ -54,7 +54,7 @@ const SliderControl = memo(
     };
 
     return (
-      <Control orientation={orientation} controlName={name} label={label}>
+      <Control type={'slider-control'} orientation={orientation} controlName={name} label={label}>
         <input
           className={cx('control__slider', name)}
           orient={orientation}

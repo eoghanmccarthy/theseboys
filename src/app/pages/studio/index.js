@@ -56,8 +56,8 @@ const Experiments = () => {
         <NoiseSynth01
           trackId={'hi-hat'}
           channelDefaults={{
-            pan: -0.6,
-            volume: 0,
+            pan: -0.5,
+            volume: -4,
             mute: false,
             solo: false
           }}
