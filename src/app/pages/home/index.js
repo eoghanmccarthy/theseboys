@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 
 import './index.css';
 
-import TwitterLogo from 'src/assets/Twitter_Social_Icon_Circle_Color.svg';
+import TwitterLogo from 'src/assets/Twitter_Social_Icon_Circle_White.svg';
 
 import Main from 'global/main';
 import Footer from 'global/footer';
