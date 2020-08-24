@@ -1,11 +1,12 @@
-import React, { useState, useLayoutEffect } from "react";
-import { connect, useSelector } from "react-redux";
-import { withRouter } from "react-router";
-import "./styles.css";
+import React, { useState, useLayoutEffect } from 'react';
+import { connect, useSelector } from 'react-redux';
+import { withRouter } from 'react-router';
 
-import { fetchAuthConfig } from "authentication/redux";
+import './styles.css';
 
-import Routes from "routes";
+import { fetchAuthConfig } from 'authentication/redux';
+
+import Routes from 'routes';
 
 const App = ({ fetchAuthConfig }) => {
   const auth = useSelector(state => state.app.authentication);

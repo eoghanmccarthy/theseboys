@@ -2,7 +2,7 @@
  * Sets playback status data attribute
  *
  * @param {string} track Track name
- * @param {number} stepTotal Total number of steps
+ * @param {number} stepTotal Total number of steps in a row
  * @param {number} step Step index
  */
 

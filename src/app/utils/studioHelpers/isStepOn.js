@@ -1,13 +1,31 @@
+import errorLog from 'utils/errorHandlers/errorLog';
+
 /**
- * Gets data attribute to checks if step is scheduled to play
+ * Gets step-status data attribute to checks if step is scheduled to play
  *
- * @param {string} track Track name
- * @param {string} row Row id
- * @param {string} step Step id
+ * @param {string} trackId Track name
+ * @param {number} row Row index
+ * @param {number} step Step index
  * @returns {boolean}
  */
+export default (trackId, row, step) => {
+  const sendError = msg => {
+    errorLog(msg, trackId, row, step);
+  };
 
-export default (track, row, step) =>
-  document
-    .querySelector(`.${track}__step.track-${row}-step-${step}`)
-    .getAttribute('data-step-status') === 'on';
+  if (typeof trackId !== 'string') {
+    sendError('Track id is invalid');
+    return false;
+  }
+
+  const node = document.querySelector(`.${trackId}__step.track-${row}-step-${step}`);
+
+  if (!node) {
+    sendError('Step node not found');
+    return false;
+  }
+
+  const attr = node.getAttribute('data-step-status');
+
+  return attr === 'on';
+};
