@@ -21,7 +21,9 @@ const Home = () => {
             allowTransparency="true"
             scrolling="no"
             frameBorder="no"
-            src="https://w.soundcloud.com/icon/?url=http%3A%2F%2Fsoundcloud.com%2Ftheseboys&color=orange_white&size=24"
+            src={
+              'https://w.soundcloud.com/icon/?url=http%3A%2F%2Fsoundcloud.com%2Ftheseboys&color=orange_white&size=24'
+            }
             style={{ width: '24px', height: '24px' }}
           />
         </div>
