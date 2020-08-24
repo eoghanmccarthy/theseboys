@@ -67,14 +67,14 @@ const MembraneSynth01 = memo(({ trackId, channelDefaults }) => {
     new Compressor({
       threshold: -30,
       ratio: 6,
-      attack: 0.3,
+      attack: 0.0001,
       release: 0.1
     })
   );
 
   const gain = useRef(new Gain(2));
 
-  const eq3 = useRef(new EQ3({ low: -21, mid: -56, high: -54 }));
+  const eq3 = useRef(new EQ3({ low: 0, mid: -56, high: -54 }));
 
   const delay = useRef(
     new FeedbackDelay({
@@ -102,7 +102,7 @@ const MembraneSynth01 = memo(({ trackId, channelDefaults }) => {
         type: 'square4'
       },
       envelope: {
-        attack: 0.09,
+        attack: 0.001,
         decay: 0.45,
         sustain: 0.1,
         release: 0.3
@@ -158,29 +158,29 @@ const MembraneSynth01 = memo(({ trackId, channelDefaults }) => {
       <TrackControls trackId={trackId}>
         <Eq3Controls trackId={trackId} eq3={eq3?.current} />
         <CompressorControls trackId={trackId} compressor={compressor.current} />
-        <ControlGroup orientation={'horizontal'} title={'effects'}>
-          <ButtonControl
-            trackId={trackId}
-            node={distortion?.current}
-            effectName={'distortion'}
-            label={'DIS'}
-            showPercentageValue
-          />
-          <ButtonControl
-            trackId={trackId}
-            node={reverb?.current}
-            effectName={'reverb'}
-            label={'REV'}
-            showPercentageValue
-          />
-          <ButtonControl
-            trackId={trackId}
-            node={delay?.current}
-            effectName={'delay'}
-            label={'DLY'}
-            showPercentageValue
-          />
-        </ControlGroup>
+        {/*<ControlGroup orientation={'horizontal'} title={'effects'}>*/}
+        {/*  <ButtonControl*/}
+        {/*    trackId={trackId}*/}
+        {/*    node={distortion?.current}*/}
+        {/*    effectName={'distortion'}*/}
+        {/*    label={'DIS'}*/}
+        {/*    showPercentageValue*/}
+        {/*  />*/}
+        {/*  <ButtonControl*/}
+        {/*    trackId={trackId}*/}
+        {/*    node={reverb?.current}*/}
+        {/*    effectName={'reverb'}*/}
+        {/*    label={'REV'}*/}
+        {/*    showPercentageValue*/}
+        {/*  />*/}
+        {/*  <ButtonControl*/}
+        {/*    trackId={trackId}*/}
+        {/*    node={delay?.current}*/}
+        {/*    effectName={'delay'}*/}
+        {/*    label={'DLY'}*/}
+        {/*    showPercentageValue*/}
+        {/*  />*/}
+        {/*</ControlGroup>*/}
         <EnvelopeControls trackId={trackId} envelope={synth?.current?.envelope} />
       </TrackControls>
     </TrackContainer>

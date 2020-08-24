@@ -11,7 +11,8 @@ import {
   Channel,
   Compressor,
   Gain,
-  MetalSynth
+  MetalSynth,
+  EQ3
 } from 'tone';
 
 //https://tone-demos.glitch.me/
@@ -38,6 +39,7 @@ import {
 } from '../../ui';
 import ChannelControls from '../channelControls';
 import EnvelopeControls from '../envelopeControls';
+import Eq3Controls from '../eq3Controls';
 
 const notes = ['C1'];
 //const notes = ['A4', 'D3', 'E3', 'G4', 'F#4'];
@@ -90,6 +92,8 @@ const MetalSynth01 = memo(({ trackId, channelDefaults }) => {
 
   const gain = useRef(new Gain(2));
 
+  const eq3 = useRef(new EQ3({ low: 0, mid: 0, high: 0 }));
+
   const synth = useRef(
     new MetalSynth({
       harmonicity: 12,
@@ -107,6 +111,7 @@ const MetalSynth01 = memo(({ trackId, channelDefaults }) => {
       distortion.current,
       reverb.current,
       delay.current,
+      eq3.current,
       compressor.current,
       gain.current,
       Destination
@@ -159,7 +164,7 @@ const MetalSynth01 = memo(({ trackId, channelDefaults }) => {
         <Steps trackId={trackId} steps={stepsRef?.current} />
       </TrackSteps>
       <TrackControls trackId={trackId}>
-        <Meta></Meta>
+        <Eq3Controls trackId={trackId} eq3={eq3?.current} />
         <ControlGroup orientation={'horizontal'} title={'effects'}>
           <ButtonControl
             trackId={trackId}
