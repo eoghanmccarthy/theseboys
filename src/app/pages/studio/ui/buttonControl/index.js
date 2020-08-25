@@ -17,7 +17,7 @@ const ButtonControl = memo(
     showPercentageValue = false,
     toFixed = 1
   }) => {
-    if (!node) {
+    if (!node || !trackId) {
       return null;
     }
 

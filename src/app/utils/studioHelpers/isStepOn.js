@@ -8,6 +8,7 @@ import errorLog from 'utils/errorHandlers/errorLog';
  * @param {number} step Step index
  * @returns {boolean}
  */
+
 export default (trackId, row, step) => {
   const sendError = msg => {
     errorLog(msg, trackId, row, step);

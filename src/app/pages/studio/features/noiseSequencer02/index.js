@@ -1,8 +1,6 @@
 import React, { useRef, memo, useEffect } from 'react';
 import { useImmer } from 'use-immer';
 import {
-  Reverb,
-  FeedbackDelay,
   Destination,
   Sequence,
   Draw,
@@ -144,17 +142,10 @@ const NoiseSequencer02 = memo(({ trackId, channelDefaults }) => {
         <FilterControls trackId={trackId} filter={filter?.current} />
         {/*<ControlGroup orientation={'horizontal'} title={'effects'}>*/}
         {/*  <ButtonControl*/}
-        {/*    showPercentageValue*/}
-        {/*    node={distortion?.current}*/}
         {/*    trackId={trackId}*/}
-        {/*    effectName={'distortion'}*/}
-        {/*    label={'DIS'}*/}
-        {/*  />*/}
-        {/*  <ButtonControl*/}
-        {/*    node={delay?.current}*/}
-        {/*    trackId={trackId}*/}
-        {/*    effectName={'delay'}*/}
-        {/*    label={'DLY'}*/}
+        {/*    node={phaser?.current}*/}
+        {/*    effectName={'effect-phaser'}*/}
+        {/*    label={'PSR'}*/}
         {/*    showPercentageValue*/}
         {/*  />*/}
         {/*</ControlGroup>*/}

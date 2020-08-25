@@ -12,7 +12,8 @@ import {
   Compressor,
   Gain,
   MetalSynth,
-  EQ3
+  EQ3,
+  Phaser
 } from 'tone';
 
 //https://tone-demos.glitch.me/
@@ -79,6 +80,14 @@ const MetalSynth01 = memo(({ trackId, channelDefaults }) => {
       delayTime: `${Math.floor(numCols / 2)}n`,
       feedback: 1 / 3,
       wet: 0.0
+    })
+  );
+
+  const phaser = useRef(
+    new Phaser({
+      frequency: 15,
+      octaves: 5,
+      baseFrequency: 1000
     })
   );
 

@@ -1,3 +1,11 @@
+/**
+ * Initial step values
+ *
+ * @param {number} numRows Number of rows
+ * @param {number} numCols Number of columns
+ * @returns {array}
+ */
+
 export default (numRows, numCols) => {
   const arr = [];
   for (let y = 0; y < numRows; y++) {
