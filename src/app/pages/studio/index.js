@@ -2,6 +2,8 @@ import React, { Fragment } from 'react';
 
 import './index.css';
 
+import getTrackId from 'utils/studioHelpers/getTrackId';
+
 import Oscillator from 'features/oscillator';
 import Main from 'global/main';
 import Footer from 'global/footer';
@@ -36,7 +38,7 @@ const Experiments = () => {
         <Master />
         {/*<StepSequencer trackId={'001'} />*/}
         <MembraneSynth01
-          trackId={'kick'}
+          trackId={getTrackId()}
           channelDefaults={{
             pan: 0,
             volume: 12,
@@ -45,7 +47,7 @@ const Experiments = () => {
           }}
         />
         <MetalSynth01
-          trackId={'conga'}
+          trackId={getTrackId()}
           channelDefaults={{
             pan: 0.7,
             volume: 12,
@@ -54,7 +56,7 @@ const Experiments = () => {
           }}
         />
         <NoiseSynth01
-          trackId={'hi-hat'}
+          trackId={getTrackId()}
           channelDefaults={{
             pan: -0.5,
             volume: -4,
@@ -63,7 +65,7 @@ const Experiments = () => {
           }}
         />
         <NoiseSynth02
-          trackId={'closed-hi-hat'}
+          trackId={getTrackId()}
           channelDefaults={{
             pan: 0.8,
             volume: -8,

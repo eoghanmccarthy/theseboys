@@ -11,7 +11,7 @@ const Eq3Controls = memo(({ trackId, eq3 }) => {
         trackId={trackId}
         node={eq3}
         param={'low'}
-        effectName={'low'}
+        effectName={'eq3-low'}
         label={'LOW'}
         step={1}
         min={-60}
@@ -22,7 +22,7 @@ const Eq3Controls = memo(({ trackId, eq3 }) => {
         trackId={trackId}
         node={eq3}
         param={'mid'}
-        effectName={'mid'}
+        effectName={'eq3-mid'}
         label={'MID'}
         step={1}
         min={-60}
@@ -33,7 +33,7 @@ const Eq3Controls = memo(({ trackId, eq3 }) => {
         trackId={trackId}
         node={eq3}
         param={'high'}
-        effectName={'high'}
+        effectName={'eq3-high'}
         label={'HIH'}
         step={1}
         min={-60}

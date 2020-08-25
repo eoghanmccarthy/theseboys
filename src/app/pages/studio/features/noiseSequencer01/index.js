@@ -55,6 +55,8 @@ const noteInterval = `${numCols}n`;
 const noteIndices = newArray(numCols);
 
 const NoiseSequencer01 = memo(({ trackId, channelDefaults }) => {
+  if (!trackId) return null;
+
   const [data, setData] = useImmer(() => stepDataInitialState(numRows, numCols));
 
   const stepsRef = useRef(data);
