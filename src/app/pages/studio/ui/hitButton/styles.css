@@ -1,13 +1,9 @@
-.button.hit-button {
+.ui-button.hit-button {
     align-self: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
     color: white;
 }
 
-.button.hit-button:hover {
+.ui-button.hit-button:hover {
     color: var(--color-tertiary);
     border-color: var(--color-tertiary);
 }

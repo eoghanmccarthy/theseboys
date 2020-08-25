@@ -5,6 +5,8 @@ import './styles.css';
 
 import interpolate from 'utils/studioHelpers/interpolate';
 
+import Button from 'componentLib/button';
+
 const EffectControlButton = memo(
   ({
     children,
@@ -38,7 +40,8 @@ const EffectControlButton = memo(
     });
 
     return (
-      <button
+      <Button
+        size={28}
         className={cx('ui-control__button', controlName, {
           inc: !dec,
           dec: dec
@@ -71,7 +74,7 @@ const EffectControlButton = memo(
         }}
       >
         {children}
-      </button>
+      </Button>
     );
   }
 );

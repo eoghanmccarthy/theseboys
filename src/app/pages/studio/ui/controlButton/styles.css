@@ -1,27 +1,12 @@
-.ui-control__button {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 28px;
-    height: 28px;
+.ui-button.ui-control__button {
     color: var(--color-bluegrey-400);
-    background-color: transparent;
-    border: 1px solid var(--color-bluegrey-400);
-    border-radius: 100%;
-    cursor: pointer;
-    transition: all .25s;
 }
 
-.ui-control__button:hover {
+.ui-button.ui-control__button:hover {
     color: white;
     border-color: white;
 }
 
-.ui-control__button:focus {
-    outline: none;
-}
-
-.ui-control__button.limit {
+.ui-button.ui-control__button.limit {
     background-color: var(--color-secondary);
 }

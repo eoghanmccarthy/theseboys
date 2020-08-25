@@ -1,19 +1,11 @@
-.button.playback-button {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    z-index: 999;
-}
-
-.button.playback-button:after {
+.ui-button.playback-button:after {
     content: "";
     display: block;
     position: relative;
     transition: all .25s;
 }
 
-.button.playback-button.play:after {
+.ui-button.playback-button.play:after {
     left: 3px;
     width: 0;
     height: 0;
@@ -22,20 +14,20 @@
     border-color: transparent transparent transparent var(--color-bluegrey-600);
 }
 
-.button.playback-button:hover {
+.ui-button.playback-button:hover {
     border-color: white;
 }
 
-.button.playback-button.play:hover:after {
+.ui-button.playback-button.play:hover:after {
     border-left-color: white;
 }
 
-.button.playback-button.stop:after {
+.ui-button.playback-button.stop:after {
     width: 16px;
     height: 16px;
     background-color: var(--color-bluegrey-600);
 }
 
-.button.playback-button.stop:hover:after {
+.ui-button.playback-button.stop:hover:after {
     background-color: white;
 }

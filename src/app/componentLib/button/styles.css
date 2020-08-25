@@ -1,28 +1,37 @@
-.button {
+.ui-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     background-color: transparent;
     border: 1px solid var(--color-bluegrey-600);
     transition: all .25s;
     cursor: pointer;
 }
 
-.button.size-24 {
+.ui-button.size-24 {
     width: 24px;
     height: 24px;
 }
 
-.button.size-48 {
+.ui-button.size-28 {
+    width: 28px;
+    height: 28px;
+}
+
+.ui-button.size-48 {
     width: 48px;
     height: 48px;
 }
 
-.button.circle {
+.ui-button.circle {
     border-radius: 50%;
 }
 
-.button.disabled {
+.ui-button.disabled {
     pointer-events: none;
 }
 
-.button:focus {
+.ui-button:focus {
     outline: none;
 }

@@ -1,26 +1,24 @@
-.button.toggle-controls-button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.ui-button.toggle-controls-button {
+    flex-direction: row;
     border: none;
 }
 
-.button.toggle-controls-button[data-status=expanded] {
+.ui-button.toggle-controls-button[data-status=expanded] {
     transform: rotate(180deg);
 }
 
-.button.toggle-controls-button > span {
+.ui-button.toggle-controls-button > span {
     width: 12px;
     height: 1px;
     background-color: white;
     transform-origin: center;
 }
 
-.button.toggle-controls-button > span:first-child {
+.ui-button.toggle-controls-button > span:first-child {
     margin-right: -4px;
     transform: rotate(45deg);
 }
 
-.button.toggle-controls-button > span:last-child {
+.ui-button.toggle-controls-button > span:last-child {
     transform: rotate(-45deg);
 }

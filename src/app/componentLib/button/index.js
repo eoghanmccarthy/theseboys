@@ -8,7 +8,7 @@ const Button = memo(
     return (
       <button
         id={id}
-        className={cx(`button`, { [`size-${size}`]: size, [shape]: shape }, className)}
+        className={cx(`ui-button`, { [`size-${size}`]: size, [shape]: shape }, className)}
         onClick={onClick}
         {...rest}
       >

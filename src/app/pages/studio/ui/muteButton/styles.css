@@ -1,17 +1,13 @@
-.button.mute-button {
+.ui-button.mute-button {
     align-self: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
     color: white;
 }
 
-.button.mute-button:hover {
+.ui-button.mute-button:hover {
     border-color: white;
 }
 
-.button.mute-button.active {
+.ui-button.mute-button.active {
     border-color: var(--color-tertiary);
     background-color: var(--color-tertiary);
 }
