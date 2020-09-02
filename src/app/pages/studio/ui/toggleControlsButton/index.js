@@ -9,6 +9,7 @@ const ToggleControlsButton = memo(({ trackId }) => {
   return (
     <Button
       className={cx('toggle-controls-button', `${trackId}`)}
+      size={40}
       data-status={'expanded'}
       onClick={() => {
         const elem = document.querySelector(`.track__controls.${trackId}`);
