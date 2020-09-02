@@ -1,9 +1,9 @@
 .ui-control input[type=range] {
     -webkit-appearance: none;
-    grid-area: slider;
     width: 100%;
     height: 2px;
     margin: 0;
+    transition: all .25s;
 }
 
 .ui-control input[type=range][orient=vertical] {
@@ -14,6 +14,10 @@
 
 .ui-control input[type=range]:focus {
     outline: 0;
+}
+
+.ui-control input[type=range]:focus::-webkit-slider-thumb {
+    box-shadow: 0 0 0 3px white;
 }
 
 .ui-control input[type=range]::-webkit-slider-runnable-track {
