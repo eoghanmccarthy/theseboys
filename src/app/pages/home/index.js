@@ -6,13 +6,13 @@ import TwitterLogo from 'src/assets/Twitter_Social_Icon_Circle_Color.svg';
 
 import Main from 'global/main';
 import Footer from 'global/footer';
-import Logo from 'componentLib/logo';
+import Logo from 'componentLib/Logo';
 
 const Home = () => {
   return (
     <Fragment>
       <Main className={'index'}>
-        <Logo />
+        <Logo animate />
         <div className={'social-links'}>
           <a href={'http://twitter.com/theseboys'} target={'_blank'}>
             <img className={'social-twitter'} src={TwitterLogo} />

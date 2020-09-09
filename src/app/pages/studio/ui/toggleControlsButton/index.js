@@ -3,7 +3,7 @@ import cx from 'classnames';
 
 import './styles.css';
 
-import Button from 'componentLib/button';
+import Button from 'componentLib/Button';
 
 const ToggleControlsButton = memo(({ trackId }) => {
   return (

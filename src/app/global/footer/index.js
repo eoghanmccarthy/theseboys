@@ -1,13 +1,10 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 
 import './index.css';
 
-import Logo from 'componentLib/logo';
+import Logo from 'componentLib/Logo';
 
 const Footer = () => {
-  const auth = useSelector(state => state.app.authentication);
-
   return (
     <footer className={'me__footer'}>
       <Logo />

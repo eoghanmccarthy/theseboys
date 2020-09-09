@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 import './styles.css';
 
-import Button from 'componentLib/button';
+import Button from 'componentLib/Button';
 
 const PlaybackButton = memo(({ type = 'play', isActive = false, onClick }) => {
   return (

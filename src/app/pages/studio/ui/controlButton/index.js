@@ -5,7 +5,7 @@ import './styles.css';
 
 import interpolate from 'utils/studioHelpers/interpolate';
 
-import Button from 'componentLib/button';
+import Button from 'componentLib/Button';
 
 const EffectControlButton = memo(
   ({

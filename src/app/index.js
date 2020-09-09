@@ -1,26 +1,16 @@
-import React, { useState, useLayoutEffect } from 'react';
-import { connect, useSelector } from 'react-redux';
+import React from 'react';
 import { withRouter } from 'react-router';
 
 import './styles.css';
 
-import { fetchAuthConfig } from 'authentication/redux';
+import { useGetAuth } from './utils/api';
 
 import Routes from 'routes';
 
-const App = ({ fetchAuthConfig }) => {
-  const auth = useSelector(state => state.app.authentication);
-  const [appReady, setAppReady] = useState(false);
+const App = () => {
+  const auth = useGetAuth({ instance: 'app-root' }, { cacheTime: 0 });
 
-  useLayoutEffect(() => {
-    _bootstrapAsync();
-  }, [auth.isLoaded]);
-
-  const _bootstrapAsync = async () => {
-    auth.isLoaded ? setAppReady(true) : fetchAuthConfig();
-  };
-
-  return !appReady ? null : <Routes />;
+  return !auth.isSuccess ? null : <Routes />;
 };
 
-export default withRouter(connect(null, { fetchAuthConfig })(App));
+export default withRouter(App);

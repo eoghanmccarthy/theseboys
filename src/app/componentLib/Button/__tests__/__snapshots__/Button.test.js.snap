@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Button component matches snapshot 1`] = `
+<button
+  className="ui-button size-48 circle instance-class"
+  data-testid="instance-test-id"
+  disabled={false}
+  onClick={[Function]}
+  role="button"
+  tabIndex="0"
+  type="button"
+>
+  Click
+</button>
+`;

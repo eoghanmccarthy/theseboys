@@ -1,17 +1,12 @@
-import React from "react";
-import { withRouter } from "react-router";
-import { useSpring, animated } from "react-spring";
+import React from 'react';
+import { withRouter } from 'react-router';
+import { useSpring, animated } from 'react-spring';
 
-const calc = (x, y) => [
-  -(y - window.innerHeight / 2) / 20,
-  (x - window.innerWidth / 2) / 20,
-  1.1
-];
+const calc = (x, y) => [-(y - window.innerHeight / 2) / 20, (x - window.innerWidth / 2) / 20, 1.1];
 
-const trans = (x, y, s) =>
-  `perspective(600px) rotateX(${x}deg) rotateY(${y}deg) scale(${s})`;
+const trans = (x, y, s) => `perspective(600px) rotateX(${x}deg) rotateY(${y}deg) scale(${s})`;
 
-const Logo = ({ history, location }) => {
+const Logo = ({ animate = false }) => {
   const [props, set] = useSpring(() => ({
     xys: [0, 0, 1],
     config: { mass: 5, tension: 350, friction: 40 }
@@ -19,6 +14,11 @@ const Logo = ({ history, location }) => {
 
   return (
     <animated.svg
+      onMouseMove={({ clientX: x, clientY: y }) => set({ xys: calc(x, y) })}
+      onMouseLeave={() => set({ xys: [0, 0, 1] })}
+      {...(animate && {
+        style: { transform: props.xys.interpolate(trans) }
+      })}
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 480 480"
       enableBackground="new 0 0 480 480"
