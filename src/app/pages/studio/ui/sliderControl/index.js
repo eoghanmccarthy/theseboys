@@ -1,8 +1,7 @@
 import React, { memo, useEffect } from 'react';
 import cx from 'classnames';
 
-import './styles.css';
-
+import Slider from 'componentLib/slider';
 import Control from '../control';
 
 import interpolate from 'utils/studioHelpers/interpolate';
@@ -55,10 +54,9 @@ const SliderControl = memo(
 
     return (
       <Control type={'slider-control'} orientation={orientation} controlName={name} label={label}>
-        <input
+        <Slider
           className={cx('control__slider', name)}
           orient={orientation}
-          type={'range'}
           step={step}
           max={max}
           min={min}

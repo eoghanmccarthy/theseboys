@@ -1,0 +1,53 @@
+.step-sequencer .step {
+    display: grid;
+    align-content: center;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+    cursor: pointer;
+
+}
+
+.step-sequencer .step .step-zone {
+    width: 100%;
+    fill: none;
+}
+
+.step-sequencer .step .step-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 40%;
+    transform-origin: center;
+    transform: translate(-50%,-50%);
+    /*transition: all .25s;*/
+    overflow: visible;
+}
+
+.step-sequencer .step[data-value = 'off'] .step-icon.off {
+    display: block;
+    fill: var(--color-bluegrey-900);
+    stroke: var(--color-bluegrey-900);
+}
+
+.step-sequencer .step[data-value = 'off'] .step-icon.on {
+    display: none;
+}
+
+.step-sequencer .step[data-value = 'on'] .step-icon.off {
+    display: none;
+}
+
+.step-sequencer .step[data-value = 'on'] .step-icon.on {
+    display: block;
+    fill: var(--color-secondary);
+    stroke: var(--color-secondary);
+}
+
+.step-sequencer .step[data-status = 'idle'] .step-icon {
+    stroke-width: 0;
+}
+
+.step-sequencer .step[data-status = 'current'] .step-icon {
+    stroke-width: 5;
+}

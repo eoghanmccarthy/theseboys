@@ -21,12 +21,12 @@ import {
 import random from 'utils/studioHelpers/random';
 import newArray from 'utils/studioHelpers/newArray';
 import stepDataInitialState from 'utils/studioHelpers/stepDataInitialState';
-import drawSteps from 'utils/studioHelpers/drawSteps';
-import isStepOn from 'utils/studioHelpers/isStepOn';
+import { onSequenceStep } from 'features/stepSequencer/utils';
 
+import ButtonGroup from 'componentLib/ButtonGroup';
+import { Steps } from 'features/stepSequencer';
 import {
   Meta,
-  Steps,
   ButtonControl,
   TrackContainer,
   TrackMeta,
@@ -34,7 +34,6 @@ import {
   TrackControls,
   MuteButton,
   HitButton,
-  ButtonGroup,
   ControlGroup,
   ToggleControlsButton
 } from '../../ui';
@@ -130,7 +129,7 @@ const MetalSynth01 = memo(({ trackId, channelDefaults }) => {
   );
 
   useEffect(() => {
-    sequence.current = new Sequence(onSequenceStep, noteIndices, noteInterval).start(0);
+    sequence.current = new Sequence(handleOnSequenceStep, noteIndices, noteInterval).start(0);
 
     return () => {
       if (sequence.current) sequence.current.dispose();
@@ -143,18 +142,10 @@ const MetalSynth01 = memo(({ trackId, channelDefaults }) => {
     synth.current.triggerAttackRelease('C1', duration, time, velocity);
   };
 
-  const onSequenceStep = (time, column) => {
-    for (let i = 0; i < stepsRef.current.length; i++) {
-      const velocity = random(0.5, 1);
-
-      if (isStepOn(trackId, i, column)) {
-        onTriggerAttackRelease(noteInterval, time, velocity);
-      }
-    }
-
-    Draw.schedule(() => {
-      drawSteps(trackId, numCols, column);
-    }, time);
+  const handleOnSequenceStep = (time, column) => {
+    onSequenceStep(time, trackId, numRows, numCols, column, (t, v) =>
+      onTriggerAttackRelease(noteInterval, t, v)
+    );
   };
 
   return (

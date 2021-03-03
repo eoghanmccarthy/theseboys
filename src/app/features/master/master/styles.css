@@ -1,0 +1,81 @@
+.master {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 99;
+    position: sticky;
+    top: var(--spacing-8);
+    height: 88px;
+    padding: 0 var(--spacing-md);
+    background-color: var(--color-secondary);
+}
+
+.master .playback-controls {
+    display: flex;
+    align-items: center;
+}
+
+.master .playback-controls *:not(:last-child) {
+    margin-right: var(--spacing-12);
+}
+
+.ui-button.playback-button:after {
+    content: "";
+    display: block;
+    position: relative;
+    transition: all .25s;
+}
+
+.ui-button.playback-button.play:after {
+    left: 3px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 10px 0 10px 20px;
+    border-color: transparent transparent transparent var(--color-bluegrey-600);
+}
+
+.ui-button.playback-button:hover {
+    border-color: white;
+}
+
+.ui-button.playback-button.play:hover:after {
+    border-left-color: white;
+}
+
+.ui-button.playback-button.stop:after {
+    width: 16px;
+    height: 16px;
+    background-color: var(--color-bluegrey-600);
+}
+
+.ui-button.playback-button.stop:hover:after {
+    background-color: white;
+}
+
+.ui-button.record-button:after {
+    content: "";
+    display: block;
+    position: relative;
+    width: 24px;
+    height: 24px;
+    background-color: var(--color-bluegrey-600);
+    border-radius: 50%;
+    transition: all .25s;
+}
+
+.ui-button.record-button:hover {
+    border-color: white;
+}
+
+.ui-button.record-button:hover:after {
+    border-left-color: white;
+}
+
+.ui-button.record-button[data-recorder-status = 'stand-by'] {
+    background-color: blue;
+}
+
+.ui-button.record-button[data-recorder-status = 'on'] {
+    background-color: red;
+}

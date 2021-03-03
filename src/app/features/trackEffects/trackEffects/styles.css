@@ -1,0 +1,9 @@
+.TrackEffects {
+    grid-area: controllers;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    width: 100%;
+    height: 222px;
+    padding: var(--spacing-20) var(--spacing-20) var(--spacing-16);
+    background-color: var(--color-bluegrey-700);
+}

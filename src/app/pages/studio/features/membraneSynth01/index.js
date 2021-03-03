@@ -20,16 +20,16 @@ import {
 import random from 'utils/studioHelpers/random';
 import newArray from 'utils/studioHelpers/newArray';
 import stepDataInitialState from 'utils/studioHelpers/stepDataInitialState';
-import drawSteps from 'utils/studioHelpers/drawSteps';
-import isStepOn from 'utils/studioHelpers/isStepOn';
 
+import ButtonGroup from 'componentLib/ButtonGroup';
+import { Steps } from 'features/stepSequencer';
+import { onSequenceStep } from 'features/stepSequencer/utils';
+import { TrackEffects } from 'features/trackEffects';
 import {
   MuteButton,
   HitButton,
-  Steps,
   ControlGroup,
   ButtonControl,
-  ButtonGroup,
   TrackContainer,
   TrackMeta,
   TrackSteps,
@@ -113,7 +113,7 @@ const MembraneSynth01 = memo(({ trackId, channelDefaults }) => {
   );
 
   useEffect(() => {
-    sequence.current = new Sequence(onSequenceStep, noteIndices, noteInterval).start(0);
+    sequence.current = new Sequence(handleOnSequenceStep, noteIndices, noteInterval).start(0);
 
     return () => {
       if (sequence.current) sequence.current.dispose();
@@ -122,22 +122,13 @@ const MembraneSynth01 = memo(({ trackId, channelDefaults }) => {
 
   const onTriggerAttackRelease = (duration, time, velocity) => {
     if (!synth) return;
-
     synth.current.triggerAttackRelease('C1', duration, time, velocity);
   };
 
-  const onSequenceStep = (time, column) => {
-    for (let i = 0; i < stepsRef.current.length; i++) {
-      const velocity = column === 0 ? 1 : 0.75;
-
-      if (isStepOn(trackId, i, column)) {
-        onTriggerAttackRelease(noteInterval, time, velocity);
-      }
-    }
-
-    Draw.schedule(() => {
-      drawSteps(trackId, numCols, column);
-    }, time);
+  const handleOnSequenceStep = (time, column) => {
+    onSequenceStep(time, trackId, numRows, numCols, column, (t, v) =>
+      onTriggerAttackRelease(noteInterval, t, v)
+    );
   };
 
   return (
@@ -157,7 +148,7 @@ const MembraneSynth01 = memo(({ trackId, channelDefaults }) => {
         </ButtonGroup>
         <Steps trackId={trackId} steps={stepsRef?.current} />
       </TrackSteps>
-      <TrackControls trackId={trackId}>
+      <TrackEffects trackId={trackId}>
         <Eq3Controls trackId={trackId} eq3={eq3?.current} />
         <CompressorControls trackId={trackId} compressor={compressor.current} />
         {/*<ControlGroup orientation={'horizontal'} title={'effects'}>*/}
@@ -184,7 +175,7 @@ const MembraneSynth01 = memo(({ trackId, channelDefaults }) => {
         {/*  />*/}
         {/*</ControlGroup>*/}
         <EnvelopeControls trackId={trackId} envelope={synth?.current?.envelope} />
-      </TrackControls>
+      </TrackEffects>
     </TrackContainer>
   );
 });

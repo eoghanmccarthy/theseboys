@@ -4,12 +4,21 @@ import { Switch, Route } from 'react-router-dom';
 
 import Home from '../pages/home';
 import Studio from '../pages/studio';
+import { MasterProvider } from 'features/master';
 
 const Routes = () => (
   <div className={'me'}>
     <Switch>
       <Route exact path="/" render={() => <Home />} />
-      <Route exact path="/studio" render={() => <Studio />} />
+      <Route
+        exact
+        path="/studio"
+        render={() => (
+          <MasterProvider>
+            <Studio />
+          </MasterProvider>
+        )}
+      />
       <Route render={() => <Home />} />
     </Switch>
   </div>

@@ -1,5 +1,7 @@
 .me__main.studio {
     display: grid;
-    grid-row-gap: var(--spacing-12);
+    grid-row-gap: var(--spacing-20);
+    width: 100%;
+    max-width: 1180px;
     margin: 0 auto;
 }

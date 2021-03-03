@@ -21,7 +21,7 @@ import random from 'utils/studioHelpers/random';
 import newArray from 'utils/studioHelpers/newArray';
 import stepDataInitialState from 'utils/studioHelpers/stepDataInitialState';
 
-import { Panel, Meta, PlaybackButton } from '../../ui';
+import { Panel, Meta } from '../../ui';
 
 //const notes = ['A4', 'D3', 'E3', 'G4', 'F#4'];
 //const notes = ['F#4', 'E4', 'C#4', 'A4'];
@@ -173,9 +173,7 @@ const RandomSequencer = memo(() => {
 
   return (
     <Fragment>
-      <Meta>
-        <PlaybackButton isPlaying={isPlaying} onClick={() => start()} />
-      </Meta>
+      <Meta>{/*<PlaybackButton isPlaying={isPlaying} onClick={() => start()} />*/}</Meta>
       <Panel>
         <div className={'exp random-sequencer'}>
           {stepsRef.current.map((rowData, rowIndex) => (

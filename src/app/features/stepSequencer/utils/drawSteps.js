@@ -1,13 +1,24 @@
+import consoleLog from 'utils/errorHandlers/consoleLog';
+
 /**
- * Sets playback status data attribute
+ * Sets data-status attribute on step DOM element
  *
- * @param {string} trackId Track name
- * @param {number} stepTotal Total number of steps in a row
- * @param {number} step Step index
+ * @param {string} trackId
+ * @param {number} stepTotal
+ * @param {number} step
  */
 
 export default (trackId, stepTotal, step) => {
   const steps = document.getElementsByClassName(`step ${trackId}`);
+
+  const errorLog = msg => {
+    consoleLog('drawSteps helper function,', msg, trackId, stepTotal, step);
+  };
+
+  if (!steps) {
+    errorLog('steps not found');
+    return;
+  }
 
   for (let i = 0; i < steps.length; i++) {
     const currentStep = (i - step) % stepTotal === 0;

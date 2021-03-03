@@ -14,12 +14,12 @@ describe('Button component', () => {
 
   it('renders without crashing', () => {
     const div = document.createElement('div');
-    ReactDOM.render(<MockComponent>click</MockComponent>, div);
+    ReactDOM.render(<MockComponent>Click</MockComponent>, div);
   });
 
   it('renders children', () => {
-    const { getByTestId } = render(<MockComponent>Click</MockComponent>);
-    expect(getByTestId('instance-test-id')).toHaveTextContent('Click');
+    const { getByText } = render(<MockComponent>Click</MockComponent>);
+    expect(getByText('Click')).toBeInTheDocument();
   });
 
   it('renders with correct css classes', () => {

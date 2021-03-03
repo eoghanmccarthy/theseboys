@@ -19,14 +19,14 @@ export default (trackId, row, step) => {
     return false;
   }
 
-  const node = document.querySelector(`.${trackId}__step.track-${row}-step-${step}`);
+  const node = document.querySelector(`.step.${trackId}.row-${row}-step-${step}`);
 
   if (!node) {
     sendError('Step node not found');
     return false;
   }
 
-  const attr = node.getAttribute('data-step-status');
+  const attr = node.getAttribute('data-value');
 
   return attr === 'on';
 };
