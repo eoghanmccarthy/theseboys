@@ -6,7 +6,7 @@ const EnvelopeControls = memo(({ trackId, envelope }) => {
   if (!envelope) return null;
 
   return (
-    <ControlGroup orientation={'horizontal'} title={'envelope'}>
+    <>
       <SliderControl
         trackId={trackId}
         node={envelope}
@@ -46,7 +46,7 @@ const EnvelopeControls = memo(({ trackId, envelope }) => {
         max={5}
         toFixed={3}
       />
-    </ControlGroup>
+    </>
   );
 });
 

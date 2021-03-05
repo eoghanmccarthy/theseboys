@@ -6,7 +6,7 @@ const CompressorControls = memo(({ trackId, compressor }) => {
   if (!compressor) return null;
 
   return (
-    <ControlGroup orientation={'horizontal'} title={'compressor'}>
+    <>
       <SliderControl
         trackId={trackId}
         node={compressor}
@@ -35,7 +35,7 @@ const CompressorControls = memo(({ trackId, compressor }) => {
         step={0.001}
         toFixed={3}
       />
-    </ControlGroup>
+    </>
   );
 });
 

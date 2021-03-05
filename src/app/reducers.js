@@ -2,14 +2,14 @@ import storage from 'redux-persist/lib/storage';
 import { combineReducers } from 'redux';
 import { connectRouter } from 'connected-react-router';
 
-import authentication from 'authentication/redux';
-import audioData from 'global/audioData/redux/reducers';
+import authentication from './authentication/redux';
+import master from './features/redux';
 
 import { RESET_STORE } from 'authentication/redux';
 
 const appReducer = combineReducers({
   authentication,
-  audioData
+  master
 });
 
 const rootReducer = (state, action) => {

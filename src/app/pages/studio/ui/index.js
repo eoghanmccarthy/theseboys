@@ -6,7 +6,7 @@ import ControlsContainer from './controlsContainer';
 import ButtonControl from './buttonControl';
 import SliderControl from './sliderControl';
 import ControlGroup from './controlGroup';
-import { TrackContainer, TrackMeta, TrackSteps, TrackControls } from './track';
+import { TrackMeta, TrackSteps } from './track';
 import ToggleControlsButton from './toggleControlsButton';
 
 export {
@@ -18,9 +18,7 @@ export {
   ButtonControl,
   SliderControl,
   ControlGroup,
-  TrackContainer,
   TrackMeta,
   TrackSteps,
-  TrackControls,
   ToggleControlsButton
 };

@@ -1,16 +1,5 @@
-.track {
-    display: grid;
-    grid-template-areas:
-            "meta"
-			"steps"
-            "controllers";
-    width: 100%;
-    border-radius: 20px;
-    overflow: hidden;
-}
-
-.track__meta {
-    grid-area: meta;
+.TrackControls {
+    grid-area: controls;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -19,7 +8,7 @@
     /*background-color: var(--color-grey-700);*/
 }
 
-.track__steps {
+.TrackSteps {
     grid-area: steps;
     display: flex;
     justify-content: space-between;
@@ -29,22 +18,6 @@
     background-color: var(--color-bluegrey-800);
 }
 
-.track__steps > *:not(:last-child) {
+.TrackSteps > *:not(:last-child) {
     margin-right: var(--spacing-12);
-}
-
-.track__controls {
-    grid-area: controllers;
-    display: flex;
-    height: 222px;
-    padding: var(--spacing-20) var(--spacing-20) var(--spacing-16);
-    background-color: var(--color-bluegrey-700);
-}
-
-.track__controls > * {
-    flex: 1;
-}
-
-.track__controls > *:not(:last-child) {
-    margin-right: var(--spacing-20);
 }

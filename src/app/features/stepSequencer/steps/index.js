@@ -10,14 +10,14 @@ const Steps = memo(({ trackId, steps }) => {
   }
 
   return (
-    <div className={`step-sequencer`}>
+    <div className={`StepSequencer`}>
       {steps.map((rowData, rowIndex) => {
         if (!Array.isArray(rowData)) {
           return null;
         }
 
         return (
-          <div key={rowIndex} className={`steps-row`}>
+          <div key={rowIndex} className={`StepsRow`}>
             {rowData.map((stepValue, stepIndex) => {
               return (
                 <Step key={stepIndex} trackId={trackId} rowIndex={rowIndex} stepIndex={stepIndex} />

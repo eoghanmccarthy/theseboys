@@ -6,9 +6,9 @@ import './styles.css';
 const EffectsGroup = memo(({ style = {}, children, span, title = '' }) => {
   return (
     <div style={{ gridColumn: span, ...style }} className={cx('EffectsGroup')}>
-      <div className={'controls'}>{children}</div>
+      <div className={'EffectsGroup__controls'}>{children}</div>
       {title ? (
-        <div className={'label'}>
+        <div className={'EffectsGroup__label'}>
           <div />
           <span>{title}</span>
           <div />

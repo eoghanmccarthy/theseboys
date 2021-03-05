@@ -1,14 +1,13 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import { persistStore, persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage/session';
+import storage from 'redux-persist/lib/storage';
 import { routerMiddleware } from 'connected-react-router';
 
 import createRootReducer from 'app/reducers';
 
 const persistConfig = {
   key: 'root',
-  storage,
-  whitelist: ['']
+  storage
 };
 
 export default (initialState = {}, history) => {

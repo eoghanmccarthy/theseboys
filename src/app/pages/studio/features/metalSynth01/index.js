@@ -1,4 +1,4 @@
-import React, { useRef, memo, useEffect } from 'react';
+import React, { useRef, memo, useEffect, useState } from 'react';
 import { useImmer } from 'use-immer';
 import {
   Reverb,
@@ -18,45 +18,34 @@ import {
 
 //https://tone-demos.glitch.me/
 
-import random from 'utils/studioHelpers/random';
-import newArray from 'utils/studioHelpers/newArray';
-import stepDataInitialState from 'utils/studioHelpers/stepDataInitialState';
-import { onSequenceStep } from 'features/stepSequencer/utils';
+import { onSequenceStep, setTrackConfig, stepsInitialState } from 'features/utils';
 
 import ButtonGroup from 'componentLib/ButtonGroup';
 import { Steps } from 'features/stepSequencer';
+import { TrackEffects, EffectsGroup } from 'features/trackEffects';
 import {
-  Meta,
   ButtonControl,
-  TrackContainer,
   TrackMeta,
   TrackSteps,
-  TrackControls,
   MuteButton,
   HitButton,
-  ControlGroup,
   ToggleControlsButton
 } from '../../ui';
 import ChannelControls from '../channelControls';
 import EnvelopeControls from '../envelopeControls';
 import Eq3Controls from '../eq3Controls';
 
-const notes = ['C1'];
 //const notes = ['A4', 'D3', 'E3', 'G4', 'F#4'];
 //const notes = ['A3', 'C4', 'D4', 'E4', 'G4', 'A4'];
 
-const numRows = notes.length;
-
-const numCols = 16;
-
-const noteInterval = `${numCols}n`;
-
-const noteIndices = newArray(numCols);
-
-const MetalSynth01 = memo(({ trackId, channelDefaults }) => {
+const MetalSynth01 = memo(({ trackId, trackConfig, channelDefaults }) => {
   if (!trackId) return null;
 
-  const [data, setData] = useImmer(() => stepDataInitialState(numRows, numCols));
+  const [{ notes, numRows, numSteps, noteInterval, noteIndices }] = useState(() =>
+    setTrackConfig(trackConfig)
+  );
+
+  const [data] = useImmer(() => stepsInitialState(numRows, numSteps));
 
   const stepsRef = useRef(data);
   stepsRef.current = data;
@@ -76,7 +65,7 @@ const MetalSynth01 = memo(({ trackId, channelDefaults }) => {
 
   const delay = useRef(
     new FeedbackDelay({
-      delayTime: `${Math.floor(numCols / 2)}n`,
+      delayTime: `${Math.floor(numSteps / 2)}n`,
       feedback: 1 / 3,
       wet: 0.0
     })
@@ -130,26 +119,24 @@ const MetalSynth01 = memo(({ trackId, channelDefaults }) => {
 
   useEffect(() => {
     sequence.current = new Sequence(handleOnSequenceStep, noteIndices, noteInterval).start(0);
-
     return () => {
       if (sequence.current) sequence.current.dispose();
     };
   }, []);
 
-  const onTriggerAttackRelease = (duration, time, velocity) => {
+  const onTriggerAttackRelease = (notesToPlay, duration, time, velocity) => {
     if (!synth) return;
-
-    synth.current.triggerAttackRelease('C1', duration, time, velocity);
+    synth.current.triggerAttackRelease(notesToPlay[0], duration, time, velocity);
   };
 
   const handleOnSequenceStep = (time, column) => {
-    onSequenceStep(time, trackId, numRows, numCols, column, (t, v) =>
-      onTriggerAttackRelease(noteInterval, t, v)
+    onSequenceStep(trackId, notes, numRows, numSteps, time, column, (notesToPlay, velocity) =>
+      onTriggerAttackRelease(notesToPlay, noteInterval, time, velocity)
     );
   };
 
   return (
-    <TrackContainer>
+    <>
       <TrackMeta>
         <ButtonGroup>
           <MuteButton trackId={trackId} node={channel?.current} />
@@ -165,9 +152,11 @@ const MetalSynth01 = memo(({ trackId, channelDefaults }) => {
         </ButtonGroup>
         <Steps trackId={trackId} steps={stepsRef?.current} />
       </TrackSteps>
-      <TrackControls trackId={trackId}>
-        <Eq3Controls trackId={trackId} eq3={eq3?.current} />
-        <ControlGroup orientation={'horizontal'} title={'effects'}>
+      <TrackEffects>
+        <EffectsGroup span={'1 / span 3'} title={'equaliser'}>
+          <Eq3Controls trackId={trackId} eq3={eq3?.current} />
+        </EffectsGroup>
+        <EffectsGroup span={'5 / span 3'} title={'effects'}>
           <ButtonControl
             trackId={trackId}
             node={distortion?.current}
@@ -189,10 +178,12 @@ const MetalSynth01 = memo(({ trackId, channelDefaults }) => {
             label={'DLY'}
             showPercentageValue
           />
-        </ControlGroup>
-        <EnvelopeControls trackId={trackId} envelope={synth?.current?.envelope} />
-      </TrackControls>
-    </TrackContainer>
+        </EffectsGroup>
+        <EffectsGroup span={'9 / span 4'} title={'envelope'}>
+          <EnvelopeControls trackId={trackId} envelope={synth?.current?.envelope} />
+        </EffectsGroup>
+      </TrackEffects>
+    </>
   );
 });
 

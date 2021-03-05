@@ -1,5 +1,6 @@
-import React from 'react';
-import classNames from 'classnames';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import cx from 'classnames';
 import { Destination, Transport } from 'tone';
 
 import './styles.css';
@@ -12,7 +13,14 @@ import { ButtonControl, SliderControl } from 'pages/studio/ui';
 const trackId = 'master';
 
 const Master = () => {
+  const dispatch = useDispatch();
+  const { bpm, volume } = useSelector(state => state.app.master);
   const { play, stop, record } = useMasterContext('<Master>');
+
+  useEffect(() => {
+    Destination.set({ volume });
+    Transport.set({ bpm });
+  }, []);
 
   return (
     <div
@@ -23,6 +31,16 @@ const Master = () => {
       data-bpm={120}
       data-volume={75}
     >
+      <button
+        onClick={() =>
+          dispatch({
+            type: 'master/SAVE',
+            payload: { bpm: Transport.get().bpm, volume: Destination.get().volume }
+          })
+        }
+      >
+        save
+      </button>
       <SliderControl
         node={Destination}
         param={'volume'}
@@ -37,8 +55,8 @@ const Master = () => {
       />
       <ButtonGroup>
         <Button className={'record-button'} onClick={record} />
-        <Button className={classNames('playback-button play')} onClick={play} />
-        <Button className={classNames('playback-button stop')} onClick={stop} />
+        <Button className={cx('playback-button play')} onClick={play} />
+        <Button className={cx('playback-button stop')} onClick={stop} />
       </ButtonGroup>
       <ButtonControl
         node={Transport}

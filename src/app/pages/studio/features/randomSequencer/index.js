@@ -19,7 +19,6 @@ import './styles.css';
 
 import random from 'utils/studioHelpers/random';
 import newArray from 'utils/studioHelpers/newArray';
-import stepDataInitialState from 'utils/studioHelpers/stepDataInitialState';
 
 import { Panel, Meta } from '../../ui';
 
@@ -38,8 +37,10 @@ function randomZero_One() {
   return Math.round(Math.random());
 }
 
+import { stepsInitialState } from 'features/utils';
+
 const RandomSequencer = memo(() => {
-  const [data, setData] = useImmer(() => stepDataInitialState(numRows, numCols));
+  const [data, setData] = useImmer(() => stepsInitialState(numRows, numCols));
 
   const stepsRef = useRef(data);
   stepsRef.current = data;

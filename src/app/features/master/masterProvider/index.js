@@ -20,39 +20,47 @@ const MasterProvider = ({ children }) => {
     consoleLog('audio context is', context.state);
 
     const master = document.querySelector('#master');
-    const playButton = document.querySelector('.playback-button.play');
-    const stopButton = document.querySelector('.playback-button.stop');
 
     if (!master) {
       consoleLog('master container not found');
       return;
     }
 
-    const recorderStatus = master.getAttribute('data-recorder');
+    if (Transport.state === 'started') {
+      return;
+    }
 
     if (Transport.state === 'stopped') {
       // Start recording if recorder is on standby
+      const recorderStatus = master.getAttribute('data-recorder');
+
       if (recorderStatus === 'stand-by' && recorder?.current?.state === 'stopped') {
         recorder.current.start();
         master.setAttribute('data-recorder', 'on');
       }
 
       Transport.start();
+      master.setAttribute('data-playback', 'started');
       consoleLog('transport is', Transport.state);
-      master.setAttribute('data-playback', 'on');
-      playButton.classList.add('disabled');
-      stopButton.classList.remove('disabled');
     }
   };
 
   const handleStop = () => {
+    const master = document.querySelector('#master');
+
+    if (!master) {
+      consoleLog('master container not found');
+      return;
+    }
+
+    if (Transport.state === 'stopped') {
+      return;
+    }
+
     if (Transport.state === 'started') {
       Transport.stop();
+      master.setAttribute('data-playback', 'stopped');
       consoleLog('transport is', Transport.state);
-      const playButton = document.querySelector('.playback-button.play');
-      const stopButton = document.querySelector('.playback-button.stop');
-      playButton.classList.remove('disabled');
-      stopButton.classList.add('disabled');
       // We don't stop recording here to avoid cutting off reverb etc.
       // Recording is stopped manually
     }
