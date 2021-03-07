@@ -22,9 +22,9 @@ import { onSequenceStep, setTrackConfig, stepsInitialState } from 'features/util
 
 import ButtonGroup from 'componentLib/ButtonGroup';
 import { Steps } from 'features/stepSequencer';
+import { TrackControls } from 'features/trackControls';
 import { TrackEffects, EffectsGroup } from 'features/trackEffects';
-import { MuteButton, HitButton, TrackMeta, TrackSteps, ToggleControlsButton } from '../../ui';
-import ChannelControls from '../channelControls';
+import { HitButton, TrackSteps } from '../../ui';
 import EnvelopeControls from '../envelopeControls';
 import Eq3Controls from '../eq3Controls';
 import FilterControls from '../filterControls';
@@ -109,15 +109,7 @@ const NoiseSequencer01 = memo(({ trackId, trackConfig, channelDefaults }) => {
 
   return (
     <>
-      <TrackMeta>
-        <ButtonGroup>
-          <MuteButton node={channel?.current} trackId={trackId} />
-        </ButtonGroup>
-        <ButtonGroup>
-          <ChannelControls trackId={trackId} channel={channel?.current} />
-          <ToggleControlsButton trackId={trackId} />
-        </ButtonGroup>
-      </TrackMeta>
+      <TrackControls trackId={trackId} channel={channel?.current} />
       <TrackSteps>
         <ButtonGroup>
           <HitButton trackId={trackId} onClick={() => onTriggerAttackRelease(noteInterval)} />

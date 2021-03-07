@@ -41,6 +41,7 @@ const MasterProvider = ({ children }) => {
 
       Transport.start();
       master.setAttribute('data-playback', 'started');
+      document.querySelector('button play').setAttribute('value', 'on');
       consoleLog('transport is', Transport.state);
     }
   };

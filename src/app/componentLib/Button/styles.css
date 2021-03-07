@@ -30,15 +30,34 @@
 }
 
 .ui-button.circle {
-    border-radius: 50%;
+    border-radius: 100%;
 }
 
-.ui-button.disabled {
-    pointer-events: none;
+.ui-button.active {
+    border-color: green;
+}
+
+.ui-button.alert {
+    border-color: red;
+}
+
+.ui-button.alert:focus {
+    outline: none;
+    border-color: transparent;
+    box-shadow: 0 0 0 3px red;
+}
+
+.ui-button.alert:hover {
+    color: red !important;
+    border-color: red !important;
 }
 
 .ui-button:focus {
     outline: none;
     border-color: transparent;
     box-shadow: 0 0 0 3px white;
+}
+
+.ui-button.disabled {
+    pointer-events: none;
 }

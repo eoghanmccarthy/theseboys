@@ -1,0 +1,49 @@
+.track-controls {
+    grid-area: controls;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+    padding: 0 var(--spacing-12);
+    /*background-color: var(--color-grey-700);*/
+}
+
+.ui-button.mute-button {
+    align-self: center;
+    color: white;
+}
+
+.ui-button.mute-button:hover {
+    border-color: white;
+}
+
+.ui-button.mute-button.active {
+    border-color: var(--color-tertiary);
+    background-color: var(--color-tertiary);
+}
+
+.ui-button.toggle-effects {
+    flex-direction: row;
+    border: none;
+    transform: rotate(180deg);
+}
+
+/*.ui-button.toggle-effects[value = 'expanded'] {*/
+/*    transform: rotate(180deg);*/
+/*}*/
+
+.ui-button.toggle-effects > span {
+    width: 12px;
+    height: 1px;
+    background-color: white;
+    transform-origin: center;
+}
+
+.ui-button.toggle-effects > span:first-child {
+    margin-right: -4px;
+    transform: rotate(45deg);
+}
+
+.ui-button.toggle-effects > span:last-child {
+    transform: rotate(-45deg);
+}

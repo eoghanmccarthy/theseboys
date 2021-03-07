@@ -3,6 +3,6 @@
     grid-row-gap: var(--spacing-20);
     width: 100%;
     max-width: 1220px;
-    padding: 0 var(--spacing-20);
+    padding: 0 var(--spacing-40);
     margin: 0 auto;
 }

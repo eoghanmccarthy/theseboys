@@ -1,0 +1,36 @@
+.tb-controller {
+    display: grid;
+    font-size: 14px;
+    text-align: center;
+}
+
+.tb-controller.vertical {
+    grid-template-rows: 5ch 100px 5ch;
+    grid-template-columns: auto;
+    row-gap: var(--spacing-12);
+    justify-items: center;
+}
+
+.tb-controller.horizontal {
+    grid-template-rows: auto;
+    grid-template-columns: 5ch 100px 5ch;
+    column-gap: var(--spacing-8);
+    align-items: center;
+}
+
+.tb-controller > .controls {
+    display: flex;
+    justify-content: space-around;
+}
+
+.tb-controller.vertical > .controls {
+    flex-direction: column;
+}
+
+.tb-controller.horizontal > .controls {
+    flex-direction: row;
+}
+
+.tb-controller > .value::before {
+    content: attr(value);
+}

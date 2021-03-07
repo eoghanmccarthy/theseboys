@@ -1,4 +1,4 @@
-.master {
+#master {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -10,12 +10,16 @@
     background-color: var(--color-secondary);
 }
 
-.master .playback-controls {
+#master[data-palyback = 'started'] button.play {
+
+}
+
+#master .playback-controls {
     display: flex;
     align-items: center;
 }
 
-.master .playback-controls *:not(:last-child) {
+#master .playback-controls *:not(:last-child) {
     margin-right: var(--spacing-12);
 }
 
@@ -72,10 +76,10 @@
     border-left-color: white;
 }
 
-.ui-button.record-button[data-recorder-status = 'stand-by'] {
+.ui-button.record-button[data-recorder = 'stand-by'] {
     background-color: blue;
 }
 
-.ui-button.record-button[data-recorder-status = 'on'] {
+.ui-button.record-button[data-recorder = 'on'] {
     background-color: red;
 }

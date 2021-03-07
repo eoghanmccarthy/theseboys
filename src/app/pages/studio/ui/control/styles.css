@@ -39,7 +39,33 @@
     transform: rotate(180deg);
 }
 
+.ui-control .controls {
+    grid-area: controls;
+    display: flex;
+    justify-content: space-around;
+}
+
+.ui-control.vertical .controls {
+    flex-direction: column;
+    height: 100px;
+}
+
+.ui-control.horizontal .controls {
+    flex-direction: row;
+    width: 100px;
+}
+
+.ui-control.button-control.horizontal .controls {
+    transform: rotate(180deg);
+}
+
 .ui-control .ui-control__label {
+    grid-area: label;
+    width: 5ch;
+    text-align: center;
+}
+
+.ui-control > label {
     grid-area: label;
     width: 5ch;
     text-align: center;
@@ -51,6 +77,16 @@
     text-align: center;
 }
 
+.ui-control > span {
+    grid-area: value;
+    width: 5ch;
+    text-align: center;
+}
+
 .ui-control .ui-control__value::before {
     content: attr(data-value);
+}
+
+.ui-control > span::before {
+    content: attr(value);
 }

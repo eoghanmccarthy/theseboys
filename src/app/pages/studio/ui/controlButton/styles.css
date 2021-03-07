@@ -10,3 +10,16 @@
 .ui-button.ui-control__button.limit {
     background-color: var(--color-secondary);
 }
+
+.ui-button.control {
+    color: var(--color-bluegrey-400);
+}
+
+.ui-button.control:hover {
+    color: white;
+    border-color: white;
+}
+
+.ui-button.control.limit {
+    background-color: var(--color-secondary);
+}

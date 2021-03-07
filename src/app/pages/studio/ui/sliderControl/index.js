@@ -38,7 +38,7 @@ const SliderControl = memo(
     });
 
     const handleSetInputValue = val => {
-      document.querySelector(`.control__slider.${name}`).setAttribute('value', val);
+      document.querySelector(`.slider.${name}`).setAttribute('value', val);
     };
 
     const handleSetValueLabel = val => {
@@ -55,7 +55,7 @@ const SliderControl = memo(
     return (
       <Control type={'slider-control'} orientation={orientation} controlName={name} label={label}>
         <Slider
-          className={cx('control__slider', name)}
+          className={cx('slider', name)}
           orient={orientation}
           step={step}
           max={max}
