@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 
-import { SliderControl, ControlGroup } from '../../ui';
+import { SliderControl } from '../../ui';
 
 const CompressorControls = memo(({ trackId, compressor }) => {
   if (!compressor) return null;

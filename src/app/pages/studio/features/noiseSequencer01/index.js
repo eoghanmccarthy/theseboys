@@ -20,11 +20,10 @@ import {
 
 import { onSequenceStep, setTrackConfig, stepsInitialState } from 'features/utils';
 
-import ButtonGroup from 'componentLib/ButtonGroup';
 import { Steps } from 'features/stepSequencer';
 import { TrackControls } from 'features/trackControls';
 import { TrackEffects, EffectsGroup } from 'features/trackEffects';
-import { HitButton, TrackSteps } from '../../ui';
+import { TrackSteps } from '../../ui';
 import EnvelopeControls from '../envelopeControls';
 import Eq3Controls from '../eq3Controls';
 import FilterControls from '../filterControls';
@@ -32,7 +31,7 @@ import FilterControls from '../filterControls';
 //const notes = ['A4', 'D3', 'E3', 'G4', 'F#4'];
 //const notes = ['A3', 'C4', 'D4', 'E4', 'G4', 'A4'];
 
-const NoiseSequencer01 = memo(({ trackId, trackConfig, channelDefaults }) => {
+const NoiseSequencer01 = memo(({ trackId, trackConfig, defaultValues }) => {
   if (!trackId) return null;
 
   const [{ notes, numRows, numSteps, noteInterval, noteIndices }] = useState(() =>
@@ -46,7 +45,7 @@ const NoiseSequencer01 = memo(({ trackId, trackConfig, channelDefaults }) => {
 
   const sequence = useRef();
 
-  const channel = useRef(new Channel(channelDefaults));
+  const channel = useRef(new Channel(defaultValues));
 
   const eq3 = useRef(new EQ3({ low: -60, mid: -48, high: 12 }));
 
@@ -79,12 +78,6 @@ const NoiseSequencer01 = memo(({ trackId, trackConfig, channelDefaults }) => {
       noise: {
         type: 'white',
         playbackRate: 5
-      },
-      envelope: {
-        attack: 0.001,
-        decay: 0.3,
-        sustain: 0,
-        release: 0.3
       }
     }).chain(channel.current, eq3.current, filter.current, Destination)
   );
@@ -109,14 +102,15 @@ const NoiseSequencer01 = memo(({ trackId, trackConfig, channelDefaults }) => {
 
   return (
     <>
-      <TrackControls trackId={trackId} channel={channel?.current} />
+      <TrackControls trackId={trackId} channel={channel?.current} defaultValues={defaultValues} />
       <TrackSteps>
-        <ButtonGroup>
-          <HitButton trackId={trackId} onClick={() => onTriggerAttackRelease(noteInterval)} />
-        </ButtonGroup>
-        <Steps trackId={trackId} steps={stepsRef?.current} />
+        <Steps
+          trackId={trackId}
+          numberOfSteps={trackConfig.numSteps ?? 16}
+          steps={stepsRef?.current}
+        />
       </TrackSteps>
-      <TrackEffects>
+      <TrackEffects trackId={trackId}>
         <EffectsGroup span={'1 / span 3'} title={'equaliser'}>
           <Eq3Controls trackId={trackId} eq3={eq3?.current} />
         </EffectsGroup>
@@ -140,7 +134,16 @@ const NoiseSequencer01 = memo(({ trackId, trackConfig, channelDefaults }) => {
         {/*  />*/}
         {/*</ControlGroup>*/}
         <EffectsGroup span={'9 / span 4'} title={'envelope'}>
-          <EnvelopeControls trackId={trackId} envelope={synth?.current?.envelope} />
+          <EnvelopeControls
+            trackId={trackId}
+            envelope={synth?.current?.envelope}
+            defaultValues={{
+              attack: 0.001,
+              decay: 0.3,
+              sustain: 0,
+              release: 0.3
+            }}
+          />
         </EffectsGroup>
       </TrackEffects>
     </>

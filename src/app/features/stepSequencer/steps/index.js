@@ -4,7 +4,7 @@ import './styles.css';
 
 import Step from '../step';
 
-const Steps = memo(({ trackId, steps }) => {
+const Steps = memo(({ trackId, numberOfSteps = 16, steps }) => {
   if (!trackId || !Array.isArray(steps)) {
     return null;
   }
@@ -17,7 +17,11 @@ const Steps = memo(({ trackId, steps }) => {
         }
 
         return (
-          <div key={rowIndex} className={`StepsRow`}>
+          <div
+            key={rowIndex}
+            style={{ gridTemplateColumns: `repeat(${numberOfSteps},1fr)` }}
+            className={`StepsRow`}
+          >
             {rowData.map((stepValue, stepIndex) => {
               return (
                 <Step key={stepIndex} trackId={trackId} rowIndex={rowIndex} stepIndex={stepIndex} />

@@ -1,6 +1,0 @@
-.experiment__panel {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    background-color: var(--color-bluegrey-800);
-}

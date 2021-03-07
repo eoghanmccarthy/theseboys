@@ -61,3 +61,16 @@
 .ui-button.disabled {
     pointer-events: none;
 }
+
+.ui-button.mute-button.active {
+    border-color: var(--color-tertiary);
+    background-color: var(--color-tertiary);
+}
+
+.ui-button span {
+    pointer-events: none;
+}
+
+.ui-button.rotated {
+    transform: rotate(180deg);
+}

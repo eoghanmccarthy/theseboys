@@ -1,0 +1,11 @@
+.controller-group {
+    display: flex;
+}
+
+.controller-group.horizontal {
+    grid-template-columns: auto;
+}
+
+.controller-group.horizontal > *:not(:last-child){
+    margin-right: var(--spacing-16);
+}

@@ -20,8 +20,6 @@ import './styles.css';
 import random from 'utils/studioHelpers/random';
 import newArray from 'utils/studioHelpers/newArray';
 
-import { Panel, Meta } from '../../ui';
-
 //const notes = ['A4', 'D3', 'E3', 'G4', 'F#4'];
 //const notes = ['F#4', 'E4', 'C#4', 'A4'];
 const notes = ['A3', 'C4', 'D4', 'E4', 'G4', 'A4'];
@@ -174,26 +172,23 @@ const RandomSequencer = memo(() => {
 
   return (
     <Fragment>
-      <Meta>{/*<PlaybackButton isPlaying={isPlaying} onClick={() => start()} />*/}</Meta>
-      <Panel>
-        <div className={'exp random-sequencer'}>
-          {stepsRef.current.map((rowData, rowIndex) => (
-            <div key={rowIndex} className={`row`}>
-              {rowData.map((stepValue, stepIndex) => (
-                <span
-                  key={stepIndex}
-                  className={classNames(
-                    `random-sequencer__col random-sequencer__col-${stepIndex}-${rowIndex}`,
-                    {
-                      on: stepValue === 1
-                    }
-                  )}
-                />
-              ))}
-            </div>
-          ))}
-        </div>
-      </Panel>
+      <div className={'exp random-sequencer'}>
+        {stepsRef.current.map((rowData, rowIndex) => (
+          <div key={rowIndex} className={`row`}>
+            {rowData.map((stepValue, stepIndex) => (
+              <span
+                key={stepIndex}
+                className={classNames(
+                  `random-sequencer__col random-sequencer__col-${stepIndex}-${rowIndex}`,
+                  {
+                    on: stepValue === 1
+                  }
+                )}
+              />
+            ))}
+          </div>
+        ))}
+      </div>
     </Fragment>
   );
 });

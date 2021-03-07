@@ -7,7 +7,6 @@
 .StepSequencer > .StepsRow {
     flex: 1;
     display: grid;
-    grid-template-columns: repeat(16,1fr);
     touch-action: none;
     width: 100%;
 }

@@ -32,11 +32,12 @@ const SliderControl = ({
       <div className={'controls'}>
         <Slider
           className={'control'}
+          orient={orient}
           step={step}
           min={min}
           max={max}
           onChange={e => {
-            const val = parseInt(e.target.value);
+            const val = parseFloat(e.target.value);
             handleOnChange(val);
           }}
         />

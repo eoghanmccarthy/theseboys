@@ -1,0 +1,13 @@
+.TrackSteps {
+    grid-area: steps;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 72px;
+    padding: 0 var(--spacing-12);
+    background-color: var(--color-bluegrey-800);
+}
+
+.TrackSteps > *:not(:last-child) {
+    margin-right: var(--spacing-12);
+}

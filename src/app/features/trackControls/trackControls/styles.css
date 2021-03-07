@@ -8,29 +8,10 @@
     /*background-color: var(--color-grey-700);*/
 }
 
-.ui-button.mute-button {
-    align-self: center;
-    color: white;
-}
-
-.ui-button.mute-button:hover {
-    border-color: white;
-}
-
-.ui-button.mute-button.active {
-    border-color: var(--color-tertiary);
-    background-color: var(--color-tertiary);
-}
-
 .ui-button.toggle-effects {
     flex-direction: row;
     border: none;
-    transform: rotate(180deg);
 }
-
-/*.ui-button.toggle-effects[value = 'expanded'] {*/
-/*    transform: rotate(180deg);*/
-/*}*/
 
 .ui-button.toggle-effects > span {
     width: 12px;

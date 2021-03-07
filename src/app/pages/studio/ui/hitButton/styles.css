@@ -1,9 +1,0 @@
-.ui-button.hit-button {
-    align-self: center;
-    color: white;
-}
-
-.ui-button.hit-button:hover {
-    color: var(--color-tertiary);
-    border-color: var(--color-tertiary);
-}

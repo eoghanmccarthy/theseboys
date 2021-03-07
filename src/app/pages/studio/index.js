@@ -8,7 +8,6 @@ import Footer from 'global/footer';
 
 import Track from 'features/track';
 import { Master } from 'features/master';
-import RandomSequencer from './features/randomSequencer';
 import MembraneSynth01 from './features/membraneSynth01';
 import MetalSynth01 from './features/metalSynth01';
 import NoiseSynth01 from './features/noiseSequencer01';
@@ -18,14 +17,14 @@ const Studio = () => {
   return (
     <Fragment>
       <Main className={'studio'}>
-        <Master />
+        <Master defaultValues={{ volume: 75, bpm: 120 }} />
         <Track>
           <MembraneSynth01
             trackId={'track-A'}
             trackConfig={{ notes: ['C1'], numSteps: 16 }}
-            channelDefaults={{
+            defaultValues={{
               pan: 0,
-              volume: 12,
+              volume: 90,
               mute: false,
               solo: false
             }}
@@ -35,9 +34,9 @@ const Studio = () => {
           <MetalSynth01
             trackId={`track-B`}
             trackConfig={{ notes: ['C1'], numSteps: 16 }}
-            channelDefaults={{
+            defaultValues={{
               pan: 0.7,
-              volume: 12,
+              volume: 90,
               mute: false,
               solo: false
             }}
@@ -47,9 +46,9 @@ const Studio = () => {
           <NoiseSynth01
             trackId={`track-C`}
             trackConfig={{ numSteps: 16 }}
-            channelDefaults={{
+            defaultValues={{
               pan: -0.5,
-              volume: -4,
+              volume: 68,
               mute: false,
               solo: false
             }}
@@ -59,9 +58,9 @@ const Studio = () => {
           <NoiseSynth02
             trackId={`track-D`}
             trackConfig={{ numSteps: 16 }}
-            channelDefaults={{
+            defaultValues={{
               pan: 0.8,
-              volume: -8,
+              volume: 60,
               mute: false,
               solo: false
             }}

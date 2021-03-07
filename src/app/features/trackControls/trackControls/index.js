@@ -1,13 +1,16 @@
 import React, { memo } from 'react';
-import cx from 'classnames';
 
 import './styles.css';
 
-import Button from 'componentLib/Button';
-import ButtonGroup from 'componentLib/ButtonGroup';
-import ChannelControls from '../channelControls';
+import { fromPercent } from 'features/utils';
 
-const TrackControls = memo(({ trackId, channel }) => {
+import Button from 'componentLib/Button';
+import { ButtonControl, ControllerGroup } from '../../controller';
+
+const VOL_MIN = -60;
+const VOL_MAX = 20;
+
+const TrackControls = memo(({ trackId, channel, defaultValues }) => {
   if (!trackId || !channel) return null;
 
   return (
@@ -25,29 +28,41 @@ const TrackControls = memo(({ trackId, channel }) => {
       >
         mute
       </Button>
-      <ButtonGroup>
-        <ChannelControls trackId={trackId} channel={channel} />
+      <ControllerGroup>
+        <ButtonControl
+          id={`${trackId}-volume`}
+          orient={'horizontal'}
+          label={'VOL'}
+          max={100}
+          initialValue={defaultValues.volume ?? 75}
+          onChange={val => channel.set({ volume: fromPercent([VOL_MIN, VOL_MAX], val, 0) })}
+        />
+        <ButtonControl
+          id={`${trackId}-pan`}
+          orient={'horizontal'}
+          label={'PAN'}
+          min={-1}
+          initialValue={defaultValues.pan ?? 0}
+          onChange={val => channel.set({ pan: val })}
+        />
         <Button
           className={'toggle-effects'}
-          value={'expanded'}
           size={40}
           onClick={e => {
             const element = document.querySelector(`#${trackId}-effects`);
-            if (element.style.display !== 'none') {
-              element.style.display = 'none';
-              e.target.style.transform = 'rotate(0deg)';
-              //e.target.setAttribute('value', 'collapsed');
+            if (!element.classList.contains('hidden')) {
+              element.classList.add('hidden');
+              e.target.classList.add('rotated');
             } else {
-              element.style.display = 'grid';
-              e.target.style.transform = 'rotate(180deg)';
-              // e.target.setAttribute('value', 'expanded');
+              element.classList.remove('hidden');
+              e.target.classList.remove('rotated');
             }
           }}
         >
           <span />
           <span />
         </Button>
-      </ButtonGroup>
+      </ControllerGroup>
     </div>
   );
 });

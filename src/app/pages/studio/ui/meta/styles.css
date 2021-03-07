@@ -1,7 +1,0 @@
-.experiment__meta {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    /*align-items: center;*/
-    background-color: var(--color-bluegrey-700);
-}

@@ -5,7 +5,7 @@
 }
 
 .tb-controller.vertical {
-    grid-template-rows: 5ch 100px 5ch;
+    grid-template-rows: auto 100px auto;
     grid-template-columns: auto;
     row-gap: var(--spacing-12);
     justify-items: center;
@@ -13,7 +13,7 @@
 
 .tb-controller.horizontal {
     grid-template-rows: auto;
-    grid-template-columns: 5ch 100px 5ch;
+    grid-template-columns: auto 100px auto;
     column-gap: var(--spacing-8);
     align-items: center;
 }
@@ -29,6 +29,14 @@
 
 .tb-controller.horizontal > .controls {
     flex-direction: row;
+}
+
+.tb-controller > .label {
+    width: 5ch;
+}
+
+.tb-controller > .value {
+    width: 5ch;
 }
 
 .tb-controller > .value::before {

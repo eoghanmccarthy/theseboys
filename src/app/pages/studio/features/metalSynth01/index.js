@@ -20,18 +20,17 @@ import {
 
 import { onSequenceStep, setTrackConfig, stepsInitialState } from 'features/utils';
 
-import ButtonGroup from 'componentLib/ButtonGroup';
 import { Steps } from 'features/stepSequencer';
 import { TrackControls } from 'features/trackControls';
 import { TrackEffects, EffectsGroup } from 'features/trackEffects';
-import { ButtonControl, TrackSteps, HitButton } from '../../ui';
+import { ButtonControl, TrackSteps } from '../../ui';
 import EnvelopeControls from '../envelopeControls';
 import Eq3Controls from '../eq3Controls';
 
 //const notes = ['A4', 'D3', 'E3', 'G4', 'F#4'];
 //const notes = ['A3', 'C4', 'D4', 'E4', 'G4', 'A4'];
 
-const MetalSynth01 = memo(({ trackId, trackConfig, channelDefaults }) => {
+const MetalSynth01 = memo(({ trackId, trackConfig, defaultValues }) => {
   if (!trackId) return null;
 
   const [{ notes, numRows, numSteps, noteInterval, noteIndices }] = useState(() =>
@@ -45,7 +44,7 @@ const MetalSynth01 = memo(({ trackId, trackConfig, channelDefaults }) => {
 
   const sequence = useRef();
 
-  const channel = useRef(new Channel(channelDefaults));
+  const channel = useRef(new Channel(defaultValues));
 
   const compressor = useRef(
     new Compressor({
@@ -130,14 +129,15 @@ const MetalSynth01 = memo(({ trackId, trackConfig, channelDefaults }) => {
 
   return (
     <>
-      <TrackControls trackId={trackId} channel={channel?.current} />
+      <TrackControls trackId={trackId} channel={channel?.current} defaultValues={defaultValues} />
       <TrackSteps>
-        <ButtonGroup>
-          <HitButton trackId={trackId} onClick={() => onTriggerAttackRelease(noteInterval)} />
-        </ButtonGroup>
-        <Steps trackId={trackId} steps={stepsRef?.current} />
+        <Steps
+          trackId={trackId}
+          numberOfSteps={trackConfig.numSteps ?? 16}
+          steps={stepsRef?.current}
+        />
       </TrackSteps>
-      <TrackEffects>
+      <TrackEffects trackId={trackId}>
         <EffectsGroup span={'1 / span 3'} title={'equaliser'}>
           <Eq3Controls trackId={trackId} eq3={eq3?.current} />
         </EffectsGroup>
@@ -165,7 +165,16 @@ const MetalSynth01 = memo(({ trackId, trackConfig, channelDefaults }) => {
           />
         </EffectsGroup>
         <EffectsGroup span={'9 / span 4'} title={'envelope'}>
-          <EnvelopeControls trackId={trackId} envelope={synth?.current?.envelope} />
+          <EnvelopeControls
+            trackId={trackId}
+            envelope={synth?.current?.envelope}
+            defaultValues={{
+              attack: 2.0,
+              decay: 0.4,
+              sustain: 0.512,
+              release: 0.067
+            }}
+          />
         </EffectsGroup>
       </TrackEffects>
     </>

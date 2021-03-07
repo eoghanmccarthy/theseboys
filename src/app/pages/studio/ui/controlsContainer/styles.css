@@ -1,6 +1,0 @@
-.exp.step-seq__effects {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    flex-gap: var(--spacing-12);
-}

@@ -11,9 +11,9 @@ const Slider = memo(
     className,
     orient = 'horizontal',
     isDisabled = false,
-    max = 1,
-    min = 0,
     step = 0.1,
+    min = 0,
+    max = 1,
     onChange,
     ...rest
   }) => {
