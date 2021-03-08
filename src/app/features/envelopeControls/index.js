@@ -12,7 +12,8 @@ const EnvelopeControls = memo(({ trackId, envelope, initialValue = {} }) => {
         label={'ATK'}
         step={0.001}
         max={2}
-        initialValue={initialValue.attack.toFixed(3)}
+        toFixed={3}
+        initialValue={initialValue.attack}
         onChange={val => envelope.set({ attack: val })}
       />
       <SliderControl
@@ -20,15 +21,16 @@ const EnvelopeControls = memo(({ trackId, envelope, initialValue = {} }) => {
         label={'DEC'}
         step={0.001}
         max={2}
-        initialValue={initialValue.decay.toFixed(3)}
+        toFixed={3}
+        initialValue={initialValue.decay}
         onChange={val => envelope.set({ decay: val })}
       />
       <SliderControl
         id={`${trackId}-envelope-sustain`}
         label={'SUS'}
         step={0.001}
-        max={2}
-        initialValue={initialValue.sustain.toFixed(3)}
+        toFixed={3}
+        initialValue={initialValue.sustain}
         onChange={val => envelope.set({ sustain: val })}
       />
       <SliderControl
@@ -36,7 +38,8 @@ const EnvelopeControls = memo(({ trackId, envelope, initialValue = {} }) => {
         label={'REL'}
         step={0.001}
         max={2}
-        initialValue={initialValue.release.toFixed(3)}
+        toFixed={3}
+        initialValue={initialValue.release}
         onChange={val => envelope.set({ release: val })}
       />
     </>

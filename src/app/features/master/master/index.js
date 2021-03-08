@@ -53,7 +53,7 @@ const Master = ({ initialValue = {} }) => {
             dispatch({
               type: 'master/SAVE',
               payload: {
-                bpm: Transport.get().bpm.toFixed(0),
+                bpm: Transport.get().bpm,
                 volume: toPercent([VOL_MIN, VOL_MAX], Destination.get().volume)
               }
             })

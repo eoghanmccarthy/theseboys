@@ -12,7 +12,7 @@ const FilterControls = memo(({ trackId, filter, initialValue = {} }) => {
       step={100}
       min={1000}
       max={15000}
-      initialValue={initialValue?.frequency.toFixed(0)}
+      initialValue={initialValue?.frequency}
       onChange={val => filter.set({ frequency: val })}
     />
   );

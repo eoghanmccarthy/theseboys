@@ -53,7 +53,10 @@ const defaults = {
         release: 0.067
       }
     },
-    eq3: { low: 75, mid: 75, high: 75 }
+    eq3: { low: 75, mid: 75, high: 75 },
+    distortion: { wet: 0 },
+    reverb: { wet: 30 },
+    delay: { wet: 30 }
   },
   'track-c': {
     channel: {

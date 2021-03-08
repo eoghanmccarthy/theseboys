@@ -15,17 +15,18 @@ const SliderControl = ({
   onChange
 }) => {
   useEffect(() => {
-    document.querySelector(`#${id} .control`)?.setAttribute('value', initialValue);
-    handleOnChange(initialValue);
+    handleOnChange(initialValue, true);
   }, []);
 
-  const handleOnChange = val => {
-    val = parseFloat(val);
-    if (val < min || val > max) return;
+  const handleOnChange = (val, mount = false) => {
+    const num = parseFloat(val);
 
-    document.querySelector(`#${id} span.value`)?.setAttribute('value', val);
+    if (num < min || num > max) return;
 
-    onChange(val);
+    mount && document.querySelector(`#${id} .control`)?.setAttribute('value', `${num}`);
+    document.querySelector(`#${id} span.value`)?.setAttribute('value', num.toFixed(toFixed));
+
+    onChange(num);
   };
 
   return (

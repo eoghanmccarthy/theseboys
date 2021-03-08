@@ -20,23 +20,23 @@ const ButtonControl = ({
   }, []);
 
   const handleOnChange = val => {
-    val = parseFloat(val);
-    if (val < min || val > max) return;
+    const num = parseFloat(val);
+    if (num < min || num > max) return;
 
-    document.querySelectorAll(`#${id} .control`)?.forEach(e => e.setAttribute('value', val));
-    document.querySelector(`#${id} span.value`)?.setAttribute('value', val);
+    document.querySelectorAll(`#${id} .control`)?.forEach(e => e.setAttribute('value', `${num}`));
+    document.querySelector(`#${id} span.value`)?.setAttribute('value', num.toFixed(toFixed));
 
-    if (val > min && val < max) {
+    if (num > min && num < max) {
       document
         .querySelectorAll(`#${id} .control`)
         ?.forEach(e => e.classList.contains('alert') && e.classList.remove('alert'));
-    } else if (val === min) {
+    } else if (num === min) {
       document.querySelector(`#${id} .control.dec`)?.classList.add('alert');
-    } else if (val === max) {
+    } else if (num === max) {
       document.querySelector(`#${id} .control.inc`)?.classList.add('alert');
     }
 
-    onChange(val);
+    onChange(num);
   };
 
   return (

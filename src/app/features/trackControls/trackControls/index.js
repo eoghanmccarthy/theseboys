@@ -16,6 +16,7 @@ const TrackControls = memo(({ trackId, channel, initialValue }) => {
   return (
     <div id={`${trackId}-controls`} className={`track-controls`}>
       <Button
+        size={40}
         onClick={e => {
           const { mute } = channel.get();
           channel.set({ mute: !mute });
@@ -25,9 +26,7 @@ const TrackControls = memo(({ trackId, channel, initialValue }) => {
             e.target.classList.remove('active');
           }
         }}
-      >
-        mute
-      </Button>
+      />
       <ControllerGroup>
         <ButtonControl
           id={`${trackId}-volume`}
@@ -43,6 +42,7 @@ const TrackControls = memo(({ trackId, channel, initialValue }) => {
           step={0.1}
           min={-1}
           max={1}
+          toFixed={1}
           initialValue={initialValue.pan}
           onChange={val => channel.set({ pan: val })}
         />

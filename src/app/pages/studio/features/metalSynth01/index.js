@@ -19,13 +19,14 @@ import {
 //https://tone-demos.glitch.me/
 
 import { onSequenceStep, setTrackConfig, stepsInitialState } from 'features/utils';
-
 import { TrackControls } from 'features/trackControls';
 import { TrackSteps } from 'features/trackSteps';
 import { TrackEffects, EffectsGroup } from 'features/trackEffects';
 import EnvelopeControls from 'features/envelopeControls';
-import { ButtonControl } from '../../ui';
 import Eq3Controls from 'features/eq3Controls';
+import DistortionControls from 'features/distortionControls';
+import ReverbControls from 'features/reverbControls';
+import DelayControls from 'features/delayControls';
 
 //const notes = ['A4', 'D3', 'E3', 'G4', 'F#4'];
 //const notes = ['A3', 'C4', 'D4', 'E4', 'G4', 'A4'];
@@ -63,21 +64,10 @@ const MetalSynth01 = memo(({ trackId, config = {}, initialValue = {} }) => {
       wet: 0.0
     })
   );
-
-  const phaser = useRef(
-    new Phaser({
-      frequency: 15,
-      octaves: 5,
-      baseFrequency: 1000
-    })
-  );
-
-  const distortion = useRef(new Distortion({ distortion: 1, oversample: '4x', wet: 0.0 }));
-
+  const distortion = useRef(new Distortion({ distortion: 1, oversample: '4x' }));
   const reverb = useRef(
     new Reverb({
       decay: 4,
-      wet: 0.6,
       preDelay: 0.25
     })
   );
@@ -135,27 +125,13 @@ const MetalSynth01 = memo(({ trackId, config = {}, initialValue = {} }) => {
           <Eq3Controls trackId={trackId} eq3={eq3?.current} initialValue={initialValue?.eq3} />
         </EffectsGroup>
         <EffectsGroup span={'5 / span 3'} title={'effects'}>
-          <ButtonControl
+          <DistortionControls
             trackId={trackId}
-            node={distortion?.current}
-            effectName={'distortion'}
-            label={'DIS'}
-            showPercentageValue
+            distortion={distortion?.current}
+            initialValue={{ wet: 30 }}
           />
-          <ButtonControl
-            trackId={trackId}
-            node={reverb?.current}
-            effectName={'reverb'}
-            label={'REV'}
-            showPercentageValue
-          />
-          <ButtonControl
-            trackId={trackId}
-            node={delay?.current}
-            effectName={'delay'}
-            label={'DLY'}
-            showPercentageValue
-          />
+          <ReverbControls trackId={trackId} reverb={reverb?.current} initialValue={{ wet: 30 }} />
+          <DelayControls trackId={trackId} delay={delay?.current} initialValue={{ wet: 30 }} />
         </EffectsGroup>
         <EffectsGroup span={'9 / span 4'} title={'envelope'}>
           <EnvelopeControls
