@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 
-import { SliderControl } from 'features/controller';
+import { SliderControl } from '../controller';
 
 const EnvelopeControls = memo(({ trackId, envelope, defaultValues = {} }) => {
   if (!trackId || !envelope) return null;

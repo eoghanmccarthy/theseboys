@@ -18,23 +18,21 @@ import {
 
 import { onSequenceStep, setTrackConfig, stepsInitialState } from 'features/utils';
 
-import ButtonGroup from 'componentLib/ButtonGroup';
-import { Steps } from 'features/stepSequencer';
 import { TrackControls } from 'features/trackControls';
+import { TrackSteps } from 'features/trackSteps';
 import { TrackEffects, EffectsGroup } from 'features/trackEffects';
-import { TrackSteps } from '../../ui';
-import EnvelopeControls from '../envelopeControls';
+import EnvelopeControls from 'features/envelopeControls';
 import CompressorControls from '../compressorControls';
 import Eq3Controls from '../eq3Controls';
 
 //const notes = ['A4', 'D3', 'E3', 'G4', 'F#4'];
 //const notes = ['A3', 'C4', 'D4', 'E4', 'G4', 'A4'];
 
-const MembraneSynth01 = memo(({ trackId, trackConfig, defaultValues }) => {
+const MembraneSynth01 = memo(({ trackId, config = {}, defaultValues }) => {
   if (!trackId) return null;
 
   const [{ notes, numRows, numSteps, noteInterval, noteIndices }] = useState(() =>
-    setTrackConfig(trackConfig)
+    setTrackConfig(config)
   );
 
   const [data] = useImmer(() => stepsInitialState(numRows, numSteps));
@@ -83,12 +81,6 @@ const MembraneSynth01 = memo(({ trackId, trackConfig, defaultValues }) => {
       octaves: 6,
       oscillator: {
         type: 'square4'
-      },
-      envelope: {
-        attack: 0.001,
-        decay: 0.45,
-        sustain: 0.1,
-        release: 0.3
       }
     }).chain(channel.current, eq3.current, compressor.current, gain.current, Destination)
   );
@@ -114,13 +106,11 @@ const MembraneSynth01 = memo(({ trackId, trackConfig, defaultValues }) => {
   return (
     <>
       <TrackControls trackId={trackId} channel={channel?.current} defaultValues={defaultValues} />
-      <TrackSteps>
-        <Steps
-          trackId={trackId}
-          numberOfSteps={trackConfig.numSteps ?? 16}
-          steps={stepsRef?.current}
-        />
-      </TrackSteps>
+      <TrackSteps
+        trackId={trackId}
+        numSteps={config?.numSteps ?? 16}
+        initialValue={stepsRef?.current}
+      />
       <TrackEffects trackId={trackId}>
         <EffectsGroup span={'1 / span 3'} title={'equaliser'}>
           <Eq3Controls trackId={trackId} eq3={eq3?.current} />

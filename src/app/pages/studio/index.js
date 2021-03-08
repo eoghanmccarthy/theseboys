@@ -21,7 +21,7 @@ const Studio = () => {
         <Track>
           <MembraneSynth01
             trackId={'track-A'}
-            trackConfig={{ notes: ['C1'], numSteps: 16 }}
+            config={{ notes: ['C1'], numSteps: 16 }}
             defaultValues={{
               pan: 0,
               volume: 90,
@@ -33,7 +33,7 @@ const Studio = () => {
         <Track>
           <MetalSynth01
             trackId={`track-B`}
-            trackConfig={{ notes: ['C1'], numSteps: 16 }}
+            config={{ notes: ['C1'], numSteps: 16 }}
             defaultValues={{
               pan: 0.7,
               volume: 90,
@@ -45,7 +45,7 @@ const Studio = () => {
         <Track>
           <NoiseSynth01
             trackId={`track-C`}
-            trackConfig={{ numSteps: 16 }}
+            config={{ numSteps: 16 }}
             defaultValues={{
               pan: -0.5,
               volume: 68,
@@ -57,7 +57,7 @@ const Studio = () => {
         <Track>
           <NoiseSynth02
             trackId={`track-D`}
-            trackConfig={{ numSteps: 16 }}
+            config={{ numSteps: 16 }}
             defaultValues={{
               pan: 0.8,
               volume: 60,

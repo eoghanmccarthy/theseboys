@@ -2,10 +2,12 @@ import React, { memo } from 'react';
 
 import './styles.css';
 
-const TrackSteps = memo(({ children, trackId }) => {
+import { Steps } from '../../stepSequencer';
+
+const TrackSteps = memo(({ trackId, numSteps = 16, initialValue }) => {
   return (
     <div id={`${trackId}-steps`} className={'track-steps'}>
-      {children}
+      <Steps trackId={trackId} numberOfSteps={numSteps} initialValue={initialValue} />
     </div>
   );
 });
