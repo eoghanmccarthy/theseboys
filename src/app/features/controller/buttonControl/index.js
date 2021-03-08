@@ -8,9 +8,11 @@ const ButtonControl = ({
   id,
   orient = 'vertical',
   label,
+  step = 1,
   min = 0,
-  max = 1,
+  max = 100,
   initialValue,
+  toFixed = 0,
   onChange
 }) => {
   useEffect(() => {
@@ -18,6 +20,7 @@ const ButtonControl = ({
   }, []);
 
   const handleOnChange = val => {
+    val = parseFloat(val);
     if (val < min || val > max) return;
 
     document.querySelectorAll(`#${id} .control`)?.forEach(e => e.setAttribute('value', val));
@@ -44,7 +47,7 @@ const ButtonControl = ({
           className={'control dec'}
           size={28}
           onClick={e => {
-            const next = parseInt(e.target.value) - 1;
+            const next = parseFloat(e.target.value) - step;
             if (next < min) return;
             handleOnChange(next);
           }}
@@ -55,7 +58,7 @@ const ButtonControl = ({
           className={'control inc'}
           size={28}
           onClick={e => {
-            const next = parseInt(e.target.value) + 1;
+            const next = parseFloat(e.target.value) + step;
             if (next > max) return;
             handleOnChange(next);
           }}

@@ -22,13 +22,13 @@ import { TrackControls } from 'features/trackControls';
 import { TrackSteps } from 'features/trackSteps';
 import { TrackEffects, EffectsGroup } from 'features/trackEffects';
 import EnvelopeControls from 'features/envelopeControls';
-import CompressorControls from '../compressorControls';
-import Eq3Controls from '../eq3Controls';
+import CompressorControls from 'features/compressorControls';
+import Eq3Controls from 'features/eq3Controls';
 
 //const notes = ['A4', 'D3', 'E3', 'G4', 'F#4'];
 //const notes = ['A3', 'C4', 'D4', 'E4', 'G4', 'A4'];
 
-const MembraneSynth01 = memo(({ trackId, config = {}, defaultValues }) => {
+const MembraneSynth01 = memo(({ trackId, config = {}, initialValue = {} }) => {
   if (!trackId) return null;
 
   const [{ notes, numRows, numSteps, noteInterval, noteIndices }] = useState(() =>
@@ -42,38 +42,10 @@ const MembraneSynth01 = memo(({ trackId, config = {}, defaultValues }) => {
 
   const sequence = useRef();
 
-  const channel = useRef(new Channel(defaultValues));
-
-  const compressor = useRef(
-    new Compressor({
-      threshold: -30,
-      ratio: 6,
-      attack: 0.0001,
-      release: 0.1
-    })
-  );
-
+  const channel = useRef(new Channel());
+  const compressor = useRef(new Compressor());
   const gain = useRef(new Gain(2));
-
-  const eq3 = useRef(new EQ3({ low: 0, mid: -56, high: -54 }));
-
-  const delay = useRef(
-    new FeedbackDelay({
-      delayTime: `${Math.floor(numSteps / 2)}n`,
-      feedback: 1 / 3,
-      wet: 0.0
-    })
-  );
-
-  const distortion = useRef(new Distortion({ distortion: 1, oversample: '4x', wet: 0.0 }));
-
-  const reverb = useRef(
-    new Reverb({
-      decay: 4,
-      wet: 0.0,
-      preDelay: 0.25
-    })
-  );
+  const eq3 = useRef(new EQ3());
 
   const synth = useRef(
     new MembraneSynth({
@@ -105,7 +77,11 @@ const MembraneSynth01 = memo(({ trackId, config = {}, defaultValues }) => {
 
   return (
     <>
-      <TrackControls trackId={trackId} channel={channel?.current} defaultValues={defaultValues} />
+      <TrackControls
+        trackId={trackId}
+        channel={channel?.current}
+        initialValue={initialValue?.channel}
+      />
       <TrackSteps
         trackId={trackId}
         numSteps={config?.numSteps ?? 16}
@@ -113,10 +89,14 @@ const MembraneSynth01 = memo(({ trackId, config = {}, defaultValues }) => {
       />
       <TrackEffects trackId={trackId}>
         <EffectsGroup span={'1 / span 3'} title={'equaliser'}>
-          <Eq3Controls trackId={trackId} eq3={eq3?.current} />
+          <Eq3Controls trackId={trackId} eq3={eq3?.current} initialValue={initialValue?.eq3} />
         </EffectsGroup>
         <EffectsGroup span={'5 / span 3'} title={'compressor'}>
-          <CompressorControls trackId={trackId} compressor={compressor.current} />
+          <CompressorControls
+            trackId={trackId}
+            compressor={compressor?.current}
+            initialValue={initialValue?.compressor}
+          />
         </EffectsGroup>
         {/*<ControlGroup orientation={'horizontal'} title={'effects'}>*/}
         {/*  <ButtonControl*/}
@@ -145,12 +125,7 @@ const MembraneSynth01 = memo(({ trackId, config = {}, defaultValues }) => {
           <EnvelopeControls
             trackId={trackId}
             envelope={synth?.current?.envelope}
-            defaultValues={{
-              attack: 0.001,
-              decay: 0.45,
-              sustain: 0.1,
-              release: 0.3
-            }}
+            initialValue={initialValue?.synth?.envelope}
           />
         </EffectsGroup>
       </TrackEffects>

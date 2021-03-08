@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import cx from 'classnames';
 import { Destination, Transport } from 'tone';
 
@@ -16,9 +16,8 @@ const VOL_MAX = 20;
 const BPM_MIN = 60;
 const BPM_MAX = 240;
 
-const Master = ({ defaultValues }) => {
+const Master = ({ initialValue = {} }) => {
   const dispatch = useDispatch();
-  const { bpm, volume } = useSelector(state => state.app.master);
   const { play, stop, record } = useMasterContext('<Master>');
 
   return (
@@ -30,7 +29,7 @@ const Master = ({ defaultValues }) => {
           label={'VOL'}
           step={1}
           max={100}
-          initialValue={volume ?? defaultValues.volume}
+          initialValue={initialValue.volume}
           onChange={val => Destination.set({ volume: fromPercent([VOL_MIN, VOL_MAX], val, 0) })}
         />
         <ControllerGroup>
@@ -44,7 +43,7 @@ const Master = ({ defaultValues }) => {
           label={'BPM'}
           min={BPM_MIN}
           max={BPM_MAX}
-          initialValue={bpm ?? defaultValues.bpm}
+          initialValue={initialValue.bpm}
           onChange={val => Transport.set({ bpm: val })}
         />
       </div>
@@ -61,6 +60,15 @@ const Master = ({ defaultValues }) => {
           }
         >
           save
+        </button>
+        <button
+          onClick={() =>
+            dispatch({
+              type: 'RESET_STORE'
+            })
+          }
+        >
+          reset
         </button>
       </div>
     </div>

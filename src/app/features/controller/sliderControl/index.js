@@ -11,6 +11,7 @@ const SliderControl = ({
   min = 0,
   max = 1,
   initialValue,
+  toFixed = 0,
   onChange
 }) => {
   useEffect(() => {
@@ -19,6 +20,7 @@ const SliderControl = ({
   }, []);
 
   const handleOnChange = val => {
+    val = parseFloat(val);
     if (val < min || val > max) return;
 
     document.querySelector(`#${id} span.value`)?.setAttribute('value', val);
@@ -36,10 +38,7 @@ const SliderControl = ({
           step={step}
           min={min}
           max={max}
-          onChange={e => {
-            const val = parseFloat(e.target.value);
-            handleOnChange(val);
-          }}
+          onChange={e => handleOnChange(e.target.value)}
         />
       </div>
       <span className={'value'} />

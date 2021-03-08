@@ -3,7 +3,7 @@ import { useLocation, useHistory } from 'react-router';
 
 import './index.css';
 
-import Logo from 'componentLib/Logo';
+import Logo from '../logo';
 
 const Footer = () => {
   const location = useLocation();

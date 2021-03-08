@@ -16,8 +16,8 @@
   "bugs": {
     "url": "https://github.com/eoghanmccarthy/theseboys/issues"
   },
-  "jest" : {
-    "moduleNameMapper":{
+  "jest": {
+    "moduleNameMapper": {
       "\\.(css|less|sass|scss)$": "<rootDir>/__mocks__/styleMock.js",
       "\\.(gif|ttf|eot|svg)$": "<rootDir>/__mocks__/fileMock.js"
     }
@@ -34,6 +34,8 @@
   "dependencies": {
     "@babel/runtime": "^7.2.0",
     "@eoghanmccarthy/ui": "^1.5.2",
+    "@reduxjs/toolkit": "^1.5.0",
+    "@rtk-incubator/rtk-query": "^0.2.0",
     "@types/classnames": "^2.2.6",
     "@types/react": "^16.7.17",
     "@types/react-dom": "^16.0.11",
@@ -44,7 +46,7 @@
     "axios": "^0.18.1",
     "circular-dependency-plugin": "^5.0.2",
     "classnames": "^2.2.6",
-    "connected-react-router": "^6.7.0",
+    "connected-react-router": "^6.9.1",
     "history": "^4.7.2",
     "immer": "^1.12.1",
     "logrocket": "^1.0.11",

@@ -1,18 +1,9 @@
 import { useQuery } from 'react-query';
-import axios, { CancelToken } from 'axios';
+import axios from 'axios';
 
 const getAuth = async () => {
-  const source = CancelToken.source();
-
-  const promise = await axios.get(`http://eoghan.io/data/config`, {
-    cancelToken: source.token
-  });
-
-  promise.cancel = () => {
-    source.cancel('Query was cancelled.');
-  };
-
-  return promise;
+  const { data } = await axios.get(`http://eoghan.io/`);
+  return data;
 };
 
 export const useGetAuth = (instance, options = {}) => {

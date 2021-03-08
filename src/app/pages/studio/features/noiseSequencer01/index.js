@@ -24,13 +24,13 @@ import { TrackControls } from 'features/trackControls';
 import { TrackSteps } from 'features/trackSteps';
 import { TrackEffects, EffectsGroup } from 'features/trackEffects';
 import EnvelopeControls from 'features/envelopeControls';
-import Eq3Controls from '../eq3Controls';
-import FilterControls from '../filterControls';
+import Eq3Controls from 'features/eq3Controls';
+import FilterControls from 'features/filterControls';
 
 //const notes = ['A4', 'D3', 'E3', 'G4', 'F#4'];
 //const notes = ['A3', 'C4', 'D4', 'E4', 'G4', 'A4'];
 
-const NoiseSequencer01 = memo(({ trackId, config = {}, defaultValues }) => {
+const NoiseSequencer01 = memo(({ trackId, config = {}, initialValue = {} }) => {
   if (!trackId) return null;
 
   const [{ notes, numRows, numSteps, noteInterval, noteIndices }] = useState(() =>
@@ -44,32 +44,9 @@ const NoiseSequencer01 = memo(({ trackId, config = {}, defaultValues }) => {
 
   const sequence = useRef();
 
-  const channel = useRef(new Channel(defaultValues));
-
-  const eq3 = useRef(new EQ3({ low: -60, mid: -48, high: 12 }));
-
-  const compressor = useRef(
-    new Compressor({
-      threshold: -30,
-      ratio: 6,
-      attack: 0.3,
-      release: 0.1
-    })
-  );
-
-  const distortion = useRef(new Distortion({ distortion: 1, oversample: '4x', wet: 0.6 }));
-
-  const filter = useRef(new Filter({ Q: 2, frequency: 10000 }));
-
-  const reverb = useRef(
-    new Reverb({
-      decay: 4,
-      wet: 0.2,
-      preDelay: 0.25
-    })
-  );
-
-  const gain = useRef(new Gain(2));
+  const channel = useRef(new Channel());
+  const eq3 = useRef(new EQ3());
+  const filter = useRef(new Filter());
 
   const synth = useRef(
     new NoiseSynth({
@@ -101,7 +78,11 @@ const NoiseSequencer01 = memo(({ trackId, config = {}, defaultValues }) => {
 
   return (
     <>
-      <TrackControls trackId={trackId} channel={channel?.current} defaultValues={defaultValues} />
+      <TrackControls
+        trackId={trackId}
+        channel={channel?.current}
+        initialValue={initialValue?.channel}
+      />
       <TrackSteps
         trackId={trackId}
         numSteps={config?.numSteps ?? 16}
@@ -109,10 +90,14 @@ const NoiseSequencer01 = memo(({ trackId, config = {}, defaultValues }) => {
       />
       <TrackEffects trackId={trackId}>
         <EffectsGroup span={'1 / span 3'} title={'equaliser'}>
-          <Eq3Controls trackId={trackId} eq3={eq3?.current} />
+          <Eq3Controls trackId={trackId} eq3={eq3?.current} initialValue={initialValue?.eq3} />
         </EffectsGroup>
         <EffectsGroup span={'5 / span 3'} title={'filter'}>
-          <FilterControls trackId={trackId} filter={filter?.current} />
+          <FilterControls
+            trackId={trackId}
+            filter={filter?.current}
+            initialValue={initialValue?.filter}
+          />
         </EffectsGroup>
         {/*<ControlGroup orientation={'horizontal'} title={'effects'}>*/}
         {/*  <ButtonControl*/}
@@ -134,12 +119,7 @@ const NoiseSequencer01 = memo(({ trackId, config = {}, defaultValues }) => {
           <EnvelopeControls
             trackId={trackId}
             envelope={synth?.current?.envelope}
-            defaultValues={{
-              attack: 0.001,
-              decay: 0.3,
-              sustain: 0,
-              release: 0.3
-            }}
+            initialValue={initialValue?.synth?.envelope}
           />
         </EffectsGroup>
       </TrackEffects>

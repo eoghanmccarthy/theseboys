@@ -6,7 +6,7 @@ import TwitterLogo from 'src/assets/Twitter_Social_Icon_Circle_Color.svg';
 
 import Main from 'global/main';
 import Footer from 'global/footer';
-import Logo from 'componentLib/Logo';
+import Logo from 'global/logo';
 
 const Home = () => {
   return (
@@ -15,10 +15,9 @@ const Home = () => {
         <Logo animate />
         <div className={'social-links'}>
           <a href={'http://twitter.com/theseboys'} target={'_blank'}>
-            <img className={'social-twitter'} src={TwitterLogo} />
+            <img alt={'Twitter logo'} className={'social-twitter'} src={TwitterLogo} />
           </a>
           <iframe
-            allowTransparency="true"
             scrolling="no"
             frameBorder="no"
             src="https://w.soundcloud.com/icon/?url=http%3A%2F%2Fsoundcloud.com%2Ftheseboys&color=orange_white&size=24"

@@ -25,12 +25,12 @@ import { TrackSteps } from 'features/trackSteps';
 import { TrackEffects, EffectsGroup } from 'features/trackEffects';
 import EnvelopeControls from 'features/envelopeControls';
 import { ButtonControl } from '../../ui';
-import Eq3Controls from '../eq3Controls';
+import Eq3Controls from 'features/eq3Controls';
 
 //const notes = ['A4', 'D3', 'E3', 'G4', 'F#4'];
 //const notes = ['A3', 'C4', 'D4', 'E4', 'G4', 'A4'];
 
-const MetalSynth01 = memo(({ trackId, config = {}, defaultValues }) => {
+const MetalSynth01 = memo(({ trackId, config = {}, initialValue = {} }) => {
   if (!trackId) return null;
 
   const [{ notes, numRows, numSteps, noteInterval, noteIndices }] = useState(() =>
@@ -44,8 +44,7 @@ const MetalSynth01 = memo(({ trackId, config = {}, defaultValues }) => {
 
   const sequence = useRef();
 
-  const channel = useRef(new Channel(defaultValues));
-
+  const channel = useRef(new Channel());
   const compressor = useRef(
     new Compressor({
       threshold: -30,
@@ -54,6 +53,8 @@ const MetalSynth01 = memo(({ trackId, config = {}, defaultValues }) => {
       release: 0.1
     })
   );
+  const gain = useRef(new Gain(2));
+  const eq3 = useRef(new EQ3());
 
   const delay = useRef(
     new FeedbackDelay({
@@ -80,10 +81,6 @@ const MetalSynth01 = memo(({ trackId, config = {}, defaultValues }) => {
       preDelay: 0.25
     })
   );
-
-  const gain = useRef(new Gain(2));
-
-  const eq3 = useRef(new EQ3({ low: 0, mid: 0, high: 0 }));
 
   const synth = useRef(
     new MetalSynth({
@@ -123,7 +120,11 @@ const MetalSynth01 = memo(({ trackId, config = {}, defaultValues }) => {
 
   return (
     <>
-      <TrackControls trackId={trackId} channel={channel?.current} defaultValues={defaultValues} />
+      <TrackControls
+        trackId={trackId}
+        channel={channel?.current}
+        initialValue={initialValue.channel}
+      />
       <TrackSteps
         trackId={trackId}
         numSteps={config?.numSteps ?? 16}
@@ -131,7 +132,7 @@ const MetalSynth01 = memo(({ trackId, config = {}, defaultValues }) => {
       />
       <TrackEffects trackId={trackId}>
         <EffectsGroup span={'1 / span 3'} title={'equaliser'}>
-          <Eq3Controls trackId={trackId} eq3={eq3?.current} />
+          <Eq3Controls trackId={trackId} eq3={eq3?.current} initialValue={initialValue?.eq3} />
         </EffectsGroup>
         <EffectsGroup span={'5 / span 3'} title={'effects'}>
           <ButtonControl
@@ -160,12 +161,7 @@ const MetalSynth01 = memo(({ trackId, config = {}, defaultValues }) => {
           <EnvelopeControls
             trackId={trackId}
             envelope={synth?.current?.envelope}
-            defaultValues={{
-              attack: 2.0,
-              decay: 0.4,
-              sustain: 0.512,
-              release: 0.067
-            }}
+            initialValue={initialValue?.synth?.envelope}
           />
         </EffectsGroup>
       </TrackEffects>

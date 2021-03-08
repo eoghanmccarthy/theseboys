@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 
 import './styles.css';
 
-import { fromPercent } from 'features/utils';
+import { fromPercent } from '../../utils';
 
 import Button from 'componentLib/Button';
 import { ButtonControl, ControllerGroup } from '../../controller';
@@ -10,7 +10,7 @@ import { ButtonControl, ControllerGroup } from '../../controller';
 const VOL_MIN = -60;
 const VOL_MAX = 20;
 
-const TrackControls = memo(({ trackId, channel, defaultValues }) => {
+const TrackControls = memo(({ trackId, channel, initialValue }) => {
   if (!trackId || !channel) return null;
 
   return (
@@ -33,16 +33,17 @@ const TrackControls = memo(({ trackId, channel, defaultValues }) => {
           id={`${trackId}-volume`}
           orient={'horizontal'}
           label={'VOL'}
-          max={100}
-          initialValue={defaultValues.volume ?? 75}
+          initialValue={initialValue.volume}
           onChange={val => channel.set({ volume: fromPercent([VOL_MIN, VOL_MAX], val, 0) })}
         />
         <ButtonControl
           id={`${trackId}-pan`}
           orient={'horizontal'}
           label={'PAN'}
+          step={0.1}
           min={-1}
-          initialValue={defaultValues.pan ?? 0}
+          max={1}
+          initialValue={initialValue.pan}
           onChange={val => channel.set({ pan: val })}
         />
         <Button

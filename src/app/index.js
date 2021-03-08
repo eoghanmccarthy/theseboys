@@ -9,7 +9,6 @@ import Routes from 'routes';
 
 const App = () => {
   const auth = useGetAuth({ instance: 'app-root' }, { cacheTime: 0 });
-
   return !auth.isSuccess ? null : <Routes />;
 };
 
