@@ -1,44 +1,46 @@
-.tb-controller {
+.controller {
     display: grid;
     font-size: 14px;
     text-align: center;
 }
 
-.tb-controller.vertical {
+.controller.vertical {
     grid-template-rows: auto 100px auto;
     grid-template-columns: auto;
     row-gap: var(--spacing-12);
     justify-items: center;
 }
 
-.tb-controller.horizontal {
+.controller.horizontal {
     grid-template-rows: auto;
     grid-template-columns: auto 100px auto;
     column-gap: var(--spacing-8);
     align-items: center;
 }
 
-.tb-controller > .controls {
+.controller > .controls {
     display: flex;
     justify-content: space-around;
 }
 
-.tb-controller.vertical > .controls {
+.controller.vertical > .controls {
     flex-direction: column;
 }
 
-.tb-controller.horizontal > .controls {
+.controller.horizontal > .controls {
     flex-direction: row;
 }
 
-.tb-controller > .label {
+.controller > .label {
     width: 5ch;
+    user-select: none;
 }
 
-.tb-controller > .value {
+.controller > .value {
     width: 5ch;
+    user-select: none;
 }
 
-.tb-controller > .value::before {
+.controller > .value::before {
     content: attr(value);
 }

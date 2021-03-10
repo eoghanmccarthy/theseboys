@@ -1,22 +1,18 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import cx from 'classnames';
 import { Destination, Transport } from 'tone';
 
 import './styles.css';
 
+import { BPM_MIN, BPM_MAX, VOL_MIN, VOL_MAX } from '../../utils/constants';
 import { fromPercent, toPercent } from '../../utils';
 
-import Button from 'componentLib/Button';
+import { Circle, Polygon, Square } from 'componentLib/icon';
+import Button from 'componentLib/button';
 import useMasterContext from '../useMasterContext';
 import { ButtonControl, ControllerGroup, SliderControl } from '../../controller';
 
-const VOL_MIN = -60;
-const VOL_MAX = 20;
-const BPM_MIN = 60;
-const BPM_MAX = 240;
-
-const Master = ({ initialValue = {} }) => {
+const Master = ({ onSave, initialValue = {} }) => {
   const dispatch = useDispatch();
   const { play, stop, record } = useMasterContext('<Master>');
 
@@ -30,12 +26,18 @@ const Master = ({ initialValue = {} }) => {
           step={1}
           max={100}
           initialValue={initialValue.volume}
-          onChange={val => Destination.set({ volume: fromPercent([VOL_MIN, VOL_MAX], val, 0) })}
+          onChange={val => Destination.set({ volume: fromPercent([VOL_MIN, VOL_MAX], val) })}
         />
         <ControllerGroup>
-          <Button className={'record-button'} onClick={record} />
-          <Button className={cx('playback-button play')} value={'off'} onClick={play} />
-          <Button className={cx('playback-button stop')} value={'on'} onClick={stop} />
+          <Button className={'playback record'} onClick={record}>
+            <Circle width={'64%'} />
+          </Button>
+          <Button className={'playback play'} value={'off'} onClick={play}>
+            <Polygon width={'72%'} />
+          </Button>
+          <Button className={'playback stop'} value={'on'} onClick={stop}>
+            <Square width={'60%'} />
+          </Button>
         </ControllerGroup>
         <ButtonControl
           id={'master-bpm'}
@@ -49,26 +51,18 @@ const Master = ({ initialValue = {} }) => {
       </div>
       <div className={'sub'}>
         <button
-          onClick={() =>
+          onClick={() => {
+            onSave();
             dispatch({
               type: 'master/SAVE',
               payload: {
                 bpm: Transport.get().bpm,
                 volume: toPercent([VOL_MIN, VOL_MAX], Destination.get().volume)
               }
-            })
-          }
+            });
+          }}
         >
           save
-        </button>
-        <button
-          onClick={() =>
-            dispatch({
-              type: 'RESET_STORE'
-            })
-          }
-        >
-          reset
         </button>
       </div>
     </div>

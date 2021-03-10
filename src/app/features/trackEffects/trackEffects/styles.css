@@ -1,4 +1,4 @@
-.TrackEffects {
+.track-effects {
     grid-area: effects;
     display: grid;
     grid-template-columns: repeat(12, 1fr);

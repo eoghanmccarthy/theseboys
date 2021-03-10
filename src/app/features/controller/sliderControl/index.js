@@ -19,14 +19,12 @@ const SliderControl = ({
   }, []);
 
   const handleOnChange = (val, mount = false) => {
-    const num = parseFloat(val);
+    if (typeof val !== 'number' || val < min || val > max) return;
 
-    if (num < min || num > max) return;
+    mount && document.querySelector(`#${id} .control`)?.setAttribute('value', `${val}`);
+    document.querySelector(`#${id} span.value`)?.setAttribute('value', val.toFixed(toFixed));
 
-    mount && document.querySelector(`#${id} .control`)?.setAttribute('value', `${num}`);
-    document.querySelector(`#${id} span.value`)?.setAttribute('value', num.toFixed(toFixed));
-
-    onChange(num);
+    onChange(val);
   };
 
   return (
@@ -39,7 +37,7 @@ const SliderControl = ({
           step={step}
           min={min}
           max={max}
-          onChange={e => handleOnChange(e.target.value)}
+          onChange={e => handleOnChange(parseFloat(e.target.value))}
         />
       </div>
       <span className={'value'} />

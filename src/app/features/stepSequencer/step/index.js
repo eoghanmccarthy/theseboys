@@ -11,7 +11,9 @@ const Step = memo(({ trackId, rowIndex, stepIndex }) => {
   }
 
   const handleClick = () => {
-    const stepButton = document.querySelector(`.step.${trackId}.row-${rowIndex}-step-${stepIndex}`);
+    const stepButton = document.querySelector(
+      `.step.${trackId}-step.row-${rowIndex}-step-${stepIndex}`
+    );
 
     if (!stepButton) {
       consoleLog(`step not found ${trackId} ${rowIndex} ${stepIndex}`);
@@ -29,7 +31,7 @@ const Step = memo(({ trackId, rowIndex, stepIndex }) => {
 
   return (
     <span
-      className={cx(`step ${trackId} row-${rowIndex}-step-${stepIndex}`)}
+      className={`step ${trackId}-step row-${rowIndex}-step-${stepIndex}`}
       data-value={'off'}
       data-status={'idle'}
       onClick={handleClick}

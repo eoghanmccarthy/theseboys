@@ -19,7 +19,7 @@ export default (trackId, row, step) => {
     return false;
   }
 
-  const node = document.querySelector(`.step.${trackId}.row-${row}-step-${step}`);
+  const node = document.querySelector(`#${trackId} .step.row-${row}-step-${step}`);
 
   if (!node) {
     sendError('step node not found');

@@ -1,12 +1,23 @@
-import React, { memo } from 'react';
+import React, { memo, forwardRef, useImperativeHandle } from 'react';
 import { string } from 'prop-types';
-import cx from 'classnames';
 
 import './styles.css';
 
-const Track = memo(({ children, trackId }) => {
-  return <div className={cx('Track', trackId)}>{children}</div>;
-});
+const Track = memo(
+  forwardRef(({ children, trackId }, ref) => {
+    useImperativeHandle(ref, () => ({
+      save() {
+        console.log(`Saving ${trackId}`);
+      }
+    }));
+
+    return (
+      <div id={trackId} className={'track'}>
+        {children}
+      </div>
+    );
+  })
+);
 
 export default Track;
 

@@ -1,11 +1,9 @@
 import React, { memo } from 'react';
 
 import { fromPercent } from '../utils';
+import { EQ3_MIN, EQ3_MAX } from '../utils/constants';
 
 import { SliderControl } from '../controller';
-
-const EQ3_MIN = -60;
-const EQ3_MAX = 20;
 
 const Eq3Controls = memo(({ trackId, eq3, initialValue = {} }) => {
   if (!trackId || !eq3) return null;

@@ -1,13 +1,13 @@
 import React, { memo } from 'react';
-import { func, number } from 'prop-types';
+import { func, number, string } from 'prop-types';
 import cx from 'classnames';
 
 import './styles.css';
 
-import baseProps from '../baseProps';
-
 const Slider = memo(
   ({
+    testId,
+    id,
     className,
     orient = 'horizontal',
     isDisabled = false,
@@ -19,8 +19,10 @@ const Slider = memo(
   }) => {
     return (
       <input
+        data-testid={testId}
+        id={id}
         className={cx(
-          'ui-slider',
+          'tb-slider',
           { [`orient-${orient}`]: orient, disabled: isDisabled },
           className
         )}
@@ -37,7 +39,7 @@ const Slider = memo(
   }
 );
 
-export default baseProps(Slider);
+export default Slider;
 
 Slider.propTypes = {
   max: number,

@@ -9,7 +9,7 @@ import consoleLog from 'utils/errorHandlers/consoleLog';
  */
 
 export default (trackId, stepTotal, step) => {
-  const steps = document.getElementsByClassName(`step ${trackId}`);
+  const steps = document.getElementsByClassName(`step ${trackId}-step`);
 
   const errorLog = msg => {
     consoleLog('drawSteps helper function,', msg, trackId, stepTotal, step);

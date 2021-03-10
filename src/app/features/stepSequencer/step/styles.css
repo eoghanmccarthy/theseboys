@@ -1,4 +1,4 @@
-.StepSequencer .step {
+.step-sequencer .step {
     display: grid;
     align-content: center;
     justify-content: center;
@@ -8,12 +8,12 @@
 
 }
 
-.StepSequencer .step .step-zone {
+.step-sequencer .step .step-zone {
     width: 100%;
     fill: none;
 }
 
-.StepSequencer .step .step-icon {
+.step-sequencer .step .step-icon {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -24,30 +24,30 @@
     overflow: visible;
 }
 
-.StepSequencer .step[data-value = 'off'] .step-icon.off {
+.step-sequencer .step[data-value = 'off'] .step-icon.off {
     display: block;
     fill: var(--color-bluegrey-900);
     stroke: var(--color-bluegrey-900);
 }
 
-.StepSequencer .step[data-value = 'off'] .step-icon.on {
+.step-sequencer .step[data-value = 'off'] .step-icon.on {
     display: none;
 }
 
-.StepSequencer .step[data-value = 'on'] .step-icon.off {
+.step-sequencer .step[data-value = 'on'] .step-icon.off {
     display: none;
 }
 
-.StepSequencer .step[data-value = 'on'] .step-icon.on {
+.step-sequencer .step[data-value = 'on'] .step-icon.on {
     display: block;
     fill: var(--color-secondary);
     stroke: var(--color-secondary);
 }
 
-.StepSequencer .step[data-status = 'idle'] .step-icon {
+.step-sequencer .step[data-status = 'idle'] .step-icon {
     stroke-width: 0;
 }
 
-.StepSequencer .step[data-status = 'current'] .step-icon {
+.step-sequencer .step[data-status = 'current'] .step-icon {
     stroke-width: 5;
 }

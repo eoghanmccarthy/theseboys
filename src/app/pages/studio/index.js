@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useRef } from 'react';
 import { useSelector } from 'react-redux';
 
 import './index.css';
@@ -13,9 +13,11 @@ import MetalSynth01 from './features/metalSynth01';
 import NoiseSynth01 from './features/noiseSequencer01';
 import NoiseSynth02 from './features/noiseSequencer02';
 
+const TRACKS = ['track-a', 'track-b', 'track-c', 'track-d'];
+
 const defaults = {
   master: { volume: 75, bpm: 120 },
-  'track-a': {
+  [TRACKS[0]]: {
     channel: {
       pan: 0,
       volume: 90,
@@ -38,7 +40,7 @@ const defaults = {
     },
     eq3: { low: 75, mid: 8, high: 8 }
   },
-  'track-b': {
+  [TRACKS[1]]: {
     channel: {
       pan: 0.7,
       volume: 90,
@@ -55,10 +57,10 @@ const defaults = {
     },
     eq3: { low: 75, mid: 75, high: 75 },
     distortion: { wet: 0 },
-    reverb: { wet: 30 },
-    delay: { wet: 30 }
+    reverb: { wet: 60 },
+    delay: { wet: 0 }
   },
-  'track-c': {
+  [TRACKS[2]]: {
     channel: {
       pan: -0.5,
       volume: 82,
@@ -76,7 +78,7 @@ const defaults = {
     eq3: { low: 0, mid: 18, high: 86 },
     filter: { Q: 2, frequency: 10000 }
   },
-  'track-d': {
+  [TRACKS[3]]: {
     channel: {
       pan: 0.8,
       volume: 88,
@@ -98,37 +100,44 @@ const defaults = {
 
 const Studio = () => {
   const store = useSelector(state => state.app);
+  const trackARef = useRef();
+  const trackBRef = useRef();
+
+  const handleSave = () => {
+    trackARef.current.save();
+    trackBRef.current.save();
+  };
 
   return (
     <Fragment>
       <Main className={'studio'}>
-        <Master initialValue={store.master || defaults.master} />
-        <Track>
+        <Master onSave={handleSave} initialValue={store.master || defaults.master} />
+        <Track ref={trackARef} trackId={TRACKS[0]}>
           <MembraneSynth01
-            trackId={'track-a'}
+            trackId={TRACKS[0]}
             config={{ notes: ['C1'], numSteps: 16 }}
-            initialValue={store['track-a'] || defaults['track-a']}
+            initialValue={store[TRACKS[0]] || defaults[TRACKS[0]]}
           />
         </Track>
-        <Track>
+        <Track ref={trackBRef} trackId={TRACKS[1]}>
           <MetalSynth01
-            trackId={`track-b`}
+            trackId={TRACKS[1]}
             config={{ notes: ['C1'], numSteps: 16 }}
-            initialValue={store['track-b'] || defaults['track-b']}
+            initialValue={store[TRACKS[1]] || defaults[TRACKS[1]]}
           />
         </Track>
-        <Track>
+        <Track trackId={TRACKS[2]}>
           <NoiseSynth01
-            trackId={`track-c`}
+            trackId={TRACKS[2]}
             config={{ numSteps: 16 }}
-            initialValue={store['track-c'] || defaults['track-c']}
+            initialValue={store[TRACKS[2]] || defaults[TRACKS[2]]}
           />
         </Track>
-        <Track>
+        <Track trackId={TRACKS[3]}>
           <NoiseSynth02
-            trackId={`track-D`}
+            trackId={TRACKS[3]}
             config={{ numSteps: 16 }}
-            initialValue={store['track-d'] || defaults['track-d']}
+            initialValue={store[TRACKS[3]] || defaults[TRACKS[3]]}
           />
         </Track>
       </Main>

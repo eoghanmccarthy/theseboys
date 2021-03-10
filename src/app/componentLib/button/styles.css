@@ -19,9 +19,24 @@
     height: 28px;
 }
 
+.ui-button.size-32 {
+    width: 32px;
+    height: 32px;
+}
+
+.ui-button.size-36 {
+    width: 36px;
+    height: 36px;
+}
+
 .ui-button.size-40 {
     width: 40px;
     height: 40px;
+}
+
+.ui-button.size-44 {
+    width: 44px;
+    height: 44px;
 }
 
 .ui-button.size-48 {
@@ -31,25 +46,6 @@
 
 .ui-button.circle {
     border-radius: 100%;
-}
-
-.ui-button.active {
-    border-color: green;
-}
-
-.ui-button.alert {
-    border-color: red;
-}
-
-.ui-button.alert:focus {
-    outline: none;
-    border-color: transparent;
-    box-shadow: 0 0 0 3px red;
-}
-
-.ui-button.alert:hover {
-    color: red !important;
-    border-color: red !important;
 }
 
 .ui-button:focus {
@@ -62,9 +58,24 @@
     pointer-events: none;
 }
 
-.ui-button.mute-button.active {
-    border-color: var(--color-tertiary);
-    background-color: var(--color-tertiary);
+.ui-button.active {
+    background-color: var(--color-success);
+    border-color: var(--color-success);
+}
+
+.ui-button.alert {
+    background-color: var(--color-alert);
+    border-color: var(--color-alert);
+}
+
+.ui-button.warning {
+    background-color: var(--color-warning);
+    border-color: var(--color-warning);
+}
+
+.ui-button.info {
+    background-color: var(--color-info);
+    border-color: var(--color-info);
 }
 
 .ui-button span {

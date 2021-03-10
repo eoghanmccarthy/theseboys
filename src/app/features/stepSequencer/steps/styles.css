@@ -1,10 +1,10 @@
-.StepSequencer {
+.step-sequencer {
     flex: 1;
     display: flex;
     flex-direction: column;
 }
 
-.StepSequencer > .StepsRow {
+.step-sequencer > .StepsRow {
     flex: 1;
     display: grid;
     touch-action: none;

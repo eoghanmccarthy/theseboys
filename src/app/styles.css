@@ -7,9 +7,6 @@
 .me {
 	display: grid;
 	grid-template-rows: auto 80px;
-	grid-template-areas:
-			"main"
-			"footer";
 	height: 100%;
 	min-height: 100vh;
 	overflow: visible;

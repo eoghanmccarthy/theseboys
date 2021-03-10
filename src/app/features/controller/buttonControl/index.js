@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-import Button from 'componentLib/Button';
+import Button from 'componentLib/button';
 import Controller from '../controller';
 
 const ButtonControl = ({
@@ -20,23 +20,22 @@ const ButtonControl = ({
   }, []);
 
   const handleOnChange = val => {
-    const num = parseFloat(val);
-    if (num < min || num > max) return;
+    if (typeof val !== 'number' || val < min || val > max) return;
 
-    document.querySelectorAll(`#${id} .control`)?.forEach(e => e.setAttribute('value', `${num}`));
-    document.querySelector(`#${id} span.value`)?.setAttribute('value', num.toFixed(toFixed));
+    document.querySelectorAll(`#${id} .control`)?.forEach(e => e.setAttribute('value', `${val}`));
+    document.querySelector(`#${id} span.value`)?.setAttribute('value', val.toFixed(toFixed));
 
-    if (num > min && num < max) {
+    if (val > min && val < max) {
       document
         .querySelectorAll(`#${id} .control`)
         ?.forEach(e => e.classList.contains('alert') && e.classList.remove('alert'));
-    } else if (num === min) {
+    } else if (val === min) {
       document.querySelector(`#${id} .control.dec`)?.classList.add('alert');
-    } else if (num === max) {
+    } else if (val === max) {
       document.querySelector(`#${id} .control.inc`)?.classList.add('alert');
     }
 
-    onChange(num);
+    onChange(val);
   };
 
   return (

@@ -6,7 +6,7 @@ import './styles.css';
 
 const Controller = ({ children, id, orient = 'vertical' }) => {
   return (
-    <div id={id} className={cx('tb-controller', { [orient]: orient })}>
+    <div id={id} className={cx('controller', { [orient]: orient })}>
       {children}
     </div>
   );

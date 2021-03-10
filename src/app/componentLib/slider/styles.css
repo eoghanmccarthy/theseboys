@@ -1,4 +1,4 @@
-.ui-slider {
+.tb-slider {
     -webkit-appearance: none;
     width: 100%;
     height: 2px;
@@ -6,31 +6,31 @@
     transition: all .25s;
 }
 
-.ui-slider[orient=vertical] {
+.tb-slider[orient=vertical] {
     -webkit-appearance: slider-vertical;
     width: 2px;
     height: 100%;
 }
 
-.ui-slider:focus {
+.tb-slider:focus {
     outline: 0;
 }
 
-.ui-slider:focus::-webkit-slider-thumb {
+.tb-slider:focus::-webkit-slider-thumb {
     box-shadow: 0 0 0 3px white;
 }
 
-.ui-slider::-webkit-slider-runnable-track {
+.tb-slider::-webkit-slider-runnable-track {
     -webkit-appearance: none;
     background: var(--color-bluegrey-400);
     height: 2px;
 }
 
-.ui-slider[orient=vertical]::-webkit-slider-runnable-track {
+.tb-slider[orient=vertical]::-webkit-slider-runnable-track {
     width: 2px;
 }
 
-.ui-slider::-webkit-slider-thumb {
+.tb-slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     position: relative;
     bottom: 7px;
@@ -41,12 +41,12 @@
     cursor: grab;
 }
 
-.ui-slider[orient=vertical]::-webkit-slider-thumb {
+.tb-slider[orient=vertical]::-webkit-slider-thumb {
     left: 7px;
     bottom: 0;
     background-color: var(--color-bluegrey-800);
 }
 
-.ui-slider::-webkit-slider-thumb:active {
+.tb-slider::-webkit-slider-thumb:active {
     cursor: grabbing;
 }

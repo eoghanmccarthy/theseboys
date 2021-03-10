@@ -20,7 +20,7 @@ import {
 
 import { onSequenceStep, setTrackConfig, stepsInitialState } from 'features/utils';
 
-import { TrackControls } from 'features/trackControls';
+import TrackControls from 'features/trackControls';
 import { TrackSteps } from 'features/trackSteps';
 import { TrackEffects, EffectsGroup } from 'features/trackEffects';
 import EnvelopeControls from 'features/envelopeControls';
@@ -43,11 +43,9 @@ const NoiseSequencer01 = memo(({ trackId, config = {}, initialValue = {} }) => {
   stepsRef.current = data;
 
   const sequence = useRef();
-
   const channel = useRef(new Channel());
   const eq3 = useRef(new EQ3());
   const filter = useRef(new Filter());
-
   const synth = useRef(
     new NoiseSynth({
       volume: -8,
@@ -61,12 +59,12 @@ const NoiseSequencer01 = memo(({ trackId, config = {}, initialValue = {} }) => {
   useEffect(() => {
     sequence.current = new Sequence(handleOnSequenceStep, noteIndices, noteInterval).start(0);
     return () => {
-      if (sequence.current) sequence.current.dispose();
+      if (sequence?.current) sequence.current.dispose();
     };
   }, []);
 
   const onTriggerAttackRelease = (duration, time, velocity) => {
-    if (!synth) return;
+    if (!synth?.current) return;
     synth.current.triggerAttackRelease(duration, time, velocity);
   };
 
