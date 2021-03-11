@@ -60,22 +60,22 @@
 
 .ui-button.active {
     background-color: var(--color-success);
-    border-color: var(--color-success);
+    border-color: rgba(255,255,255,0.75);
 }
 
 .ui-button.alert {
     background-color: var(--color-alert);
-    border-color: var(--color-alert);
+    border-color: rgba(255,255,255,0.75);
 }
 
 .ui-button.warning {
     background-color: var(--color-warning);
-    border-color: var(--color-warning);
+    border-color: rgba(255,255,255,0.75);
 }
 
 .ui-button.info {
     background-color: var(--color-info);
-    border-color: var(--color-info);
+    border-color: rgba(255,255,255,0.75);
 }
 
 .ui-button span {

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
+import { Minus, Plus } from 'componentLib/icon';
 import Button from 'componentLib/button';
 import Controller from '../controller';
 
@@ -51,7 +52,7 @@ const ButtonControl = ({
             handleOnChange(next);
           }}
         >
-          -
+          <Minus width={'72%'} />
         </Button>
         <Button
           className={'control inc'}
@@ -62,7 +63,7 @@ const ButtonControl = ({
             handleOnChange(next);
           }}
         >
-          +
+          <Plus width={'72%'} />
         </Button>
       </div>
       <span className={'value'} />
