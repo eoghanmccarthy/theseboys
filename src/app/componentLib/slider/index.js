@@ -6,8 +6,8 @@ import './styles.css';
 
 const Slider = memo(
   ({
-    testId,
     id,
+    testId,
     className,
     orient = 'horizontal',
     isDisabled = false,
@@ -19,8 +19,8 @@ const Slider = memo(
   }) => {
     return (
       <input
-        data-testid={testId}
         id={id}
+        data-testid={testId}
         className={cx(
           'tb-slider',
           { [`orient-${orient}`]: orient, disabled: isDisabled },

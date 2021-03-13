@@ -1,8 +1,8 @@
 .me__main.index {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    display: grid;
+    grid-template-rows: auto 48px;
     align-items: center;
+    height: 100%;
 }
 
 .me__main.index svg {
@@ -12,19 +12,11 @@
     margin: 0 auto;
 }
 
-.me__main.index svg path {
-    fill: var(--color-primary);
-}
-
 .me__main .social-links {
     display: flex;
+    justify-content: center;
 }
 
 .me__main .social-links > :not(:last-child) {
     margin-right: var(--spacing-12);
-}
-
-.me__main .social-links .social-twitter {
-    width: 24px;
-    height: 24px;
 }

@@ -1,6 +1,7 @@
 #master {
     z-index: 99;
     position: sticky;
+    margin-top: var(--spacing-8);
     top: var(--spacing-8);
 }
 
@@ -20,8 +21,3 @@
     height: 40px;
     background-color: var(--color-grey-800);
 }
-
-#master .ui-button.playback:hover {
-    border-color: white;
-}
-

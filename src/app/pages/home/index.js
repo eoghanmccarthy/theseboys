@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
 import './index.css';
 
@@ -10,12 +10,14 @@ import Logo from 'global/logo';
 
 const Home = () => {
   return (
-    <Fragment>
+    <>
       <Main className={'index'}>
-        <Logo animate />
+        <div>
+          <Logo animate fill={'var(--color-primary)'} />
+        </div>
         <div className={'social-links'}>
           <a href={'http://twitter.com/theseboys'} target={'_blank'}>
-            <img alt={'Twitter logo'} className={'social-twitter'} src={TwitterLogo} />
+            <img alt={'Twitter logo'} style={{ width: '24px', height: '24px' }} src={TwitterLogo} />
           </a>
           <iframe
             scrolling="no"
@@ -26,7 +28,7 @@ const Home = () => {
         </div>
       </Main>
       <Footer />
-    </Fragment>
+    </>
   );
 };
 

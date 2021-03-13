@@ -1,30 +1,39 @@
-import React, { memo } from 'react';
+import React, { memo, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import './styles.css';
 
-import { fromPercent } from '../utils';
+import { fromPercent, getInitialValue } from '../utils';
 import { VOL_MIN, VOL_MAX } from '../utils/constants';
 
+import { Chevron } from 'componentLib/icon';
 import Button from 'componentLib/button';
 import { ButtonControl, ControllerGroup } from '../controller';
 
-const TrackControls = memo(({ trackId, channel, initialValue }) => {
+const TrackControls = memo(({ index, trackId, channel, defaultValue }) => {
   if (!trackId || !channel) return null;
+  const store = useSelector(state => state.app);
+  const [initialValue] = useState(getInitialValue(store?.tracks?.[trackId]?.channel, defaultValue));
 
   return (
     <div id={`${trackId}-controls`} className={`track-controls`}>
-      <Button
-        size={32}
-        onClick={e => {
-          const { mute } = channel.get();
-          channel.set({ mute: !mute });
-          if (!mute) {
-            e.target.classList.add('alert');
-          } else {
-            e.target.classList.remove('alert');
-          }
-        }}
-      />
+      <ControllerGroup>
+        <Button isDisabled size={32}>
+          {index + 1}
+        </Button>
+        <Button
+          size={32}
+          onClick={e => {
+            const { mute } = channel.get();
+            channel.set({ mute: !mute });
+            if (!mute) {
+              e.target.classList.add('alert');
+            } else {
+              e.target.classList.remove('alert');
+            }
+          }}
+        />
+      </ControllerGroup>
       <ControllerGroup>
         <ButtonControl
           id={`${trackId}-volume`}
@@ -45,8 +54,7 @@ const TrackControls = memo(({ trackId, channel, initialValue }) => {
           onChange={val => channel.set({ pan: val })}
         />
         <Button
-          className={'toggle-effects'}
-          size={40}
+          size={36}
           onClick={e => {
             const element = document.querySelector(`#${trackId}-effects`);
             if (!element.classList.contains('hidden')) {
@@ -58,8 +66,7 @@ const TrackControls = memo(({ trackId, channel, initialValue }) => {
             }
           }}
         >
-          <span />
-          <span />
+          <Chevron width={'60%'} />
         </Button>
       </ControllerGroup>
     </div>

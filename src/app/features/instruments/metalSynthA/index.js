@@ -19,8 +19,7 @@ import {
 //https://tone-demos.glitch.me/
 
 import { onSequenceStep, setTrackConfig, stepsInitialState } from 'features/utils';
-import TrackControls from 'features/trackControls';
-import { TrackSteps } from 'features/trackSteps';
+
 import { TrackEffects, EffectsGroup } from 'features/trackEffects';
 import EnvelopeControls from 'features/envelopeControls';
 import Eq3Controls from 'features/eq3Controls';
@@ -31,20 +30,14 @@ import DelayControls from 'features/delayControls';
 //const notes = ['A4', 'D3', 'E3', 'G4', 'F#4'];
 //const notes = ['A3', 'C4', 'D4', 'E4', 'G4', 'A4'];
 
-const MetalSynth01 = memo(({ trackId, config = {}, initialValue = {} }) => {
-  if (!trackId) return null;
+const MetalSynthA = memo(({ trackId, config = {}, channel, initialValue = {} }) => {
+  if (!trackId || !channel) return null;
 
   const [{ notes, numRows, numSteps, noteInterval, noteIndices }] = useState(() =>
     setTrackConfig(config)
   );
 
-  const [data] = useImmer(() => stepsInitialState(numRows, numSteps));
-
-  const stepsRef = useRef(data);
-  stepsRef.current = data;
-
   const sequence = useRef();
-  const channel = useRef(new Channel());
   const compressor = useRef(
     new Compressor({
       threshold: -30,
@@ -67,7 +60,7 @@ const MetalSynth01 = memo(({ trackId, config = {}, initialValue = {} }) => {
       modulationIndex: 20,
       volume: -15
     }).chain(
-      channel.current,
+      channel,
       distortion.current,
       reverb.current,
       delay.current,
@@ -98,35 +91,29 @@ const MetalSynth01 = memo(({ trackId, config = {}, initialValue = {} }) => {
 
   return (
     <>
-      <TrackControls
-        trackId={trackId}
-        channel={channel?.current}
-        initialValue={initialValue?.channel}
-      />
-      <TrackSteps
-        trackId={trackId}
-        numSteps={config?.numSteps ?? 16}
-        initialValue={stepsRef?.current}
-      />
       <TrackEffects trackId={trackId}>
         <EffectsGroup span={'1 / span 3'} title={'equaliser'}>
-          <Eq3Controls trackId={trackId} eq3={eq3?.current} initialValue={initialValue?.eq3} />
+          <Eq3Controls
+            trackId={trackId}
+            eq3={eq3?.current}
+            initialValue={initialValue?.effects?.eq3}
+          />
         </EffectsGroup>
         <EffectsGroup span={'5 / span 3'} title={'effects'}>
           <DistortionControls
             trackId={trackId}
             distortion={distortion?.current}
-            initialValue={initialValue?.distortion}
+            initialValue={initialValue?.effects?.distortion}
           />
           <ReverbControls
             trackId={trackId}
             reverb={reverb?.current}
-            initialValue={initialValue?.reverb}
+            initialValue={initialValue?.effects?.reverb}
           />
           <DelayControls
             trackId={trackId}
             delay={delay?.current}
-            initialValue={initialValue?.delay}
+            initialValue={initialValue?.effects?.delay}
           />
         </EffectsGroup>
         <EffectsGroup span={'9 / span 4'} title={'envelope'}>
@@ -141,4 +128,4 @@ const MetalSynth01 = memo(({ trackId, config = {}, initialValue = {} }) => {
   );
 });
 
-export default MetalSynth01;
+export default MetalSynthA;

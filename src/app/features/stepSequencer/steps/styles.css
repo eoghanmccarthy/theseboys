@@ -4,7 +4,7 @@
     flex-direction: column;
 }
 
-.step-sequencer > .StepsRow {
+.step-sequencer > .steps {
     flex: 1;
     display: grid;
     touch-action: none;

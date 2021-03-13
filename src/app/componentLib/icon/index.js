@@ -1,7 +1,8 @@
+import Chevron from './chevron';
 import Circle from './circle';
 import Minus from './minus';
-import Polygon from './polygon';
+import Play from './play';
 import Plus from './plus';
 import Square from './square';
 
-export { Circle, Minus, Polygon, Plus, Square };
+export { Chevron, Circle, Minus, Play, Plus, Square };

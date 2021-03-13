@@ -29,7 +29,7 @@ describe('Button component', () => {
       </MockComponent>
     );
     expect(getByTestId('instance-test-id')).toHaveClass(
-      'ui-button',
+      'tb-button',
       'instance-class',
       'size-48',
       'circle'

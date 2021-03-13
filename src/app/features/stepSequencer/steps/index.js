@@ -20,11 +20,17 @@ const Steps = memo(({ trackId, numberOfSteps = 16, initialValue }) => {
           <div
             key={rowIndex}
             style={{ gridTemplateColumns: `repeat(${numberOfSteps},1fr)` }}
-            className={`StepsRow`}
+            className={`steps ${trackId}-steps-${rowIndex}`}
           >
             {rowData.map((stepValue, stepIndex) => {
               return (
-                <Step key={stepIndex} trackId={trackId} rowIndex={rowIndex} stepIndex={stepIndex} />
+                <Step
+                  key={stepIndex}
+                  trackId={trackId}
+                  stepValue={stepValue}
+                  rowIndex={rowIndex}
+                  stepIndex={stepIndex}
+                />
               );
             })}
           </div>

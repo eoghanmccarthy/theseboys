@@ -1,9 +1,7 @@
 .track-steps {
-    grid-area: steps;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 72px;
     padding: 0 var(--spacing-12);
-    background-color: var(--color-grey-900);
+    background-color: rgba(255,255,255,0.008);
 }

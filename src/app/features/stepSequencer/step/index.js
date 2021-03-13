@@ -5,7 +5,7 @@ import './styles.css';
 
 import consoleLog from 'utils/errorHandlers/consoleLog';
 
-const Step = memo(({ trackId, rowIndex, stepIndex }) => {
+const Step = memo(({ trackId, stepValue, rowIndex, stepIndex }) => {
   if (!trackId || typeof rowIndex !== 'number' || typeof stepIndex !== 'number') {
     return null;
   }
@@ -32,7 +32,7 @@ const Step = memo(({ trackId, rowIndex, stepIndex }) => {
   return (
     <span
       className={`step ${trackId}-step row-${rowIndex}-step-${stepIndex}`}
-      data-value={'off'}
+      data-value={stepValue ? 'on' : 'off'}
       data-status={'idle'}
       onClick={handleClick}
     >

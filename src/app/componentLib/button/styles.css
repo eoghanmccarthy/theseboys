@@ -1,87 +1,97 @@
-.ui-button {
+.tb-button {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    color: var(--color-bluegrey-600);
     background-color: transparent;
-    border: 1px solid var(--color-bluegrey-600);
+    border: 1px solid var(--color-bluegrey-800);
     transition: all .25s;
     cursor: pointer;
 }
 
-.ui-button.size-24 {
+.tb-button.outlined {
+    background-color: transparent;
+    border-color: var(--color-bluegrey-600);
+}
+
+.tb-button:hover {
+    border-color: white;
+}
+
+.tb-button.size-24 {
     width: 24px;
     height: 24px;
 }
 
-.ui-button.size-28 {
+.tb-button.size-28 {
     width: 28px;
     height: 28px;
 }
 
-.ui-button.size-32 {
+.tb-button.size-32 {
     width: 32px;
     height: 32px;
 }
 
-.ui-button.size-36 {
+.tb-button.size-36 {
     width: 36px;
     height: 36px;
 }
 
-.ui-button.size-40 {
+.tb-button.size-40 {
     width: 40px;
     height: 40px;
 }
 
-.ui-button.size-44 {
+.tb-button.size-44 {
     width: 44px;
     height: 44px;
 }
 
-.ui-button.size-48 {
+.tb-button.size-48 {
     width: 48px;
     height: 48px;
 }
 
-.ui-button.circle {
+.tb-button.circle {
     border-radius: 100%;
 }
 
-.ui-button:focus {
+.tb-button:focus {
     outline: none;
     border-color: transparent;
     box-shadow: 0 0 0 3px white;
 }
 
-.ui-button.disabled {
+.tb-button.disabled {
     pointer-events: none;
 }
 
-.ui-button.active {
+.tb-button.active {
     background-color: var(--color-success);
     border-color: rgba(255,255,255,0.75);
 }
 
-.ui-button.alert {
+.tb-button.alert {
     background-color: var(--color-alert);
     border-color: rgba(255,255,255,0.75);
 }
 
-.ui-button.warning {
+.tb-button.warning {
     background-color: var(--color-warning);
     border-color: rgba(255,255,255,0.75);
 }
 
-.ui-button.info {
+.tb-button.info {
     background-color: var(--color-info);
     border-color: rgba(255,255,255,0.75);
 }
 
-.ui-button span {
+.tb-button svg {
     pointer-events: none;
 }
 
-.ui-button.rotated {
+.tb-button.rotated {
     transform: rotate(180deg);
 }

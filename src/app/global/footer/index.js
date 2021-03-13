@@ -11,7 +11,10 @@ const Footer = () => {
 
   return (
     <footer className={'me__footer'}>
-      <Logo onClick={() => history.push(location.pathname === '/' ? '/studio' : '/')} />
+      <Logo
+        fill={'var(--color-grey-800)'}
+        onClick={() => history.push(location.pathname === '/' ? '/studio' : '/')}
+      />
     </footer>
   );
 };

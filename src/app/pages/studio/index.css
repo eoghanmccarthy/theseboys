@@ -1,6 +1,6 @@
 .me__main.studio {
     display: grid;
-    grid-row-gap: var(--spacing-24);
+    grid-row-gap: var(--spacing-36);
     width: 100%;
     max-width: 1220px;
     padding: 0 var(--spacing-40) var(--spacing-40);
