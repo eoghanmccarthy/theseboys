@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 
 import { SliderControl } from '../controller';
 
-const CompressorControls = memo(({ trackId, compressor, initialValue = {} }) => {
+const CompressorControls = memo(({ trackId, compressor }) => {
   if (!trackId || !compressor) return null;
 
   return (
@@ -13,7 +13,7 @@ const CompressorControls = memo(({ trackId, compressor, initialValue = {} }) => 
         step={1}
         min={1}
         max={20}
-        initialValue={initialValue.ratio}
+        initialValue={compressor.get().ratio}
         onChange={val => compressor.set({ ratio: val })}
       />
       <SliderControl
@@ -21,7 +21,7 @@ const CompressorControls = memo(({ trackId, compressor, initialValue = {} }) => 
         label={'ATK'}
         step={0.001}
         toFixed={3}
-        initialValue={initialValue.attack}
+        initialValue={compressor.get().attack}
         onChange={val => compressor.set({ attack: val })}
       />
       <SliderControl
@@ -29,7 +29,7 @@ const CompressorControls = memo(({ trackId, compressor, initialValue = {} }) => 
         label={'REL'}
         step={0.001}
         toFixed={3}
-        initialValue={initialValue.release}
+        initialValue={compressor.get().release}
         onChange={val => compressor.set({ release: val })}
       />
     </>

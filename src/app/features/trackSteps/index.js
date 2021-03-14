@@ -1,17 +1,17 @@
-import React, { memo, useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { memo } from 'react';
 
 import './styles.css';
 
 import { Steps } from '../stepSequencer';
 
-const TrackSteps = memo(({ trackId, numSteps = 16, defaultValue }) => {
-  const store = useSelector(state => state.app);
-  const [initialValue] = useState(store?.tracks?.[trackId]?.steps || defaultValue);
-
+const TrackSteps = memo(({ trackId, numSteps = 16, initialValue }) => {
   return (
     <div id={`${trackId}-steps`} className={'track-steps'}>
-      <Steps trackId={trackId} numberOfSteps={numSteps} initialValue={initialValue} />
+      <Steps
+        trackId={trackId}
+        numberOfSteps={numSteps}
+        initialValue={initialValue ?? [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]}
+      />
     </div>
   );
 });

@@ -4,7 +4,7 @@ import { fromPercent } from '../utils';
 
 import { SliderControl } from '../controller';
 
-const DelayControls = memo(({ trackId, delay, initialValue = {} }) => {
+const DelayControls = memo(({ trackId, delay }) => {
   if (!trackId || !delay) return null;
 
   return (
@@ -13,7 +13,7 @@ const DelayControls = memo(({ trackId, delay, initialValue = {} }) => {
       label={'DEL'}
       step={1}
       max={100}
-      initialValue={initialValue?.wet}
+      initialValue={delay.get().wet}
       onChange={val => delay.set({ wet: fromPercent([0, 1], val) })}
     />
   );

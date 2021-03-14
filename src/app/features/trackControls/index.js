@@ -1,19 +1,16 @@
-import React, { memo, useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { memo } from 'react';
 
 import './styles.css';
 
-import { fromPercent, getInitialValue } from '../utils';
+import { fromPercent } from '../utils';
 import { VOL_MIN, VOL_MAX } from '../utils/constants';
 
 import { Chevron } from 'componentLib/icon';
 import Button from 'componentLib/button';
 import { ButtonControl, ControllerGroup } from '../controller';
 
-const TrackControls = memo(({ index, trackId, channel, defaultValue }) => {
+const TrackControls = memo(({ index, trackId, channel }) => {
   if (!trackId || !channel) return null;
-  const store = useSelector(state => state.app);
-  const [initialValue] = useState(getInitialValue(store?.tracks?.[trackId]?.channel, defaultValue));
 
   return (
     <div id={`${trackId}-controls`} className={`track-controls`}>
@@ -39,7 +36,7 @@ const TrackControls = memo(({ index, trackId, channel, defaultValue }) => {
           id={`${trackId}-volume`}
           orient={'horizontal'}
           label={'VOL'}
-          initialValue={initialValue.volume}
+          initialValue={channel.get().volume ?? 75}
           onChange={val => channel.set({ volume: fromPercent([VOL_MIN, VOL_MAX], val) })}
         />
         <ButtonControl
@@ -50,7 +47,7 @@ const TrackControls = memo(({ index, trackId, channel, defaultValue }) => {
           min={-1}
           max={1}
           toFixed={1}
-          initialValue={initialValue.pan}
+          initialValue={channel.get().pan ?? 0}
           onChange={val => channel.set({ pan: val })}
         />
         <Button

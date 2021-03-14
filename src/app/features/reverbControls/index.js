@@ -4,7 +4,7 @@ import { fromPercent } from '../utils';
 
 import { SliderControl } from '../controller';
 
-const ReverbControls = memo(({ trackId, reverb, initialValue = {} }) => {
+const ReverbControls = memo(({ trackId, reverb }) => {
   if (!trackId || !reverb) return null;
 
   return (
@@ -13,7 +13,7 @@ const ReverbControls = memo(({ trackId, reverb, initialValue = {} }) => {
       label={'REV'}
       step={1}
       max={100}
-      initialValue={initialValue?.wet}
+      initialValue={reverb.get().wet}
       onChange={val => reverb.set({ wet: fromPercent([0, 1], val) })}
     />
   );

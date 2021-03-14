@@ -5,18 +5,18 @@ import { Destination, Transport } from 'tone';
 import './styles.css';
 
 import { BPM_MIN, BPM_MAX, VOL_MIN, VOL_MAX } from '../../utils/constants';
-import { getInitialValue, fromPercent, toPercent } from '../../utils';
+import { fromPercent, toPercent } from '../../utils';
 
 import { Circle, Play, Square } from 'componentLib/icon';
 import Button from 'componentLib/button';
 import useMasterContext from '../useMasterContext';
 import { ButtonControl, ControllerGroup, SliderControl } from '../../controller';
 
-const Master = ({ defaultValue = {}, onSave }) => {
+const Master = ({ onSave }) => {
   const dispatch = useDispatch();
   const { play, stop, record } = useMasterContext('<Master>');
-  const store = useSelector(state => state.app);
-  const [initialValue] = useState(getInitialValue(store?.master, defaultValue));
+  const store = useSelector(state => state?.app?.master);
+  const [initialValue] = useState(store);
 
   return (
     <div id={'master'} data-playback={'stopped'} data-recorder={'off'}>
@@ -27,7 +27,7 @@ const Master = ({ defaultValue = {}, onSave }) => {
           label={'VOL'}
           step={1}
           max={100}
-          initialValue={initialValue.volume}
+          initialValue={initialValue?.volume ?? 75}
           onChange={val => Destination.set({ volume: fromPercent([VOL_MIN, VOL_MAX], val) })}
         />
         <ControllerGroup>
@@ -47,7 +47,7 @@ const Master = ({ defaultValue = {}, onSave }) => {
           label={'BPM'}
           min={BPM_MIN}
           max={BPM_MAX}
-          initialValue={initialValue.bpm}
+          initialValue={initialValue?.bpm ?? 120}
           onChange={val => Transport.set({ bpm: val })}
         />
       </div>
