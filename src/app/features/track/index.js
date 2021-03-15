@@ -82,8 +82,14 @@ const Track = memo(
 
     useEffect(() => {
       sequence.current = new Sequence(handleOnSequenceStep, noteIndices, noteInterval).start(0);
+    }, []);
+
+    useEffect(() => {
       return () => {
-        if (sequence?.current) sequence.current.dispose();
+        effectsChain.current.forEach(effect => effect.dispose());
+        synth.current.dispose();
+        sequence.current.dispose();
+        channel.current.dispose();
       };
     }, []);
 
