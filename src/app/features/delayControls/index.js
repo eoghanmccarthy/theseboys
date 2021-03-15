@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 
-import { fromPercent } from '../utils';
+import { fromPercent, toPercent } from '../utils';
 
 import { SliderControl } from '../controller';
 
@@ -13,7 +13,7 @@ const DelayControls = memo(({ trackId, delay }) => {
       label={'DEL'}
       step={1}
       max={100}
-      initialValue={delay.get().wet}
+      initialValue={toPercent([0, 1], delay.get().wet)}
       onChange={val => delay.set({ wet: fromPercent([0, 1], val) })}
     />
   );

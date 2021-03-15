@@ -38,10 +38,10 @@ import DelayControls from 'features/delayControls';
 //const notes = ['A3', 'C4', 'D4', 'E4', 'G4', 'A4'];
 
 const Track = memo(
-  forwardRef(({ index, trackId, config, initialValue, ...rest }, ref) => {
+  forwardRef(({ index, trackId, initialValue, ...rest }, ref) => {
     const dispatch = useDispatch();
     const [{ notes, numRows, numSteps, noteInterval, noteIndices }] = useState(() =>
-      setTrackConfig(config)
+      setTrackConfig({ numSteps: initialValue.numSteps, notes: initialValue.notes })
     );
 
     const getSynth = (synth, options = {}) => {
@@ -70,11 +70,11 @@ const Track = memo(
     const sequence = useRef();
     const channel = useRef(new Channel(initialValue?.channel ?? {}));
     const effectsChain = useRef(
-      Object.entries(initialValue?.instrument?.effects).map(([e, o]) => getEffect(e, o))
+      Object.entries(initialValue?.instrument?.effects ?? {}).map(([e, o]) => getEffect(e, o))
     );
-    const [effectsChainIds] = useState(effectsChain.current.map(effect => effect.name));
     const synth = useRef(
-      getSynth(config.synth, initialValue?.instrument?.synth).chain(
+      getSynth(initialValue.synth, initialValue?.instrument?.synth).chain(
+        channel.current,
         ...effectsChain.current,
         Destination
       )
@@ -89,7 +89,11 @@ const Track = memo(
 
     const onTriggerAttackRelease = (notesToPlay, duration, time, velocity) => {
       if (!synth?.current) return;
-      synth.current.triggerAttackRelease(notesToPlay[0], duration, time, velocity);
+      if (initialValue.synth !== 'NoiseSynth') {
+        synth.current.triggerAttackRelease(notesToPlay[0], duration, time, velocity);
+      } else {
+        synth.current.triggerAttackRelease(duration, time, velocity);
+      }
     };
 
     const handleOnSequenceStep = (time, column) => {
@@ -124,6 +128,13 @@ const Track = memo(
             data: synth.current.get()
           }
         });
+        dispatch({
+          type: 'track/SAVE_EFFECTS',
+          payload: {
+            id: trackId,
+            data: effectsChain.current
+          }
+        });
       }
     }));
 
@@ -132,44 +143,29 @@ const Track = memo(
         <TrackControls index={index} trackId={trackId} channel={channel?.current} />
         <TrackSteps trackId={trackId} numSteps={16} initialValue={initialValue?.steps} />
         <TrackEffects trackId={trackId}>
-          {effectsChain.current.map((effect, i) => {
-            const { name } = effect;
-            if (name === 'EQ3') {
-              return (
-                <EffectsGroup key={i} span={'1 / span 3'} title={'equaliser'}>
-                  <Eq3Controls trackId={trackId} eq3={effect} />
-                </EffectsGroup>
-              );
-            } else if (name === 'Compressor') {
-              return (
-                <EffectsGroup key={i} span={'5 / span 3'} title={'compressor'}>
-                  <CompressorControls trackId={trackId} compressor={effect} />
-                </EffectsGroup>
-              );
-            } else if (name === 'Filter') {
-              return (
-                <EffectsGroup key={i} span={'5 / span 3'} title={'filter'}>
-                  <FilterControls trackId={trackId} filter={effect} />
-                </EffectsGroup>
-              );
-            }
+          {Object.entries(initialValue?.controls ?? {}).map(([group, value], i) => {
+            return (
+              <EffectsGroup key={i} span={value.span} title={group}>
+                {value.effects.map((name, i) => {
+                  const effect = effectsChain.current.find(effect => effect.name === name);
+                  if (!effect) return;
+                  if (name === 'EQ3') {
+                    return <Eq3Controls key={i} trackId={trackId} eq3={effect} />;
+                  } else if (name === 'Compressor') {
+                    return <CompressorControls key={i} trackId={trackId} compressor={effect} />;
+                  } else if (name === 'Filter') {
+                    return <FilterControls key={i} trackId={trackId} filter={effect} />;
+                  } else if (name === 'Distortion') {
+                    return <DistortionControls key={i} trackId={trackId} distortion={effect} />;
+                  } else if (name === 'Reverb') {
+                    return <ReverbControls key={i} trackId={trackId} reverb={effect} />;
+                  } else if (name === 'FeedbackDelay') {
+                    return <DelayControls key={i} trackId={trackId} delay={effect} />;
+                  }
+                })}
+              </EffectsGroup>
+            );
           })}
-          {effectsChainIds.includes('Distortion') ||
-          effectsChainIds.includes('Reverb') ||
-          effectsChainIds.includes('FeedbackDelay') ? (
-            <EffectsGroup span={'5 / span 3'} title={'effects'}>
-              {effectsChain.current.map((effect, i) => {
-                const { name } = effect;
-                if (name === 'Distortion') {
-                  return <DistortionControls key={i} trackId={trackId} distortion={effect} />;
-                } else if (name === 'Reverb') {
-                  return <ReverbControls key={i} trackId={trackId} reverb={effect} />;
-                } else if (name === 'FeedbackDelay') {
-                  return <DelayControls key={i} trackId={trackId} delay={effect} />;
-                }
-              })}
-            </EffectsGroup>
-          ) : null}
           <EffectsGroup span={'9 / span 4'} title={'envelope'}>
             <EnvelopeControls trackId={trackId} envelope={synth?.current?.envelope} />
           </EffectsGroup>

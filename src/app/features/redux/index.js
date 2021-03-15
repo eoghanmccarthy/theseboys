@@ -1,10 +1,10 @@
 import produce from 'immer';
-import { FeedbackDelay } from 'tone';
 
 export const MASTER_SAVE = 'master/SAVE';
 export const TRACK_SAVE_CHANNEL = 'track/SAVE_CHANNEL';
 export const TRACK_SAVE_STEPS = 'track/SAVE_STEPS';
 export const TRACK_SAVE_SYNTH = 'track/SAVE_SYNTH';
+export const TRACK_SAVE_EFFECTS = 'track/SAVE_EFFECTS';
 
 const master = produce(
   (draft, action) => {
@@ -14,7 +14,7 @@ const master = produce(
         return payload;
     }
   },
-  { volume: 75, bpm: 120 }
+  { volume: 0, bpm: 120 }
 );
 
 const tracks = produce(
@@ -33,17 +33,32 @@ const tracks = produce(
           instrument: { ...draft[payload.id].instrument, synth: payload.data }
         };
         break;
+      case TRACK_SAVE_EFFECTS:
+        const d = {};
+        payload.data.forEach(item => {
+          d[item.name] = item.get();
+        });
+        draft[payload.id] = {
+          ...draft[payload.id],
+          instrument: { ...draft[payload.id].instrument, effects: d }
+        };
+        break;
     }
   },
   {
     'track-a': {
       id: 'track-a',
       synth: 'MembraneSynth',
+      notes: ['C1'],
+      numSteps: 16,
       steps: [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
-      effects: { equaliser: '1 / span 3', compressor: '5 / span 3' },
+      controls: {
+        equaliser: { span: '1 / span 3', effects: ['EQ3'] },
+        compressor: { span: '5 / span 3', effects: ['Compressor'] }
+      },
       channel: {
         pan: 0,
-        volume: 90,
+        volume: 4,
         mute: false,
         solo: false
       },
@@ -63,7 +78,13 @@ const tracks = produce(
         },
         effects: {
           Gain: { gain: 2 },
-          EQ3: { low: 75, mid: 8, high: 8 },
+          EQ3: {
+            high: -53.599999999999994,
+            highFrequency: 2500,
+            low: -16.799999999999997,
+            lowFrequency: 400,
+            mid: -53.599999999999994
+          },
           Compressor: {
             threshold: -30,
             ratio: 6,
@@ -75,12 +96,65 @@ const tracks = produce(
     },
     'track-b': {
       id: 'track-b',
-      synth: 'MetalSynth',
+      synth: 'MembraneSynth',
+      notes: ['C1'],
+      numSteps: 16,
       steps: [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
-      effects: { equaliser: '1 / span 3', effects: '5 / span 3' },
+      controls: {
+        equaliser: { span: '1 / span 3', effects: ['EQ3'] },
+        compressor: { span: '5 / span 3', effects: ['Compressor'] }
+      },
+      channel: {
+        pan: 0,
+        volume: 4,
+        mute: false,
+        solo: false
+      },
+      instrument: {
+        synth: {
+          pitchDecay: 0.01,
+          octaves: 6,
+          oscillator: {
+            type: 'square4'
+          },
+          envelope: {
+            attack: 0.001,
+            decay: 0.45,
+            sustain: 0.1,
+            release: 0.3
+          }
+        },
+        effects: {
+          Gain: { gain: 2 },
+          EQ3: {
+            high: -53.599999999999994,
+            highFrequency: 2500,
+            low: -16.799999999999997,
+            lowFrequency: 400,
+            mid: -53.599999999999994
+          },
+          Compressor: {
+            threshold: -30,
+            ratio: 6,
+            attack: 0.0001,
+            release: 0.1
+          }
+        }
+      }
+    },
+    'track-c': {
+      id: 'track-c',
+      synth: 'MetalSynth',
+      notes: ['C1'],
+      numSteps: 16,
+      steps: [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
+      controls: {
+        equaliser: { span: '1 / span 3', effects: ['EQ3'] },
+        effects: { span: '5 / span 3', effects: ['Distortion', 'Reverb', 'FeedbackDelay'] }
+      },
       channel: {
         pan: 0.7,
-        volume: 90,
+        volume: 4,
         mute: false,
         solo: false
       },
@@ -99,21 +173,36 @@ const tracks = produce(
         },
         effects: {
           Gain: { gain: 2 },
-          EQ3: { low: 75, mid: 75, high: 75 },
-          Distortion: { distortion: 1, oversample: '4x', wet: 0 },
-          Reverb: { decay: 4, preDelay: 0.2, wet: 0 },
-          FeedbackDelay: { delayTime: `${Math.floor(16 / 2)}n`, feedback: 1 / 3, wet: 0 }
+          EQ3: {
+            high: 7.200000000000003,
+            highFrequency: 2500,
+            low: -22.39999999999999,
+            lowFrequency: 400,
+            mid: 0
+          },
+          Distortion: { distortion: 1, oversample: '4x', wet: 0.09 },
+          Reverb: { decay: 4, preDelay: 0.2, wet: 0.28 },
+          FeedbackDelay: {
+            delayTime: `${Math.floor(16 / 2)}n`,
+            feedback: 1 / 3,
+            wet: 0.5,
+            maxDelay: 1
+          }
         }
       }
     },
-    'track-c': {
-      id: 'track-c',
+    'track-d': {
+      id: 'track-d',
       synth: 'NoiseSynth',
+      numSteps: 16,
       steps: [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
-      effects: { equaliser: '1 / span 3', filter: '5 / span 3' },
+      controls: {
+        equaliser: { span: '1 / span 3', effects: ['EQ3'] },
+        filter: { span: '5 / span 3', effects: ['Filter'] }
+      },
       channel: {
         pan: -0.5,
-        volume: 82,
+        volume: 4,
         mute: false,
         solo: false
       },
@@ -131,34 +220,56 @@ const tracks = produce(
             release: 0.3
           }
         },
-        effects: { EQ3: { low: 0, mid: 18, high: 86 }, Filter: { Q: 2, frequency: 10000 } }
+        effects: {
+          EQ3: {
+            high: 8.799999999999995,
+            highFrequency: 2500,
+            low: -59.99999999999999,
+            lowFrequency: 400,
+            mid: -45.599999999999994
+          },
+          Filter: { Q: 2, detune: 0, frequency: 10000, gain: 0, rolloff: -12, type: 'lowpass' }
+        }
       }
     },
-    'track-d': {
-      id: 'track-d',
+    'track-e': {
+      id: 'track-e',
       synth: 'NoiseSynth',
+      numSteps: 16,
       steps: [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
-      effects: { equaliser: '1 / span 3', filter: '5 / span 3' },
+      controls: {
+        equaliser: { span: '1 / span 3', effects: ['EQ3'] },
+        filter: { span: '5 / span 3', effects: ['Filter'] }
+      },
       channel: {
-        pan: 0.8,
-        volume: 88,
+        pan: -0.5,
+        volume: 4,
         mute: false,
         solo: false
       },
       instrument: {
         synth: {
-          volume: -14,
+          volume: -8,
+          noise: {
+            type: 'white',
+            playbackRate: 5
+          },
           envelope: {
-            attack: 0.01,
-            decay: 0.15,
-            sustain: 0.0,
-            release: 0.06
+            attack: 0.001,
+            decay: 0.3,
+            sustain: 0,
+            release: 0.3
           }
         },
         effects: {
-          Gain: { gain: 2 },
-          EQ3: { low: 0, mid: 0, high: 82 },
-          Filter: { Q: 2, frequency: 8000 }
+          EQ3: {
+            high: 8.799999999999995,
+            highFrequency: 2500,
+            low: -59.99999999999999,
+            lowFrequency: 400,
+            mid: -45.599999999999994
+          },
+          Filter: { Q: 2, detune: 0, frequency: 10000, gain: 0, rolloff: -12, type: 'lowpass' }
         }
       }
     }

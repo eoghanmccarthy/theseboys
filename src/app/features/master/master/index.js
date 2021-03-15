@@ -27,7 +27,7 @@ const Master = ({ onSave }) => {
           label={'VOL'}
           step={1}
           max={100}
-          initialValue={initialValue?.volume ?? 75}
+          initialValue={toPercent([VOL_MIN, VOL_MAX], initialValue.volume) ?? 0}
           onChange={val => Destination.set({ volume: fromPercent([VOL_MIN, VOL_MAX], val) })}
         />
         <ControllerGroup>
@@ -47,7 +47,7 @@ const Master = ({ onSave }) => {
           label={'BPM'}
           min={BPM_MIN}
           max={BPM_MAX}
-          initialValue={initialValue?.bpm ?? 120}
+          initialValue={initialValue.bpm ?? 120}
           onChange={val => Transport.set({ bpm: val })}
         />
       </div>
@@ -59,7 +59,7 @@ const Master = ({ onSave }) => {
               type: 'master/SAVE',
               payload: {
                 bpm: Transport.get().bpm,
-                volume: toPercent([VOL_MIN, VOL_MAX], Destination.get().volume)
+                volume: Destination.get().volume
               }
             });
           }}

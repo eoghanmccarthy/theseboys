@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 
-import { fromPercent } from '../utils';
+import { fromPercent, toPercent } from '../utils';
 
 import { SliderControl } from '../controller';
 
@@ -13,7 +13,7 @@ const DistortionControls = memo(({ trackId, distortion }) => {
       label={'DIS'}
       step={1}
       max={100}
-      initialValue={distortion.get().wet}
+      initialValue={toPercent([0, 1], distortion.get().wet)}
       onChange={val => distortion.set({ wet: fromPercent([0, 1], val) })}
     />
   );

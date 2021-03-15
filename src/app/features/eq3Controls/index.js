@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 
-import { fromPercent } from '../utils';
+import { fromPercent, toPercent } from '../utils';
 import { EQ3_MIN, EQ3_MAX } from '../utils/constants';
 
 import { SliderControl } from '../controller';
@@ -15,7 +15,7 @@ const Eq3Controls = memo(({ trackId, eq3 }) => {
         label={'LOW'}
         step={1}
         max={100}
-        initialValue={eq3.get().low}
+        initialValue={toPercent([EQ3_MIN, EQ3_MAX], eq3.get().low) ?? 0}
         onChange={val => eq3.set({ low: fromPercent([EQ3_MIN, EQ3_MAX], val) })}
       />
       <SliderControl
@@ -23,7 +23,7 @@ const Eq3Controls = memo(({ trackId, eq3 }) => {
         label={'MID'}
         step={1}
         max={100}
-        initialValue={eq3.get().mid}
+        initialValue={toPercent([EQ3_MIN, EQ3_MAX], eq3.get().mid) ?? 0}
         onChange={val => eq3.set({ mid: fromPercent([EQ3_MIN, EQ3_MAX], val) })}
       />
       <SliderControl
@@ -31,7 +31,7 @@ const Eq3Controls = memo(({ trackId, eq3 }) => {
         label={'HIG'}
         step={1}
         max={100}
-        initialValue={eq3.get().high}
+        initialValue={toPercent([EQ3_MIN, EQ3_MAX], eq3.get().high) ?? 0}
         onChange={val => eq3.set({ high: fromPercent([EQ3_MIN, EQ3_MAX], val) })}
       />
     </>

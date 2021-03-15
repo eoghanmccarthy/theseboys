@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 
 import './styles.css';
 
-import { fromPercent } from '../utils';
+import { fromPercent, toPercent } from '../utils';
 import { VOL_MIN, VOL_MAX } from '../utils/constants';
 
 import { Chevron } from 'componentLib/icon';
@@ -36,7 +36,7 @@ const TrackControls = memo(({ index, trackId, channel }) => {
           id={`${trackId}-volume`}
           orient={'horizontal'}
           label={'VOL'}
-          initialValue={channel.get().volume ?? 75}
+          initialValue={toPercent([VOL_MIN, VOL_MAX], channel.get().volume) ?? 0}
           onChange={val => channel.set({ volume: fromPercent([VOL_MIN, VOL_MAX], val) })}
         />
         <ButtonControl
