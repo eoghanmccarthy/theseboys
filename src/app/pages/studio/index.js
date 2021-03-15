@@ -9,10 +9,12 @@ import Footer from 'global/footer';
 import Track from 'features/track';
 import { Master } from 'features/master';
 
+const TRACKS = ['t001', 't002', 't003', 't004', 't005'];
+
 const Studio = () => {
   const store = useSelector(state => state?.app);
   const [initialValue] = useState(store);
-  const tracksRef = useRef(Object.entries(initialValue?.tracks ?? {}).map(() => createRef()));
+  const tracksRef = useRef(TRACKS.map(() => createRef()));
 
   const handleSave = () => {
     tracksRef.current.forEach(track => {
@@ -24,9 +26,17 @@ const Studio = () => {
     <Fragment>
       <Main className={'studio'}>
         <Master initialValue={initialValue.master} onSave={handleSave} />
-        {Object.entries(initialValue?.tracks ?? {}).map(([k, v], i) => {
+        {TRACKS.map((id, i) => {
+          const track = initialValue?.tracks?.[id];
+          if (!track) return null;
           return (
-            <Track key={k} ref={tracksRef.current[i]} index={i} trackId={k} initialValue={v} />
+            <Track
+              key={id}
+              ref={tracksRef.current[i]}
+              index={i}
+              trackId={id}
+              initialValue={track}
+            />
           );
         })}
       </Main>

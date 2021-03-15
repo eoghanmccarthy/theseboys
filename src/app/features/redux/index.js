@@ -46,8 +46,8 @@ const tracks = produce(
     }
   },
   {
-    'track-a': {
-      id: 'track-a',
+    t001: {
+      id: 't001',
       synth: 'MembraneSynth',
       notes: ['C1'],
       numSteps: 16,
@@ -94,8 +94,8 @@ const tracks = produce(
         }
       }
     },
-    'track-b': {
-      id: 'track-b',
+    t002: {
+      id: 't002',
       synth: 'MembraneSynth',
       notes: ['C1'],
       numSteps: 16,
@@ -142,8 +142,8 @@ const tracks = produce(
         }
       }
     },
-    'track-c': {
-      id: 'track-c',
+    t003: {
+      id: 't003',
       synth: 'MetalSynth',
       notes: ['C1'],
       numSteps: 16,
@@ -191,8 +191,8 @@ const tracks = produce(
         }
       }
     },
-    'track-d': {
-      id: 'track-d',
+    t004: {
+      id: 't004',
       synth: 'NoiseSynth',
       numSteps: 16,
       steps: [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
@@ -232,8 +232,8 @@ const tracks = produce(
         }
       }
     },
-    'track-e': {
-      id: 'track-e',
+    t005: {
+      id: 't005',
       synth: 'NoiseSynth',
       numSteps: 16,
       steps: [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]],
@@ -242,7 +242,7 @@ const tracks = produce(
         filter: { span: '5 / span 3', effects: ['Filter'] }
       },
       channel: {
-        pan: -0.5,
+        pan: 0.5,
         volume: 4,
         mute: false,
         solo: false
