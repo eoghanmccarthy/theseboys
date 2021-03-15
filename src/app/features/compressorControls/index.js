@@ -13,7 +13,7 @@ const CompressorControls = memo(({ trackId, compressor }) => {
         step={1}
         min={1}
         max={20}
-        initialValue={compressor.get().ratio}
+        initialValue={compressor.get().ratio ?? 1}
         onChange={val => compressor.set({ ratio: val })}
       />
       <SliderControl
@@ -21,7 +21,7 @@ const CompressorControls = memo(({ trackId, compressor }) => {
         label={'ATK'}
         step={0.001}
         toFixed={3}
-        initialValue={compressor.get().attack}
+        initialValue={compressor.get().attack ?? 0}
         onChange={val => compressor.set({ attack: val })}
       />
       <SliderControl
@@ -29,7 +29,7 @@ const CompressorControls = memo(({ trackId, compressor }) => {
         label={'REL'}
         step={0.001}
         toFixed={3}
-        initialValue={compressor.get().release}
+        initialValue={compressor.get().release ?? 0}
         onChange={val => compressor.set({ release: val })}
       />
     </>

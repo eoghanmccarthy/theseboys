@@ -108,10 +108,7 @@ const Track = memo(
           type: 'track/SAVE_CHANNEL',
           payload: {
             id: trackId,
-            data: {
-              ...channel.current.get(),
-              volume: toPercent([VOL_MIN, VOL_MAX], channel.current.get().volume)
-            }
+            data: channel.current.get()
           }
         });
         dispatch({

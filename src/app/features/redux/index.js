@@ -70,7 +70,7 @@ const tracks = produce(
             type: 'square4'
           },
           envelope: {
-            attack: 0.001,
+            attack: 0.3,
             decay: 0.45,
             sustain: 0.1,
             release: 0.3
@@ -127,11 +127,11 @@ const tracks = produce(
         effects: {
           Gain: { gain: 2 },
           EQ3: {
-            high: -53.599999999999994,
+            high: 4,
             highFrequency: 2500,
-            low: -16.799999999999997,
+            low: 0,
             lowFrequency: 400,
-            mid: -53.599999999999994
+            mid: -12
           },
           Compressor: {
             threshold: -30,

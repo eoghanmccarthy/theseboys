@@ -42,5 +42,5 @@ export default Button;
 
 Button.propTypes = {
   size: oneOf([24, 28, 32, 36, 40, 44, 48]),
-  shape: oneOf(['circle'])
+  shape: oneOf(['circle', 'rounded'])
 };

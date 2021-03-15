@@ -4,6 +4,7 @@
     justify-content: center;
     align-items: center;
     color: var(--color-bluegrey-600);
+    line-height: 0;
     background-color: transparent;
     border: 1px solid var(--color-bluegrey-800);
     transition: all .25s;
@@ -56,6 +57,12 @@
 
 .tb-button.circle {
     border-radius: 100%;
+}
+
+.tb-button.rounded {
+    border-radius: 4px;
+    width: auto;
+    padding: 0 1em;
 }
 
 .tb-button:focus {

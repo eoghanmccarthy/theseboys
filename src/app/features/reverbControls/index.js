@@ -13,7 +13,7 @@ const ReverbControls = memo(({ trackId, reverb }) => {
       label={'REV'}
       step={1}
       max={100}
-      initialValue={toPercent([0, 1], reverb.get().wet)}
+      initialValue={toPercent([0, 1], reverb.get().wet) ?? 0}
       onChange={val => reverb.set({ wet: fromPercent([0, 1], val) })}
     />
   );

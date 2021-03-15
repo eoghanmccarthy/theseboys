@@ -23,7 +23,7 @@ const Studio = () => {
   return (
     <Fragment>
       <Main className={'studio'}>
-        <Master onSave={handleSave} />
+        <Master initialValue={initialValue.master} onSave={handleSave} />
         {Object.entries(initialValue?.tracks ?? {}).map(([k, v], i) => {
           return (
             <Track key={k} ref={tracksRef.current[i]} index={i} trackId={k} initialValue={v} />

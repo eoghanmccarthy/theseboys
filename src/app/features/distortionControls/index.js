@@ -13,7 +13,7 @@ const DistortionControls = memo(({ trackId, distortion }) => {
       label={'DIS'}
       step={1}
       max={100}
-      initialValue={toPercent([0, 1], distortion.get().wet)}
+      initialValue={toPercent([0, 1], distortion.get().wet) ?? 0}
       onChange={val => distortion.set({ wet: fromPercent([0, 1], val) })}
     />
   );

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Destination, Transport } from 'tone';
 
 import './styles.css';
@@ -12,14 +12,31 @@ import Button from 'componentLib/button';
 import useMasterContext from '../useMasterContext';
 import { ButtonControl, ControllerGroup, SliderControl } from '../../controller';
 
-const Master = ({ onSave }) => {
+const Master = ({ initialValue, onSave }) => {
   const dispatch = useDispatch();
   const { play, stop, record } = useMasterContext('<Master>');
-  const store = useSelector(state => state?.app?.master);
-  const [initialValue] = useState(store);
 
   return (
     <div id={'master'} data-playback={'stopped'} data-recorder={'off'}>
+      <div className={'sub'}>
+        <Button
+          size={24}
+          shape={'rounded'}
+          onClick={() => {
+            if (Transport.state === 'started') return;
+            onSave();
+            dispatch({
+              type: 'master/SAVE',
+              payload: {
+                bpm: Transport.get().bpm,
+                volume: Destination.get().volume
+              }
+            });
+          }}
+        >
+          save
+        </Button>
+      </div>
       <div className={'main'}>
         <SliderControl
           id={'master-volume'}
@@ -50,22 +67,6 @@ const Master = ({ onSave }) => {
           initialValue={initialValue.bpm ?? 120}
           onChange={val => Transport.set({ bpm: val })}
         />
-      </div>
-      <div className={'sub'}>
-        <button
-          onClick={() => {
-            onSave();
-            dispatch({
-              type: 'master/SAVE',
-              payload: {
-                bpm: Transport.get().bpm,
-                volume: Destination.get().volume
-              }
-            });
-          }}
-        >
-          save
-        </button>
       </div>
     </div>
   );

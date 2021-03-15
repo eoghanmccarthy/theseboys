@@ -29,7 +29,9 @@ const TrackControls = memo(({ index, trackId, channel }) => {
               e.target.classList.remove('alert');
             }
           }}
-        />
+        >
+          M
+        </Button>
       </ControllerGroup>
       <ControllerGroup>
         <ButtonControl
