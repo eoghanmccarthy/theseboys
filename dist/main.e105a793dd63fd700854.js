@@ -1,4 +1,4 @@
-/*! For license information please see main.0968e224731707e6235f.js.LICENSE.txt */
+/*! For license information please see main.e105a793dd63fd700854.js.LICENSE.txt */
 !(function(e) {
   var t = {};
   function n(r) {
@@ -837,73 +837,76 @@
   function(e, t, n) {
     !(function(e, t, n, r) {
       'use strict';
-      (t = t && Object.prototype.hasOwnProperty.call(t, 'default') ? t.default : t),
-        (n = n && Object.prototype.hasOwnProperty.call(n, 'default') ? n.default : n),
-        (r = r && Object.prototype.hasOwnProperty.call(r, 'default') ? r.default : r);
-      var i = function(e, t, n) {
+      function i(e) {
+        return e && 'object' == typeof e && 'default' in e ? e : { default: e };
+      }
+      var o = i(t),
+        a = i(n),
+        s = i(r),
+        u = function(e, t, n) {
           return { endTime: t, insertTime: n, type: 'exponentialRampToValue', value: e };
         },
-        o = function(e, t, n) {
+        c = function(e, t, n) {
           return { endTime: t, insertTime: n, type: 'linearRampToValue', value: e };
         },
-        a = function(e, t) {
+        l = function(e, t) {
           return { startTime: t, type: 'setValue', value: e };
         },
-        s = function(e, t, n) {
+        f = function(e, t, n) {
           return { duration: n, startTime: t, type: 'setValueCurve', values: e };
         },
-        u = function(e, t, n) {
+        h = function(e, t, n) {
           var r = n.startTime,
             i = n.target,
             o = n.timeConstant;
           return i + (t - i) * Math.exp((r - e) / o);
         },
-        c = function(e) {
+        d = function(e) {
           return 'exponentialRampToValue' === e.type;
         },
-        l = function(e) {
+        p = function(e) {
           return 'linearRampToValue' === e.type;
         },
-        f = function(e) {
-          return c(e) || l(e);
+        m = function(e) {
+          return d(e) || p(e);
         },
-        h = function(e) {
+        g = function(e) {
           return 'setValue' === e.type;
         },
-        d = function(e) {
+        v = function(e) {
           return 'setValueCurve' === e.type;
         },
-        p = function e(t, n, r, i) {
+        y = function e(t, n, r, i) {
           var o = t[n];
           return void 0 === o
             ? i
-            : f(o) || h(o)
+            : m(o) || g(o)
             ? o.value
-            : d(o)
+            : v(o)
             ? o.values[o.values.length - 1]
-            : u(r, e(t, n - 1, o.startTime, i), o);
+            : h(r, e(t, n - 1, o.startTime, i), o);
         },
-        m = function(e, t, n, r, i) {
+        b = function(e, t, n, r, i) {
           return void 0 === n
             ? [r.insertTime, i]
-            : f(n)
+            : m(n)
             ? [n.endTime, n.value]
-            : h(n)
+            : g(n)
             ? [n.startTime, n.value]
-            : d(n)
+            : v(n)
             ? [n.startTime + n.duration, n.values[n.values.length - 1]]
-            : [n.startTime, p(e, t - 1, n.startTime, i)];
+            : [n.startTime, y(e, t - 1, n.startTime, i)];
         },
-        g = function(e) {
+        _ = function(e) {
           return 'cancelAndHold' === e.type;
         },
-        v = function(e) {
+        w = function(e) {
           return 'cancelScheduledValues' === e.type;
         },
-        y = function(e) {
-          return g(e) || v(e) ? e.cancelTime : c(e) || l(e) ? e.endTime : e.startTime;
+        x = function(e) {
+          return _(e) || w(e) ? e.cancelTime : d(e) || p(e) ? e.endTime : e.startTime;
         },
-        b = function(e, t, n, r) {
+        k = function(e, t, n, r) {
           var i = r.endTime,
             o = r.value;
           return n === o
@@ -912,33 +915,33 @@
             ? n * Math.pow(o / n, (e - t) / (i - t))
             : 0;
         },
-        _ = function(e, t, n, r) {
+        T = function(e, t, n, r) {
           return n + ((e - t) / (r.endTime - t)) * (r.value - n);
         },
-        w = function(e, t) {
+        O = function(e, t) {
           var n = Math.floor(t),
             r = Math.ceil(t);
           return n === r ? e[n] : (1 - (t - n)) * e[n] + (1 - (r - t)) * e[r];
         },
-        x = function(e, t) {
+        E = function(e, t) {
           var n = t.duration,
             r = t.startTime,
             i = t.values,
             o = ((e - r) / n) * (i.length - 1);
-          return w(i, o);
+          return O(i, o);
         },
-        k = function(e) {
+        S = function(e) {
           return 'setTarget' === e.type;
         },
-        T = (function() {
+        C = (function() {
           function e(t) {
-            n(this, e),
+            a.default(this, e),
               (this._automationEvents = []),
               (this._currenTime = 0),
               (this._defaultValue = t);
           }
           return (
-            r(e, [
+            s.default(e, [
               {
                 key: Symbol.iterator,
                 value: function() {
@@ -948,53 +951,53 @@
               {
                 key: 'add',
                 value: function(e) {
-                  var t = y(e);
-                  if (g(e) || v(e)) {
+                  var t = x(e);
+                  if (_(e) || w(e)) {
                     var n = this._automationEvents.findIndex(function(e) {
-                        return y(e) >= t;
+                        return x(e) >= t;
                       }),
                       r = this._automationEvents[n];
                     if (
                       (-1 !== n && (this._automationEvents = this._automationEvents.slice(0, n)),
-                      g(e))
+                      _(e))
                     ) {
-                      var u = this._automationEvents[this._automationEvents.length - 1];
-                      if (void 0 !== r && f(r)) {
-                        if (k(u)) throw new Error('The internal list is malformed.');
-                        var h = d(u) ? u.startTime + u.duration : y(u),
-                          p = d(u) ? u.values[u.values.length - 1] : u.value,
-                          m = c(r) ? b(t, h, p, r) : _(t, h, p, r),
-                          w = c(r) ? i(m, t, this._currenTime) : o(m, t, this._currenTime);
-                        this._automationEvents.push(w);
+                      var i = this._automationEvents[this._automationEvents.length - 1];
+                      if (void 0 !== r && m(r)) {
+                        if (S(i)) throw new Error('The internal list is malformed.');
+                        var o = v(i) ? i.startTime + i.duration : x(i),
+                          a = v(i) ? i.values[i.values.length - 1] : i.value,
+                          s = d(r) ? k(t, o, a, r) : T(t, o, a, r),
+                          h = d(r) ? u(s, t, this._currenTime) : c(s, t, this._currenTime);
+                        this._automationEvents.push(h);
                       }
-                      void 0 !== u && k(u) && this._automationEvents.push(a(this.getValue(t), t)),
-                        void 0 !== u &&
-                          d(u) &&
-                          u.startTime + u.duration > t &&
-                          (this._automationEvents[this._automationEvents.length - 1] = s(
+                      void 0 !== i && S(i) && this._automationEvents.push(l(this.getValue(t), t)),
+                        void 0 !== i &&
+                          v(i) &&
+                          i.startTime + i.duration > t &&
+                          (this._automationEvents[this._automationEvents.length - 1] = f(
                             new Float32Array([6, 7]),
-                            u.startTime,
-                            t - u.startTime
+                            i.startTime,
+                            t - i.startTime
                           ));
                     }
                   } else {
-                    var x = this._automationEvents.findIndex(function(e) {
-                        return y(e) > t;
+                    var g = this._automationEvents.findIndex(function(e) {
+                        return x(e) > t;
                       }),
-                      T =
-                        -1 === x
+                      y =
+                        -1 === g
                           ? this._automationEvents[this._automationEvents.length - 1]
-                          : this._automationEvents[x - 1];
-                    if (void 0 !== T && d(T) && y(T) + T.duration > t) return !1;
-                    var O = c(e)
-                      ? i(e.value, e.endTime, this._currenTime)
-                      : l(e)
-                      ? o(e.value, t, this._currenTime)
+                          : this._automationEvents[g - 1];
+                    if (void 0 !== y && v(y) && x(y) + y.duration > t) return !1;
+                    var b = d(e)
+                      ? u(e.value, e.endTime, this._currenTime)
+                      : p(e)
+                      ? c(e.value, t, this._currenTime)
                       : e;
-                    if (-1 === x) this._automationEvents.push(O);
+                    if (-1 === g) this._automationEvents.push(b);
                     else {
-                      if (d(e) && t + e.duration > y(this._automationEvents[x])) return !1;
-                      this._automationEvents.splice(x, 0, O);
+                      if (v(e) && t + e.duration > x(this._automationEvents[g])) return !1;
+                      this._automationEvents.splice(g, 0, b);
                     }
                   }
                   return !0;
@@ -1004,15 +1007,15 @@
                 key: 'flush',
                 value: function(e) {
                   var t = this._automationEvents.findIndex(function(t) {
-                    return y(t) > e;
+                    return x(t) > e;
                   });
                   if (t > 1) {
                     var n = this._automationEvents.slice(t - 1),
                       r = n[0];
-                    k(r) &&
+                    S(r) &&
                       n.unshift(
-                        a(
-                          p(this._automationEvents, t - 2, r.startTime, this._defaultValue),
+                        l(
+                          y(this._automationEvents, t - 2, r.startTime, this._defaultValue),
                           r.startTime
                         )
                       ),
@@ -1024,39 +1027,39 @@
                 key: 'getValue',
                 value: function(e) {
                   if (0 === this._automationEvents.length) return this._defaultValue;
-                  var n = this._automationEvents[this._automationEvents.length - 1],
-                    r = this._automationEvents.findIndex(function(t) {
-                      return y(t) > e;
+                  var t = this._automationEvents[this._automationEvents.length - 1],
+                    n = this._automationEvents.findIndex(function(t) {
+                      return x(t) > e;
                     }),
-                    i = this._automationEvents[r],
-                    o = y(n) <= e ? n : this._automationEvents[r - 1];
-                  if (void 0 !== o && k(o) && (void 0 === i || !f(i) || i.insertTime > e))
-                    return u(
+                    r = this._automationEvents[n],
+                    i = x(t) <= e ? t : this._automationEvents[n - 1];
+                  if (void 0 !== i && S(i) && (void 0 === r || !m(r) || r.insertTime > e))
+                    return h(
                       e,
-                      p(this._automationEvents, r - 2, o.startTime, this._defaultValue),
-                      o
+                      y(this._automationEvents, n - 2, i.startTime, this._defaultValue),
+                      i
                     );
-                  if (void 0 !== o && h(o) && (void 0 === i || !f(i))) return o.value;
+                  if (void 0 !== i && g(i) && (void 0 === r || !m(r))) return i.value;
                   if (
-                    void 0 !== o &&
-                    d(o) &&
-                    (void 0 === i || !f(i) || o.startTime + o.duration > e)
+                    void 0 !== i &&
+                    v(i) &&
+                    (void 0 === r || !m(r) || i.startTime + i.duration > e)
                   )
-                    return e < o.startTime + o.duration ? x(e, o) : o.values[o.values.length - 1];
-                  if (void 0 !== o && f(o) && (void 0 === i || !f(i))) return o.value;
-                  if (void 0 !== i && c(i)) {
-                    var a = m(this._automationEvents, r - 1, o, i, this._defaultValue),
-                      s = t(a, 2),
-                      g = s[0],
-                      v = s[1];
-                    return b(e, g, v, i);
+                    return e < i.startTime + i.duration ? E(e, i) : i.values[i.values.length - 1];
+                  if (void 0 !== i && m(i) && (void 0 === r || !m(r))) return i.value;
+                  if (void 0 !== r && d(r)) {
+                    var a = b(this._automationEvents, n - 1, i, r, this._defaultValue),
+                      s = o.default(a, 2),
+                      u = s[0],
+                      c = s[1];
+                    return k(e, u, c, r);
                   }
-                  if (void 0 !== i && l(i)) {
-                    var w = m(this._automationEvents, r - 1, o, i, this._defaultValue),
-                      T = t(w, 2),
-                      O = T[0],
-                      E = T[1];
-                    return _(e, O, E, i);
+                  if (void 0 !== r && p(r)) {
+                    var l = b(this._automationEvents, n - 1, i, r, this._defaultValue),
+                      f = o.default(l, 2),
+                      _ = f[0],
+                      w = f[1];
+                    return T(e, _, w, r);
                   }
                   return this._defaultValue;
                 }
@@ -1065,29 +1068,29 @@
             e
           );
         })(),
-        O = function(e) {
+        A = function(e) {
           return { cancelTime: e, type: 'cancelAndHold' };
         },
-        E = function(e) {
+        P = function(e) {
           return { cancelTime: e, type: 'cancelScheduledValues' };
         },
-        S = function(e, t) {
+        j = function(e, t) {
           return { endTime: t, type: 'exponentialRampToValue', value: e };
         },
-        C = function(e, t) {
+        M = function(e, t) {
           return { endTime: t, type: 'linearRampToValue', value: e };
         },
-        A = function(e, t, n) {
+        D = function(e, t, n) {
           return { startTime: t, target: e, timeConstant: n, type: 'setTarget' };
         };
-      (e.AutomationEventList = T),
-        (e.createCancelAndHoldAutomationEvent = O),
-        (e.createCancelScheduledValuesAutomationEvent = E),
-        (e.createExponentialRampToValueAutomationEvent = S),
-        (e.createLinearRampToValueAutomationEvent = C),
-        (e.createSetTargetAutomationEvent = A),
-        (e.createSetValueAutomationEvent = a),
-        (e.createSetValueCurveAutomationEvent = s),
+      (e.AutomationEventList = C),
+        (e.createCancelAndHoldAutomationEvent = A),
+        (e.createCancelScheduledValuesAutomationEvent = P),
+        (e.createExponentialRampToValueAutomationEvent = j),
+        (e.createLinearRampToValueAutomationEvent = M),
+        (e.createSetTargetAutomationEvent = D),
+        (e.createSetValueAutomationEvent = l),
+        (e.createSetValueCurveAutomationEvent = f),
         Object.defineProperty(e, '__esModule', { value: !0 });
     })(t, n(758), n(764), n(765));
   },
@@ -18285,7 +18288,8 @@
     const r = e => (t, { mediaStream: n }) => {
       const r = n.getAudioTracks(),
         i = e(t, e => {
-          const t = r.sort((e, t) => (e.id < t.id ? -1 : e.id > t.id ? 1 : 0)).slice(0, 1);
+          r.sort((e, t) => (e.id < t.id ? -1 : e.id > t.id ? 1 : 0));
+          const t = r.slice(0, 1);
           return e.createMediaStreamSource(new MediaStream(t));
         });
       return Object.defineProperty(i, 'mediaStream', { value: n }), i;
@@ -29952,17 +29956,21 @@
       i = n(760),
       o = n(761),
       a = n(763);
-    e.exports = function(e, t) {
+    (e.exports = function(e, t) {
       return r(e) || i(e, t) || o(e, t) || a();
-    };
+    }),
+      (e.exports.default = e.exports),
+      (e.exports.__esModule = !0);
   },
   function(e, t) {
-    e.exports = function(e) {
+    (e.exports = function(e) {
       if (Array.isArray(e)) return e;
-    };
+    }),
+      (e.exports.default = e.exports),
+      (e.exports.__esModule = !0);
   },
   function(e, t) {
-    e.exports = function(e, t) {
+    (e.exports = function(e, t) {
       if ('undefined' != typeof Symbol && Symbol.iterator in Object(e)) {
         var n = [],
           r = !0,
@@ -29985,11 +29993,13 @@
         }
         return n;
       }
-    };
+    }),
+      (e.exports.default = e.exports),
+      (e.exports.__esModule = !0);
   },
   function(e, t, n) {
     var r = n(762);
-    e.exports = function(e, t) {
+    (e.exports = function(e, t) {
       if (e) {
         if ('string' == typeof e) return r(e, t);
         var n = Object.prototype.toString.call(e).slice(8, -1);
@@ -30002,26 +30012,34 @@
             : void 0
         );
       }
-    };
+    }),
+      (e.exports.default = e.exports),
+      (e.exports.__esModule = !0);
   },
   function(e, t) {
-    e.exports = function(e, t) {
+    (e.exports = function(e, t) {
       (null == t || t > e.length) && (t = e.length);
       for (var n = 0, r = new Array(t); n < t; n++) r[n] = e[n];
       return r;
-    };
+    }),
+      (e.exports.default = e.exports),
+      (e.exports.__esModule = !0);
   },
   function(e, t) {
-    e.exports = function() {
+    (e.exports = function() {
       throw new TypeError(
         'Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.'
       );
-    };
+    }),
+      (e.exports.default = e.exports),
+      (e.exports.__esModule = !0);
   },
   function(e, t) {
-    e.exports = function(e, t) {
+    (e.exports = function(e, t) {
       if (!(e instanceof t)) throw new TypeError('Cannot call a class as a function');
-    };
+    }),
+      (e.exports.default = e.exports),
+      (e.exports.__esModule = !0);
   },
   function(e, t) {
     function n(e, t) {
@@ -30033,9 +30051,11 @@
           Object.defineProperty(e, r.key, r);
       }
     }
-    e.exports = function(e, t, r) {
+    (e.exports = function(e, t, r) {
       return t && n(e.prototype, t), r && n(e, r), e;
-    };
+    }),
+      (e.exports.default = e.exports),
+      (e.exports.__esModule = !0);
   },
   function(e, t, n) {},
   function(e, t, n) {},
@@ -33128,12 +33148,7 @@
                   },
                   Distortion: { distortion: 1, oversample: '4x', wet: 0.09 },
                   Reverb: { decay: 4, preDelay: 0.2, wet: 0.28 },
-                  FeedbackDelay: {
-                    delayTime: ''.concat(Math.floor(8), 'n'),
-                    feedback: 1 / 3,
-                    wet: 0.5,
-                    maxDelay: 1
-                  }
+                  FeedbackDelay: { delayTime: 0.25, feedback: 1 / 3, wet: 0.5, maxDelay: 1 }
                 }
               }
             },
@@ -35674,7 +35689,7 @@
       zi = n.n(qi),
       Ui = n(37),
       Bi = n.n(Ui);
-    const Wi = '14.7.38';
+    const Wi = '14.7.39';
     var Qi = n(18);
     function $i(e, t) {
       if (!e) throw new Error(t);
@@ -36750,7 +36765,7 @@
     if (oo && !oo.TONE_SILENCE_LOGGING) {
       let e = 'v';
       0;
-      const t = ` * Tone.js ${e}14.7.38 * `;
+      const t = ` * Tone.js ${e}14.7.39 * `;
       console.log('%c' + t, 'background: #000; color: #fff');
     }
     function Qo(e) {
@@ -44382,18 +44397,13 @@
               )).chain.apply(s, [k.current].concat(zi()(T.current), [Qs]))
             );
           Object(r.useEffect)(function() {
-            x.current = new Os(E, w, _).start(0);
-          }, []),
-            Object(r.useEffect)(function() {
-              return function() {
-                T.current.forEach(function(e) {
-                  return e.dispose();
-                }),
-                  O.current.dispose(),
-                  x.current.dispose(),
-                  k.current.dispose();
-              };
-            }, []);
+            return (
+              (x.current = new Os(E, w, _).start(0)),
+              function() {
+                (null == x ? void 0 : x.current) && x.current.dispose();
+              }
+            );
+          }, []);
           var E = function(e, t) {
             !(function(e) {
               for (
@@ -44506,12 +44516,7 @@
         var t = e.children,
           n = Object(r.useRef)(new zs({ mimeType: 'video/webm' }));
         Object(r.useEffect)(function() {
-          return (
-            Qs.connect(n.current),
-            function() {
-              n.current.dispose(), Qs.dispose(), Ws.dispose();
-            }
-          );
+          Qs.connect(n.current);
         }, []);
         var o = function() {
             'running' !== Hs.state && Hs.resume(), Xs('audio context is', Hs.state);
@@ -44722,15 +44727,14 @@
               }
             }),
             qu.map(function(e, t) {
-              var r,
-                a = null == n || null === (r = n.tracks) || void 0 === r ? void 0 : r[e];
-              return a
+              var r = n.tracks[e];
+              return r
                 ? i.a.createElement(Ru, {
                     key: e,
                     ref: o.current[t],
                     index: t,
-                    trackId: e,
-                    initialValue: a
+                    trackId: r.id,
+                    initialValue: r
                   })
                 : null;
             })
@@ -44809,4 +44813,4 @@
     );
   }
 ]);
-//# sourceMappingURL=main.0968e224731707e6235f.js.map
+//# sourceMappingURL=main.e105a793dd63fd700854.js.map

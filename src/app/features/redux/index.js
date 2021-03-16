@@ -6,6 +6,8 @@ export const TRACK_SAVE_STEPS = 'track/SAVE_STEPS';
 export const TRACK_SAVE_SYNTH = 'track/SAVE_SYNTH';
 export const TRACK_SAVE_EFFECTS = 'track/SAVE_EFFECTS';
 
+//delayTime: `${Math.floor(16 / 2)}n`,
+
 const master = produce(
   (draft, action) => {
     const { type, payload } = action;
@@ -183,7 +185,7 @@ const tracks = produce(
           Distortion: { distortion: 1, oversample: '4x', wet: 0.09 },
           Reverb: { decay: 4, preDelay: 0.2, wet: 0.28 },
           FeedbackDelay: {
-            delayTime: `${Math.floor(16 / 2)}n`,
+            delayTime: 0.25,
             feedback: 1 / 3,
             wet: 0.5,
             maxDelay: 1

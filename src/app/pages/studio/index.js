@@ -27,14 +27,14 @@ const Studio = () => {
       <Main className={'studio'}>
         <Master initialValue={initialValue.master} onSave={handleSave} />
         {TRACKS.map((id, i) => {
-          const track = initialValue?.tracks?.[id];
+          const track = initialValue.tracks[id];
           if (!track) return null;
           return (
             <Track
               key={id}
               ref={tracksRef.current[i]}
               index={i}
-              trackId={id}
+              trackId={track.id}
               initialValue={track}
             />
           );

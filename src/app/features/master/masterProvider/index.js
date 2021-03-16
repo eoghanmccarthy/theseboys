@@ -10,11 +10,6 @@ const MasterProvider = ({ children }) => {
 
   useEffect(() => {
     Destination.connect(recorder.current);
-    return () => {
-      recorder.current.dispose();
-      Destination.dispose();
-      Transport.dispose();
-    };
   }, []);
 
   const handlePlay = () => {
