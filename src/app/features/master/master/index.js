@@ -21,6 +21,7 @@ const Master = ({ initialValue, onSave }) => {
       <div className={'sub'}>
         <Button
           size={24}
+          variant={'text'}
           shape={'rounded'}
           onClick={() => {
             if (Transport.state === 'started') return;
@@ -34,7 +35,7 @@ const Master = ({ initialValue, onSave }) => {
             });
           }}
         >
-          save
+          save settings
         </Button>
       </div>
       <div className={'main'}>

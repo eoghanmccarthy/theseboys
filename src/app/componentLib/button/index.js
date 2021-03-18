@@ -25,7 +25,12 @@ const Button = memo(
         disabled={isDisabled}
         className={cx(
           'tb-button',
-          { [`size-${size}`]: size, [shape]: shape, [variant]: variant, disabled: isDisabled },
+          {
+            [`size-${size}`]: size && variant !== 'text',
+            [shape]: shape && variant !== 'text',
+            [variant]: variant,
+            disabled: isDisabled
+          },
           className
         )}
         role={role}

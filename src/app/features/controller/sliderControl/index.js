@@ -19,10 +19,10 @@ const SliderControl = memo(
       handleOnChange(initialValue, true);
     }, []);
 
-    const handleOnChange = (val, mount = false) => {
+    const handleOnChange = (val, setInputValue = false) => {
       if (typeof val !== 'number' || val < min || val > max) return;
 
-      mount && document.querySelector(`#${id} .control`)?.setAttribute('value', `${val}`);
+      setInputValue && document.querySelector(`#${id} .control`)?.setAttribute('value', `${val}`);
       document.querySelector(`#${id} span.value`)?.setAttribute('value', val.toFixed(toFixed));
 
       onChange(val);
@@ -39,6 +39,18 @@ const SliderControl = memo(
             min={min}
             max={max}
             onChange={e => handleOnChange(parseFloat(e.target.value))}
+            onKeyDown={e => {
+              switch (e.key) {
+                case 'q':
+                  handleOnChange(min, true);
+                  break;
+                case 'w':
+                  handleOnChange(max, true);
+                  break;
+                default:
+                  break;
+              }
+            }}
           />
         </div>
         <span className={'value'} />

@@ -11,9 +11,14 @@
     cursor: pointer;
 }
 
-.tb-button.outlined {
-    background-color: transparent;
-    border-color: var(--color-bluegrey-600);
+.tb-button.text {
+    border-color: transparent;
+    line-height: inherit;
+}
+
+.tb-button.text:hover {
+    border-color: transparent;
+    color: white;
 }
 
 .tb-button:hover {
