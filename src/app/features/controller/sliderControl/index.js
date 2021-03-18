@@ -47,6 +47,9 @@ const SliderControl = memo(
                 case 'w':
                   handleOnChange(max, true);
                   break;
+                case 'e':
+                  handleOnChange(initialValue, true);
+                  break;
                 default:
                   break;
               }
