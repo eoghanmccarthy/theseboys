@@ -1,4 +1,4 @@
-import React, { memo, useEffect } from 'react';
+import React, { memo, useEffect, useRef } from 'react';
 
 import Slider from 'componentLib/slider';
 import Controller from '../controller';
@@ -15,15 +15,28 @@ const SliderControl = memo(
     toFixed = 0,
     onChange
   }) => {
+    const controlRef = useRef(null);
+    const valueRef = useRef(null);
+
     useEffect(() => {
-      handleOnChange(initialValue, true);
+      handleOnChange(initialValue);
     }, []);
 
-    const handleOnChange = (val, setInputValue = false) => {
-      if (typeof val !== 'number' || val < min || val > max) return;
+    const handleOnChange = (val, setInputValue = true) => {
+      if (
+        !controlRef?.current ||
+        !valueRef?.current ||
+        typeof val !== 'number' ||
+        val < min ||
+        val > max
+      )
+        return;
 
-      setInputValue && document.querySelector(`#${id} .control`)?.setAttribute('value', `${val}`);
-      document.querySelector(`#${id} span.value`)?.setAttribute('value', val.toFixed(toFixed));
+      if (setInputValue) {
+        controlRef.current.value = `${val}`;
+      }
+
+      valueRef.current.setAttribute('value', val.toFixed(toFixed));
 
       onChange(val);
     };
@@ -33,22 +46,23 @@ const SliderControl = memo(
         <label className={'label'}>{label}</label>
         <div className={'controls'}>
           <Slider
+            ref={controlRef}
             className={'control'}
             orient={orient}
             step={step}
             min={min}
             max={max}
-            onChange={e => handleOnChange(parseFloat(e.target.value))}
+            onChange={e => handleOnChange(parseFloat(e.target.value), false)}
             onKeyDown={e => {
               switch (e.key) {
                 case 'q':
-                  handleOnChange(min, true);
+                  handleOnChange(min);
                   break;
                 case 'w':
-                  handleOnChange(max, true);
+                  handleOnChange(max);
                   break;
                 case 'e':
-                  handleOnChange(initialValue, true);
+                  handleOnChange(initialValue);
                   break;
                 default:
                   break;
@@ -56,7 +70,7 @@ const SliderControl = memo(
             }}
           />
         </div>
-        <span className={'value'} />
+        <span ref={valueRef} className={'value'} />
       </Controller>
     );
   }
