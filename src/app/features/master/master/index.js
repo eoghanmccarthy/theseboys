@@ -17,7 +17,7 @@ const Master = ({ initialValue, onSave }) => {
   const { play, stop, record } = useMasterContext('<Master>');
 
   return (
-    <div id={'master'} data-playback={'stopped'} data-recorder={'off'}>
+    <section id={'master'} data-playback={'stopped'} data-recorder={'off'}>
       <div className={'sub'}>
         <Button
           size={24}
@@ -69,7 +69,7 @@ const Master = ({ initialValue, onSave }) => {
           onChange={val => Transport.set({ bpm: val })}
         />
       </div>
-    </div>
+    </section>
   );
 };
 

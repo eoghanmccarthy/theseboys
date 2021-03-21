@@ -9,13 +9,13 @@ import { Chevron } from 'componentLib/icon';
 import Button from 'componentLib/button';
 import { ButtonControl, ControllerGroup } from '../controller';
 
-const TrackControls = memo(({ index, trackId, channel }) => {
+const TrackControls = memo(({ index, trackId, channel, onSample }) => {
   if (!trackId || !channel) return null;
 
   return (
     <div id={`${trackId}-controls`} className={`track-controls`}>
       <ControllerGroup>
-        <Button isDisabled size={32}>
+        <Button id={`${trackId}-sample`} size={32} onClick={onSample}>
           {index + 1}
         </Button>
         <Button

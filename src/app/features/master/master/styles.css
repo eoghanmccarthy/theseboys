@@ -1,8 +1,11 @@
 #master {
+    display: grid;
+    grid-template-rows: 40px auto;
     z-index: 99;
     position: sticky;
-    margin-top: var(--spacing-8);
-    top: var(--spacing-8);
+    top: 0;
+    height: var(--header-height);
+    border-top: 8px solid var(--color-grey-900);
 }
 
 #master > * {
@@ -13,11 +16,9 @@
 }
 
 #master .main {
-    height: 88px;
     background-color: var(--color-secondary);
 }
 
 #master .sub {
-    height: 40px;
     background-color: var(--color-grey-800);
 }

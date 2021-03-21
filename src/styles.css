@@ -66,8 +66,18 @@
 	--spacing-96: 96px;
 }
 
+:root {
+	--header-height: 136px;
+	--track-gap: 32px;
+}
+
 * {
 	box-sizing: border-box;
+}
+
+html,
+body {
+	scroll-padding-top: calc(var(--header-height) + var(--track-gap));
 }
 
 html,

@@ -89,7 +89,7 @@ const Track = memo(
 
     const onTriggerAttackRelease = (notesToPlay, duration, time, velocity) => {
       if (!synth?.current) return;
-      if (initialValue.synth !== 'NoiseSynth') {
+      if (synth.current.name !== 'NoiseSynth') {
         synth.current.triggerAttackRelease(notesToPlay[0], duration, time, velocity);
       } else {
         synth.current.triggerAttackRelease(duration, time, velocity);
@@ -137,7 +137,12 @@ const Track = memo(
 
     return (
       <div id={trackId} className={'track'}>
-        <TrackControls index={index} trackId={trackId} channel={channel?.current} />
+        <TrackControls
+          index={index}
+          trackId={trackId}
+          channel={channel?.current}
+          onSample={() => onTriggerAttackRelease(notes, noteInterval)}
+        />
         <TrackSteps trackId={trackId} numSteps={16} initialValue={initialValue?.steps} />
         <TrackEffects trackId={trackId}>
           {Object.entries(initialValue?.controls ?? {}).map(([group, value], i) => {
