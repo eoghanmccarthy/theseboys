@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, createContext, useMemo } from 'react';
-import { Transport, Destination, Recorder, context } from 'tone';
+import { Transport, Destination, Recorder, getTransport, getContext, start } from 'tone';
 
 export const MasterContext = createContext();
 
@@ -12,55 +12,48 @@ const MasterProvider = ({ children }) => {
     Destination.connect(recorder.current);
   }, []);
 
-  const handlePlay = () => {
-    if (context.state !== 'running') {
-      context.resume();
+  const getContextState = () => getContext().state;
+
+  const getTransportState = () => getTransport().state;
+
+  const getRecorderState = () => recorder?.current?.state;
+
+  const handlePlay = async () => {
+    if (getContextState() !== 'running') {
+      await start();
     }
 
-    consoleLog('audio context is', context.state);
+    consoleLog('audio context is', getContextState());
 
     const master = document.querySelector('#master');
-    if (!master) {
-      consoleLog('master container not found');
-      return;
-    }
 
-    if (Transport.state === 'started') return;
+    if (getTransportState() === 'stopped' && master.getAttribute('data-recorder') !== 'on') {
+      // Start playback
+      Transport.start();
+      master.querySelector('button.play')?.classList.add('active');
+      master.setAttribute('data-playback', 'started');
+      consoleLog('transport is', getTransportState());
 
-    if (Transport.state === 'stopped') {
-      // Start recording if recorder is on standby
-      const recorderStatus = master.getAttribute('data-recorder');
-
-      if (recorderStatus === 'stand-by' && recorder?.current?.state === 'stopped') {
+      // Start recording if status is standby
+      if (master.getAttribute('data-recorder') === 'stand-by' && getRecorderState() === 'stopped') {
         recorder.current.start();
         master.setAttribute('data-recorder', 'on');
       }
-
-      Transport.start();
-      master.setAttribute('data-playback', 'started');
-      master.querySelector('button.play')?.classList.add('active');
-      consoleLog('transport is', Transport.state);
     }
   };
 
   const handleStop = () => {
     const master = document.querySelector('#master');
-    if (!master) {
-      consoleLog('master container not found');
-      return;
-    }
 
-    if (Transport.state === 'started') {
+    if (getTransportState() === 'started') {
+      // Stop playback
       Transport.stop();
       master.setAttribute('data-playback', 'stopped');
       master.querySelector('button.play')?.classList.remove('active');
-      consoleLog('transport is', Transport.state);
-      // Recording is stopped manually
+      consoleLog('transport is', getTransportState());
     }
 
-    const recorderStatus = master.getAttribute('data-recorder');
-
-    if (recorderStatus === 'stand-by') {
+    if (master.getAttribute('data-recorder') === 'stand-by') {
       master.setAttribute('data-recorder', 'off');
       master.querySelector('button.record')?.classList.remove('alert');
     }
@@ -68,25 +61,17 @@ const MasterProvider = ({ children }) => {
 
   const handleRecord = () => {
     const master = document.querySelector('#master');
-    if (!master) {
-      consoleLog('master container not found');
-      return;
-    }
 
-    if (Transport.state === 'started') return;
-
-    const recorderStatus = master.getAttribute('data-recorder');
-
-    if (recorderStatus === 'off') {
-      if (Transport.state === 'stopped') {
+    if (getTransportState() === 'stopped') {
+      if (master.getAttribute('data-recorder') === 'off') {
         master.setAttribute('data-recorder', 'stand-by');
         master.querySelector('button.record')?.classList.add('alert');
-      }
-    } else {
-      master.setAttribute('data-recorder', 'off');
-      master.querySelector('button.record')?.classList.remove('alert');
-      if (recorder?.current?.state === 'started') {
-        handleStopRecorder();
+      } else {
+        master.setAttribute('data-recorder', 'off');
+        master.querySelector('button.record')?.classList.remove('alert');
+        if (getRecorderState() === 'started') {
+          handleStopRecorder();
+        }
       }
     }
   };
@@ -101,8 +86,9 @@ const MasterProvider = ({ children }) => {
   };
 
   const values = useMemo(() => {
-    return { play: handlePlay, stop: handleStop, record: handleRecord };
+    return { getTransportState, play: handlePlay, stop: handleStop, record: handleRecord };
   }, []);
+
   return <MasterContext.Provider value={values}>{children}</MasterContext.Provider>;
 };
 

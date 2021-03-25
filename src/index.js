@@ -6,7 +6,7 @@ import { ConnectedRouter } from 'connected-react-router';
 import createHistory from 'history/createBrowserHistory';
 import { ErrorBoundary } from '@eoghanmccarthy/ui';
 
-import configureStore from './configureStore';
+import configureStore from './store/configureStore';
 
 import App from 'app';
 

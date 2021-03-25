@@ -1,4 +1,5 @@
 import React, { memo } from 'react';
+import cx from 'classnames';
 
 import './styles.css';
 
@@ -19,15 +20,11 @@ const TrackControls = memo(({ index, trackId, channel, onSample }) => {
           {index + 1}
         </Button>
         <Button
+          className={cx({ alert: channel.muted })}
           size={32}
           onClick={e => {
-            const { mute } = channel.get();
-            channel.set({ mute: !mute });
-            if (!mute) {
-              e.target.classList.add('alert');
-            } else {
-              e.target.classList.remove('alert');
-            }
+            channel.set({ mute: !channel.muted });
+            e.target.classList.toggle('alert');
           }}
         >
           M
@@ -55,14 +52,8 @@ const TrackControls = memo(({ index, trackId, channel, onSample }) => {
         <Button
           size={36}
           onClick={e => {
-            const element = document.querySelector(`#${trackId}-effects`);
-            if (!element.classList.contains('hidden')) {
-              element.classList.add('hidden');
-              e.target.classList.add('rotated');
-            } else {
-              element.classList.remove('hidden');
-              e.target.classList.remove('rotated');
-            }
+            document.querySelector(`#${trackId}-effects`)?.classList.toggle('hidden');
+            e.target.classList.toggle('rotated');
           }}
         >
           <Chevron width={'60%'} />

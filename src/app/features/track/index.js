@@ -3,19 +3,20 @@ import { string } from 'prop-types';
 import { useDispatch } from 'react-redux';
 import {
   Channel,
+  Compressor,
+  Destination,
+  Distortion,
+  EQ3,
+  FeedbackDelay,
+  Filter,
+  Gain,
   MembraneSynth,
   MetalSynth,
   NoiseSynth,
-  Sequence,
-  Reverb,
-  FeedbackDelay,
-  Distortion,
   PitchShift,
-  Compressor,
-  Gain,
-  EQ3,
-  Filter,
-  Destination
+  Reverb,
+  Sequence,
+  Solo
 } from 'tone';
 
 import './styles.css';
@@ -69,6 +70,7 @@ const Track = memo(
 
     const sequence = useRef();
     const channel = useRef(new Channel(initialValue?.channel ?? {}));
+    const solo = useRef(new Solo(false));
     const effectsChain = useRef(
       Object.entries(initialValue?.instrument?.effects ?? {}).map(([e, o]) => getEffect(e, o))
     );
