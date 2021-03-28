@@ -8,14 +8,19 @@ import drawSteps from './drawSteps';
  *
  * @param {string} trackId
  * @param {array} notes
- * @param {number} numRows
  * @param {number} numSteps
  * @param {number} time
  * @param {number} step
  * @param {function} onStepOn
  */
 
-export default (trackId, notes = [], numRows, numSteps, time, step, onStepOn) => {
+export default (trackId, notes = [], numSteps, time, step, onStepOn) => {
+  if (!Array.isArray(notes)) {
+    notes = [];
+  }
+
+  const numRows = Math.max(1, notes.length);
+
   let notesToPlay = [];
 
   const velocity = step === 0 ? 1 : 0.75;

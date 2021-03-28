@@ -5,19 +5,28 @@ import { Transport, Destination } from 'tone';
 import './index.css';
 
 import useEventListener from 'utils/hooks/useEventListener';
+import { CHANNEL, STEP_COUNT, STEPS, INSTRUMENTS } from 'app/redux/defaults';
 
 import Main from 'global/main';
 import Footer from 'global/footer';
 import Track from 'features/track';
 import { Master, useMasterContext } from 'features/master';
 
-const TRACKS = ['t001', 't002', 't003', 't004', 't005'];
+const SONGS = {
+  A: { t001: 'i001', t002: 'i002', t003: 'i003', t004: 'i004', t005: 'i005' },
+  B: { t001: 'i001', t002: 'i002', t003: 'i003', t004: 'i004', t005: 'i005' },
+  C: { t001: 'i001', t002: 'i002', t003: 'i003', t004: 'i004', t005: 'i005' },
+  D: { t001: 'i001', t002: 'i002', t003: 'i003', t004: 'i004', t005: 'i005' }
+};
 
 const Studio = () => {
   const { play, stop, record } = useMasterContext('<Studio>');
   const store = useSelector(state => state);
   // Prevent tree from re-rendering when store updated
-  const [initialValue] = useState(store);
+  const [storedData] = useState(store);
+  const SONG = SONGS['A'];
+  const TRACKS = Object.entries(SONG);
+  const TRACK_IDS = TRACKS.map(([k]) => k);
   const tracksRef = useRef(TRACKS.map(() => createRef()));
 
   useEventListener(e => {
@@ -43,7 +52,7 @@ const Studio = () => {
       case 'Digit8':
         const num = parseInt(code.charAt(code.length - 1));
         if (num <= TRACKS.length) {
-          const id = TRACKS[num - 1];
+          const id = TRACK_IDS[num - 1];
           document.querySelector(`#${id}`)?.scrollIntoView();
           document.querySelector(`#${id}-sample`)?.focus();
         }
@@ -62,17 +71,26 @@ const Studio = () => {
   return (
     <Fragment>
       <Main id={'studio'}>
-        <Master initialValue={initialValue.master} onSave={handleSave} />
-        {TRACKS.map((id, i) => {
-          const track = initialValue.tracks[id];
-          if (!track) return null;
+        <Master initialValue={storedData.master} onSave={handleSave} />
+        {TRACKS.map(([trackId, instrumentId], i) => {
+          const track = storedData.tracks[trackId];
+          const instrument = INSTRUMENTS[instrumentId];
+          if (!instrument) return null;
+
           return (
             <Track
-              key={id}
+              key={trackId}
               ref={tracksRef.current[i]}
               index={i}
-              trackId={track.id}
-              initialValue={track}
+              trackId={trackId}
+              channel={track?.channel ?? CHANNEL}
+              notes={instrument.notes}
+              stepCount={track?.stepCount ?? STEP_COUNT}
+              steps={track?.steps ?? STEPS}
+              instrument={instrument.instrument ?? 'MembraneSynth'}
+              synth={track?.synth ?? instrument.synth}
+              effects={track?.effects ?? instrument.effects}
+              controls={instrument.controls}
             />
           );
         })}
