@@ -1,4 +1,4 @@
-import React, { Fragment, useRef, createRef, useState } from 'react';
+import React, { Fragment, useRef, createRef, useState, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { Transport, Destination } from 'tone';
 
@@ -12,21 +12,22 @@ import Footer from 'global/footer';
 import Track from 'features/track';
 import { Master, useMasterContext } from 'features/master';
 
-const SONGS = {
-  A: { t001: 'i001', t002: 'i002', t003: 'i003', t004: 'i004', t005: 'i005' },
-  B: { t001: 'i001', t002: 'i002', t003: 'i003', t004: 'i004', t005: 'i005' },
-  C: { t001: 'i001', t002: 'i002', t003: 'i003', t004: 'i004', t005: 'i005' },
-  D: { t001: 'i001', t002: 'i002', t003: 'i003', t004: 'i004', t005: 'i005' }
+const SONGS_CONFIG = {
+  s001: { t001: 'i001', t002: 'i002', t003: 'i003', t004: 'i004', t005: 'i005' },
+  s002: { t001: 'i001', t002: 'i002', t003: 'i003', t004: 'i004', t005: 'i005' },
+  s003: { t001: 'i001', t002: 'i002', t003: 'i003', t004: 'i004', t005: 'i005' },
+  s004: { t001: 'i001', t002: 'i002', t003: 'i003', t004: 'i004', t005: 'i005' }
 };
 
 const Studio = () => {
   const { play, stop, record } = useMasterContext('<Studio>');
   const store = useSelector(state => state);
+  const [songId, setSongId] = useState('s001');
   // Prevent tree from re-rendering when store updated
-  const [storedData] = useState(store);
-  const SONG = SONGS['A'];
-  const TRACKS = Object.entries(SONG);
-  const TRACK_IDS = TRACKS.map(([k]) => k);
+  const storedSong = useMemo(() => store.songs?.[songId], [songId]);
+  const SONG_CONFIG = SONGS_CONFIG[songId];
+  const TRACKS = Object.entries(SONG_CONFIG);
+  const TRACK_IDS = TRACKS.map(([trackId]) => trackId);
   const tracksRef = useRef(TRACKS.map(() => createRef()));
 
   useEventListener(e => {
@@ -71,9 +72,15 @@ const Studio = () => {
   return (
     <Fragment>
       <Main id={'studio'}>
-        <Master initialValue={storedData.master} onSave={handleSave} />
+        <Master
+          songId={songId}
+          volume={storedSong?.master?.volume ?? 0}
+          bpm={storedSong?.master?.bpm ?? 120}
+          setSongId={setSongId}
+          onSave={handleSave}
+        />
         {TRACKS.map(([trackId, instrumentId], i) => {
-          const track = storedData.tracks[trackId];
+          const track = storedSong?.tracks?.[trackId];
           const instrument = INSTRUMENTS[instrumentId];
           if (!instrument) return null;
 
@@ -81,12 +88,13 @@ const Studio = () => {
             <Track
               key={trackId}
               ref={tracksRef.current[i]}
-              index={i}
+              songId={songId}
               trackId={trackId}
-              channel={track?.channel ?? CHANNEL}
+              trackNumber={i + 1}
               notes={instrument.notes}
               stepCount={track?.stepCount ?? STEP_COUNT}
               steps={track?.steps ?? STEPS}
+              channel={track?.channel ?? CHANNEL}
               instrument={instrument.instrument ?? 'MembraneSynth'}
               synth={track?.synth ?? instrument.synth}
               effects={track?.effects ?? instrument.effects}

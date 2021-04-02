@@ -20,7 +20,7 @@ const SliderControl = memo(
 
     useEffect(() => {
       handleOnChange(initialValue);
-    }, []);
+    }, [initialValue]);
 
     const handleOnChange = (val, setInputValue = true) => {
       if (

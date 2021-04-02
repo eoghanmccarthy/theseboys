@@ -12,9 +12,13 @@ import Button from 'componentLib/button';
 import useMasterContext from '../useMasterContext';
 import { ButtonControl, ControllerGroup, SliderControl } from '../../controller';
 
-const Master = ({ initialValue, onSave }) => {
+const Master = ({ songId, volume, bpm, setSongId, onSave }) => {
   const dispatch = useDispatch();
   const { play, stop, record } = useMasterContext('<Master>');
+
+  const handleSetSong = e => {
+    setSongId(e.target.value);
+  };
 
   return (
     <section id={'master'} data-playback={'stopped'} data-recorder={'off'}>
@@ -27,16 +31,30 @@ const Master = ({ initialValue, onSave }) => {
             if (Transport.state === 'started') return;
             onSave();
             dispatch({
-              type: 'master/SAVE',
+              type: 'song/SAVE_MASTER',
               payload: {
-                bpm: Transport.get().bpm,
-                volume: Destination.get().volume
+                songId,
+                data: { bpm: Transport.get().bpm, volume: Destination.get().volume }
               }
             });
           }}
         >
           save settings
         </Button>
+        <div>
+          <button value={'s001'} onClick={handleSetSong}>
+            A
+          </button>
+          <button value={'s002'} onClick={handleSetSong}>
+            B
+          </button>
+          <button value={'s003'} onClick={handleSetSong}>
+            C
+          </button>
+          <button value={'s004'} onClick={handleSetSong}>
+            D
+          </button>
+        </div>
       </div>
       <div className={'main'}>
         <SliderControl
@@ -45,7 +63,7 @@ const Master = ({ initialValue, onSave }) => {
           label={'VOL'}
           step={1}
           max={100}
-          initialValue={toPercent([VOL_MIN, VOL_MAX], initialValue.volume) ?? 0}
+          initialValue={toPercent([VOL_MIN, VOL_MAX], volume) ?? 0}
           onChange={val => Destination.set({ volume: fromPercent([VOL_MIN, VOL_MAX], val) })}
         />
         <ControllerGroup>
@@ -65,7 +83,7 @@ const Master = ({ initialValue, onSave }) => {
           label={'BPM'}
           min={BPM_MIN}
           max={BPM_MAX}
-          initialValue={initialValue.bpm ?? 120}
+          initialValue={bpm ?? 120}
           onChange={val => Transport.set({ bpm: val })}
         />
       </div>

@@ -1,5 +1,5 @@
-import React, { memo, forwardRef, useImperativeHandle, useRef, useEffect, useState } from 'react';
-import { string } from 'prop-types';
+import React, { memo, forwardRef, useImperativeHandle, useRef, useEffect } from 'react';
+import { string, number } from 'prop-types';
 import { useDispatch } from 'react-redux';
 import {
   Channel,
@@ -24,8 +24,6 @@ import './styles.css';
 import { getCurrentStepValues, onSequenceStep, toPercent } from '../utils';
 import newArray from 'utils/studioHelpers/newArray';
 
-import { VOL_MAX, VOL_MIN } from '../utils/constants';
-
 import TrackControls from 'features/trackControls';
 import TrackSteps from 'features/trackSteps';
 import { TrackEffects, EffectsGroup } from 'features/trackEffects';
@@ -44,8 +42,9 @@ const Track = memo(
   forwardRef(
     (
       {
-        index,
+        songId,
         trackId,
+        trackNumber,
         channel,
         instrument,
         notes,
@@ -125,31 +124,16 @@ const Track = memo(
       useImperativeHandle(ref, () => ({
         save() {
           dispatch({
-            type: 'track/SAVE_CHANNEL',
+            type: 'song/SAVE_TRACK',
             payload: {
-              id: trackId,
-              data: channelRef.current.get()
-            }
-          });
-          dispatch({
-            type: 'track/SAVE_STEPS',
-            payload: {
-              id: trackId,
-              data: getCurrentStepValues(trackId)
-            }
-          });
-          dispatch({
-            type: 'track/SAVE_SYNTH',
-            payload: {
-              id: trackId,
-              data: synthRef.current.get()
-            }
-          });
-          dispatch({
-            type: 'track/SAVE_EFFECTS',
-            payload: {
-              id: trackId,
-              data: effectsChainRef.current
+              songId,
+              trackId,
+              data: {
+                channel: channelRef.current.get(),
+                steps: getCurrentStepValues(trackId),
+                synth: synthRef.current.get(),
+                effects: effectsChainRef.current
+              }
             }
           });
         }
@@ -158,8 +142,8 @@ const Track = memo(
       return (
         <div id={trackId} className={'track'}>
           <TrackControls
-            index={index}
             trackId={trackId}
+            trackNumber={trackNumber}
             channel={channelRef?.current}
             onSample={() => onTriggerAttackRelease(notes, noteInterval)}
           />
@@ -201,5 +185,9 @@ const Track = memo(
 export default Track;
 
 Track.propTypes = {
-  trackId: string.isRequired
+  songId: string.isRequired,
+  trackId: string.isRequired,
+  trackNumber: number.isRequired,
+  instrument: string.isRequired,
+  stepCount: number.isRequired
 };

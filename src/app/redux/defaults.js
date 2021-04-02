@@ -124,8 +124,7 @@ const INSTRUMENTS = {
     },
     controls: {
       equaliser: { span: '1 / span 3', effects: ['EQ3'] },
-      reverb: { span: '4 / span 2', effects: ['Reverb'] },
-      effects: { span: '6 / span 2', effects: ['Distortion', 'FeedbackDelay'] }
+      effects: { span: '5 / span 3', effects: ['Distortion', 'Reverb', 'FeedbackDelay'] }
     }
   },
   i004: {
@@ -157,7 +156,7 @@ const INSTRUMENTS = {
     },
     controls: {
       equaliser: { span: '1 / span 3', effects: ['EQ3'] },
-      filter: { span: '4 / span 2', effects: ['Filter'] }
+      filter: { span: '5 / span 2', effects: ['Filter'] }
     }
   },
   i005: {
@@ -190,7 +189,7 @@ const INSTRUMENTS = {
     },
     controls: {
       equaliser: { span: '1 / span 3', effects: ['EQ3'] },
-      filter: { span: '4 / span 2', effects: ['Filter'] }
+      filter: { span: '5 / span 2', effects: ['Filter'] }
     }
   }
 };

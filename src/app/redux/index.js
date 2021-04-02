@@ -1,4 +1,3 @@
-import master from './master';
-import tracks from './tracks';
+import songs from './songs';
 
-export { master, tracks };
+export { songs };

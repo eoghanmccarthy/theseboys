@@ -10,14 +10,14 @@ import { Chevron } from 'componentLib/icon';
 import Button from 'componentLib/button';
 import { ButtonControl, ControllerGroup } from '../controller';
 
-const TrackControls = memo(({ index, trackId, channel, onSample }) => {
+const TrackControls = memo(({ trackId, trackNumber, channel, onSample }) => {
   if (!trackId || !channel) return null;
 
   return (
     <div id={`${trackId}-controls`} className={`track-controls`}>
       <ControllerGroup>
         <Button id={`${trackId}-sample`} size={32} onClick={onSample}>
-          {index + 1}
+          {trackNumber}
         </Button>
         <Button
           className={cx({ alert: channel.muted })}

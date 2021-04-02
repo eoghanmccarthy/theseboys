@@ -19,7 +19,7 @@ const ButtonControl = memo(
   }) => {
     useEffect(() => {
       handleOnChange(initialValue);
-    }, []);
+    }, [initialValue]);
 
     const handleOnChange = val => {
       if (typeof val !== 'number' || val < min || val > max) return;
