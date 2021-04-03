@@ -1,0 +1,12 @@
+0 silly argv {
+0 silly argv   _: [ 'add' ],
+0 silly argv   globs: [],
+0 silly argv   lernaVersion: '4.0.0',
+0 silly argv   '$0': '/Users/localuser/Dropbox/eoghan/projects/theseboys/web/site/theseboys/node_modules/.bin/lerna',
+0 silly argv   pkg: 'theseboys-button-control'
+0 silly argv }
+1 notice cli v4.0.0
+2 verbose rootPath /Users/localuser/Dropbox/eoghan/projects/theseboys/web/site/theseboys
+3 info versioning independent
+4 error Error: 404 Not Found - GET https://registry.npmjs.org/theseboys-button-control - Not found
+4 error     at /Users/localuser/Dropbox/eoghan/projects/theseboys/web/site/theseboys/node_modules/npm-registry-fetch/check-response.js:123:15
