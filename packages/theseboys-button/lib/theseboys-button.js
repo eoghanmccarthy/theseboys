@@ -45,7 +45,7 @@ const Button = memo(
   }
 );
 
-module.exports = Button;
+export default Button;
 
 Button.propTypes = {
   size: oneOf([24, 28, 32, 36, 40, 44, 48]),

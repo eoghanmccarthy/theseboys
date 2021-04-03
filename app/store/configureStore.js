@@ -4,7 +4,7 @@ import storage from 'redux-persist/lib/storage';
 import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 import { routerMiddleware } from 'connected-react-router';
 
-import createRootReducer from 'app/reducers';
+import createRootReducer from 'src/reducers';
 import migrations from './migrations';
 
 const persistConfig = {

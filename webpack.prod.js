@@ -29,7 +29,7 @@ module.exports = merge(common, {
     new CopyWebpackPlugin({
       patterns: [
         {
-          from: './src/public'
+          from: './app/public'
         }
       ]
     })
