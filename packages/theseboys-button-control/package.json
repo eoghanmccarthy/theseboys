@@ -1,10 +1,10 @@
 {
-  "name": "theseboys-button",
+  "name": "theseboys-button-control",
   "version": "0.0.0",
   "private": true,
-  "description": "",
+  "description": "> TODO: description",
   "author": "Eoghan McCarthy <eoghanmccarthy@outlook.com>",
-  "homepage": "https://github.com/eoghanmccarthy/theseboys/tree/main/packages/theseboys-button#readme",
+  "homepage": "https://github.com/eoghanmccarthy/theseboys/tree/main/packages/theseboys-button-control#readme",
   "license": "ISC",
   "main": "lib/index.js",
   "directories": {
