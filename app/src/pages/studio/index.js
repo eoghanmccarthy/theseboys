@@ -5,7 +5,7 @@ import { Transport, Destination } from 'tone';
 import './index.css';
 
 import useEventListener from 'utils/hooks/useEventListener';
-import { CHANNEL, STEP_COUNT, STEPS, INSTRUMENTS } from 'app/redux/defaults';
+import { CHANNEL, STEP_COUNT, STEPS, INSTRUMENTS } from 'src/redux/defaults';
 
 import Main from 'global/main';
 import Footer from 'global/footer';

@@ -3,9 +3,9 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: './app/index.js',
+  entry: './index.js',
   output: {
-    path: path.join(__dirname, '/dist'),
+    path: path.join(__dirname, '../dist'),
     publicPath: '/',
     filename: '[name].[chunkhash].js',
     chunkFilename: '[id].[chunkhash].js'
@@ -13,16 +13,15 @@ module.exports = {
   devtool: 'source-map',
   resolve: {
     alias: {
-      app: path.resolve(__dirname, 'app/'),
-      assets: path.resolve(__dirname, 'app/assets/'),
-      src: path.resolve(__dirname, 'app/src/'),
-      authentication: path.resolve(__dirname, 'app/src/authentication/'),
-      componentLib: path.resolve(__dirname, 'app/src/componentLib/'),
-      features: path.resolve(__dirname, 'app/src/features/'),
-      global: path.resolve(__dirname, 'app/src/global/'),
-      pages: path.resolve(__dirname, 'app/src/pages/'),
-      routes: path.resolve(__dirname, 'app/src/routes/'),
-      utils: path.resolve(__dirname, 'app/src/utils/')
+      assets: path.resolve(__dirname, 'assets/'),
+      src: path.resolve(__dirname, 'src/'),
+      authentication: path.resolve(__dirname, 'src/authentication/'),
+      componentLib: path.resolve(__dirname, 'src/componentLib/'),
+      features: path.resolve(__dirname, 'src/features/'),
+      global: path.resolve(__dirname, 'src/global/'),
+      pages: path.resolve(__dirname, 'src/pages/'),
+      routes: path.resolve(__dirname, 'src/routes/'),
+      utils: path.resolve(__dirname, 'src/utils/')
     },
     extensions: ['.ts', '.tsx', '.js', '.jsx']
   },
@@ -69,7 +68,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       inject: true,
       hash: true,
-      template: './app/index.html'
+      template: './index.html'
     }),
     new MiniCssExtractPlugin({
       filename: '[name].[contenthash].css'

@@ -8,7 +8,7 @@ import { ErrorBoundary } from '@eoghanmccarthy/ui';
 
 import configureStore from './store/configureStore';
 
-import App from 'app';
+import App from './src';
 
 import './styles.css';
 

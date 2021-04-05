@@ -1,5 +1,5 @@
 {
-  "name": "theseboys",
+  "name": "theseboys-project",
   "version": "1.0.0",
   "description": "",
   "scripts": {
@@ -35,7 +35,7 @@
   },
   "workspaces": [
     "./packages/*",
-    "./src/*"
+    "./app/*"
   ],
   "dependencies": {
     "@babel/runtime": "^7.2.0",
