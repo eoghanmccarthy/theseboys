@@ -1,0 +1,27 @@
+{
+  "name": "theseboys-button",
+  "version": "0.0.0",
+  "private": true,
+  "description": "",
+  "author": "Eoghan McCarthy <eoghanmccarthy@outlook.com>",
+  "homepage": "https://github.com/eoghanmccarthy/theseboys/tree/main/packages/theseboys-button#readme",
+  "license": "ISC",
+  "main": "lib/index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eoghanmccarthy/theseboys.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/eoghanmccarthy/theseboys/issues"
+  }
+}
