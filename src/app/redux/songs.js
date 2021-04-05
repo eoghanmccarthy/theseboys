@@ -3,10 +3,10 @@ import produce from 'immer';
 //delayTime: `${Math.floor(16 / 2)}n`,
 
 const initialState = {
-  s001: {},
-  s002: {},
-  s003: {},
-  s004: {}
+  s001: { id: 's001' },
+  s002: { id: 's002' },
+  s003: { id: 's003' },
+  s004: { id: 's004' }
 };
 
 const songs = produce((draft, action) => {

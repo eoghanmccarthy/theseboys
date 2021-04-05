@@ -42,16 +42,32 @@ const Master = ({ songId, volume, bpm, setSongId, onSave }) => {
           save settings
         </Button>
         <div>
-          <button value={'s001'} onClick={handleSetSong}>
+          <button
+            value={'s001'}
+            style={{ backgroundColor: songId === 's001' ? 'blue' : 'inherit' }}
+            onClick={handleSetSong}
+          >
             A
           </button>
-          <button value={'s002'} onClick={handleSetSong}>
+          <button
+            value={'s002'}
+            style={{ backgroundColor: songId === 's002' ? 'blue' : 'inherit' }}
+            onClick={handleSetSong}
+          >
             B
           </button>
-          <button value={'s003'} onClick={handleSetSong}>
+          <button
+            value={'s003'}
+            style={{ backgroundColor: songId === 's003' ? 'blue' : 'inherit' }}
+            onClick={handleSetSong}
+          >
             C
           </button>
-          <button value={'s004'} onClick={handleSetSong}>
+          <button
+            value={'s004'}
+            style={{ backgroundColor: songId === 's004' ? 'blue' : 'inherit' }}
+            onClick={handleSetSong}
+          >
             D
           </button>
         </div>
