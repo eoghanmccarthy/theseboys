@@ -1,4 +1,4 @@
-/*! For license information please see main.dc41acee20867d03f3d1.js.LICENSE.txt */
+/*! For license information please see main.c86f95ad1dad1ca4c662.js.LICENSE.txt */
 !(function(e) {
   var t = {};
   function n(r) {
@@ -41454,69 +41454,62 @@
             }
         }
       });
-      return c !== h.id
-        ? null
-        : i.a.createElement(
-            r.Fragment,
-            null,
-            i.a.createElement(
-              mr,
-              { id: 'studio' },
-              i.a.createElement(kd, {
-                songId: h.id,
-                volume:
-                  null !==
-                    (e =
-                      null == h || null === (t = h.master) || void 0 === t ? void 0 : t.volume) &&
-                  void 0 !== e
-                    ? e
-                    : 0,
-                bpm:
-                  null !==
-                    (n = null == h || null === (o = h.master) || void 0 === o ? void 0 : o.bpm) &&
-                  void 0 !== n
-                    ? n
-                    : 120,
-                setSongId: e => {
-                  f(e);
-                },
-                onSave: () => {
-                  g.current.forEach(e => {
-                    e.current.save();
-                  });
-                }
-              }),
-              p.map(([e, t], n) => {
-                var r, o, a, s, l, u, c;
-                const f = null == h || null === (r = h.tracks) || void 0 === r ? void 0 : r[e],
-                  d = Ah[t];
-                return d
-                  ? i.a.createElement(bd, {
-                      key: e,
-                      ref: g.current[n],
-                      songId: h.id,
-                      trackId: e,
-                      trackNumber: n + 1,
-                      notes: d.notes,
-                      stepCount:
-                        null !== (o = null == f ? void 0 : f.stepCount) && void 0 !== o ? o : 16,
-                      steps: null !== (a = null == f ? void 0 : f.steps) && void 0 !== a ? a : Oh,
-                      channel:
-                        null !== (s = null == f ? void 0 : f.channel) && void 0 !== s ? s : Ch,
-                      instrument: null !== (l = d.instrument) && void 0 !== l ? l : 'MembraneSynth',
-                      synth:
-                        null !== (u = null == f ? void 0 : f.synth) && void 0 !== u ? u : d.synth,
-                      effects:
-                        null !== (c = null == f ? void 0 : f.effects) && void 0 !== c
-                          ? c
-                          : d.effects,
-                      controls: d.controls
-                    })
-                  : null;
-              })
-            ),
-            i.a.createElement(Mi, null)
-          );
+      return i.a.createElement(
+        r.Fragment,
+        null,
+        i.a.createElement(
+          mr,
+          { id: 'studio' },
+          i.a.createElement(kd, {
+            songId: c,
+            volume:
+              null !==
+                (e = null == h || null === (t = h.master) || void 0 === t ? void 0 : t.volume) &&
+              void 0 !== e
+                ? e
+                : 0,
+            bpm:
+              null !==
+                (n = null == h || null === (o = h.master) || void 0 === o ? void 0 : o.bpm) &&
+              void 0 !== n
+                ? n
+                : 120,
+            setSongId: e => {
+              f(e);
+            },
+            onSave: () => {
+              g.current.forEach(e => {
+                e.current.save();
+              });
+            }
+          }),
+          p.map(([e, t], n) => {
+            var r, o, a, s, l, u, f;
+            const d = null == h || null === (r = h.tracks) || void 0 === r ? void 0 : r[e],
+              p = Ah[t];
+            return p
+              ? i.a.createElement(bd, {
+                  key: e,
+                  ref: g.current[n],
+                  songId: c,
+                  trackId: e,
+                  trackNumber: n + 1,
+                  notes: p.notes,
+                  stepCount:
+                    null !== (o = null == d ? void 0 : d.stepCount) && void 0 !== o ? o : 16,
+                  steps: null !== (a = null == d ? void 0 : d.steps) && void 0 !== a ? a : Oh,
+                  channel: null !== (s = null == d ? void 0 : d.channel) && void 0 !== s ? s : Ch,
+                  instrument: null !== (l = p.instrument) && void 0 !== l ? l : 'MembraneSynth',
+                  synth: null !== (u = null == d ? void 0 : d.synth) && void 0 !== u ? u : p.synth,
+                  effects:
+                    null !== (f = null == d ? void 0 : d.effects) && void 0 !== f ? f : p.effects,
+                  controls: p.controls
+                })
+              : null;
+          })
+        ),
+        i.a.createElement(Mi, null)
+      );
     };
     var Ed = Le(() =>
       i.a.createElement(
@@ -41619,4 +41612,4 @@
     );
   }
 ]);
-//# sourceMappingURL=main.dc41acee20867d03f3d1.js.map
+//# sourceMappingURL=main.c86f95ad1dad1ca4c662.js.map
