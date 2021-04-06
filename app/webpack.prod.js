@@ -15,7 +15,8 @@ module.exports = merge(common, {
         sourceMap: true,
         terserOptions: {
           ecma: 8,
-          mangle: true
+          mangle: true,
+          nameCache: null
         }
       }),
       new OptimizeCSSAssetsPlugin({})
@@ -29,7 +30,7 @@ module.exports = merge(common, {
     new CopyWebpackPlugin({
       patterns: [
         {
-          from: './app/public'
+          from: './public'
         }
       ]
     })

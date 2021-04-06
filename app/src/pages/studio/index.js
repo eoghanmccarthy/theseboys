@@ -22,12 +22,14 @@ const SONGS_CONFIG = {
 const Studio = () => {
   const { play, stop, record } = useMasterContext('<Studio>');
   const store = useSelector(state => state);
+
   const [selectedSongId, setSelectedSongId] = useState('s001');
   // Prevent tree from re-rendering when store updated
   const storedSong = useMemo(() => store.songs?.[selectedSongId], [selectedSongId]);
   const SONG_CONFIG = SONGS_CONFIG[selectedSongId];
   const TRACKS = Object.entries(SONG_CONFIG);
   const TRACK_IDS = TRACKS.map(([trackId]) => trackId);
+
   const tracksRef = useRef(TRACKS.map(() => createRef()));
 
   useEventListener(e => {
@@ -69,18 +71,18 @@ const Studio = () => {
     });
   };
 
-  if (selectedSongId !== storedSong.id) {
-    return null;
-  }
+  const handleSetSelectedSong = id => {
+    setSelectedSongId(id);
+  };
 
   return (
     <Fragment>
       <Main id={'studio'}>
         <Master
-          songId={storedSong.id}
+          songId={selectedSongId}
           volume={storedSong?.master?.volume ?? 0}
           bpm={storedSong?.master?.bpm ?? 120}
-          setSongId={setSelectedSongId}
+          setSongId={handleSetSelectedSong}
           onSave={handleSave}
         />
         {TRACKS.map(([trackId, instrumentId], i) => {
@@ -92,7 +94,7 @@ const Studio = () => {
             <Track
               key={trackId}
               ref={tracksRef.current[i]}
-              songId={storedSong.id}
+              songId={selectedSongId}
               trackId={trackId}
               trackNumber={i + 1}
               notes={instrument.notes}

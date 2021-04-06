@@ -1,10 +1,10 @@
 {
-  "name": "theseboys",
+  "name": "theseboys-project",
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start": "webpack-dev-server --config webpack.dev.js --mode development",
-    "build": "webpack --config webpack.prod.js --mode production",
+    "start": "cd app && npm run start",
+    "build": "cd app && npm run build",
     "test": "jest a --coverage",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
@@ -24,7 +24,6 @@
       "\\.(gif|ttf|eot|svg)$": "<rootDir>/__mocks__/fileMock.js"
     }
   },
-  "homepage": "https://github.com/eoghanmccarthy/eoghanmccarthy#readme",
   "browserslist": [
     "last 2 versions",
     "> 1%"
@@ -53,7 +52,7 @@
     "classnames": "^2.2.6",
     "connected-react-router": "^6.9.1",
     "history": "^4.7.2",
-    "immer": "^1.12.1",
+    "immer": "^2.0.0",
     "logrocket": "^1.0.11",
     "prop-types": "^15.7.2",
     "react": "^16.13.0",

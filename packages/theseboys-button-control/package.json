@@ -19,8 +19,7 @@
     "url": "git+https://github.com/eoghanmccarthy/theseboys.git"
   },
   "scripts": {
-    "build": "webpack --config webpack.prod.js",
-    "build-watch": "webpack --config webpack.prod.js --watch",
+    "build": "webpack --config webpack.config.js --mode production",
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "bugs": {
