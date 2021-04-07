@@ -1,8 +1,5 @@
 .sass-cache/*
-node_modules/*
+/coverage
 /node_modules
-/app/node_modules/*
-/packages/theseboys-button/node_modules/*
-/packages/theseboys-button-control/node_modules/*
 .idea/*
 
