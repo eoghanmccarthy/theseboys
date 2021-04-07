@@ -40,7 +40,7 @@
     "classnames": "^2.2.6",
     "connected-react-router": "^6.9.1",
     "history": "^4.7.2",
-    "immer": "^2.0.0",
+    "immer": "^8.0.1",
     "logrocket": "^1.0.11",
     "prop-types": "^15.7.2",
     "react": "^16.13.0",
