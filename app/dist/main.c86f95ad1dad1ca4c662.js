@@ -151,7 +151,8 @@
       isStandardBrowserEnv: function() {
         return (
           ('undefined' == typeof navigator || 'ReactNative' !== navigator.product) &&
-          'undefined' != typeof window && 'undefined' != typeof document
+          'undefined' != typeof window &&
+          'undefined' != typeof document
         );
       },
       forEach: u,
@@ -12472,11 +12473,11 @@
           var s;
           '_persist' !== o &&
             t[o] === n[o] &&
-              (null === (s = n[o]) ||
-              Array.isArray(s) ||
-              'object' !== (void 0 === s ? 'undefined' : r(s))
-                ? (a[o] = e[o])
-                : (a[o] = i({}, a[o], e[o])));
+            (null === (s = n[o]) ||
+            Array.isArray(s) ||
+            'object' !== (void 0 === s ? 'undefined' : r(s))
+              ? (a[o] = e[o])
+              : (a[o] = i({}, a[o], e[o])));
         });
       0;
       return a;
@@ -40270,9 +40271,7 @@
     const zh = -60,
       Lh = 20,
       Uh = -60;
-    var Bh = Object(
-      r.memo
-    )(
+    var Bh = Object(r.memo)(
       ({
         className: e,
         width: t = '100%',
@@ -40295,9 +40294,7 @@
           })
         )
     );
-    var Wh = Object(
-      r.memo
-    )(
+    var Wh = Object(r.memo)(
       ({
         className: e,
         width: t = '100%',
@@ -40323,9 +40320,7 @@
           })
         )
     );
-    var Qh = Object(
-      r.memo
-    )(
+    var Qh = Object(r.memo)(
       ({
         className: e,
         width: t = '100%',
@@ -40351,9 +40346,7 @@
           })
         )
     );
-    var $h = Object(
-      r.memo
-    )(
+    var $h = Object(r.memo)(
       ({
         className: e,
         width: t = '100%',
@@ -40377,9 +40370,7 @@
           })
         )
     );
-    var Hh = Object(
-      r.memo
-    )(
+    var Hh = Object(r.memo)(
       ({
         className: e,
         width: t = '100%',
@@ -40414,9 +40405,7 @@
           })
         )
     );
-    var Gh = Object(
-      r.memo
-    )(
+    var Gh = Object(r.memo)(
       ({
         className: e,
         width: t = '100%',

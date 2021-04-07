@@ -200,9 +200,7 @@ module.exports = (function(e) {
       a = r(2),
       l = r(1),
       s = r.n(l);
-    var i = Object(
-      n.memo
-    )(
+    var i = Object(n.memo)(
       ({
         className: e,
         width: t = '100%',
@@ -228,9 +226,7 @@ module.exports = (function(e) {
           })
         )
     );
-    var c = Object(
-      n.memo
-    )(
+    var c = Object(n.memo)(
       ({
         className: e,
         width: t = '100%',
