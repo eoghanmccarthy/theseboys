@@ -2,7 +2,7 @@ import React, { memo, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import { Minus, Plus } from '../../../app/src/componentLib/icon';
-import Button from 'theseboys-button';
+import Button from '@eoghanmccarthy/theseboys-button';
 import Controller from '../../../app/src/features/controller/controller';
 
 const ButtonControl = memo(
