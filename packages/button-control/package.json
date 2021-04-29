@@ -26,8 +26,8 @@
     "url": "https://github.com/eoghanmccarthy/theseboys/issues"
   },
   "peerDependencies": {
-    "classnames": "^2.2.6",
-    "prop-types": "^15.7.2",
-    "react": "^16.13.0"
+    "classnames": ">= 2.2.6",
+    "prop-types": ">= 15.7.2",
+    "react": "~17.0.0"
   }
 }

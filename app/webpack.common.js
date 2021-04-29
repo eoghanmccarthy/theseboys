@@ -7,7 +7,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = merge(base, {
   entry: './index.js',
   output: {
-    path: path.join(__dirname, '/dist'),
+    path: path.join(__dirname, '../dist'),
     publicPath: '/',
     filename: '[name].[chunkhash].js',
     chunkFilename: '[id].[chunkhash].js'

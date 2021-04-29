@@ -6,6 +6,9 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const common = require('./webpack.common.js');
 
+const basePath = __dirname;
+const targetPath = '../';
+
 module.exports = merge(common, {
   mode: 'production',
   optimization: {
@@ -23,7 +26,9 @@ module.exports = merge(common, {
     ]
   },
   plugins: [
-    new CleanWebpackPlugin('dist', {}),
+    new CleanWebpackPlugin('dist', {
+      root: basePath + '/' + targetPath
+    }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production')
     }),
