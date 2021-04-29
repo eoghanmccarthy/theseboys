@@ -12,13 +12,9 @@ import Button from 'componentLib/button';
 import useMasterContext from '../useMasterContext';
 import { ButtonControl, ControllerGroup, SliderControl } from '../../controller';
 
-const Master = ({ songId, volume, bpm, setSongId, onSave }) => {
+const Master = ({ songId, volume, bpm, onSave }) => {
   const dispatch = useDispatch();
   const { play, stop, record } = useMasterContext('<Master>');
-
-  const handleSetSong = e => {
-    setSongId(e.target.value);
-  };
 
   return (
     <section id={'master'} data-playback={'stopped'} data-recorder={'off'}>
@@ -41,36 +37,6 @@ const Master = ({ songId, volume, bpm, setSongId, onSave }) => {
         >
           save settings
         </Button>
-        <div>
-          <button
-            value={'s001'}
-            style={{ backgroundColor: songId === 's001' ? 'blue' : 'inherit' }}
-            onClick={handleSetSong}
-          >
-            A
-          </button>
-          <button
-            value={'s002'}
-            style={{ backgroundColor: songId === 's002' ? 'blue' : 'inherit' }}
-            onClick={handleSetSong}
-          >
-            B
-          </button>
-          <button
-            value={'s003'}
-            style={{ backgroundColor: songId === 's003' ? 'blue' : 'inherit' }}
-            onClick={handleSetSong}
-          >
-            C
-          </button>
-          <button
-            value={'s004'}
-            style={{ backgroundColor: songId === 's004' ? 'blue' : 'inherit' }}
-            onClick={handleSetSong}
-          >
-            D
-          </button>
-        </div>
       </div>
       <div className={'main'}>
         <SliderControl
