@@ -62,7 +62,7 @@
 }
 
 .tb-button.circle {
-    border-radius: 100%;
+    border-radius: 0;
 }
 
 .tb-button.rounded {

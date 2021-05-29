@@ -1,4 +1,5 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const { NODE_ENV } = process.env;
 
 module.exports = {
   module: {
@@ -10,20 +11,8 @@ module.exports = {
           {
             loader: 'babel-loader',
             options: {
-              presets: [
-                ['@babel/preset-env', { targets: { node: 'current' } }],
-                ['@babel/preset-react', { targets: { node: 'current' } }],
-                ['@babel/preset-typescript', { targets: { node: 'current' } }]
-              ],
-              plugins: [
-                '@babel/plugin-proposal-nullish-coalescing-operator',
-                '@babel/plugin-proposal-optional-chaining',
-                '@babel/plugin-proposal-class-properties',
-                '@babel/plugin-proposal-object-rest-spread',
-                '@babel/plugin-transform-async-to-generator',
-                '@babel/plugin-syntax-dynamic-import',
-                '@babel/plugin-transform-runtime'
-              ]
+              presets: ['@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript'],
+              plugins: ['@babel/plugin-syntax-dynamic-import', '@babel/plugin-transform-runtime']
             }
           }
         ]
@@ -32,13 +21,13 @@ module.exports = {
         test: /\.(sa|sc|c)ss$/,
         exclude: /node_modules/,
         use: [
-          MiniCssExtractPlugin.loader,
+          NODE_ENV === 'development' ? 'style-loader' : MiniCssExtractPlugin.loader,
           'css-loader',
           {
             loader: 'postcss-loader',
             options: {
               postcssOptions: {
-                plugins: [require('autoprefixer')]
+                plugins: ['postcss-preset-env', 'postcss-flexibility']
               }
             }
           }

@@ -1,21 +1,31 @@
-const webpack = require('webpack');
 const merge = require('webpack-merge');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const common = require('./webpack.common.js');
 
 module.exports = merge(common, {
   mode: 'production',
+  output: {
+    filename: '[name].[contenthash].bundle.js',
+    chunkFilename: '[id].js'
+  },
   optimization: {
     minimize: true,
-    minimizer: ['...', new CssMinimizerPlugin()]
+    minimizer: ['...', new CssMinimizerPlugin()],
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          chunks: 'all'
+        }
+      }
+    }
   },
   plugins: [
-    new webpack.ProgressPlugin(),
-    new CleanWebpackPlugin(),
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('production')
+    new MiniCssExtractPlugin({
+      filename: '[name].[contenthash].css'
     }),
     new CopyWebpackPlugin({
       patterns: [

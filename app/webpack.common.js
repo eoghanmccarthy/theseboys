@@ -1,7 +1,6 @@
 const path = require('path');
 const merge = require('webpack-merge');
 const base = require('../webpack.base.config.js');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = merge(base, {
@@ -9,8 +8,7 @@ module.exports = merge(base, {
   output: {
     path: path.resolve(process.cwd(), '../dist'),
     publicPath: '/',
-    filename: '[name].[chunkhash].js',
-    chunkFilename: '[id].[chunkhash].js'
+    clean: true
   },
   devtool: 'source-map',
   resolve: {
@@ -31,9 +29,6 @@ module.exports = merge(base, {
     new HtmlWebpackPlugin({
       hash: true,
       template: './index.html'
-    }),
-    new MiniCssExtractPlugin({
-      filename: '[name].[contenthash].css'
     })
   ]
 });
