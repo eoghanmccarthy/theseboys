@@ -13,10 +13,11 @@ import {
   MembraneSynth,
   MetalSynth,
   NoiseSynth,
+  Phaser,
   PitchShift,
   Reverb,
   Sequence,
-  Phaser
+  StereoWidener
 } from 'tone';
 
 import './styles.css';
@@ -35,6 +36,7 @@ import DistortionControls from 'features/distortionControls';
 import ReverbControls from 'features/reverbControls';
 import DelayControls from 'features/delayControls';
 import PitchShiftControls from '../pitchShiftControls';
+import StereoWidenerControls from '../stereoWidenerControls';
 
 //const notes = ['A4', 'D3', 'E3', 'G4', 'F#4'];
 //const notes = ['A3', 'C4', 'D4', 'E4', 'G4', 'A4'];
@@ -72,16 +74,18 @@ const Track = memo(
       };
 
       const getEffect = (effect, options = {}) => {
+        console.log(effect, options);
         const effects = {
-          EQ3: new EQ3(options),
-          Gain: new Gain(options),
-          Reverb: new Reverb(options),
-          FeedbackDelay: new FeedbackDelay(options),
-          Distortion: new Distortion(options),
-          PitchShift: new PitchShift(options),
-          Phaser: new Phaser(options),
           Compressor: new Compressor(options),
-          Filter: new Filter(options)
+          Distortion: new Distortion(options),
+          EQ3: new EQ3(options),
+          FeedbackDelay: new FeedbackDelay(options),
+          Filter: new Filter(options),
+          Gain: new Gain(options),
+          Phaser: new Phaser(options),
+          PitchShift: new PitchShift(options),
+          Reverb: new Reverb(options),
+          StereoWidener: new StereoWidener(options)
         };
         return effects[effect];
       };
@@ -173,6 +177,8 @@ const Track = memo(
                       return <DelayControls key={i} trackId={trackId} delay={effect} />;
                     } else if (name === 'PitchShift') {
                       return <PitchShiftControls key={i} trackId={trackId} effect={effect} />;
+                    } else if (name === 'StereoWidener') {
+                      return <StereoWidenerControls key={i} trackId={trackId} effect={effect} />;
                     } else {
                       return null;
                     }

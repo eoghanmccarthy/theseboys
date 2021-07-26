@@ -21,10 +21,10 @@ const INSTRUMENTS = {
         type: 'square4'
       },
       envelope: {
-        attack: 0.3,
+        attack: 0.032,
         decay: 0.45,
         sustain: 0.1,
-        release: 0.3
+        release: 1.24
       }
     },
     effects: {
@@ -98,36 +98,37 @@ const INSTRUMENTS = {
       modulationIndex: 20,
       volume: -15,
       envelope: {
-        attack: 2.0,
-        decay: 0.4,
-        sustain: 0.512,
+        attack: 1.2,
+        decay: 1,
+        sustain: 0.31,
         release: 0.067
       }
     },
     effects: {
       Gain: { gain: 2 },
       EQ3: {
-        high: 7.200000000000003,
+        high: -20.0,
         highFrequency: 2500,
         low: -22.39999999999999,
         lowFrequency: 400,
         mid: 0
       },
-      PitchShift: { wet: 0.8, pitch: -24 },
-      Distortion: { distortion: 1, oversample: '4x', wet: 0.09 },
-      Reverb: { decay: 4, preDelay: 0.2, wet: 0.28 },
+      Distortion: { distortion: 1, oversample: '4x', wet: 0.32 },
+      Reverb: { decay: 4, preDelay: 0.2, wet: 0.45 },
       FeedbackDelay: {
         delayTime: 0.25,
         feedback: 1 / 3,
         wet: 0.5,
         maxDelay: 1
-      }
+      },
+      StereoWidener: { wet: 0.8, width: 1 },
+      PitchShift: { wet: 0.8, pitch: 0 }
     },
     controls: {
       equaliser: { span: '1 / span 3', effects: ['EQ3'] },
       effects: {
         span: '5 / span 4',
-        effects: ['Distortion', 'Reverb', 'FeedbackDelay', 'PitchShift']
+        effects: ['Distortion', 'Reverb', 'FeedbackDelay', 'PitchShift', 'StereoWidener']
       }
     }
   },
