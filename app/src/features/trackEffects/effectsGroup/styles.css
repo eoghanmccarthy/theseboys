@@ -31,3 +31,8 @@
     font-size: 10px;
     letter-spacing: 1px;
 }
+
+.effects-group:focus-within > .label > span {
+    color: white;
+    font-weight: bold;
+}

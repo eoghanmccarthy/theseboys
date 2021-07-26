@@ -4,12 +4,12 @@ import { fromPercent, toPercent } from '../utils';
 
 import { SliderControl } from '../controller';
 
-const ReverbControls = memo(({ trackId, reverb }) => {
+const PhaserControls = memo(({ trackId, reverb }) => {
   if (!trackId || !reverb) return null;
 
   return (
     <SliderControl
-      id={`${trackId}-reverb-wet`}
+      id={`${trackId}-phaser-wet`}
       label={'REV'}
       step={1}
       max={100}
@@ -19,4 +19,4 @@ const ReverbControls = memo(({ trackId, reverb }) => {
   );
 });
 
-export default ReverbControls;
+export default PhaserControls;

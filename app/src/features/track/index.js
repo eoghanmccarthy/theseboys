@@ -16,7 +16,7 @@ import {
   PitchShift,
   Reverb,
   Sequence,
-  Solo
+  Phaser
 } from 'tone';
 
 import './styles.css';
@@ -34,6 +34,7 @@ import FilterControls from 'features/filterControls';
 import DistortionControls from 'features/distortionControls';
 import ReverbControls from 'features/reverbControls';
 import DelayControls from 'features/delayControls';
+import PitchShiftControls from '../pitchShiftControls';
 
 //const notes = ['A4', 'D3', 'E3', 'G4', 'F#4'];
 //const notes = ['A3', 'C4', 'D4', 'E4', 'G4', 'A4'];
@@ -78,6 +79,7 @@ const Track = memo(
           FeedbackDelay: new FeedbackDelay(options),
           Distortion: new Distortion(options),
           PitchShift: new PitchShift(options),
+          Phaser: new Phaser(options),
           Compressor: new Compressor(options),
           Filter: new Filter(options)
         };
@@ -86,9 +88,11 @@ const Track = memo(
 
       const sequenceRef = useRef();
       const channelRef = useRef(new Channel(channel ?? {}));
+
       const effectsChainRef = useRef(
         Object.entries(effects ?? {}).map(([effect, options]) => getEffect(effect, options))
       );
+
       const synthRef = useRef(
         getSynth(instrument, synth).chain(
           channelRef.current,
@@ -167,12 +171,16 @@ const Track = memo(
                       return <ReverbControls key={i} trackId={trackId} reverb={effect} />;
                     } else if (name === 'FeedbackDelay') {
                       return <DelayControls key={i} trackId={trackId} delay={effect} />;
+                    } else if (name === 'PitchShift') {
+                      return <PitchShiftControls key={i} trackId={trackId} effect={effect} />;
+                    } else {
+                      return null;
                     }
                   })}
                 </EffectsGroup>
               );
             })}
-            <EffectsGroup span={'9 / span 4'} title={'envelope'}>
+            <EffectsGroup span={'13 / span 4'} title={'envelope'}>
               <EnvelopeControls trackId={trackId} envelope={synthRef?.current?.envelope} />
             </EffectsGroup>
           </TrackEffects>

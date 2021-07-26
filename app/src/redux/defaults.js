@@ -45,7 +45,7 @@ const INSTRUMENTS = {
     },
     controls: {
       equaliser: { span: '1 / span 3', effects: ['EQ3'] },
-      compressor: { span: '5 / span 3', effects: ['Compressor'] }
+      compressor: { span: '4 / span 3', effects: ['Compressor'] }
     }
   },
   i002: {
@@ -84,7 +84,7 @@ const INSTRUMENTS = {
     },
     controls: {
       equaliser: { span: '1 / span 3', effects: ['EQ3'] },
-      compressor: { span: '5 / span 3', effects: ['Compressor'] }
+      compressor: { span: '4 / span 3', effects: ['Compressor'] }
     }
   },
   i003: {
@@ -113,6 +113,7 @@ const INSTRUMENTS = {
         lowFrequency: 400,
         mid: 0
       },
+      PitchShift: { wet: 0.8, pitch: -24 },
       Distortion: { distortion: 1, oversample: '4x', wet: 0.09 },
       Reverb: { decay: 4, preDelay: 0.2, wet: 0.28 },
       FeedbackDelay: {
@@ -124,7 +125,10 @@ const INSTRUMENTS = {
     },
     controls: {
       equaliser: { span: '1 / span 3', effects: ['EQ3'] },
-      effects: { span: '5 / span 3', effects: ['Distortion', 'Reverb', 'FeedbackDelay'] }
+      effects: {
+        span: '5 / span 4',
+        effects: ['Distortion', 'Reverb', 'FeedbackDelay', 'PitchShift']
+      }
     }
   },
   i004: {
