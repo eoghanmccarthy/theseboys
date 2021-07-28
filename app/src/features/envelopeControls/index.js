@@ -2,8 +2,8 @@ import React, { memo } from 'react';
 
 import { SliderControl } from '../controller';
 
-const EnvelopeControls = memo(({ trackId, envelope }) => {
-  if (!trackId || !envelope) return null;
+const EnvelopeControls = memo(({ trackId, effect }) => {
+  if (!trackId || !effect) return null;
 
   return (
     <>
@@ -13,8 +13,8 @@ const EnvelopeControls = memo(({ trackId, envelope }) => {
         step={0.001}
         max={2}
         toFixed={3}
-        initialValue={envelope.get().attack ?? 0}
-        onChange={val => envelope.set({ attack: val })}
+        initialValue={effect.get().attack ?? 0}
+        onChange={val => effect.set({ attack: val })}
       />
       <SliderControl
         id={`${trackId}-envelope-decay`}
@@ -22,16 +22,16 @@ const EnvelopeControls = memo(({ trackId, envelope }) => {
         step={0.001}
         max={2}
         toFixed={3}
-        initialValue={envelope.get().decay ?? 0}
-        onChange={val => envelope.set({ decay: val })}
+        initialValue={effect.get().decay ?? 0}
+        onChange={val => effect.set({ decay: val })}
       />
       <SliderControl
         id={`${trackId}-envelope-sustain`}
         label={'SUS'}
         step={0.001}
         toFixed={3}
-        initialValue={envelope.get().sustain ?? 0}
-        onChange={val => envelope.set({ sustain: val })}
+        initialValue={effect.get().sustain ?? 0}
+        onChange={val => effect.set({ sustain: val })}
       />
       <SliderControl
         id={`${trackId}-envelope-release`}
@@ -39,8 +39,8 @@ const EnvelopeControls = memo(({ trackId, envelope }) => {
         step={0.001}
         max={2}
         toFixed={3}
-        initialValue={envelope.get().release ?? 0}
-        onChange={val => envelope.set({ release: val })}
+        initialValue={effect.get().release ?? 0}
+        onChange={val => effect.set({ release: val })}
       />
     </>
   );

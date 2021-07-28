@@ -28,7 +28,12 @@ const INSTRUMENTS = {
       }
     },
     effects: {
-      Gain: { gain: 2 },
+      Compressor: {
+        threshold: -30,
+        ratio: 6,
+        attack: 0.0001,
+        release: 0.1
+      },
       EQ3: {
         high: -53.599999999999994,
         highFrequency: 2500,
@@ -36,12 +41,7 @@ const INSTRUMENTS = {
         lowFrequency: 400,
         mid: -53.599999999999994
       },
-      Compressor: {
-        threshold: -30,
-        ratio: 6,
-        attack: 0.0001,
-        release: 0.1
-      }
+      Gain: { gain: 2 }
     },
     controls: {
       equaliser: { span: '1 / span 3', effects: ['EQ3'] },
@@ -67,7 +67,12 @@ const INSTRUMENTS = {
       }
     },
     effects: {
-      Gain: { gain: 2 },
+      Compressor: {
+        threshold: -30,
+        ratio: 6,
+        attack: 0.0001,
+        release: 0.1
+      },
       EQ3: {
         high: 4,
         highFrequency: 2500,
@@ -75,12 +80,7 @@ const INSTRUMENTS = {
         lowFrequency: 400,
         mid: -12
       },
-      Compressor: {
-        threshold: -30,
-        ratio: 6,
-        attack: 0.0001,
-        release: 0.1
-      }
+      Gain: { gain: 2 }
     },
     controls: {
       equaliser: { span: '1 / span 3', effects: ['EQ3'] },
@@ -105,7 +105,8 @@ const INSTRUMENTS = {
       }
     },
     effects: {
-      Gain: { gain: 2 },
+      BitCrusher: { wet: 0.6, bits: 16 },
+      Distortion: { distortion: 1, oversample: '4x', wet: 0.32 },
       EQ3: {
         high: -20.0,
         highFrequency: 2500,
@@ -113,22 +114,29 @@ const INSTRUMENTS = {
         lowFrequency: 400,
         mid: 0
       },
-      Distortion: { distortion: 1, oversample: '4x', wet: 0.32 },
-      Reverb: { decay: 4, preDelay: 0.2, wet: 0.45 },
       FeedbackDelay: {
         delayTime: 0.25,
         feedback: 1 / 3,
         wet: 0.5,
         maxDelay: 1
       },
-      StereoWidener: { wet: 0.8, width: 1 },
-      PitchShift: { wet: 0.8, pitch: 0 }
+      Gain: { gain: 2 },
+      PitchShift: { wet: 0.8, pitch: 0 },
+      Reverb: { decay: 4, preDelay: 0.2, wet: 0.45 },
+      StereoWidener: { wet: 0.8, width: 1 }
     },
     controls: {
       equaliser: { span: '1 / span 3', effects: ['EQ3'] },
       effects: {
-        span: '5 / span 4',
-        effects: ['Distortion', 'Reverb', 'FeedbackDelay', 'PitchShift', 'StereoWidener']
+        span: '5 / span 6',
+        effects: [
+          'Distortion',
+          'Reverb',
+          'FeedbackDelay',
+          'PitchShift',
+          'StereoWidener',
+          'BitCrusher'
+        ]
       }
     }
   },

@@ -2,8 +2,8 @@ import React, { memo } from 'react';
 
 import { SliderControl } from '../controller';
 
-const FilterControls = memo(({ trackId, filter }) => {
-  if (!trackId || !filter) return null;
+const FilterControls = memo(({ trackId, effect }) => {
+  if (!trackId || !effect) return null;
 
   return (
     <SliderControl
@@ -12,8 +12,8 @@ const FilterControls = memo(({ trackId, filter }) => {
       step={100}
       min={1000}
       max={15000}
-      initialValue={filter.get().frequency ?? 1000}
-      onChange={val => filter.set({ frequency: val })}
+      initialValue={effect.get().frequency ?? 1000}
+      onChange={val => effect.set({ frequency: val })}
     />
   );
 });

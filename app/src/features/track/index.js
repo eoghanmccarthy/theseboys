@@ -2,6 +2,7 @@ import React, { memo, forwardRef, useImperativeHandle, useRef, useEffect } from 
 import { string, number } from 'prop-types';
 import { useDispatch } from 'react-redux';
 import {
+  BitCrusher,
   Channel,
   Compressor,
   Destination,
@@ -28,6 +29,7 @@ import newArray from 'utils/studioHelpers/newArray';
 import TrackControls from 'features/trackControls';
 import TrackSteps from 'features/trackSteps';
 import { TrackEffects, EffectsGroup } from 'features/trackEffects';
+import BitCrusherControls from 'features/bitCrusherControls';
 import CompressorControls from 'features/compressorControls';
 import EnvelopeControls from 'features/envelopeControls';
 import Eq3Controls from 'features/eq3Controls';
@@ -74,8 +76,8 @@ const Track = memo(
       };
 
       const getEffect = (effect, options = {}) => {
-        console.log(effect, options);
         const effects = {
+          BitCrusher: new BitCrusher(options),
           Compressor: new Compressor(options),
           Distortion: new Distortion(options),
           EQ3: new EQ3(options),
@@ -162,32 +164,36 @@ const Track = memo(
                 <EffectsGroup key={i} span={value.span} title={group}>
                   {value.effects.map((name, i) => {
                     const effect = effectsChainRef.current.find(effect => effect.name === name);
-                    if (!effect) return;
-                    if (name === 'EQ3') {
-                      return <Eq3Controls key={i} trackId={trackId} eq3={effect} />;
-                    } else if (name === 'Compressor') {
-                      return <CompressorControls key={i} trackId={trackId} compressor={effect} />;
-                    } else if (name === 'Filter') {
-                      return <FilterControls key={i} trackId={trackId} filter={effect} />;
-                    } else if (name === 'Distortion') {
-                      return <DistortionControls key={i} trackId={trackId} distortion={effect} />;
-                    } else if (name === 'Reverb') {
-                      return <ReverbControls key={i} trackId={trackId} reverb={effect} />;
-                    } else if (name === 'FeedbackDelay') {
-                      return <DelayControls key={i} trackId={trackId} delay={effect} />;
-                    } else if (name === 'PitchShift') {
-                      return <PitchShiftControls key={i} trackId={trackId} effect={effect} />;
-                    } else if (name === 'StereoWidener') {
-                      return <StereoWidenerControls key={i} trackId={trackId} effect={effect} />;
-                    } else {
-                      return null;
+                    if (!effect) return null;
+
+                    switch (name) {
+                      case 'BitCrusher':
+                        return <BitCrusherControls key={i} trackId={trackId} effect={effect} />;
+                      case 'Compressor':
+                        return <CompressorControls key={i} trackId={trackId} effect={effect} />;
+                      case 'Distortion':
+                        return <DistortionControls key={i} trackId={trackId} effect={effect} />;
+                      case 'EQ3':
+                        return <Eq3Controls key={i} trackId={trackId} effect={effect} />;
+                      case 'FeedbackDelay':
+                        return <DelayControls key={i} trackId={trackId} effect={effect} />;
+                      case 'Filter':
+                        return <FilterControls key={i} trackId={trackId} effect={effect} />;
+                      case 'PitchShift':
+                        return <PitchShiftControls key={i} trackId={trackId} effect={effect} />;
+                      case 'Reverb':
+                        return <ReverbControls key={i} trackId={trackId} effect={effect} />;
+                      case 'StereoWidener':
+                        return <StereoWidenerControls key={i} trackId={trackId} effect={effect} />;
+                      default:
+                        return null;
                     }
                   })}
                 </EffectsGroup>
               );
             })}
             <EffectsGroup span={'13 / span 4'} title={'envelope'}>
-              <EnvelopeControls trackId={trackId} envelope={synthRef?.current?.envelope} />
+              <EnvelopeControls trackId={trackId} effect={synthRef?.current?.envelope} />
             </EffectsGroup>
           </TrackEffects>
         </div>

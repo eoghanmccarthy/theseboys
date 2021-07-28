@@ -10,8 +10,8 @@ const PitchShiftControls = memo(({ trackId, effect }) => {
       id={`${trackId}-pitchshift-wet`}
       label={'PIT'}
       step={12}
-      min={-60}
-      max={24}
+      min={-48}
+      max={48}
       initialValue={effect.get().pitch ?? 0}
       onChange={val => effect.set({ pitch: val })}
     />
