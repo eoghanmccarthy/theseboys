@@ -100,17 +100,17 @@ const INSTRUMENTS = {
       envelope: {
         attack: 1.2,
         decay: 1,
-        sustain: 0.31,
+        sustain: 0.0,
         release: 0.067
       }
     },
     effects: {
-      BitCrusher: { wet: 0.6, bits: 16 },
-      Distortion: { distortion: 1, oversample: '4x', wet: 0.32 },
+      BitCrusher: { wet: 0.6, bits: 10 },
+      Distortion: { distortion: 1, oversample: '4x', wet: 0.68 },
       EQ3: {
         high: -20.0,
         highFrequency: 2500,
-        low: -22.39999999999999,
+        low: 12.0,
         lowFrequency: 400,
         mid: 0
       },
@@ -152,9 +152,9 @@ const INSTRUMENTS = {
       },
       envelope: {
         attack: 0.001,
-        decay: 0.12,
-        sustain: 0,
-        release: 0
+        decay: 0.222,
+        sustain: 0.26,
+        release: 0.188
       }
     },
     effects: {
