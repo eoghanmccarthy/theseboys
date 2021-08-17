@@ -7,8 +7,8 @@ const PitchShiftControls = memo(({ trackId, effect }) => {
 
   return (
     <SliderControl
-      id={`${trackId}-pitchshift-wet`}
-      label={'PIT'}
+      id={`${trackId}-pitchshift--pitch`}
+      label={'PCH'}
       step={12}
       min={-48}
       max={48}

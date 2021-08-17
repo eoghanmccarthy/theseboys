@@ -16,6 +16,7 @@
     justify-content: space-around;
     align-items: center;
     padding: 0 var(--spacing-4);
+    margin-top: var(--spacing-16);
 }
 
 .effects-group > .label > div {

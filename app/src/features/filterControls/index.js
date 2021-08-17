@@ -7,7 +7,7 @@ const FilterControls = memo(({ trackId, effect }) => {
 
   return (
     <SliderControl
-      id={`${trackId}-filter-frequency`}
+      id={`${trackId}-filter--frequency`}
       label={'FRQ'}
       step={100}
       min={1000}

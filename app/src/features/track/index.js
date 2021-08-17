@@ -11,6 +11,7 @@ import {
   FeedbackDelay,
   Filter,
   Gain,
+  Limiter,
   MembraneSynth,
   MetalSynth,
   NoiseSynth,
@@ -35,6 +36,7 @@ import EnvelopeControls from 'features/envelopeControls';
 import Eq3Controls from 'features/eq3Controls';
 import FilterControls from 'features/filterControls';
 import DistortionControls from 'features/distortionControls';
+import LimiterControls from 'features/limiterControls';
 import ReverbControls from 'features/reverbControls';
 import DelayControls from 'features/delayControls';
 import PitchShiftControls from '../pitchShiftControls';
@@ -84,6 +86,7 @@ const Track = memo(
           FeedbackDelay: new FeedbackDelay(options),
           Filter: new Filter(options),
           Gain: new Gain(options),
+          Limiter: new Limiter(options),
           Phaser: new Phaser(options),
           PitchShift: new PitchShift(options),
           Reverb: new Reverb(options),
@@ -116,12 +119,12 @@ const Track = memo(
         };
       }, []);
 
-      const onTriggerAttackRelease = (notesToPlay, duration, time, velocity) => {
+      const onTriggerAttackRelease = (notesToPlay, noteInterval, time, velocity) => {
         if (!synthRef?.current) return;
         if (synthRef.current.name !== 'NoiseSynth') {
-          synthRef.current.triggerAttackRelease(notesToPlay[0], duration, time, velocity);
+          synthRef.current.triggerAttackRelease(notesToPlay[0], noteInterval, time, velocity);
         } else {
-          synthRef.current.triggerAttackRelease(duration, time, velocity);
+          synthRef.current.triggerAttackRelease(noteInterval, time, velocity);
         }
       };
 
@@ -179,6 +182,8 @@ const Track = memo(
                         return <DelayControls key={i} trackId={trackId} effect={effect} />;
                       case 'Filter':
                         return <FilterControls key={i} trackId={trackId} effect={effect} />;
+                      case 'Limiter':
+                        return <LimiterControls key={i} trackId={trackId} effect={effect} />;
                       case 'PitchShift':
                         return <PitchShiftControls key={i} trackId={trackId} effect={effect} />;
                       case 'Reverb':

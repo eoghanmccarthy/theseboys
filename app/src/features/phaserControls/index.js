@@ -9,7 +9,7 @@ const PhaserControls = memo(({ trackId, reverb }) => {
 
   return (
     <SliderControl
-      id={`${trackId}-phaser-wet`}
+      id={`${trackId}-phaser--wet`}
       label={'REV'}
       step={1}
       max={100}

@@ -9,7 +9,7 @@ const DistortionControls = memo(({ trackId, effect }) => {
 
   return (
     <SliderControl
-      id={`${trackId}-distortion-wet`}
+      id={`${trackId}-distortion--wet`}
       label={'DIS'}
       step={1}
       max={100}

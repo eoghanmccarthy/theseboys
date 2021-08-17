@@ -7,7 +7,7 @@ const StereoWidenerControls = memo(({ trackId, effect }) => {
 
   return (
     <SliderControl
-      id={`${trackId}-stereowidener-width`}
+      id={`${trackId}-stereowidener--width`}
       label={'STW'}
       toFixed={1}
       initialValue={effect.get().width ?? 0}

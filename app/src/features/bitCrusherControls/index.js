@@ -7,8 +7,8 @@ const BitCrusherControls = memo(({ trackId, effect }) => {
 
   return (
     <SliderControl
-      id={`${trackId}-bitcrusher-bits`}
-      label={'BTC'}
+      id={`${trackId}-bitcrusher--bits`}
+      label={'BIT'}
       step={1}
       min={1}
       max={16}

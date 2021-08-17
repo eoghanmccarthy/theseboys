@@ -11,8 +11,8 @@ const STEPS = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]];
 const INSTRUMENTS = {
   i001: {
     id: 'i001',
-    name: '',
-    notes: ['C1'],
+    name: 'KICK',
+    notes: ['G1'],
     instrument: 'MembraneSynth',
     synth: {
       pitchDecay: 0.01,
@@ -21,37 +21,47 @@ const INSTRUMENTS = {
         type: 'square4'
       },
       envelope: {
-        attack: 0.032,
+        attack: 0.001,
         decay: 0.45,
         sustain: 0.1,
-        release: 1.24
+        release: 0.3
       }
     },
     effects: {
+      Reverb: { decay: 0.2, preDelay: 0.2, wet: 0.05 },
+      Distortion: { distortion: 0.6, oversample: '4x', wet: 0.22 },
       Compressor: {
-        threshold: -30,
-        ratio: 6,
-        attack: 0.0001,
-        release: 0.1
+        threshold: -26,
+        knee: 20,
+        ratio: 4.2,
+        attack: 0.024,
+        release: 0.132
       },
+      Limiter: { threshold: -32 },
       EQ3: {
-        high: -53.599999999999994,
-        highFrequency: 2500,
-        low: -16.799999999999997,
-        lowFrequency: 400,
-        mid: -53.599999999999994
+        Q: 10,
+        low: 0,
+        mid: -60,
+        high: -60,
+        lowFrequency: 120,
+        highFrequency: 160
       },
-      Gain: { gain: 2 }
+      Filter: { frequency: 120, type: 'lowpass' }
     },
     controls: {
       equaliser: { span: '1 / span 3', effects: ['EQ3'] },
-      compressor: { span: '4 / span 3', effects: ['Compressor'] }
+      compressor: { span: '4 / span 4', effects: ['Compressor'] },
+      limiter: { span: '8 / span 1', effects: ['Limiter'] },
+      effects: {
+        span: '9 / span 2',
+        effects: ['Distortion', 'Reverb']
+      }
     }
   },
   i002: {
     id: 'i002',
-    name: '',
-    notes: ['C1'],
+    name: 'KICK',
+    notes: ['G1'],
     instrument: 'MembraneSynth',
     synth: {
       pitchDecay: 0.01,
@@ -68,23 +78,27 @@ const INSTRUMENTS = {
     },
     effects: {
       Compressor: {
-        threshold: -30,
-        ratio: 6,
-        attack: 0.0001,
-        release: 0.1
+        threshold: -26,
+        knee: 20,
+        ratio: 4.2,
+        attack: 0.024,
+        release: 0.132
       },
+      Limiter: { threshold: -4 },
       EQ3: {
-        high: 4,
-        highFrequency: 2500,
+        Q: 10,
         low: 0,
-        lowFrequency: 400,
-        mid: -12
+        mid: -56,
+        high: -56,
+        lowFrequency: 320,
+        highFrequency: 400
       },
-      Gain: { gain: 2 }
+      Filter: { frequency: 320, type: 'bandpass' }
     },
     controls: {
       equaliser: { span: '1 / span 3', effects: ['EQ3'] },
-      compressor: { span: '4 / span 3', effects: ['Compressor'] }
+      compressor: { span: '4 / span 4', effects: ['Compressor'] },
+      limiter: { span: '8 / span 1', effects: ['Limiter'] }
     }
   },
   i003: {
@@ -107,13 +121,6 @@ const INSTRUMENTS = {
     effects: {
       BitCrusher: { wet: 0.6, bits: 10 },
       Distortion: { distortion: 1, oversample: '4x', wet: 0.68 },
-      EQ3: {
-        high: -20.0,
-        highFrequency: 2500,
-        low: 12.0,
-        lowFrequency: 400,
-        mid: 0
-      },
       FeedbackDelay: {
         delayTime: 0.25,
         feedback: 1 / 3,
@@ -123,7 +130,14 @@ const INSTRUMENTS = {
       Gain: { gain: 2 },
       PitchShift: { wet: 0.8, pitch: 0 },
       Reverb: { decay: 4, preDelay: 0.2, wet: 0.45 },
-      StereoWidener: { wet: 0.8, width: 1 }
+      StereoWidener: { wet: 0.8, width: 1 },
+      EQ3: {
+        high: -20.0,
+        highFrequency: 2500,
+        low: 12.0,
+        lowFrequency: 400,
+        mid: 0
+      }
     },
     controls: {
       equaliser: { span: '1 / span 3', effects: ['EQ3'] },
@@ -158,14 +172,14 @@ const INSTRUMENTS = {
       }
     },
     effects: {
+      Filter: { Q: 1, detune: 0, frequency: 12000, gain: 0, rolloff: -48, type: 'highpass' },
       EQ3: {
         high: 8.799999999999995,
         highFrequency: 2500,
         low: -60,
         lowFrequency: 400,
         mid: -60
-      },
-      Filter: { Q: 1, detune: 0, frequency: 12000, gain: 0, rolloff: -48, type: 'lowpass' }
+      }
     },
     controls: {
       equaliser: { span: '1 / span 3', effects: ['EQ3'] },
@@ -190,15 +204,15 @@ const INSTRUMENTS = {
       }
     },
     effects: {
+      Filter: { Q: 1, detune: 0, frequency: 11200, gain: 0, rolloff: -48, type: 'highpass' },
+      Reverb: { decay: 4, preDelay: 0.2, wet: 0.28 },
       EQ3: {
         high: 8.799999999999995,
         highFrequency: 2500,
         low: -60,
         lowFrequency: 400,
         mid: -60
-      },
-      Filter: { Q: 1, detune: 0, frequency: 11200, gain: 0, rolloff: -48, type: 'lowpass' },
-      Reverb: { decay: 4, preDelay: 0.2, wet: 0.28 }
+      }
     },
     controls: {
       equaliser: { span: '1 / span 3', effects: ['EQ3'] },

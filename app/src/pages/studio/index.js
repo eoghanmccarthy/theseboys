@@ -11,6 +11,7 @@ import Main from 'global/main';
 import Footer from 'global/footer';
 import Track from 'features/track';
 import { Master, useMasterContext } from 'features/master';
+import ShortcutsLegend from 'features/shortcutsLegend';
 
 const SONGS_CONFIG = {
   s001: { t001: 'i001', t002: 'i002', t003: 'i003', t004: 'i004', t005: 'i005' },
@@ -102,6 +103,7 @@ const Studio = () => {
             />
           );
         })}
+        {/*<ShortcutsLegend />*/}
       </Main>
       <Footer />
     </Fragment>

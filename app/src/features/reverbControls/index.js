@@ -9,7 +9,7 @@ const ReverbControls = memo(({ trackId, effect }) => {
 
   return (
     <SliderControl
-      id={`${trackId}-reverb-wet`}
+      id={`${trackId}-reverb--wet`}
       label={'REV'}
       step={1}
       max={100}

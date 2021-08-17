@@ -8,7 +8,7 @@ const EnvelopeControls = memo(({ trackId, effect }) => {
   return (
     <>
       <SliderControl
-        id={`${trackId}-envelope-attack`}
+        id={`${trackId}-envelope--attack`}
         label={'ATK'}
         step={0.001}
         max={2}
@@ -17,7 +17,7 @@ const EnvelopeControls = memo(({ trackId, effect }) => {
         onChange={val => effect.set({ attack: val })}
       />
       <SliderControl
-        id={`${trackId}-envelope-decay`}
+        id={`${trackId}-envelope--decay`}
         label={'DEC'}
         step={0.001}
         max={2}
@@ -26,7 +26,7 @@ const EnvelopeControls = memo(({ trackId, effect }) => {
         onChange={val => effect.set({ decay: val })}
       />
       <SliderControl
-        id={`${trackId}-envelope-sustain`}
+        id={`${trackId}-envelope--sustain`}
         label={'SUS'}
         step={0.001}
         toFixed={3}
@@ -34,7 +34,7 @@ const EnvelopeControls = memo(({ trackId, effect }) => {
         onChange={val => effect.set({ sustain: val })}
       />
       <SliderControl
-        id={`${trackId}-envelope-release`}
+        id={`${trackId}-envelope--release`}
         label={'REL'}
         step={0.001}
         max={2}

@@ -19,24 +19,24 @@ const Master = ({ songId, volume, bpm, onSave }) => {
   return (
     <section id={'master'} data-playback={'stopped'} data-recorder={'off'}>
       <div className={'sub'}>
-        <Button
-          size={24}
-          variant={'text'}
-          shape={'rounded'}
-          onClick={() => {
-            if (Transport.state === 'started') return;
-            onSave();
-            dispatch({
-              type: 'song/SAVE_MASTER',
-              payload: {
-                songId,
-                data: { bpm: Transport.get().bpm, volume: Destination.get().volume }
-              }
-            });
-          }}
-        >
-          save settings
-        </Button>
+        {/*<Button*/}
+        {/*  size={24}*/}
+        {/*  variant={'text'}*/}
+        {/*  shape={'rounded'}*/}
+        {/*  onClick={() => {*/}
+        {/*    if (Transport.state === 'started') return;*/}
+        {/*    onSave();*/}
+        {/*    dispatch({*/}
+        {/*      type: 'song/SAVE_MASTER',*/}
+        {/*      payload: {*/}
+        {/*        songId,*/}
+        {/*        data: { bpm: Transport.get().bpm, volume: Destination.get().volume }*/}
+        {/*      }*/}
+        {/*    });*/}
+        {/*  }}*/}
+        {/*>*/}
+        {/*  save settings*/}
+        {/*</Button>*/}
       </div>
       <div className={'main'}>
         <SliderControl

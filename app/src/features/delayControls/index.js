@@ -9,7 +9,7 @@ const DelayControls = memo(({ trackId, effect }) => {
 
   return (
     <SliderControl
-      id={`${trackId}-delay-wet`}
+      id={`${trackId}-delay--wet`}
       label={'DEL'}
       step={1}
       max={100}
