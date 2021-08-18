@@ -11,7 +11,7 @@ const STEPS = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]];
 const INSTRUMENTS = {
   i001: {
     id: 'i001',
-    name: 'KICK',
+    name: 'SUB KICK',
     notes: ['G1'],
     instrument: 'MembraneSynth',
     synth: {
@@ -59,7 +59,7 @@ const INSTRUMENTS = {
   },
   i002: {
     id: 'i002',
-    name: 'KICK',
+    name: 'MID KICK',
     notes: ['C1'],
     instrument: 'MembraneSynth',
     synth: {
