@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 
-import { DECIBEL_MIN, DECIBEL_MAX } from '../utils/constants';
+import { DECIBEL_MIN, DECIBEL_MAX, FREQUENCY_MIN, FREQUENCY_MAX } from '../utils/constants';
 
 import { SliderControl } from '../controller';
 
@@ -35,6 +35,24 @@ const Eq3Controls = memo(({ trackId, effect }) => {
         max={DECIBEL_MAX}
         initialValue={effect.get().high ?? 0}
         onChange={val => effect.set({ high: val })}
+      />
+      <SliderControl
+        id={`${trackId}-eq3--low-frequency`}
+        label={'LBP'}
+        step={1}
+        min={FREQUENCY_MIN}
+        max={FREQUENCY_MAX}
+        initialValue={effect.get().lowFrequency ?? 0}
+        onChange={val => effect.set({ lowFrequency: val })}
+      />
+      <SliderControl
+        id={`${trackId}-eq3--high-frequency`}
+        label={'HBP'}
+        step={1}
+        min={FREQUENCY_MIN}
+        max={FREQUENCY_MAX}
+        initialValue={effect.get().highFrequency ?? 0}
+        onChange={val => effect.set({ highFrequency: val })}
       />
     </>
   );

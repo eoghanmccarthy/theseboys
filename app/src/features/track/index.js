@@ -197,7 +197,7 @@ const Track = memo(
                 </EffectsGroup>
               );
             })}
-            <EffectsGroup span={'13 / span 4'} title={'envelope'}>
+            <EffectsGroup span={'17 / span 4'} title={'envelope'}>
               <EnvelopeControls trackId={trackId} effect={synthRef?.current?.envelope} />
             </EffectsGroup>
           </TrackEffects>
