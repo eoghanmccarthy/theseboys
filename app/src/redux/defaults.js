@@ -77,20 +77,20 @@ const INSTRUMENTS = {
     },
     effects: {
       Compressor: {
-        threshold: -26,
+        threshold: 0,
         knee: 20,
         ratio: 4.2,
         attack: 0.024,
         release: 0.132
       },
-      Limiter: { threshold: -4 },
+      Limiter: { threshold: 0 },
       EQ3: {
         Q: 1,
-        low: -3,
-        mid: -6,
-        high: -48,
-        lowFrequency: 120,
-        highFrequency: 280
+        low: -6,
+        mid: 0,
+        high: -3,
+        lowFrequency: 160,
+        highFrequency: 380
       }
     },
     controls: {
