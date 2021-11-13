@@ -16,9 +16,11 @@ const TrackControls = memo(({ trackId, trackNumber, channel, onSample }) => {
   return (
     <div id={`${trackId}-controls`} className={`track-controls`}>
       <ControllerGroup>
-        <Button id={`${trackId}-sample`} size={32} onClick={onSample}>
-          {trackNumber}
-        </Button>
+        {trackNumber ? (
+          <Button id={`${trackId}-sample`} size={32} onClick={onSample}>
+            {trackNumber}
+          </Button>
+        ) : null}
         <Button
           className={cx({ alert: channel.muted })}
           size={32}

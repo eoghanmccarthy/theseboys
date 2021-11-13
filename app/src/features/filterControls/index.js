@@ -1,19 +1,21 @@
 import React, { memo } from 'react';
 
+import { FREQUENCY_MIN, FREQUENCY_MAX } from '../utils/constants';
+
 import { SliderControl } from '../controller';
 
-const FilterControls = memo(({ trackId, effect }) => {
-  if (!trackId || !effect) return null;
+const FilterControls = memo(({ trackId, node }) => {
+  if (!trackId || !node) return null;
 
   return (
     <SliderControl
       id={`${trackId}-filter--frequency`}
       label={'FRQ'}
-      step={100}
-      min={1000}
-      max={15000}
-      initialValue={effect.get().frequency ?? 1000}
-      onChange={val => effect.set({ frequency: val })}
+      step={10}
+      min={FREQUENCY_MIN}
+      max={FREQUENCY_MAX}
+      initialValue={node.get().frequency ?? 1000}
+      onChange={val => node.set({ frequency: val })}
     />
   );
 });

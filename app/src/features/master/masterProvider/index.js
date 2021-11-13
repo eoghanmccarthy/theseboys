@@ -16,7 +16,7 @@ const MasterProvider = ({ children }) => {
 
   const getTransportState = () => getTransport().state;
 
-  const getRecorderState = () => recorder?.current?.state;
+  const getRecorderState = () => recorder.current.state;
 
   const handlePlay = async () => {
     if (getContextState() !== 'running') {

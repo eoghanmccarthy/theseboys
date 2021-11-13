@@ -4,8 +4,8 @@ import { DECIBEL_MIN, DECIBEL_MAX, FREQUENCY_MIN, FREQUENCY_MAX } from '../utils
 
 import { SliderControl } from '../controller';
 
-const Eq3Controls = memo(({ trackId, effect }) => {
-  if (!trackId || !effect) return null;
+const Eq3Controls = memo(({ trackId, node }) => {
+  if (!trackId || !node) return null;
 
   return (
     <>
@@ -15,8 +15,8 @@ const Eq3Controls = memo(({ trackId, effect }) => {
         step={1}
         min={DECIBEL_MIN}
         max={DECIBEL_MAX}
-        initialValue={effect.get().low ?? 0}
-        onChange={val => effect.set({ low: val })}
+        initialValue={node.get().low ?? 0}
+        onChange={val => node.set({ low: val })}
       />
       <SliderControl
         id={`${trackId}-eq3--mid`}
@@ -24,8 +24,8 @@ const Eq3Controls = memo(({ trackId, effect }) => {
         step={1}
         min={DECIBEL_MIN}
         max={DECIBEL_MAX}
-        initialValue={effect.get().mid ?? 0}
-        onChange={val => effect.set({ mid: val })}
+        initialValue={node.get().mid ?? 0}
+        onChange={val => node.set({ mid: val })}
       />
       <SliderControl
         id={`${trackId}-eq3--high`}
@@ -33,26 +33,26 @@ const Eq3Controls = memo(({ trackId, effect }) => {
         step={1}
         min={DECIBEL_MIN}
         max={DECIBEL_MAX}
-        initialValue={effect.get().high ?? 0}
-        onChange={val => effect.set({ high: val })}
+        initialValue={node.get().high ?? 0}
+        onChange={val => node.set({ high: val })}
       />
       <SliderControl
         id={`${trackId}-eq3--low-frequency`}
-        label={'LBP'}
-        step={1}
+        label={'LPF'}
+        step={10}
         min={FREQUENCY_MIN}
         max={FREQUENCY_MAX}
-        initialValue={effect.get().lowFrequency ?? 0}
-        onChange={val => effect.set({ lowFrequency: val })}
+        initialValue={node.get().lowFrequency ?? 1000}
+        onChange={val => node.set({ lowFrequency: val })}
       />
       <SliderControl
         id={`${trackId}-eq3--high-frequency`}
-        label={'HBP'}
-        step={1}
+        label={'HPF'}
+        step={10}
         min={FREQUENCY_MIN}
         max={FREQUENCY_MAX}
-        initialValue={effect.get().highFrequency ?? 0}
-        onChange={val => effect.set({ highFrequency: val })}
+        initialValue={node.get().highFrequency ?? 1000}
+        onChange={val => node.set({ highFrequency: val })}
       />
     </>
   );

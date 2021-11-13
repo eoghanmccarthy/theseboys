@@ -1,3 +1,7 @@
+//https://howtomakeelectronicmusic.com/eq-frequency-chart-for-electronic-music/#prettyPhoto/0/
+//https://blog.landr.com/eq-kick-and-bass/
+//https://github.com/Tonejs/Tone.js/issues/416
+
 const CHANNEL = {
   pan: 0,
   volume: 4,
@@ -37,13 +41,13 @@ const INSTRUMENTS = {
         attack: 0.024,
         release: 0.132
       },
-      Limiter: { threshold: -32 },
+      Limiter: { threshold: -48 },
       EQ3: {
         Q: 1,
         low: -3,
-        mid: -6,
-        high: -56,
-        lowFrequency: 90,
+        mid: -48,
+        high: -60,
+        lowFrequency: 100,
         highFrequency: 120
       }
     },
@@ -77,20 +81,20 @@ const INSTRUMENTS = {
     },
     effects: {
       Compressor: {
-        threshold: 0,
+        threshold: -21,
         knee: 20,
         ratio: 4.2,
         attack: 0.024,
         release: 0.132
       },
-      Limiter: { threshold: 0 },
+      Limiter: { threshold: -12 },
       EQ3: {
         Q: 1,
-        low: -6,
-        mid: 0,
-        high: -3,
+        low: -3,
+        mid: -24,
+        high: -60,
         lowFrequency: 160,
-        highFrequency: 380
+        highFrequency: 420
       }
     },
     controls: {
@@ -101,6 +105,49 @@ const INSTRUMENTS = {
   },
   i003: {
     id: 'i003',
+    name: '',
+    notes: ['C1'],
+    instrument: 'MetalSynth',
+    synth: {
+      harmonicity: 12,
+      resonance: 1000,
+      modulationIndex: 20,
+      volume: -15,
+      envelope: {
+        attack: 1.2,
+        decay: 1,
+        sustain: 0.0,
+        release: 0.067
+      }
+    },
+    effects: {
+      Reverb: { decay: 4, preDelay: 0.2, wet: 0.22 },
+      FeedbackDelay: {
+        delayTime: 0.25,
+        feedback: 1 / 3,
+        wet: 0.15,
+        maxDelay: 1
+      },
+      Distortion: { distortion: 1, oversample: '4x', wet: 0.12 },
+      Gain: { gain: 2 },
+      EQ3: {
+        low: -48,
+        mid: -6,
+        high: -6,
+        lowFrequency: 800,
+        highFrequency: 1600
+      }
+    },
+    controls: {
+      equaliser: { span: '1 / span 5', effects: ['EQ3'] },
+      effects: {
+        span: '6 / span 3',
+        effects: ['Distortion', 'Reverb', 'FeedbackDelay']
+      }
+    }
+  },
+  i004: {
+    id: 'i004',
     name: '',
     notes: ['C1'],
     instrument: 'MetalSynth',
@@ -152,8 +199,8 @@ const INSTRUMENTS = {
       }
     }
   },
-  i004: {
-    id: 'i004',
+  i005: {
+    id: 'i005',
     name: '',
     instrument: 'NoiseSynth',
     synth: {
@@ -184,8 +231,8 @@ const INSTRUMENTS = {
       filter: { span: '6 / span 1', effects: ['Filter'] }
     }
   },
-  i005: {
-    id: 'i005',
+  i006: {
+    id: 'i006',
     name: '',
     instrument: 'NoiseSynth',
     synth: {

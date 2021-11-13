@@ -42,17 +42,19 @@ import DelayControls from 'features/delayControls';
 import PitchShiftControls from '../pitchShiftControls';
 import StereoWidenerControls from '../stereoWidenerControls';
 
-const Track = memo(
+//const notes = ['A4', 'D3', 'E3', 'G4', 'F#4'];
+const notes = ['A3', 'C4', 'D4', 'E4', 'G4', 'A4'];
+
+const RhythmSynth = memo(
   forwardRef(
     (
       {
         songId,
         trackId,
-        trackNumber,
         channel,
         instrument,
-        notes,
         synth,
+        notes,
         stepCount,
         steps,
         effects,
@@ -153,7 +155,6 @@ const Track = memo(
         <div id={trackId} className={'track'}>
           <TrackControls
             trackId={trackId}
-            trackNumber={trackNumber}
             channel={channelRef?.current}
             onSample={() => onTriggerAttackRelease(notes, noteInterval)}
           />
@@ -204,12 +205,11 @@ const Track = memo(
   )
 );
 
-export default Track;
+export default RhythmSynth;
 
-Track.propTypes = {
+RhythmSynth.propTypes = {
   songId: PropTypes.string.isRequired,
   trackId: PropTypes.string.isRequired,
-  trackNumber: PropTypes.number.isRequired,
   instrument: PropTypes.string.isRequired,
   stepCount: PropTypes.number.isRequired
 };

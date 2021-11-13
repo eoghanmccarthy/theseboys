@@ -4,8 +4,8 @@ import { DECIBEL_MIN, DECIBEL_MAX } from '../utils/constants';
 
 import { SliderControl } from '../controller';
 
-const LimiterControls = memo(({ trackId, effect }) => {
-  if (!trackId || !effect) return null;
+const LimiterControls = memo(({ trackId, node }) => {
+  if (!trackId || !node) return null;
 
   return (
     <SliderControl
@@ -14,8 +14,8 @@ const LimiterControls = memo(({ trackId, effect }) => {
       step={1}
       min={DECIBEL_MIN}
       max={DECIBEL_MAX}
-      initialValue={effect.get().threshold ?? 0}
-      onChange={val => effect.set({ threshold: val })}
+      initialValue={node.get().threshold ?? 0}
+      onChange={val => node.set({ threshold: val })}
     />
   );
 });

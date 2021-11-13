@@ -2,8 +2,8 @@ import React, { memo } from 'react';
 
 import { SliderControl } from '../controller';
 
-const BitCrusherControls = memo(({ trackId, effect }) => {
-  if (!trackId || !effect) return null;
+const BitCrusherControls = memo(({ trackId, node }) => {
+  if (!trackId || !node) return null;
 
   return (
     <SliderControl
@@ -12,8 +12,8 @@ const BitCrusherControls = memo(({ trackId, effect }) => {
       step={1}
       min={1}
       max={16}
-      initialValue={effect.get().bits ?? 0}
-      onChange={val => effect.set({ bits: val })}
+      initialValue={node.get().bits ?? 0}
+      onChange={val => node.set({ bits: val })}
     />
   );
 });

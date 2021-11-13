@@ -2,8 +2,8 @@ import React, { memo } from 'react';
 
 import { SliderControl } from '../controller';
 
-const PitchShiftControls = memo(({ trackId, effect }) => {
-  if (!trackId || !effect) return null;
+const PitchShiftControls = memo(({ trackId, node }) => {
+  if (!trackId || !node) return null;
 
   return (
     <SliderControl
@@ -12,8 +12,8 @@ const PitchShiftControls = memo(({ trackId, effect }) => {
       step={12}
       min={-48}
       max={48}
-      initialValue={effect.get().pitch ?? 0}
-      onChange={val => effect.set({ pitch: val })}
+      initialValue={node.get().pitch ?? 0}
+      onChange={val => node.set({ pitch: val })}
     />
   );
 });
