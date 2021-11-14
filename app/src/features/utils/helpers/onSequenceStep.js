@@ -31,7 +31,7 @@ const onSequenceStep = (trackId, notes = [], numSteps, time, step, onStepOn) => 
     return;
   }
 
-  let numRows = notes.length || 1;
+  const numRows = notes.length || 1;
 
   let notesToPlay = [];
 
@@ -40,7 +40,7 @@ const onSequenceStep = (trackId, notes = [], numSteps, time, step, onStepOn) => 
 
   for (let row = 0; row < numRows; row++) {
     if (isStepOn(trackId, row, step)) {
-      if (numRows === 1) {
+      if (!notes.length) {
         onStepOn(null, velocity);
       } else {
         const note = notes[row];

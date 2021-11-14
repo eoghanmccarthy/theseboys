@@ -149,7 +149,7 @@ const Studio = () => {
         <RhythmSynth
           songId={selectedSongId}
           trackId={'rhythmSynth'}
-          instrument={'MembraneSynth'}
+          instrument={'PolySynth'}
           notes={['A3', 'C4', 'D4', 'E4', 'G4', 'A4']}
           stepCount={16}
           steps={[
@@ -160,6 +160,7 @@ const Studio = () => {
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
           ]}
+          //effects={['Phaser']}
         />
       </Main>
       <Footer />

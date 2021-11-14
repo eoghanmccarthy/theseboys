@@ -1,30 +1,12 @@
 import React, { memo, forwardRef, useImperativeHandle, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import {
-  BitCrusher,
-  Channel,
-  Compressor,
-  Destination,
-  Distortion,
-  EQ3,
-  FeedbackDelay,
-  Filter,
-  Gain,
-  Limiter,
-  MembraneSynth,
-  MetalSynth,
-  NoiseSynth,
-  Phaser,
-  PitchShift,
-  Reverb,
-  Sequence,
-  StereoWidener
-} from 'tone';
+import Tone from 'tone';
 
 import './styles.css';
 
 import { getCurrentStepValues, onSequenceStep, toPercent } from '../utils';
+import { getSynth, getEffect } from 'utils/toneHelpers';
 import newArray from 'utils/studioHelpers/newArray';
 
 import TrackControls from 'features/trackControls';
@@ -67,71 +49,32 @@ const RhythmSynth = memo(
       const noteInterval = `${stepCount}n`;
       const noteIndices = newArray(stepCount);
 
-      const getSynth = (synth, options = {}) => {
-        const synths = {
-          MembraneSynth: new MembraneSynth(options),
-          MetalSynth: new MetalSynth(options),
-          NoiseSynth: new NoiseSynth(options)
-        };
-        return synths[synth];
-      };
-
-      const getEffect = (effect, options = {}) => {
-        const effects = {
-          BitCrusher: new BitCrusher(options),
-          Compressor: new Compressor(options),
-          Distortion: new Distortion(options),
-          EQ3: new EQ3(options),
-          FeedbackDelay: new FeedbackDelay(options),
-          Filter: new Filter(options),
-          Gain: new Gain(options),
-          Limiter: new Limiter(options),
-          Phaser: new Phaser(options),
-          PitchShift: new PitchShift(options),
-          Reverb: new Reverb(options),
-          StereoWidener: new StereoWidener(options)
-        };
-        return effects[effect];
-      };
-
       const sequenceRef = useRef();
-      const channelRef = useRef(new Channel(channel ?? {}));
-
+      const channelRef = useRef(new Tone.Channel(channel ?? {}));
       const effectsChainRef = useRef(
         Object.entries(effects ?? {}).map(([effect, options]) => getEffect(effect, options))
       );
 
       const synthRef = useRef(
-        getSynth(instrument, synth).chain(
+        new Tone.PolySynth(getSynth('Synth')).chain(
           channelRef.current,
           ...effectsChainRef.current,
-          Destination
+          Tone.Destination
         )
       );
 
       useEffect(() => {
-        sequenceRef.current = new Sequence(handleOnSequenceStep, noteIndices, noteInterval).start(
-          0
-        );
+        sequenceRef.current = new Tone.Sequence(
+          handleOnSequenceStep,
+          noteIndices,
+          noteInterval
+        ).start(0);
         return () => {
-          if (sequenceRef?.current) sequenceRef.current.dispose();
+          if (sequenceRef?.current) {
+            sequenceRef.current.dispose();
+          }
         };
       }, []);
-
-      const onTriggerAttackRelease = (notesToPlay, noteInterval, time, velocity) => {
-        if (!synthRef?.current) return;
-        if (synthRef.current.name !== 'NoiseSynth') {
-          synthRef.current.triggerAttackRelease(notesToPlay[0], noteInterval, time, velocity);
-        } else {
-          synthRef.current.triggerAttackRelease(noteInterval, time, velocity);
-        }
-      };
-
-      const handleOnSequenceStep = (time, column) => {
-        onSequenceStep(trackId, notes, stepCount, time, column, (notesToPlay, velocity) =>
-          onTriggerAttackRelease(notesToPlay, noteInterval, time, velocity)
-        );
-      };
 
       useImperativeHandle(ref, () => ({
         save() {
@@ -151,6 +94,20 @@ const RhythmSynth = memo(
         }
       }));
 
+      const onTriggerAttackRelease = (notesToPlay, noteInterval, time, velocity) => {
+        if (!synthRef?.current) {
+          return;
+        }
+
+        synthRef.current.triggerAttackRelease(notesToPlay, noteInterval, time, velocity);
+      };
+
+      const handleOnSequenceStep = (time, column) => {
+        onSequenceStep(trackId, notes, stepCount, time, column, (notesToPlay, velocity) =>
+          onTriggerAttackRelease(notesToPlay, noteInterval, time, velocity)
+        );
+      };
+
       return (
         <div id={trackId} className={'track'}>
           <TrackControls
@@ -165,7 +122,10 @@ const RhythmSynth = memo(
                 <EffectsGroup key={i} span={value.span} title={group}>
                   {value.effects.map((name, i) => {
                     const node = effectsChainRef.current.find(effect => effect.name === name);
-                    if (!node) return null;
+
+                    if (!node) {
+                      return null;
+                    }
 
                     switch (name) {
                       case 'BitCrusher':
