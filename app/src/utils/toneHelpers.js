@@ -1,4 +1,22 @@
-import Tone from 'tone';
+import {
+  BitCrusher,
+  Compressor,
+  Distortion,
+  EQ3,
+  FeedbackDelay,
+  Filter,
+  Gain,
+  Limiter,
+  MembraneSynth,
+  MetalSynth,
+  NoiseSynth,
+  Phaser,
+  PitchShift,
+  PolySynth,
+  Reverb,
+  StereoWidener,
+  Synth
+} from 'tone';
 import { isString } from 'utils/helpers/typeCheck';
 
 export const getSynth = (name, options = {}) => {
@@ -7,11 +25,11 @@ export const getSynth = (name, options = {}) => {
   }
 
   const synths = {
-    PolySynth: new Tone.PolySynth(options),
-    MembraneSynth: new Tone.MembraneSynth(options),
-    MetalSynth: new Tone.MetalSynth(options),
-    NoiseSynth: new Tone.NoiseSynth(options),
-    Synth: new Tone.Synth(options)
+    PolySynth: new PolySynth(options),
+    MembraneSynth: new MembraneSynth(options),
+    MetalSynth: new MetalSynth(options),
+    NoiseSynth: new NoiseSynth(options),
+    Synth: new Synth(options)
   };
 
   return synths[name];
@@ -23,18 +41,18 @@ export const getEffect = (name, options = {}) => {
   }
 
   const effects = {
-    BitCrusher: new Tone.BitCrusher(options),
-    Compressor: new Tone.Compressor(options),
-    Distortion: new Tone.Distortion(options),
-    EQ3: new Tone.EQ3(options),
-    FeedbackDelay: new Tone.FeedbackDelay(options),
-    Filter: new Tone.Filter(options),
-    Gain: new Tone.Gain(options),
-    Limiter: new Tone.Limiter(options),
-    Phaser: new Tone.Phaser(options),
-    PitchShift: new Tone.PitchShift(options),
-    Reverb: new Tone.Reverb(options),
-    StereoWidener: new Tone.StereoWidener(options)
+    BitCrusher: new BitCrusher(options),
+    Compressor: new Compressor(options),
+    Distortion: new Distortion(options),
+    EQ3: new EQ3(options),
+    FeedbackDelay: new FeedbackDelay(options),
+    Filter: new Filter(options),
+    Gain: new Gain(options),
+    Limiter: new Limiter(options),
+    Phaser: new Phaser(options),
+    PitchShift: new PitchShift(options),
+    Reverb: new Reverb(options),
+    StereoWidener: new StereoWidener(options)
   };
 
   return effects[name];

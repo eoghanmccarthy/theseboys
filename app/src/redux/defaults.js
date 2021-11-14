@@ -2,17 +2,14 @@
 //https://blog.landr.com/eq-kick-and-bass/
 //https://github.com/Tonejs/Tone.js/issues/416
 
-const CHANNEL = {
+export const CHANNEL = {
   pan: 0,
   volume: 4,
   mute: false
 };
-
-const STEP_COUNT = 16;
-
-const STEPS = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]];
-
-const INSTRUMENTS = {
+export const STEP_COUNT = 16;
+export const STEPS = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]];
+export const INSTRUMENTS = {
   i001: {
     id: 'i001',
     name: 'SUB KICK',
@@ -266,5 +263,3 @@ const INSTRUMENTS = {
     }
   }
 };
-
-export { CHANNEL, INSTRUMENTS, STEP_COUNT, STEPS };

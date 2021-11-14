@@ -41,7 +41,7 @@ const onSequenceStep = (trackId, notes = [], numSteps, time, step, onStepOn) => 
   for (let row = 0; row < numRows; row++) {
     if (isStepOn(trackId, row, step)) {
       if (!notes.length) {
-        onStepOn(null, velocity);
+        onStepOn(undefined, velocity);
       } else {
         const note = notes[row];
         notesToPlay.push(note);
