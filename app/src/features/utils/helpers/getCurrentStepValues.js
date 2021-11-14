@@ -1,5 +1,18 @@
+import consoleLog from 'utils/errorHandlers/consoleLog';
+import { isString } from 'utils/helpers/typeCheck';
+
 export default trackId => {
+  const errorLog = (...args) => {
+    consoleLog('drawSteps,', ...args);
+  };
+
+  if (!isString(trackId)) {
+    errorLog('invalid args', trackId);
+    return;
+  }
+
   const rows = document.querySelectorAll(`#${trackId}-steps .steps`);
+
   let arr = [];
   for (let i = 0; i < rows.length; i++) {
     let rowValues = [];

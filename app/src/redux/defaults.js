@@ -57,7 +57,8 @@ const INSTRUMENTS = {
       limiter: { span: '10 / span 1', effects: ['Limiter'] },
       effects: {
         span: '11 / span 2',
-        effects: ['Distortion', 'Reverb']
+        effects: []
+        //effects: ['Distortion', 'Reverb']
       }
     }
   },

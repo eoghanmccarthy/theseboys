@@ -1,31 +1,33 @@
 import consoleLog from 'utils/errorHandlers/consoleLog';
+import { isString, isNumber } from 'utils/helpers/typeCheck';
 
 /**
- * Sets data-status attribute on step DOM element
- *
  * @param {string} trackId
  * @param {number} stepTotal
  * @param {number} step
  */
 
-export default (trackId, stepTotal, step) => {
-  const steps = document.getElementsByClassName(`step ${trackId}-step`);
-
-  const errorLog = msg => {
-    consoleLog('drawSteps helper function,', msg, trackId, stepTotal, step);
+const drawSteps = (trackId, stepTotal, step) => {
+  const errorLog = (...args) => {
+    consoleLog('drawSteps,', ...args);
   };
 
-  if (!steps) {
-    errorLog('steps not found');
+  if (!isString(trackId) || !isNumber(stepTotal) || !isNumber(step)) {
+    errorLog('invalid args', trackId, stepTotal, step);
     return;
   }
 
+  const steps = document.getElementsByClassName(`step ${trackId}-step`);
+
   for (let i = 0; i < steps.length; i++) {
-    const currentStep = (i - step) % stepTotal === 0;
-    if (currentStep) {
+    const current = (i - step) % stepTotal === 0;
+
+    if (current) {
       steps[i].setAttribute('data-status', 'current');
     } else {
       steps[i].setAttribute('data-status', 'idle');
     }
   }
 };
+
+export default drawSteps;

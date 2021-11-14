@@ -1,32 +1,38 @@
 import consoleLog from 'utils/errorHandlers/consoleLog';
+import { isUndefined, isString, isNumber } from 'utils/helpers/typeCheck';
 
 /**
- * Function to check if step is scheduled to play
- *
  * @param {string} trackId
  * @param {number} row
  * @param {number} step
  * @returns {boolean}
  */
 
-export default (trackId, row, step) => {
-  const sendError = msg => {
-    consoleLog('isStepOn helper function,', msg, trackId, row, step);
+const isStepOn = (trackId, row, step) => {
+  const errorLog = (...args) => {
+    consoleLog('isStepOn,', ...args);
   };
 
-  if (typeof trackId !== 'string') {
-    sendError('trackId is invalid');
+  if (!isString(trackId) || !isNumber(row) || !isNumber(step)) {
+    errorLog('invalid args', trackId, row, step);
     return false;
   }
 
   const node = document.querySelector(`#${trackId} .step.row-${row}-step-${step}`);
 
-  if (!node) {
-    sendError('step node not found');
+  if (isUndefined(node)) {
+    errorLog('node undefined', node);
     return false;
   }
 
   const value = node.getAttribute('data-value');
 
+  if (isUndefined(value)) {
+    errorLog('value undefined', value);
+    return false;
+  }
+
   return value === 'on';
 };
+
+export default isStepOn;

@@ -1,18 +1,19 @@
 import React, { memo } from 'react';
+import { isArray, isString, isNumber } from 'utils/helpers/typeCheck';
 
 import './styles.css';
 
 import Step from '../step';
 
 const Steps = memo(({ trackId, numberOfSteps = 16, initialValue }) => {
-  if (!trackId || !Array.isArray(initialValue)) {
+  if (!isString(trackId) || !isNumber(numberOfSteps) || !isArray(initialValue)) {
     return null;
   }
 
   return (
     <div className={`step-sequencer`}>
       {initialValue.map((rowData, rowIndex) => {
-        if (!Array.isArray(rowData)) {
+        if (!isArray(rowData)) {
           return null;
         }
 

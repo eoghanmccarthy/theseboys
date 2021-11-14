@@ -1,11 +1,11 @@
 import { Draw } from 'tone';
+import consoleLog from 'utils/errorHandlers/consoleLog';
+import { isArray, isString, isNumber, isFunction } from 'utils/helpers/typeCheck';
 
 import isStepOn from './isStepOn';
 import drawSteps from './drawSteps';
 
 /**
- * Function called on sequence step
- *
  * @param {string} trackId
  * @param {array} notes
  * @param {number} numSteps
@@ -14,12 +14,24 @@ import drawSteps from './drawSteps';
  * @param {function} onStepOn
  */
 
-export default (trackId, notes = [], numSteps, time, step, onStepOn) => {
-  if (!Array.isArray(notes)) {
-    notes = [];
+const onSequenceStep = (trackId, notes = [], numSteps, time, step, onStepOn) => {
+  const errorLog = (...args) => {
+    consoleLog('onSequenceStep,', ...args);
+  };
+
+  if (
+    !isString(trackId) ||
+    !isArray(notes) ||
+    !isNumber(numSteps) ||
+    !isNumber(time) ||
+    !isNumber(step) ||
+    !isFunction(onStepOn)
+  ) {
+    errorLog('invalid args', trackId, notes, numSteps, time, step, onStepOn);
+    return;
   }
 
-  const numRows = Math.max(1, notes.length);
+  let numRows = notes.length || 1;
 
   let notesToPlay = [];
 
@@ -28,7 +40,7 @@ export default (trackId, notes = [], numSteps, time, step, onStepOn) => {
 
   for (let row = 0; row < numRows; row++) {
     if (isStepOn(trackId, row, step)) {
-      if (!Array.isArray(notes) || !notes.length) {
+      if (numRows === 1) {
         onStepOn(null, velocity);
       } else {
         const note = notes[row];
@@ -45,3 +57,5 @@ export default (trackId, notes = [], numSteps, time, step, onStepOn) => {
     drawSteps(trackId, numSteps, step);
   }, time);
 };
+
+export default onSequenceStep;
