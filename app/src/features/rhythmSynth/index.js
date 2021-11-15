@@ -1,10 +1,12 @@
 import React, { memo, forwardRef, useImperativeHandle, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Channel, Destination, Sequence, PolySynth, Synth, AMSynth, AmplitudeEnvelope } from 'tone';
+//Only instruments that extend the Monophonic class can be used with Tone.PolySynth
+//AMSynth, DuoSynth, FMSynth, MembraneSynth, MetalSynth
 
 import './styles.css';
 
-import { getCurrentStepValues, onSequenceStep, toPercent } from '../utils';
+import { onSequenceStep } from '../utils';
 import { getSynth, getEffect } from 'utils/toneHelpers';
 import newArray from 'utils/studioHelpers/newArray';
 
