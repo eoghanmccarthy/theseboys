@@ -15,10 +15,8 @@ module.exports = merge(base, {
     alias: {
       src: path.resolve(__dirname, 'src/'),
       assets: path.resolve(__dirname, 'assets/'),
-      authentication: path.resolve(__dirname, 'src/authentication/'),
-      componentLib: path.resolve(__dirname, 'src/componentLib/'),
+      components: path.resolve(__dirname, 'src/components/'),
       features: path.resolve(__dirname, 'src/features/'),
-      global: path.resolve(__dirname, 'src/global/'),
       pages: path.resolve(__dirname, 'src/pages/'),
       routes: path.resolve(__dirname, 'src/routes/'),
       utils: path.resolve(__dirname, 'src/utils/')

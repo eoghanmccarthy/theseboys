@@ -4,7 +4,7 @@ import { Switch, Route } from 'react-router-dom';
 
 import Home from '../pages/home';
 import Studio from '../pages/studio';
-import { MasterProvider } from 'componentLib/master';
+import { MasterProvider } from 'components/master';
 
 const Routes = () => (
   <div className={'me'}>

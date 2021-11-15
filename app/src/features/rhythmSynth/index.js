@@ -1,6 +1,15 @@
-import React, { memo, forwardRef, useImperativeHandle, useRef, useEffect } from 'react';
+import React, { memo, forwardRef, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Channel, Destination, Sequence, PolySynth, Synth, AMSynth, AmplitudeEnvelope } from 'tone';
+import {
+  Channel,
+  Destination,
+  Sequence,
+  PolySynth,
+  Synth,
+  MembraneSynth,
+  AMSynth,
+  AmplitudeEnvelope
+} from 'tone';
 //Only instruments that extend the Monophonic class can be used with Tone.PolySynth
 //AMSynth, DuoSynth, FMSynth, MembraneSynth, MetalSynth
 
@@ -10,20 +19,17 @@ import { onSequenceStep } from '../utils';
 import { getSynth, getEffect } from 'utils/toneHelpers';
 import newArray from 'utils/studioHelpers/newArray';
 
-import Controls from '../../componentLib/Controls';
-import TrackControls from '../../componentLib/trackControls';
-import TrackSteps from '../../componentLib/trackSteps';
-import { TrackEffects, EffectsGroup } from '../../componentLib/trackEffects';
+import Controls from '../../components/Controls';
+import TrackControls from '../../components/trackControls';
+import TrackSteps from '../../components/trackSteps';
+import { TrackEffects, EffectsGroup } from '../../components/trackEffects';
 
 //const notes = ['A4', 'D3', 'E3', 'G4', 'F#4'];
 const notes = ['A3', 'C4', 'D4', 'E4', 'G4', 'A4'];
 
 const RhythmSynth = memo(
   forwardRef(
-    (
-      { songId, trackId, channel, instrument, synth, notes, stepCount, steps, effects, controls },
-      ref
-    ) => {
+    ({ trackId, channel, instrument, notes, stepCount, steps, effects, controls }, ref) => {
       const noteInterval = `${stepCount}n`;
       const noteIndices = newArray(stepCount);
 
@@ -116,8 +122,19 @@ const RhythmSynth = memo(
 export default RhythmSynth;
 
 RhythmSynth.propTypes = {
-  songId: PropTypes.string.isRequired,
   trackId: PropTypes.string.isRequired,
-  instrument: PropTypes.string.isRequired,
-  stepCount: PropTypes.number.isRequired
+  instrument: PropTypes.shape({
+    synth: PropTypes.string.isRequired,
+    options: PropTypes.object.isRequired
+  }).isRequired,
+  stepCount: PropTypes.number.isRequired,
+  channel: PropTypes.shape({
+    pan: PropTypes.number.isRequired,
+    volume: PropTypes.number.isRequired,
+    mute: PropTypes.bool.isRequired
+  }).isRequired,
+  notes: PropTypes.arrayOf(PropTypes.string).isRequired,
+  steps: PropTypes.array.isRequired,
+  effects: PropTypes.object.isRequired,
+  controls: PropTypes.object.isRequired
 };

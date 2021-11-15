@@ -1,8 +1,8 @@
 import React, { memo, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-import { Minus, Plus } from 'componentLib/icon';
-import Button from 'componentLib/button';
+import { Minus, Plus } from 'components/icon';
+import Button from 'components/button';
 //import Button from '@eoghanmccarthy/theseboys-button';
 import Controller from '../controller';
 

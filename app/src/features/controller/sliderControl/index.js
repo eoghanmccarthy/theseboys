@@ -1,6 +1,6 @@
 import React, { memo, useEffect, useRef } from 'react';
 
-import Slider from 'componentLib/slider';
+import Slider from 'components/slider';
 import Controller from '../controller';
 
 const SliderControl = memo(

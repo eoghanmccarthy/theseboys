@@ -7,8 +7,8 @@ import './styles.css';
 import { BPM_MIN, BPM_MAX, VOL_MIN, VOL_MAX } from '../../../utils/constants';
 import { fromPercent, toPercent } from '../../../features/utils';
 
-import { Circle, Play, Square } from 'componentLib/icon';
-import Button from 'componentLib/button';
+import { Circle, Play, Square } from 'components/icon';
+import Button from 'components/button';
 import useMasterContext from '../useMasterContext';
 import { ButtonControl, ControllerGroup, SliderControl } from '../../../features/controller';
 

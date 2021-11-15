@@ -7,10 +7,11 @@ import './index.css';
 import useEventListener from 'utils/hooks/useEventListener';
 import { CHANNEL, STEP_COUNT, STEPS, INSTRUMENTS } from 'src/redux/defaults';
 
-import { Footer, Main } from 'componentLib/layout';
-import Track from 'componentLib/track';
+import { Footer, Main } from 'components/layout';
+import Track from 'components/track';
 import RhythmSynth from '../../features/rhythmSynth';
-import { Master, useMasterContext } from 'componentLib/master';
+import { Master, useMasterContext } from 'components/master';
+import { polySynthSamples } from '../../data';
 import ShortcutsLegend from 'features/shortcutsLegend';
 
 const SONGS_CONFIG = {
@@ -144,38 +145,8 @@ const Studio = () => {
             />
           );
         })}
+        <RhythmSynth trackId={'polySynth'} instrument={'PolySynth'} {...polySynthSamples[[0]]} />
         {/*<ShortcutsLegend />*/}
-        <RhythmSynth
-          songId={selectedSongId}
-          trackId={'rhythmSynth'}
-          instrument={'PolySynth'}
-          notes={['A3', 'C4', 'D4', 'E4', 'G4', 'A4']}
-          stepCount={16}
-          steps={[
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-          ]}
-          effects={{
-            EQ3: {
-              low: 0,
-              mid: 0,
-              high: -6,
-              lowFrequency: 6000,
-              highFrequency: 12000
-            },
-            Distortion: { distortion: 0.6, oversample: '4x', wet: 0.6 },
-            Phaser: { frequency: 15, octaves: 5, stages: 10, Q: 10, baseFrequency: 100, wet: 0.6 }
-          }}
-          controls={{
-            eq3: { span: '1 / span 5', effects: ['EQ3'] },
-            effects: { span: '6 / span 1', effects: ['Distortion'] },
-            phaser: { span: '7 / span 3', effects: ['Phaser'] }
-          }}
-        />
       </Main>
       <Footer />
     </Fragment>
