@@ -10,14 +10,14 @@ import { Chevron } from '../icon';
 import Button from '../button';
 import { ButtonControl, ControllerGroup } from '../../features/controller';
 
-const TrackControls = memo(({ trackId, trackNumber, channel, onSample }) => {
+const TrackControls = memo(({ trackId, trackNumber, channel, play }) => {
   if (!trackId || !channel) return null;
 
   return (
     <div id={`${trackId}-controls`} className={`track-controls`}>
       <ControllerGroup>
         {trackNumber ? (
-          <Button id={`${trackId}-sample`} size={32} onClick={onSample}>
+          <Button id={`${trackId}-sample`} size={32} onClick={play}>
             {trackNumber}
           </Button>
         ) : null}

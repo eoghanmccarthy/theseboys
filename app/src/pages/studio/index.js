@@ -131,21 +131,22 @@ const Studio = () => {
             <Track
               key={trackId}
               ref={tracksRef.current[i]}
-              songId={selectedSongId}
               trackId={trackId}
               trackNumber={i + 1}
               notes={instrument.notes}
               stepCount={track?.stepCount ?? STEP_COUNT}
               steps={track?.steps ?? STEPS}
               channel={track?.channel ?? CHANNEL}
-              instrument={instrument.instrument ?? 'MembraneSynth'}
-              synth={track?.synth ?? instrument.synth}
+              instrument={{
+                synth: instrument.instrument ?? 'MembraneSynth',
+                options: track?.synth ?? instrument.synth
+              }}
               effects={track?.effects ?? instrument.effects}
               controls={instrument.controls}
             />
           );
         })}
-        <RhythmSynth trackId={'polySynth'} instrument={'PolySynth'} {...polySynthSamples[[0]]} />
+        <RhythmSynth trackId={'polySynth'} {...polySynthSamples[[0]]} />
         {/*<ShortcutsLegend />*/}
       </Main>
       <Footer />

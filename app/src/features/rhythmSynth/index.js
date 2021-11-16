@@ -11,9 +11,10 @@ import {
   AmplitudeEnvelope
 } from 'tone';
 //Only instruments that extend the Monophonic class can be used with Tone.PolySynth
-//AMSynth, DuoSynth, FMSynth, MembraneSynth, MetalSynth
+//AMSynth, DuoSynth, FMSynth, MembraneSynth, MetalSynth, Synth
 
 import './styles.css';
+import { channelTypes, instrumentTypes, notesTypes, stepsTypes } from '../../utils/types';
 
 import { onSequenceStep } from '../utils';
 import { getSynth, getEffect } from 'utils/toneHelpers';
@@ -47,14 +48,11 @@ const RhythmSynth = memo(
         Object.entries(effects ?? {}).map(([effect, options]) => getEffect(effect, options))
       );
       const synthRef = useRef(
-        new PolySynth(Synth, {
-          envelope: {
-            attack: 0.01,
-            decay: 0.1,
-            sustain: 0.1,
-            release: 1.2
-          }
-        }).chain(channelRef.current, ...effectsChainRef.current, Destination)
+        new PolySynth(Synth, instrument.options).chain(
+          channelRef.current,
+          ...effectsChainRef.current,
+          Destination
+        )
       );
 
       useEffect(() => {
@@ -90,7 +88,7 @@ const RhythmSynth = memo(
           <TrackControls
             trackId={trackId}
             channel={channelRef.current}
-            onSample={() => onTriggerAttackRelease(notes, noteInterval)}
+            play={() => onTriggerAttackRelease(notes, noteInterval)}
           />
           <TrackSteps trackId={trackId} numSteps={stepCount} initialValue={steps} />
           <TrackEffects trackId={trackId}>
@@ -123,18 +121,11 @@ export default RhythmSynth;
 
 RhythmSynth.propTypes = {
   trackId: PropTypes.string.isRequired,
-  instrument: PropTypes.shape({
-    synth: PropTypes.string.isRequired,
-    options: PropTypes.object.isRequired
-  }).isRequired,
+  instrument: instrumentTypes,
   stepCount: PropTypes.number.isRequired,
-  channel: PropTypes.shape({
-    pan: PropTypes.number.isRequired,
-    volume: PropTypes.number.isRequired,
-    mute: PropTypes.bool.isRequired
-  }).isRequired,
-  notes: PropTypes.arrayOf(PropTypes.string).isRequired,
-  steps: PropTypes.array.isRequired,
+  channel: channelTypes,
+  notes: notesTypes,
+  steps: stepsTypes,
   effects: PropTypes.object.isRequired,
   controls: PropTypes.object.isRequired
 };

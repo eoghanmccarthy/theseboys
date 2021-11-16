@@ -1,13 +1,12 @@
-import React, { memo, forwardRef, useImperativeHandle, useRef, useEffect } from 'react';
+import React, { memo, forwardRef, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
 import { Channel, Destination, Sequence } from 'tone';
 
 import { isUndefined, isArray } from 'utils/helpers/typeCheck';
 
 import './styles.css';
 
-import { getCurrentStepValues, onSequenceStep, toPercent } from '../../features/utils';
+import { onSequenceStep, toPercent } from '../../features/utils';
 import { getSynth, getEffect } from 'utils/toneHelpers';
 import newArray from 'utils/studioHelpers/newArray';
 
@@ -15,27 +14,17 @@ import Controls from '../Controls';
 import TrackControls from '../trackControls';
 import TrackSteps from '../trackSteps';
 import { TrackEffects, EffectsGroup } from '../trackEffects';
+import { channelTypes, instrumentTypes, notesTypes, stepsTypes } from '../../utils/types';
+import RhythmSynth from '../../features/rhythmSynth';
 
 const Track = memo(
   forwardRef(
     (
-      {
-        songId,
-        trackId,
-        trackNumber,
-        channel,
-        instrument,
-        notes,
-        synth,
-        stepCount,
-        steps,
-        effects,
-        controls,
-        ...rest
-      },
+      { trackId, trackNumber, channel, instrument, notes, stepCount, steps, effects, controls },
       ref
     ) => {
-      const dispatch = useDispatch();
+      //console.warn();
+
       const noteInterval = `${stepCount}n`;
       const noteIndices = newArray(stepCount);
 
@@ -53,7 +42,7 @@ const Track = memo(
         Object.entries(effects ?? {}).map(([effect, options]) => getEffect(effect, options))
       );
       const synthRef = useRef(
-        getSynth(instrument, synth).chain(
+        getSynth(instrument.synth, instrument.options).chain(
           channelRef.current,
           ...effectsChainRef.current,
           Destination
@@ -93,31 +82,13 @@ const Track = memo(
         }
       };
 
-      useImperativeHandle(ref, () => ({
-        save() {
-          dispatch({
-            type: 'song/SAVE_TRACK',
-            payload: {
-              songId,
-              trackId,
-              data: {
-                channel: channelRef.current.get(),
-                steps: getCurrentStepValues(trackId),
-                synth: synthRef.current.get(),
-                effects: effectsChainRef.current
-              }
-            }
-          });
-        }
-      }));
-
       return (
         <div id={trackId} className={'track'}>
           <TrackControls
             trackId={trackId}
             trackNumber={trackNumber}
             channel={channelRef.current}
-            onSample={() => onTriggerAttackRelease(notes, noteInterval)}
+            play={() => onTriggerAttackRelease(notes, noteInterval)}
           />
           <TrackSteps trackId={trackId} numSteps={stepCount} initialValue={steps} />
           <TrackEffects trackId={trackId}>
@@ -148,10 +119,13 @@ const Track = memo(
 
 export default Track;
 
-Track.propTypes = {
-  songId: PropTypes.string.isRequired,
+RhythmSynth.propTypes = {
   trackId: PropTypes.string.isRequired,
-  trackNumber: PropTypes.number.isRequired,
-  instrument: PropTypes.string.isRequired,
-  stepCount: PropTypes.number.isRequired
+  instrument: instrumentTypes,
+  stepCount: PropTypes.number.isRequired,
+  channel: channelTypes,
+  notes: notesTypes,
+  steps: stepsTypes,
+  effects: PropTypes.object.isRequired,
+  controls: PropTypes.object.isRequired
 };
