@@ -5,12 +5,10 @@
  * @returns {array}
  */
 
-const newArray = length => {
+export const newArray = length => {
   const array = [];
   for (let i = 0; i < length; i++) {
     array.push(i);
   }
   return array;
 };
-
-export default newArray;

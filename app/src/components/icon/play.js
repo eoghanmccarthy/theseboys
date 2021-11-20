@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import cx from 'classnames';
 
-const Polygon = memo(
+export const PlayIcon = memo(
   ({
     className,
     width = '100%',
@@ -26,5 +26,3 @@ const Polygon = memo(
     );
   }
 );
-
-export default Polygon;

@@ -3,12 +3,12 @@ import cx from 'classnames';
 
 import './styles.css';
 
-import { fromPercent, toPercent } from '../../features/utils';
+import { fromPercent, toPercent } from 'utils/studioHelpers';
 import { VOL_MIN, VOL_MAX } from '../../utils/constants';
 
-import { Chevron } from '../icon';
+import { ChevronIcon } from '../icon';
 import Button from '../button';
-import { ButtonControl, ControllerGroup } from '../../features/controller';
+import { ButtonControl, ControllerGroup, SliderControl } from '../controllers';
 
 const TrackControls = memo(({ trackId, trackNumber, channel, play }) => {
   if (!trackId || !channel) return null;
@@ -31,6 +31,35 @@ const TrackControls = memo(({ trackId, trackNumber, channel, play }) => {
         >
           M
         </Button>
+        <Button
+          size={32}
+          value={'off'}
+          onClick={e => {
+            const value = e.target.value;
+            document
+              .querySelector(`#${trackId} .step-sequencer`)
+              .setAttribute('data-random', value === 'off' ? 'on' : 'off');
+            e.target.setAttribute('value', value === 'off' ? 'on' : 'off');
+            e.target.classList.toggle('alert');
+          }}
+        >
+          R
+        </Button>
+        <SliderControl
+          id={`${trackId}-random-value`}
+          orient={'horizontal'}
+          label={'RAN'}
+          step={0.01}
+          min={0.0}
+          max={1}
+          toFixed={2}
+          initialValue={0.5}
+          onChange={value => {
+            document
+              .querySelector(`#${trackId} .step-sequencer`)
+              .setAttribute('data-random-value', value);
+          }}
+        />
       </ControllerGroup>
       <ControllerGroup>
         <ButtonControl
@@ -58,7 +87,7 @@ const TrackControls = memo(({ trackId, trackNumber, channel, play }) => {
             e.target.classList.toggle('rotated');
           }}
         >
-          <Chevron width={'60%'} />
+          <ChevronIcon width={'60%'} />
         </Button>
       </ControllerGroup>
     </div>

@@ -1,43 +1,22 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import { Destination, Transport } from 'tone';
 
 import './styles.css';
 
 import { BPM_MIN, BPM_MAX, VOL_MIN, VOL_MAX } from '../../../utils/constants';
-import { fromPercent, toPercent } from '../../../features/utils';
+import { fromPercent, toPercent } from 'utils/studioHelpers';
 
-import { Circle, Play, Square } from 'components/icon';
 import Button from 'components/button';
+import { CircleIcon, PlayIcon, SquareIcon } from 'components/icon';
 import useMasterContext from '../useMasterContext';
-import { ButtonControl, ControllerGroup, SliderControl } from '../../../features/controller';
+import { ButtonControl, ControllerGroup, SliderControl } from '../../controllers';
 
-const Master = ({ songId, volume, bpm, onSave }) => {
-  const dispatch = useDispatch();
+const Master = ({ volume, bpm }) => {
   const { play, stop, record } = useMasterContext('<Master>');
 
   return (
     <section id={'master'} data-playback={'stopped'} data-recorder={'off'}>
-      <div className={'sub'}>
-        {/*<Button*/}
-        {/*  size={24}*/}
-        {/*  variant={'text'}*/}
-        {/*  shape={'rounded'}*/}
-        {/*  onClick={() => {*/}
-        {/*    if (Transport.state === 'started') return;*/}
-        {/*    onSave();*/}
-        {/*    dispatch({*/}
-        {/*      type: 'song/SAVE_MASTER',*/}
-        {/*      payload: {*/}
-        {/*        songId,*/}
-        {/*        data: { bpm: Transport.get().bpm, volume: Destination.get().volume }*/}
-        {/*      }*/}
-        {/*    });*/}
-        {/*  }}*/}
-        {/*>*/}
-        {/*  save settings*/}
-        {/*</Button>*/}
-      </div>
+      <div className={'sub'} />
       <div className={'main'}>
         <SliderControl
           id={'master-volume'}
@@ -49,14 +28,24 @@ const Master = ({ songId, volume, bpm, onSave }) => {
           onChange={val => Destination.set({ volume: fromPercent([VOL_MIN, VOL_MAX], val) })}
         />
         <ControllerGroup>
-          <Button className={'playback record'} variant={'outlined'} onClick={record}>
-            <Circle width={'64%'} />
+          <Button className={'playback record'} variant={'outlined'} onClick={e => record(e)}>
+            <CircleIcon width={'64%'} />
           </Button>
-          <Button className={'playback play'} variant={'outlined'} value={'off'} onClick={play}>
-            <Play width={'72%'} />
+          <Button
+            className={'playback play'}
+            variant={'outlined'}
+            value={'off'}
+            onClick={e => play(e)}
+          >
+            <PlayIcon width={'72%'} />
           </Button>
-          <Button className={'playback stop'} variant={'outlined'} value={'on'} onClick={stop}>
-            <Square width={'54%'} />
+          <Button
+            className={'playback stop'}
+            variant={'outlined'}
+            value={'on'}
+            onClick={e => stop(e)}
+          >
+            <SquareIcon width={'54%'} />
           </Button>
         </ControllerGroup>
         <ButtonControl

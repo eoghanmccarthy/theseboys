@@ -8,7 +8,7 @@ export const scales = {
 export const polySynthSamples = [
   {
     channel: {
-      pan: 4,
+      pan: 0.4,
       volume: 4,
       mute: false
     },
@@ -34,15 +34,15 @@ export const polySynthSamples = [
       }
     },
     effects: {
-      Reverb: { decay: 4, preDelay: 0.2, wet: 0.22 },
+      Reverb: { decay: 4, preDelay: 0.2, wet: 0.55 },
       EQ3: {
         low: 0,
-        mid: -60,
-        high: -60,
-        lowFrequency: 3720,
-        highFrequency: 8160
+        mid: -10,
+        high: 4,
+        lowFrequency: 1320,
+        highFrequency: 5380
       },
-      Distortion: { distortion: 0.6, oversample: '4x', wet: 0.84 },
+      Distortion: { distortion: 0.6, oversample: '4x', wet: 0.42 },
       Phaser: { frequency: 15, octaves: 5, stages: 10, Q: 10, baseFrequency: 100, wet: 0.0 }
     },
     controls: {

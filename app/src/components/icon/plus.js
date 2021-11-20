@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import cx from 'classnames';
 
-const Plus = memo(
+export const PlusIcon = memo(
   ({ className, width = '100%', stroke = 'var(--color-bluegrey-600)', strokeWidth = '4' }) => {
     return (
       <svg
@@ -32,5 +32,3 @@ const Plus = memo(
     );
   }
 );
-
-export default Plus;

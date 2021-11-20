@@ -8,11 +8,11 @@ import useEventListener from 'utils/hooks/useEventListener';
 import { CHANNEL, STEP_COUNT, STEPS, INSTRUMENTS } from 'src/redux/defaults';
 
 import { Footer, Main } from 'components/layout';
-import Track from 'components/track';
-import RhythmSynth from '../../features/rhythmSynth';
+import SynthTrack from 'components/SynthTrack';
+import PolySynthTrack from 'components/PolySynthTrack';
 import { Master, useMasterContext } from 'components/master';
 import { polySynthSamples } from '../../data';
-import ShortcutsLegend from 'features/shortcutsLegend';
+import ShortcutsLegend from 'components/ShortcutsLegend';
 
 const SONGS_CONFIG = {
   s001: { t001: 'i001', t002: 'i002', t003: 'i003', t004: 'i004', t005: 'i005', t006: 'i006' },
@@ -90,9 +90,9 @@ const Studio = () => {
         if (e.shiftKey) {
           const steps = document.querySelectorAll(`.t00${num}-step`);
           if (!e.altKey) {
-            steps.forEach(step => step.setAttribute('data-value', 'on'));
+            steps.forEach(step => step.setAttribute('value', 'on'));
           } else {
-            steps.forEach(step => step.setAttribute('data-value', 'off'));
+            steps.forEach(step => step.setAttribute('value', 'off'));
           }
         } else {
           if (num <= TRACKS.length) {
@@ -116,19 +116,14 @@ const Studio = () => {
   return (
     <Fragment>
       <Main id={'studio'}>
-        <Master
-          songId={selectedSongId}
-          volume={storedSong?.master?.volume ?? 0}
-          bpm={storedSong?.master?.bpm ?? 120}
-          onSave={handleSave}
-        />
+        <Master volume={0} bpm={120} />
         {TRACKS.map(([trackId, instrumentId], i) => {
           const track = storedSong?.tracks?.[trackId];
           const instrument = INSTRUMENTS[instrumentId];
           if (!instrument) return null;
 
           return (
-            <Track
+            <SynthTrack
               key={trackId}
               ref={tracksRef.current[i]}
               trackId={trackId}
@@ -146,7 +141,7 @@ const Studio = () => {
             />
           );
         })}
-        <RhythmSynth trackId={'polySynth'} {...polySynthSamples[[0]]} />
+        <PolySynthTrack trackId={'PolySynth'} {...polySynthSamples[[0]]} />
         {/*<ShortcutsLegend />*/}
       </Main>
       <Footer />

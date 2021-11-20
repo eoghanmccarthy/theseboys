@@ -8,8 +8,15 @@
 }
 
 :root {
+	--color-f913ad: #f913ad;
+	--color-f95f13: #f95f13;
+	--color-f81976: #f81976;
+
+	--color-t1: rgba(255,0,0,0);
+	--color-t2: rgba(255,0,0,1);
+
 	--color-primary: #f913ad;
-	--color-secondary: #f95f13;
+	--color-secondary: var(--color-f81976);
 	--color-tertiary: #f81976;
 
 	--color-grey-50: #fafafa;

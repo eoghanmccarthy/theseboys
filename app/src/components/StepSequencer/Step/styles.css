@@ -4,8 +4,10 @@
     justify-content: center;
     position: relative;
     width: 100%;
+    padding: 0;
+    background: transparent;
+    border-width: 0;
     cursor: pointer;
-
 }
 
 .step-sequencer .step .step-zone {
@@ -24,21 +26,21 @@
     overflow: visible;
 }
 
-.step-sequencer .step[data-value = 'off'] .step-icon.off {
+.step-sequencer .step[value = 'off'] .step-icon.off {
     display: block;
     fill: var(--color-bluegrey-900);
     stroke: var(--color-bluegrey-900);
 }
 
-.step-sequencer .step[data-value = 'off'] .step-icon.on {
+.step-sequencer .step[value = 'off'] .step-icon.on {
     display: none;
 }
 
-.step-sequencer .step[data-value = 'on'] .step-icon.off {
+.step-sequencer .step[value = 'on'] .step-icon.off {
     display: none;
 }
 
-.step-sequencer .step[data-value = 'on'] .step-icon.on {
+.step-sequencer .step[value = 'on'] .step-icon.on {
     display: block;
     fill: var(--color-secondary);
     stroke: var(--color-secondary);

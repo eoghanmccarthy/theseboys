@@ -11,7 +11,7 @@ const StepSequencer = memo(({ trackId, numberOfSteps = 16, initialValue }) => {
   }
 
   return (
-    <div className={`step-sequencer`}>
+    <div className={`step-sequencer`} data-random={'off'} data-random-value={'0.80'}>
       {initialValue.map((rowData, rowIndex) => {
         if (!isArray(rowData)) {
           return null;

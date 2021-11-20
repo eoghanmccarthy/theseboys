@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import cx from 'classnames';
 
-const Minus = memo(
+export const MinusIcon = memo(
   ({ className, width = '100%', stroke = 'var(--color-bluegrey-600)', strokeWidth = '4' }) => {
     return (
       <svg
@@ -23,5 +23,3 @@ const Minus = memo(
     );
   }
 );
-
-export default Minus;

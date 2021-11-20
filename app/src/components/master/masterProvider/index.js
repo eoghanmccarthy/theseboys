@@ -36,7 +36,9 @@ const MasterProvider = ({ children }) => {
 
   const getRecorderState = () => recorder.current.state;
 
-  const handlePlay = async () => {
+  const handlePlay = async e => {
+    const target = e.currentTarget;
+
     if (getContextState() !== 'running') {
       await start();
     }
@@ -48,7 +50,7 @@ const MasterProvider = ({ children }) => {
     if (getTransportState() === 'stopped' && master.getAttribute('data-recorder') !== 'on') {
       // Start playback
       Transport.start();
-      master.querySelector('button.play')?.classList.add('active');
+      target.classList.add('active');
       master.setAttribute('data-playback', 'started');
       consoleLog('transport is', getTransportState());
 
@@ -60,7 +62,7 @@ const MasterProvider = ({ children }) => {
     }
   };
 
-  const handleStop = () => {
+  const handleStop = e => {
     const master = document.querySelector('#master');
 
     if (getTransportState() === 'started') {
@@ -77,16 +79,19 @@ const MasterProvider = ({ children }) => {
     }
   };
 
-  const handleRecord = () => {
+  const handleRecord = e => {
+    const target = e.currentTarget;
+
     const master = document.querySelector('#master');
 
     if (getTransportState() === 'stopped') {
       if (master.getAttribute('data-recorder') === 'off') {
         master.setAttribute('data-recorder', 'stand-by');
-        master.querySelector('button.record')?.classList.add('alert');
+        target.classList.add('alert');
       } else {
         master.setAttribute('data-recorder', 'off');
-        master.querySelector('button.record')?.classList.remove('alert');
+        target.classList.remove('alert');
+
         if (getRecorderState() === 'started') {
           handleStopRecorder();
         }

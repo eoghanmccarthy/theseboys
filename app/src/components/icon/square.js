@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import cx from 'classnames';
 
-const Square = memo(
+export const SquareIcon = memo(
   ({
     className,
     width = '100%',
@@ -21,5 +21,3 @@ const Square = memo(
     );
   }
 );
-
-export default Square;

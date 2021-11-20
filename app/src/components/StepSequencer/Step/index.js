@@ -1,40 +1,28 @@
 import React, { memo } from 'react';
-import { isArray, isString, isNumber } from 'utils/helpers/typeCheck';
+import { isString, isNumber, isUndefined } from 'utils/helpers/typeCheck';
 
 import './styles.css';
-
-import consoleLog from 'utils/errorHandlers/consoleLog';
 
 const Step = memo(({ trackId, stepValue, rowIndex, stepIndex }) => {
   if (!isString(trackId) || !isNumber(rowIndex) || !isNumber(stepIndex)) {
     return null;
   }
 
-  const handleClick = () => {
-    const stepButton = document.querySelector(
-      `.step.${trackId}-step.row-${rowIndex}-step-${stepIndex}`
-    );
+  const handleClick = e => {
+    const target = e.currentTarget;
+    const value = target.value;
 
-    if (!stepButton) {
-      consoleLog(`step not found ${trackId} ${rowIndex} ${stepIndex}`);
-      return;
-    }
-
-    const stepStatus = stepButton.getAttribute('data-value');
-
-    if (stepStatus === 'off') {
-      stepButton.setAttribute('data-value', 'on');
-    } else {
-      stepButton.setAttribute('data-value', 'off');
+    if (!isUndefined(value)) {
+      target.setAttribute('value', value === 'off' ? 'on' : 'off');
     }
   };
 
   return (
-    <span
+    <button
       className={`step ${trackId}-step row-${rowIndex}-step-${stepIndex}`}
-      data-value={stepValue ? 'on' : 'off'}
+      value={stepValue ? 'on' : 'off'}
       data-status={'idle'}
-      onClick={handleClick}
+      onClick={e => handleClick(e)}
     >
       <svg className={'step-zone'} xmlns={'http://www.w3.org/2000/svg'} viewBox={'0 0 30 30'} />
       <svg className={'step-icon off'} xmlns={'http://www.w3.org/2000/svg'} viewBox={'0 0 30 30'}>
@@ -43,7 +31,7 @@ const Step = memo(({ trackId, stepValue, rowIndex, stepIndex }) => {
       <svg className={'step-icon on'} xmlns={'http://www.w3.org/2000/svg'} viewBox={'0 0 30 30'}>
         <circle cx={'15'} cy={'15'} r={'15'} />
       </svg>
-    </span>
+    </button>
   );
 });
 

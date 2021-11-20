@@ -1,4 +1,4 @@
-const random = (min, max) => {
+export const random = (min, max) => {
   let rand = Math.random();
 
   if (typeof min === 'undefined') {
@@ -19,5 +19,3 @@ const random = (min, max) => {
     return rand * (max - min) + min;
   }
 };
-
-export default random;

@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import cx from 'classnames';
 
-const Circle = memo(
+export const CircleIcon = memo(
   ({
     className,
     width = '100%',
@@ -21,5 +21,3 @@ const Circle = memo(
     );
   }
 );
-
-export default Circle;
