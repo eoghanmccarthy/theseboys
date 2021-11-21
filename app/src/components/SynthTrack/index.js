@@ -4,15 +4,15 @@ import { Channel, Destination, Sequence } from 'tone';
 
 import { isUndefined, isArray } from 'utils/helpers/typeCheck';
 
-import './styles.css';
 import { channelTypes, instrumentTypes, notesTypes, stepsTypes } from '../../utils/types';
 
 import { getSynth, getEffect } from 'utils/toneHelpers';
 import { newArray, onSequenceStep } from 'utils/studioHelpers';
 
 import { ControlHandler } from '../controls';
-import TrackControls from '../trackControls';
-import TrackSteps from '../trackSteps';
+import Track from '../Track';
+import TrackControls from '../TrackControls';
+import TrackSteps from '../TrackSteps';
 import { TrackEffects, EffectsGroup } from '../trackEffects';
 
 const SynthTrack = memo(
@@ -79,7 +79,7 @@ const SynthTrack = memo(
       };
 
       return (
-        <div id={trackId} className={'track'}>
+        <Track trackId={trackId}>
           <TrackControls
             trackId={trackId}
             trackNumber={trackNumber}
@@ -111,7 +111,7 @@ const SynthTrack = memo(
               />
             </EffectsGroup>
           </TrackEffects>
-        </div>
+        </Track>
       );
     }
   )

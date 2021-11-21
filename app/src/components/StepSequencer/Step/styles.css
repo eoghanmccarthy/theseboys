@@ -17,19 +17,21 @@
 
 .step-sequencer .step .step-icon {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 40%;
+    top: 0;
+    left: 0;
+    width: 100%;
     transform-origin: center;
-    transform: translate(-50%,-50%);
+    /*transform: translate(-50%,-50%);*/
     /*transition: all .25s;*/
     overflow: visible;
+    /*top: 50%;*/
+    /*left: 50%;*/
+    /*transform: translate(-50%,-50%);*/
 }
 
 .step-sequencer .step[value = 'off'] .step-icon.off {
     display: block;
     fill: var(--color-bluegrey-900);
-    stroke: var(--color-bluegrey-900);
 }
 
 .step-sequencer .step[value = 'off'] .step-icon.on {
@@ -43,13 +45,12 @@
 .step-sequencer .step[value = 'on'] .step-icon.on {
     display: block;
     fill: var(--color-secondary);
-    stroke: var(--color-secondary);
 }
 
 .step-sequencer .step[data-status = 'idle'] .step-icon {
     stroke-width: 0;
 }
 
-.step-sequencer .step[data-status = 'current'] .step-icon {
-    stroke-width: 5;
+.step-sequencer .step[data-status = 'current'] .step-icon.on {
+    fill: blueviolet;
 }

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Destination, Transport } from 'tone';
 
 import './styles.css';
@@ -27,25 +27,15 @@ const Master = ({ volume, bpm }) => {
           initialValue={toPercent([VOL_MIN, VOL_MAX], volume) ?? 0}
           onChange={val => Destination.set({ volume: fromPercent([VOL_MIN, VOL_MAX], val) })}
         />
-        <ControllerGroup>
-          <Button className={'playback record'} variant={'outlined'} onClick={e => record(e)}>
-            <CircleIcon width={'64%'} />
+        <ControllerGroup id={'playback-controls'}>
+          <Button className={'playback record'} value={'off'} onClick={e => record(e)}>
+            <CircleIcon />
           </Button>
-          <Button
-            className={'playback play'}
-            variant={'outlined'}
-            value={'off'}
-            onClick={e => play(e)}
-          >
-            <PlayIcon width={'72%'} />
+          <Button className={'playback play'} value={'off'} onClick={e => play(e)}>
+            <PlayIcon />
           </Button>
-          <Button
-            className={'playback stop'}
-            variant={'outlined'}
-            value={'on'}
-            onClick={e => stop(e)}
-          >
-            <SquareIcon width={'54%'} />
+          <Button className={'playback stop'} value={'on'} onClick={e => stop(e)}>
+            <SquareIcon />
           </Button>
         </ControllerGroup>
         <ButtonControl

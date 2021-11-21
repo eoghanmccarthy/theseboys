@@ -26,10 +26,12 @@ const Step = memo(({ trackId, stepValue, rowIndex, stepIndex }) => {
     >
       <svg className={'step-zone'} xmlns={'http://www.w3.org/2000/svg'} viewBox={'0 0 30 30'} />
       <svg className={'step-icon off'} xmlns={'http://www.w3.org/2000/svg'} viewBox={'0 0 30 30'}>
-        <circle cx={'15'} cy={'15'} r={'5'} />
+        <circle cx={'15'} cy={'15'} r={'1'} />
+        {/*<rect x={'0'} y={'0'} width={30} height={30} />*/}
       </svg>
       <svg className={'step-icon on'} xmlns={'http://www.w3.org/2000/svg'} viewBox={'0 0 30 30'}>
-        <circle cx={'15'} cy={'15'} r={'15'} />
+        <rect width={30} height={30} />
+        {/*<circle cx={15} cy={15} r={5} stroke={'white'} strokeWidth={0.2} opacity={0.5} />*/}
       </svg>
     </button>
   );

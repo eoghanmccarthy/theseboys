@@ -22,3 +22,37 @@
 #master .sub {
     background-color: var(--color-grey-800);
 }
+
+#master #playback-controls {
+    height: 100%;
+    justify-content: center;
+}
+
+#master #playback-controls button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    border: none;
+    border-radius: 0;
+    aspect-ratio: 1 / 1
+}
+
+#master #playback-controls button svg {
+    width: 100%;
+}
+
+#master #playback-controls .playback svg > * {
+    fill: white;
+}
+
+#master #playback-controls .play[value = 'on'] svg > * {
+    fill: blue;
+}
+
+#master #playback-controls .record[value = 'on'] svg > * {
+    fill: red;
+}

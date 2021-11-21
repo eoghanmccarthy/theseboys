@@ -46,11 +46,12 @@ const MasterProvider = ({ children }) => {
     consoleLog('audio context is', getContextState());
 
     const master = document.querySelector('#master');
+    if (!master) return;
 
     if (getTransportState() === 'stopped' && master.getAttribute('data-recorder') !== 'on') {
       // Start playback
       Transport.start();
-      target.classList.add('active');
+      target.setAttribute('value', 'on');
       master.setAttribute('data-playback', 'started');
       consoleLog('transport is', getTransportState());
 
@@ -64,12 +65,16 @@ const MasterProvider = ({ children }) => {
 
   const handleStop = e => {
     const master = document.querySelector('#master');
+    if (!master) return;
+
+    const play = document.querySelector('#master button.play');
+    if (!play) return;
 
     if (getTransportState() === 'started') {
       // Stop playback
       Transport.stop();
       master.setAttribute('data-playback', 'stopped');
-      master.querySelector('button.play')?.classList.remove('active');
+      play.setAttribute('value', 'off');
       consoleLog('transport is', getTransportState());
     }
 
@@ -83,14 +88,15 @@ const MasterProvider = ({ children }) => {
     const target = e.currentTarget;
 
     const master = document.querySelector('#master');
+    if (!master) return;
 
     if (getTransportState() === 'stopped') {
       if (master.getAttribute('data-recorder') === 'off') {
         master.setAttribute('data-recorder', 'stand-by');
-        target.classList.add('alert');
+        //target.classList.add('alert');
       } else {
         master.setAttribute('data-recorder', 'off');
-        target.classList.remove('alert');
+        //target.classList.remove('alert');
 
         if (getRecorderState() === 'started') {
           handleStopRecorder();

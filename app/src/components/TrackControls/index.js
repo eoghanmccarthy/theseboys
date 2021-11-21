@@ -50,10 +50,10 @@ const TrackControls = memo(({ trackId, trackNumber, channel, play }) => {
           orient={'horizontal'}
           label={'RAN'}
           step={0.01}
-          min={0.0}
+          min={0.5}
           max={1}
           toFixed={2}
-          initialValue={0.5}
+          initialValue={0.75}
           onChange={value => {
             document
               .querySelector(`#${trackId} .step-sequencer`)

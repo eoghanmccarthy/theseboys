@@ -18,16 +18,16 @@ import {
 //Only instruments that extend the Monophonic class can be used with Tone.PolySynth
 //AMSynth, DuoSynth, FMSynth, MembraneSynth, MetalSynth, Synth
 
-import './styles.css';
 import { channelTypes, instrumentTypes, notesTypes, stepsTypes } from '../../utils/types';
 
 import { getSynth, getEffect } from 'utils/toneHelpers';
 import { newArray, onSequenceStep } from 'utils/studioHelpers';
 
 import { ControlHandler } from '../controls';
-import TrackControls from '../../components/trackControls';
-import TrackSteps from '../../components/trackSteps';
-import { TrackEffects, EffectsGroup } from '../../components/trackEffects';
+import Track from '../Track';
+import TrackControls from '../TrackControls';
+import TrackSteps from '../TrackSteps';
+import { TrackEffects, EffectsGroup } from '../trackEffects';
 
 //const notes = ['A4', 'D3', 'E3', 'G4', 'F#4'];
 const notes = ['A3', 'C4', 'D4', 'E4', 'G4', 'A4'];
@@ -39,29 +39,6 @@ const notes = ['A3', 'C4', 'D4', 'E4', 'G4', 'A4'];
 //       wet: 0.2
 //     })
 // );
-const polyOptions = {
-  volume: -10,
-  //polyphony: numRows,
-  voice0: {
-    oscillator: {
-      type: 'triangle4'
-    },
-    volume: -30,
-    envelope: {
-      attack: 0.005,
-      release: 0.05,
-      sustain: 1
-    }
-  },
-  voice1: {
-    volume: -10,
-    envelope: {
-      attack: 0.005,
-      release: 0.05,
-      sustain: 1
-    }
-  }
-};
 
 const PolySynthTrack = memo(
   forwardRef(
@@ -92,8 +69,7 @@ const PolySynthTrack = memo(
       const synthRef = useRef(
         new TonePolySynth(Synth, {
           ...instrument.options,
-          maxPolyphony: numRows,
-          ...polyOptions
+          maxPolyphony: numRows
         }).chain(
           ...effectsChainRef.current,
           chorusRef.current,
@@ -134,7 +110,7 @@ const PolySynthTrack = memo(
       };
 
       return (
-        <div id={trackId} className={'track'}>
+        <Track trackId={trackId}>
           <TrackControls
             trackId={trackId}
             channel={channelRef.current}
@@ -165,7 +141,7 @@ const PolySynthTrack = memo(
               />
             </EffectsGroup>
           </TrackEffects>
-        </div>
+        </Track>
       );
     }
   )

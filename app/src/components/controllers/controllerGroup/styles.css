@@ -7,5 +7,5 @@
 }
 
 .controller-group.horizontal > *:not(:last-child){
-    margin-right: var(--spacing-16);
+    margin-right: var(--spacing-8);
 }
