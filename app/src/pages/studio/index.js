@@ -141,7 +141,7 @@ const Studio = () => {
             />
           );
         })}
-        <PolySynthTrack trackId={'PolySynth'} {...polySynthSamples[[0]]} />
+        <PolySynthTrack trackId={'PolySynth'} trackNumber={7} {...polySynthSamples[[0]]} />
         {/*<ShortcutsLegend />*/}
       </Main>
       <Footer />

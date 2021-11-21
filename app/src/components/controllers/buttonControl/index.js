@@ -41,7 +41,7 @@ const ButtonControl = memo(
     };
 
     return (
-      <Controller id={id} orient={orient}>
+      <Controller id={id} orient={orient} type={'button'}>
         <label className={'label'}>{label}</label>
         <div className={'controls'}>
           <Button

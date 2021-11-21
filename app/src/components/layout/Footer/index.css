@@ -7,5 +7,6 @@
 }
 
 .me__footer svg {
+    width: 48px;
     cursor: pointer;
 }

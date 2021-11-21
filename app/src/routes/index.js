@@ -1,27 +1,28 @@
 import React from 'react';
-import { withRouter } from 'react-router';
-import { Switch, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
 import Home from '../pages/home';
 import Studio from '../pages/studio';
 import { MasterProvider } from 'components/master';
 
-const Routes = () => (
+const AppRoutes = () => (
   <div className={'me'}>
-    <Switch>
-      <Route exact path="/" render={() => <Home />} />
-      <Route
-        exact
-        path="/studio"
-        render={() => (
-          <MasterProvider>
-            <Studio />
-          </MasterProvider>
-        )}
-      />
-      <Route render={() => <Home />} />
-    </Switch>
+    <Routes>
+      <Route path="/">
+        <Route index element={<Home />} />
+        <Route
+          exact
+          path="studio"
+          element={
+            <MasterProvider>
+              <Studio />
+            </MasterProvider>
+          }
+        />
+        <Route path={'*'} element={<Home />} />
+      </Route>
+    </Routes>
   </div>
 );
 
-export default withRouter(Routes);
+export default AppRoutes;

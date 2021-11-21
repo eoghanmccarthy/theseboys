@@ -24,8 +24,11 @@ const TrackControls = memo(({ trackId, trackNumber, channel, play }) => {
         <Button
           className={cx({ alert: channel.muted })}
           size={32}
+          value={'off'}
           onClick={e => {
-            channel.set({ mute: !channel.muted });
+            const val = e.target.value;
+            channel.set({ mute: val === 'off' });
+            e.target.setAttribute('value', val === 'off' ? 'on' : 'off');
             e.target.classList.toggle('alert');
           }}
         >
@@ -35,11 +38,11 @@ const TrackControls = memo(({ trackId, trackNumber, channel, play }) => {
           size={32}
           value={'off'}
           onClick={e => {
-            const value = e.target.value;
+            const val = e.target.value;
             document
               .querySelector(`#${trackId} .step-sequencer`)
-              .setAttribute('data-random', value === 'off' ? 'on' : 'off');
-            e.target.setAttribute('value', value === 'off' ? 'on' : 'off');
+              .setAttribute('data-random', val === 'off' ? 'on' : 'off');
+            e.target.setAttribute('value', val === 'off' ? 'on' : 'off');
             e.target.classList.toggle('alert');
           }}
         >

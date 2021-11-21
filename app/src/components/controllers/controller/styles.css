@@ -18,9 +18,13 @@
     align-items: center;
 }
 
+/*.controller.horizontal.type-button {*/
+/*    grid-template-columns: auto 66px auto;*/
+/*}*/
+
 .controller > .controls {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
 .controller.vertical > .controls {

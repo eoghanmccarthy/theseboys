@@ -1,5 +1,4 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
 
 import './styles.css';
 
@@ -12,4 +11,4 @@ const App = () => {
   return window.location.hostname === 'localhost' || auth.isSuccess ? <Routes /> : null;
 };
 
-export default withRouter(App);
+export default App;

@@ -1,5 +1,5 @@
 import React, { memo, forwardRef } from 'react';
-import { func, number, bool, string } from 'prop-types';
+import PropTypes from 'prop-types';
 import cx from 'classnames';
 
 import './styles.css';
@@ -48,10 +48,10 @@ const Slider = memo(
 export default Slider;
 
 Slider.propTypes = {
-  orient: string,
-  isDisabled: bool,
-  step: number,
-  max: number,
-  min: number,
-  onChange: func.isRequired
+  orient: PropTypes.string,
+  isDisabled: PropTypes.bool,
+  step: PropTypes.number,
+  max: PropTypes.number,
+  min: PropTypes.number,
+  onChange: PropTypes.func.isRequired
 };

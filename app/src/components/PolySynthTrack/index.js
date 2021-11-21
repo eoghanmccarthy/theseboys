@@ -113,6 +113,7 @@ const PolySynthTrack = memo(
         <Track trackId={trackId}>
           <TrackControls
             trackId={trackId}
+            trackNumber={trackNumber}
             channel={channelRef.current}
             play={() => onTriggerAttackRelease(notes, noteInterval)}
           />

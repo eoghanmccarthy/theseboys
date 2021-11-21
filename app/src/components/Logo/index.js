@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSpring, animated } from 'react-spring';
+import { isFunction } from 'utils/helpers/typeCheck';
 
 const calc = (x, y) => [-(y - window.innerHeight / 2) / 20, (x - window.innerWidth / 2) / 20, 1.1];
 
@@ -21,7 +22,7 @@ const Logo = ({ animate = false, fill = 'var(--color-primary)', onClick }) => {
         style: { transform: props.xys.interpolate(trans) }
       })}
       onClick={() => {
-        if (typeof onClick === 'function') {
+        if (isFunction(onClick)) {
           onClick();
         }
       }}
