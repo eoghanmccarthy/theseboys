@@ -38,7 +38,7 @@
     "axios": "^0.21.1",
     "circular-dependency-plugin": "^5.0.2",
     "classnames": "^2.2.6",
-    "immer": "^9.0.2",
+    "immer": "^9.0.6",
     "logrocket": "^1.0.11",
     "prop-types": "^15.7.2",
     "react": "^17.0.0",
