@@ -8,6 +8,7 @@ import Routes from './routes';
 
 const App = () => {
   const auth = useGetAuth({ enabled: window.location.hostname !== 'localhost' });
+  console.log(auth);
   return window.location.hostname === 'localhost' || auth.isSuccess ? <Routes /> : null;
 };
 
