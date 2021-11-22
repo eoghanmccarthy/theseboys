@@ -8,19 +8,17 @@ import { MasterProvider } from 'components/master';
 const AppRoutes = () => (
   <div className={'me'}>
     <Routes>
-      <Route path="/">
-        <Route index element={<Home />} />
-        <Route
-          exact
-          path="studio"
-          element={
-            <MasterProvider>
-              <Studio />
-            </MasterProvider>
-          }
-        />
-        <Route path={'*'} element={<Home />} />
-      </Route>
+      <Route path="/" element={<Home />} />
+      <Route
+        exact
+        path="/studio"
+        element={
+          <MasterProvider>
+            <Studio />
+          </MasterProvider>
+        }
+      />
+      <Route path={'*'} element={<Home />} />
     </Routes>
   </div>
 );

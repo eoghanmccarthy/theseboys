@@ -31,6 +31,8 @@ const SynthTrack = memo(
       };
 
       const channelRef = useRef(new Channel(channel ?? {}));
+      // Do i need to pass in time here?
+      //https://github.com/Tonejs/Tone.js/issues/956
       const sequenceRef = useRef(
         new Sequence(handleOnSequenceStep, noteIndices, noteInterval).start(0)
       );

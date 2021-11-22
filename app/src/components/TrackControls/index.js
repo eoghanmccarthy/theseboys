@@ -53,14 +53,14 @@ const TrackControls = memo(({ trackId, trackNumber, channel, play }) => {
           orient={'horizontal'}
           label={'RAN'}
           step={0.01}
-          min={0.5}
+          min={0.6}
           max={1}
           toFixed={2}
-          initialValue={0.75}
-          onChange={value => {
+          initialValue={0.8}
+          onChange={val => {
             document
               .querySelector(`#${trackId} .step-sequencer`)
-              .setAttribute('data-random-value', value);
+              .setAttribute('data-random-value', val);
           }}
         />
       </ControllerGroup>

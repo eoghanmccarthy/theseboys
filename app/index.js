@@ -1,9 +1,8 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider, ReactReduxContext } from 'react-redux';
-import { MemoryRouter } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { PersistGate } from 'redux-persist/integration/react';
-import createHistory from 'history/createBrowserHistory';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ErrorBoundary } from '@eoghanmccarthy/ui';
 
@@ -15,8 +14,6 @@ import './styles.css';
 
 const initialState = {};
 
-const history = createHistory();
-
 const { store, persistor } = configureStore(initialState);
 
 const MOUNT_NODE = document.getElementById('root');
@@ -27,11 +24,11 @@ render(
   <QueryClientProvider client={queryClient}>
     <Provider store={store} context={ReactReduxContext}>
       <PersistGate loading={null} persistor={persistor}>
-        <MemoryRouter history={history}>
+        <BrowserRouter>
           <ErrorBoundary>
             <App />
           </ErrorBoundary>
-        </MemoryRouter>
+        </BrowserRouter>
       </PersistGate>
     </Provider>
   </QueryClientProvider>,

@@ -1,11 +1,17 @@
 import React, { useEffect, useRef, createContext, useMemo } from 'react';
-import { Transport, Destination, Recorder, getTransport, getContext, start } from 'tone';
+import { Transport, Destination, Recorder, Clock, getTransport, getContext, start } from 'tone';
 
 export const MasterContext = createContext();
 
 import consoleLog from 'utils/errorHandlers/consoleLog';
 
 const MasterProvider = ({ children }) => {
+  const clock = useRef(
+    new Clock(time => {
+      //console.log(time)
+    })
+  );
+
   const recorder = useRef(new Recorder({ mimeType: 'video/webm' }));
 
   useEffect(() => {
@@ -32,33 +38,33 @@ const MasterProvider = ({ children }) => {
 
   const getContextState = () => getContext().state;
 
-  const getTransportState = () => getTransport().state;
-
-  const getRecorderState = () => recorder.current.state;
-
   const handlePlay = async e => {
     const target = e.currentTarget;
-
     if (getContextState() !== 'running') {
       await start();
     }
 
-    consoleLog('audio context is', getContextState());
+    consoleLog('audio context is', getContext().state);
 
     const master = document.querySelector('#master');
     if (!master) return;
 
-    if (getTransportState() === 'stopped' && master.getAttribute('data-recorder') !== 'on') {
+    if (getTransport().state === 'stopped' && master.getAttribute('data-recorder') !== 'on') {
       // Start playback
       Transport.start();
+      clock.current.start();
       target.setAttribute('value', 'on');
       master.setAttribute('data-playback', 'started');
-      consoleLog('transport is', getTransportState());
-
-      // Start recording if status is standby
-      if (master.getAttribute('data-recorder') === 'stand-by' && getRecorderState() === 'stopped') {
-        recorder.current.start();
-        master.setAttribute('data-recorder', 'on');
+      consoleLog('transport is', getTransport().state);
+      // Start recording if recorder status is stand-by
+      if (
+        master.getAttribute('data-recorder') === 'stand-by' &&
+        recorder.current.state === 'stopped'
+      ) {
+        recorder.current.start().then(() => {
+          master.setAttribute('data-recorder', 'on');
+          consoleLog('recorder is', recorder.current.state);
+        });
       }
     }
   };
@@ -70,12 +76,14 @@ const MasterProvider = ({ children }) => {
     const play = document.querySelector('#master button.play');
     if (!play) return;
 
-    if (getTransportState() === 'started') {
+    if (getTransport().state === 'started') {
       // Stop playback
       Transport.stop();
+      //Transport.cancel();
+      //Transport.clear();
       master.setAttribute('data-playback', 'stopped');
       play.setAttribute('value', 'off');
-      consoleLog('transport is', getTransportState());
+      consoleLog('transport is', getTransport().state);
     }
 
     if (master.getAttribute('data-recorder') === 'stand-by') {
@@ -85,20 +93,16 @@ const MasterProvider = ({ children }) => {
   };
 
   const handleRecord = e => {
-    const target = e.currentTarget;
-
     const master = document.querySelector('#master');
     if (!master) return;
 
-    if (getTransportState() === 'stopped') {
+    if (getTransport().state === 'stopped') {
       if (master.getAttribute('data-recorder') === 'off') {
         master.setAttribute('data-recorder', 'stand-by');
-        //target.classList.add('alert');
       } else {
+        // If recorder state is stand-by or on
         master.setAttribute('data-recorder', 'off');
-        //target.classList.remove('alert');
-
-        if (getRecorderState() === 'started') {
+        if (recorder.current.state === 'started') {
           handleStopRecorder();
         }
       }
@@ -107,6 +111,7 @@ const MasterProvider = ({ children }) => {
 
   const handleStopRecorder = async () => {
     const recording = await recorder.current.stop();
+    consoleLog('recorder is', recorder.current.state);
     const url = URL.createObjectURL(recording);
     const anchor = document.createElement('a');
     anchor.download = 'recording.webm';
@@ -115,7 +120,7 @@ const MasterProvider = ({ children }) => {
   };
 
   const values = useMemo(() => {
-    return { getTransportState, play: handlePlay, stop: handleStop, record: handleRecord };
+    return { play: handlePlay, stop: handleStop, record: handleRecord };
   }, []);
 
   return <MasterContext.Provider value={values}>{children}</MasterContext.Provider>;
