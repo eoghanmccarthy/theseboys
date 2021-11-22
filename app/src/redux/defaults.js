@@ -201,6 +201,7 @@ export const INSTRUMENTS = {
   i005: {
     id: 'i005',
     name: '',
+    notes: [],
     steps: [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]],
     instrument: {
       synth: 'NoiseSynth',
@@ -236,6 +237,7 @@ export const INSTRUMENTS = {
   i006: {
     id: 'i006',
     name: '',
+    notes: [],
     instrument: {
       synth: 'NoiseSynth',
       options: {

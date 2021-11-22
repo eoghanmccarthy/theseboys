@@ -23,6 +23,7 @@ const SynthTrack = memo(
     ) => {
       const noteInterval = `${stepCount}n`;
       const noteIndices = newArray(stepCount);
+      const isNoise = instrument?.synth === 'NoiseSynth';
 
       const handleOnSequenceStep = (time, column) => {
         onSequenceStep(trackId, notes, stepCount, time, column, (notesToPlay, velocity) =>
@@ -67,16 +68,15 @@ const SynthTrack = memo(
         };
       }, []);
 
-      const onTriggerAttackRelease = (notesToPlay, noteInterval, time, velocity) => {
+      const onTriggerAttackRelease = (notesToPlay, ...rest) => {
         if (!synthRef.current) {
           return;
         }
 
-        if (isUndefined(notesToPlay)) {
-          synthRef.current.triggerAttackRelease(noteInterval, time, velocity);
+        if (!isNoise) {
+          synthRef.current.triggerAttackRelease(notesToPlay[0], ...rest);
         } else {
-          const note = notesToPlay[0];
-          synthRef.current.triggerAttackRelease(note, noteInterval, time, velocity);
+          synthRef.current.triggerAttackRelease(...rest);
         }
       };
 
