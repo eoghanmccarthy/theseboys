@@ -6,7 +6,7 @@ import './styles.css';
 const Track = memo(
   forwardRef(({ children, trackId }, ref) => {
     return (
-      <div id={trackId} className={'track'}>
+      <div id={trackId} data-trackid={trackId} className={'track'}>
         {children}
       </div>
     );

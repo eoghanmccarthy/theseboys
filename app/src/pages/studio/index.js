@@ -1,11 +1,11 @@
 import React, { Fragment, useRef, createRef, useState, useMemo, useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import { Transport, Destination, Meter, UserMedia } from 'tone';
 
 import './index.css';
 
 import useEventListener from 'utils/hooks/useEventListener';
-import { CHANNEL, STEP_COUNT, STEPS, INSTRUMENTS } from 'src/redux/defaults';
+import { INSTRUMENTS } from 'src/redux/defaults';
+import { TRACK_DEFAULT } from '../../utils/constants';
 
 import { Footer, Main } from 'components/layout';
 import SynthTrack from 'components/SynthTrack';
@@ -15,22 +15,14 @@ import { polySynthSamples } from '../../data';
 import ShortcutsLegend from 'components/ShortcutsLegend';
 
 const SONGS_CONFIG = {
-  s001: { t001: 'i001', t002: 'i002', t003: 'i003', t004: 'i004', t005: 'i005', t006: 'i006' },
-  s002: { t001: 'i001', t002: 'i002', t003: 'i003', t004: 'i004', t005: 'i005' },
-  s003: { t001: 'i001', t002: 'i002', t003: 'i003', t004: 'i004', t005: 'i005' },
-  s004: { t001: 'i001', t002: 'i002', t003: 'i003', t004: 'i004', t005: 'i005' }
+  s001: { t001: 'i001', t002: 'i002', t003: 'i003', t004: 'i004', t005: 'i005', t006: 'i006' }
 };
 
 const Studio = () => {
   const { play, stop, record } = useMasterContext('<Studio>');
-  const store = useSelector(state => state);
-  const [selectedSongId, setSelectedSongId] = useState('s001');
-  // Prevent tree from re-rendering when store updated
-  const storedSong = useMemo(() => store.songs?.[selectedSongId], [selectedSongId]);
-  const SONG_CONFIG = SONGS_CONFIG[selectedSongId];
-  const TRACKS = Object.entries(SONG_CONFIG);
-  const TRACK_IDS = TRACKS.map(([trackId]) => trackId);
 
+  const TRACKS = Object.entries(SONGS_CONFIG['s001']);
+  const TRACK_IDS = TRACKS.map(([trackId]) => trackId);
   const tracksRef = useRef(TRACKS.map(() => createRef()));
   const micRef = useRef(new UserMedia({ volume: 0 }));
   const selectedDevice = useRef();
@@ -107,20 +99,16 @@ const Studio = () => {
     }
   });
 
-  const handleSave = () => {
-    tracksRef.current.forEach(track => {
-      track.current.save();
-    });
-  };
-
   return (
     <Fragment>
       <Main id={'studio'}>
         <Master volume={0} bpm={120} />
         {TRACKS.map(([trackId, instrumentId], i) => {
-          const track = storedSong?.tracks?.[trackId];
-          const instrument = INSTRUMENTS[instrumentId];
-          if (!instrument) return null;
+          const track = INSTRUMENTS[instrumentId];
+
+          if (!track) {
+            return null;
+          }
 
           return (
             <SynthTrack
@@ -128,16 +116,8 @@ const Studio = () => {
               ref={tracksRef.current[i]}
               trackId={trackId}
               trackNumber={i + 1}
-              notes={instrument.notes}
-              stepCount={track?.stepCount ?? STEP_COUNT}
-              steps={track?.steps ?? STEPS}
-              channel={track?.channel ?? CHANNEL}
-              instrument={{
-                synth: instrument.instrument ?? 'MembraneSynth',
-                options: track?.synth ?? instrument.synth
-              }}
-              effects={track?.effects ?? instrument.effects}
-              controls={instrument.controls}
+              {...TRACK_DEFAULT}
+              {...track}
             />
           );
         })}

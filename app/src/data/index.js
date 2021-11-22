@@ -1,13 +1,8 @@
-const scales = {
-  A_MAJOR: ['A3', 'B3', 'D4', 'E4', 'F#4', 'A4', 'B4', 'D5'],
-  A_MINOR: ['A3', 'C4', 'D4', 'E4', 'G4', 'A4', 'C5', 'D5'],
-  C_MAJOR: ['C4', 'D4', 'F4', 'G4', 'A4', 'C5', 'D5', 'F5'],
-  G_MAJOR: ['G3', 'A3', 'C4', 'D4', 'E4', 'G4', 'A4', 'C5']
-};
+import { SCALE_A_MAJOR, SCALE_A_MINOR, SCALE_C_MAJOR, SCALE_G_MAJOR } from '../utils/constants';
 
 const polySynthMelodies = [
   {
-    notes: scales.A_MINOR.slice(0, 6),
+    notes: SCALE_A_MINOR.slice(0, 6),
     description: 'first',
     steps: [
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1],
@@ -19,7 +14,7 @@ const polySynthMelodies = [
     ]
   },
   {
-    notes: scales.A_MINOR.slice(0, 6),
+    notes: SCALE_A_MINOR.slice(0, 6),
     description: 'interesting distinction between low and high parts',
     steps: [
       [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
@@ -31,7 +26,7 @@ const polySynthMelodies = [
     ]
   },
   {
-    notes: scales.A_MINOR.slice(0, 6),
+    notes: SCALE_A_MINOR.slice(0, 6),
     description: "haruna's first",
     steps: [
       [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0],

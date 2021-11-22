@@ -31,7 +31,9 @@ const Step = memo(({ trackId, stepValue, rowIndex, stepIndex }) => {
       </svg>
       <svg className={'step-icon on'} xmlns={'http://www.w3.org/2000/svg'} viewBox={'0 0 30 30'}>
         <rect width={30} height={30} />
-        {/*<circle cx={15} cy={15} r={5} stroke={'white'} strokeWidth={0.2} opacity={0.5} />*/}
+        {/*<polyline points={'0,0 30,30'} stroke={'black'} strokeWidth={'0.1'} />*/}
+        {/*<polyline points={'30,0 0,30'} stroke={'black'} strokeWidth={'0.1'} />*/}
+        {/*<circle cx={15} cy={15} r={1} fill={'black'} opacity={0.2} />*/}
       </svg>
     </button>
   );

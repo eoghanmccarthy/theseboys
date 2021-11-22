@@ -1,6 +1,8 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 
+import './styles.css';
+
 import Home from './pages/home';
 import Studio from './pages/studio';
 import { MasterProvider } from 'components/master';

@@ -2,30 +2,25 @@
 //https://blog.landr.com/eq-kick-and-bass/
 //https://github.com/Tonejs/Tone.js/issues/416
 
-export const CHANNEL = {
-  pan: 0,
-  volume: 4,
-  mute: false
-};
-export const STEP_COUNT = 16;
-export const STEPS = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]];
 export const INSTRUMENTS = {
   i001: {
     id: 'i001',
     name: 'SUB KICK',
     notes: ['G1'],
-    instrument: 'MembraneSynth',
-    synth: {
-      pitchDecay: 0.01,
-      octaves: 6,
-      oscillator: {
-        type: 'square4'
-      },
-      envelope: {
-        attack: 0.001,
-        decay: 0.45,
-        sustain: 0.1,
-        release: 0.3
+    instrument: {
+      synth: 'MembraneSynth',
+      options: {
+        pitchDecay: 0.01,
+        octaves: 6,
+        oscillator: {
+          type: 'square4'
+        },
+        envelope: {
+          attack: 0.001,
+          decay: 0.45,
+          sustain: 0.1,
+          release: 0.3
+        }
       }
     },
     effects: {
@@ -63,18 +58,20 @@ export const INSTRUMENTS = {
     id: 'i002',
     name: 'MID KICK',
     notes: ['C1'],
-    instrument: 'MembraneSynth',
-    synth: {
-      pitchDecay: 0.01,
-      octaves: 6,
-      oscillator: {
-        type: 'square4'
-      },
-      envelope: {
-        attack: 0.001,
-        decay: 0.45,
-        sustain: 0.1,
-        release: 0.3
+    instrument: {
+      synth: 'MembraneSynth',
+      options: {
+        pitchDecay: 0.01,
+        octaves: 6,
+        oscillator: {
+          type: 'square4'
+        },
+        envelope: {
+          attack: 0.001,
+          decay: 0.45,
+          sustain: 0.1,
+          release: 0.3
+        }
       }
     },
     effects: {
@@ -105,17 +102,19 @@ export const INSTRUMENTS = {
     id: 'i003',
     name: '',
     notes: ['C1'],
-    instrument: 'MetalSynth',
-    synth: {
-      harmonicity: 12,
-      resonance: 1000,
-      modulationIndex: 20,
-      volume: -15,
-      envelope: {
-        attack: 1.2,
-        decay: 1,
-        sustain: 0.0,
-        release: 0.067
+    instrument: {
+      synth: 'MetalSynth',
+      options: {
+        harmonicity: 12,
+        resonance: 1000,
+        modulationIndex: 20,
+        volume: -15,
+        envelope: {
+          attack: 1.2,
+          decay: 1,
+          sustain: 0.0,
+          release: 0.067
+        }
       }
     },
     effects: {
@@ -148,17 +147,19 @@ export const INSTRUMENTS = {
     id: 'i004',
     name: '',
     notes: ['C1'],
-    instrument: 'MetalSynth',
-    synth: {
-      harmonicity: 12,
-      resonance: 1000,
-      modulationIndex: 20,
-      volume: -15,
-      envelope: {
-        attack: 1.2,
-        decay: 1,
-        sustain: 0.0,
-        release: 0.067
+    instrument: {
+      synth: 'MetalSynth',
+      options: {
+        harmonicity: 12,
+        resonance: 1000,
+        modulationIndex: 20,
+        volume: -15,
+        envelope: {
+          attack: 1.2,
+          decay: 1,
+          sustain: 0.0,
+          release: 0.067
+        }
       }
     },
     effects: {
@@ -200,18 +201,21 @@ export const INSTRUMENTS = {
   i005: {
     id: 'i005',
     name: '',
-    instrument: 'NoiseSynth',
-    synth: {
-      volume: -8,
-      noise: {
-        type: 'white',
-        playbackRate: 5
-      },
-      envelope: {
-        attack: 0.001,
-        decay: 0.222,
-        sustain: 0.26,
-        release: 0.188
+    steps: [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]],
+    instrument: {
+      synth: 'NoiseSynth',
+      options: {
+        volume: -8,
+        noise: {
+          type: 'white',
+          playbackRate: 5
+        },
+        envelope: {
+          attack: 0.001,
+          decay: 0.222,
+          sustain: 0.26,
+          release: 0.188
+        }
       }
     },
     effects: {
@@ -232,18 +236,20 @@ export const INSTRUMENTS = {
   i006: {
     id: 'i006',
     name: '',
-    instrument: 'NoiseSynth',
-    synth: {
-      volume: -8,
-      noise: {
-        type: 'white',
-        playbackRate: 5
-      },
-      envelope: {
-        attack: 0.001,
-        decay: 0.3,
-        sustain: 0.002,
-        release: 0.32
+    instrument: {
+      synth: 'NoiseSynth',
+      options: {
+        volume: -8,
+        noise: {
+          type: 'white',
+          playbackRate: 5
+        },
+        envelope: {
+          attack: 0.001,
+          decay: 0.3,
+          sustain: 0.002,
+          release: 0.32
+        }
       }
     },
     effects: {
