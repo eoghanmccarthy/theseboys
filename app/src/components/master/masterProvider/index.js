@@ -44,7 +44,8 @@ const MasterProvider = ({ children }) => {
       await start();
     }
 
-    consoleLog('audio context is', getContext().state);
+    // consoleLog('audio context is', getContext().state);
+    console.log('audio context is', getContext().state);
 
     const master = document.querySelector('#master');
     if (!master) return;

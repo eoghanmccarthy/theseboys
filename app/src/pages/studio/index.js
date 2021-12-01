@@ -8,6 +8,7 @@ import { INSTRUMENTS } from 'src/redux/defaults';
 import { TRACK_DEFAULT } from '../../utils/constants';
 
 import { Footer, Main } from 'components/layout';
+import SnareTrack from '../../components/SnareTrack';
 import SynthTrack from 'components/SynthTrack';
 import PolySynthTrack from 'components/PolySynthTrack';
 import { Master, useMasterContext } from 'components/master';
@@ -20,7 +21,6 @@ const SONGS_CONFIG = {
 
 const Studio = () => {
   const { play, stop, record } = useMasterContext('<Studio>');
-
   const TRACKS = Object.entries(SONGS_CONFIG['s001']);
   const TRACK_IDS = TRACKS.map(([trackId]) => trackId);
   const tracksRef = useRef(TRACKS.map(() => createRef()));

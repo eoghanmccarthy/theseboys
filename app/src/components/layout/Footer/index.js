@@ -10,7 +10,7 @@ const Footer = () => {
 
   return (
     <footer className={'me__footer'}>
-      <Link to={location.pathname === '/' ? '/studio' : '/'}>
+      <Link reloadDocument to={location.pathname === '/' ? '/studio' : '/'}>
         <Logo fill={'var(--color-grey-800)'} />
       </Link>
     </footer>
