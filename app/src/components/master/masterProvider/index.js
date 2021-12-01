@@ -22,17 +22,17 @@ const MasterProvider = ({ children }) => {
     return () => {
       handleStop();
 
-      // if (recorder.current) {
-      //   recorder.current.dispose();
-      // }
-      //
-      // if (Transport) {
-      //   Transport.dispose();
-      // }
-      //
-      // if (Destination) {
-      //   Destination.dispose();
-      // }
+      if (recorder.current) {
+        recorder.current.dispose();
+      }
+
+      if (Transport) {
+        Transport.dispose();
+      }
+
+      if (Destination) {
+        Destination.dispose();
+      }
     };
   }, []);
 
