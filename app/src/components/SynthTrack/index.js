@@ -2,7 +2,7 @@ import React, { memo, forwardRef, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Channel, Destination, Sequence } from 'tone';
 
-import { isUndefined, isArray } from 'utils/helpers/typeCheck';
+import { isArray } from 'utils/helpers/typeCheck';
 
 import { channelTypes, instrumentTypes, notesTypes, stepsTypes } from '../../utils/types';
 
@@ -23,7 +23,6 @@ const SynthTrack = memo(
     ) => {
       const noteInterval = `${stepCount}n`;
       const noteIndices = newArray(stepCount);
-      const isNoise = instrument?.synth === 'NoiseSynth';
 
       const handleOnSequenceStep = (time, column) => {
         onSequenceStep(trackId, notes, stepCount, time, column, (notesToPlay, velocity) =>
@@ -31,15 +30,20 @@ const SynthTrack = memo(
         );
       };
 
+      /* Channel */
       const channelRef = useRef(new Channel(channel ?? {}));
-      // Do i need to pass in time here?
-      //https://github.com/Tonejs/Tone.js/issues/956
+
+      /* Sequencer */
       const sequenceRef = useRef(
         new Sequence(handleOnSequenceStep, noteIndices, noteInterval).start(0)
       );
+
+      /* Effects */
       const effectsChainRef = useRef(
         Object.entries(effects ?? {}).map(([effect, options]) => getEffect(effect, options))
       );
+
+      /* Synth */
       const synthRef = useRef(
         getSynth(instrument.synth, instrument.options).chain(
           channelRef.current,
@@ -50,6 +54,10 @@ const SynthTrack = memo(
 
       useEffect(() => {
         return () => {
+          if (Destination) {
+            Destination.dispose();
+          }
+
           if (channelRef.current) {
             channelRef.current.dispose();
           }
@@ -58,12 +66,12 @@ const SynthTrack = memo(
             sequenceRef.current.dispose();
           }
 
-          if (effectsChainRef.current) {
-            effectsChainRef.current.forEach(effect => effect.dispose());
-          }
-
           if (synthRef.current) {
             synthRef.current.dispose();
+          }
+
+          if (isArray(effectsChainRef.current)) {
+            effectsChainRef.current.forEach(effect => effect.dispose());
           }
         };
       }, []);
@@ -73,7 +81,7 @@ const SynthTrack = memo(
           return;
         }
 
-        if (!isNoise) {
+        if (instrument?.synth !== 'NoiseSynth') {
           synthRef.current.triggerAttackRelease(notesToPlay[0], ...rest);
         } else {
           synthRef.current.triggerAttackRelease(...rest);

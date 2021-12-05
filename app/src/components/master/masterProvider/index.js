@@ -15,12 +15,14 @@ const MasterProvider = ({ children }) => {
   const recorder = useRef(new Recorder({ mimeType: 'video/webm' }));
 
   useEffect(() => {
-    Destination.connect(recorder.current);
-  }, []);
+    if (recorder.current) {
+      Destination.connect(recorder.current);
+    }
 
-  useEffect(() => {
     return () => {
-      handleStop();
+      if (clock.current) {
+        clock.current.dispose();
+      }
 
       if (recorder.current) {
         recorder.current.dispose();

@@ -18,6 +18,8 @@ import {
 //Only instruments that extend the Monophonic class can be used with Tone.PolySynth
 //AMSynth, DuoSynth, FMSynth, MembraneSynth, MetalSynth, Synth
 
+import { isUndefined, isArray } from 'utils/helpers/typeCheck';
+
 import { channelTypes, instrumentTypes, notesTypes, stepsTypes } from '../../utils/types';
 
 import { getSynth, getEffect } from 'utils/toneHelpers';
@@ -56,32 +58,39 @@ const PolySynthTrack = memo(
         );
       };
 
+      /* Channel */
       const channelRef = useRef(new Channel(channel ?? {}));
+
+      /* Sequencer */
       const sequenceRef = useRef(
         new Sequence(handleOnSequenceStep, noteIndices, noteInterval).start(0)
       );
+
+      /* Effects */
       const gateRef = useRef(new Gate(-40, 0.2));
       const limiterRef = useRef(new Limiter(0));
       const chorusRef = useRef(new Chorus({ frequency: 4, delayTime: 2.5, depth: 0.5, wet: 0.6 }));
-      const effectsChainRef = useRef(
-        Object.entries(effects ?? {}).map(([effect, options]) => getEffect(effect, options))
-      );
+      const effectsChainRef = useRef([
+        ...Object.entries(effects ?? {}).map(([effect, options]) => getEffect(effect, options)),
+        chorusRef.current,
+        gateRef.current,
+        limiterRef.current
+      ]);
+
+      /* Synth */
       const synthRef = useRef(
         new TonePolySynth(Synth, {
           ...instrument.options,
           maxPolyphony: numRows
-        }).chain(
-          ...effectsChainRef.current,
-          chorusRef.current,
-          gateRef.current,
-          limiterRef.current,
-          channelRef.current,
-          Destination
-        )
+        }).chain(...effectsChainRef.current, channelRef.current, Destination)
       );
 
       useEffect(() => {
         return () => {
+          if (Destination) {
+            Destination.dispose();
+          }
+
           if (channelRef.current) {
             channelRef.current.dispose();
           }
@@ -90,12 +99,12 @@ const PolySynthTrack = memo(
             sequenceRef.current.dispose();
           }
 
-          if (effectsChainRef.current) {
-            effectsChainRef.current.forEach(effect => effect.dispose());
-          }
-
           if (synthRef.current) {
             synthRef.current.dispose();
+          }
+
+          if (isArray(effectsChainRef.current)) {
+            effectsChainRef.current.forEach(effect => effect.dispose());
           }
         };
       }, []);
@@ -106,7 +115,6 @@ const PolySynthTrack = memo(
         }
 
         synthRef.current.triggerAttackRelease(notesToPlay, noteInterval, time, velocity);
-        //synthRef.current.releaseAll();
       };
 
       return (
