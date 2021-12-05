@@ -82,7 +82,7 @@ const PolySynthTrack = memo(
         new TonePolySynth(Synth, {
           ...instrument.options,
           maxPolyphony: numRows
-        }).chain(...effectsChainRef.current, channelRef.current, Destination)
+        }).chain(channelRef.current, ...effectsChainRef.current, Destination)
       );
 
       useEffect(() => {
