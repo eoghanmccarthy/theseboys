@@ -3,7 +3,7 @@ import cx from 'classnames';
 
 import './index.css';
 
-const Main = ({ children, id, className }) => {
+const Main = ({ children, id, className}) => {
   return (
     <main id={id} className={cx('me__main', className)}>
       {children}

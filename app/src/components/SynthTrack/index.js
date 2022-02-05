@@ -33,11 +33,6 @@ const SynthTrack = memo(
       /* Channel */
       const channelRef = useRef(new Channel(channel ?? {}));
 
-      /* Sequencer */
-      const sequenceRef = useRef(
-        new Sequence(handleOnSequenceStep, noteIndices, noteInterval).start(0)
-      );
-
       /* Effects */
       const effectsChainRef = useRef(
         Object.entries(effects ?? {}).map(([effect, options]) => getEffect(effect, options))
@@ -52,6 +47,11 @@ const SynthTrack = memo(
         )
       );
 
+      /* Sequencer */
+      const sequenceRef = useRef(
+        new Sequence(handleOnSequenceStep, noteIndices, noteInterval).start(0)
+      );
+
       useEffect(() => {
         return () => {
           if (Destination) {
@@ -62,16 +62,16 @@ const SynthTrack = memo(
             channelRef.current.dispose();
           }
 
-          if (sequenceRef.current) {
-            sequenceRef.current.dispose();
-          }
-
           if (synthRef.current) {
             synthRef.current.dispose();
           }
 
           if (isArray(effectsChainRef.current)) {
             effectsChainRef.current.forEach(effect => effect.dispose());
+          }
+
+          if (sequenceRef.current) {
+            sequenceRef.current.dispose();
           }
         };
       }, []);

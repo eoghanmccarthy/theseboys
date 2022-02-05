@@ -38,15 +38,13 @@ const MasterProvider = ({ children }) => {
     };
   }, []);
 
-  const getContextState = () => getContext().state;
-
   const handlePlay = async e => {
     const target = e.currentTarget;
-    if (getContextState() !== 'running') {
+
+    if (getContext().state !== 'running') {
       await start();
     }
 
-    // consoleLog('audio context is', getContext().state);
     console.log('audio context is', getContext().state);
 
     const master = document.querySelector('#master');
@@ -56,9 +54,11 @@ const MasterProvider = ({ children }) => {
       // Start playback
       Transport.start();
       clock.current.start();
+
       target.setAttribute('value', 'on');
       master.setAttribute('data-playback', 'started');
-      consoleLog('transport is', getTransport().state);
+
+      console.log('transport is', getTransport().state);
       // Start recording if recorder status is stand-by
       if (
         master.getAttribute('data-recorder') === 'stand-by' &&
@@ -66,7 +66,7 @@ const MasterProvider = ({ children }) => {
       ) {
         recorder.current.start().then(() => {
           master.setAttribute('data-recorder', 'on');
-          consoleLog('recorder is', recorder.current.state);
+          console.log('recorder is', recorder.current.state);
         });
       }
     }
@@ -80,10 +80,7 @@ const MasterProvider = ({ children }) => {
     if (!play) return;
 
     if (getTransport().state === 'started') {
-      // Stop playback
       Transport.stop();
-      //Transport.cancel();
-      //Transport.clear();
       master.setAttribute('data-playback', 'stopped');
       play.setAttribute('value', 'off');
       consoleLog('transport is', getTransport().state);

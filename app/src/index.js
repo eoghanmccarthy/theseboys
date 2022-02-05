@@ -5,6 +5,7 @@ import './styles.css';
 
 import Home from './pages/home';
 import Studio from './pages/studio';
+import Beats from './pages/beats';
 import { MasterProvider } from 'components/master';
 
 const App = () => (
@@ -17,6 +18,15 @@ const App = () => (
         element={
           <MasterProvider>
             <Studio />
+          </MasterProvider>
+        }
+      />
+      <Route
+        exact
+        path="/studio/beats"
+        element={
+          <MasterProvider>
+            <Beats />
           </MasterProvider>
         }
       />

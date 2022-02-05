@@ -50,21 +50,21 @@ const SnareTrack = memo(
 
       useEffect(() => {
         return () => {
-          // if (channelRef.current) {
-          //   channelRef.current.dispose();
-          // }
-          //
-          // if (sequenceRef.current) {
-          //   sequenceRef.current.dispose();
-          // }
-          //
-          // if (effectsChainRef.current) {
-          //   effectsChainRef.current.forEach(effect => effect.dispose());
-          // }
-          //
-          // if (synthRef.current) {
-          //   synthRef.current.dispose();
-          // }
+          if (channelRef.current) {
+            channelRef.current.dispose();
+          }
+
+          if (sequenceRef.current) {
+            sequenceRef.current.dispose();
+          }
+
+          if (synthRef.current) {
+            synthRef.current.dispose();
+          }
+
+          if (isArray(effectsChainRef.current)) {
+            effectsChainRef.current.forEach(effect => effect.dispose());
+          }
         };
       }, []);
 
