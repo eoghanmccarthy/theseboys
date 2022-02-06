@@ -8,7 +8,7 @@ import { channelTypes, instrumentTypes, notesTypes } from '../../utils/types';
 
 import Step from '../step';
 
-const BeatTrack = memo(
+const SoundTrack = memo(
   forwardRef(({ trackId, trackIndex, channel, instrument, notes, effects, controls }, ref) => {
     const noteInterval = `16n`;
 
@@ -46,9 +46,9 @@ const BeatTrack = memo(
   })
 );
 
-export default BeatTrack;
+export default SoundTrack;
 
-BeatTrack.propTypes = {
+SoundTrack.propTypes = {
   trackId: PropTypes.string.isRequired,
   trackIndex: PropTypes.number,
   instrument: instrumentTypes,

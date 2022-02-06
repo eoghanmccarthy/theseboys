@@ -1,7 +1,7 @@
 import React from 'react';
 import { Destination, Transport } from 'tone';
 
-import './styles.css';
+import './index.css';
 
 import { BPM_MIN, BPM_MAX, VOL_MIN, VOL_MAX } from '../../../utils/constants';
 import { fromPercent, toPercent } from 'utils/studioHelpers';
@@ -16,7 +16,9 @@ const Master = ({ volume, bpm }) => {
 
   return (
     <section id={'master'} data-playback={'stopped'} data-recorder={'off'}>
-      <div className={'sub'} />
+      <div style={{ position: 'relative' }}>
+        <div id={'beat'} />
+      </div>
       <div className={'main'}>
         <SliderControl
           id={'master-volume'}

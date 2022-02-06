@@ -3,7 +3,6 @@ import { Transport, Destination, Meter, UserMedia } from 'tone';
 
 import './index.css';
 
-import useEventListener from 'utils/hooks/useEventListener';
 import { INSTRUMENTS } from 'src/redux/defaults';
 import { TRACK_DEFAULT } from '../../utils/constants';
 
@@ -54,24 +53,6 @@ const Studio = () => {
   //     });
   //   return () => micRef.current.close();
   // }, []);
-
-  useEventListener(e => {
-    const code = e.code;
-    switch (code) {
-      case 'Space':
-        e.preventDefault();
-        Transport.state === 'started' ? stop() : play();
-        break;
-      case 'KeyR':
-        record();
-        break;
-      case 'KeyM':
-        Destination.set({ mute: !Destination.mute });
-        break;
-      default:
-        break;
-    }
-  });
 
   return (
     <Fragment>

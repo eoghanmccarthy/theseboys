@@ -4,6 +4,7 @@ import { Oscillator as Osc, Distortion, Destination, Filter } from 'tone';
 import './index.css';
 
 import { interpolate } from 'utils/studioHelpers';
+import useEventListener from '../../utils/hooks/useEventListener';
 
 const Oscillator = () => {
   const distortionRef = useRef(new Distortion(0.8));
@@ -24,7 +25,7 @@ const Oscillator = () => {
       frequency: 440,
       detune: 0,
       phase: 0,
-      volume: -10
+      volume: 0
     }).chain(distortionRef.current, filterRef.current, Destination)
   );
 
@@ -35,6 +36,30 @@ const Oscillator = () => {
   });
 
   const interpolateY = interpolate({ from: [0, 280], to: [0, 32], clamp: true });
+
+  useEventListener(e => {
+    switch (e.key) {
+      case 'Shift':
+        filterRef.current.set({ type: 'highpass' });
+        break;
+      default:
+        break;
+    }
+  });
+
+  useEventListener(
+    e => {
+      switch (e.key) {
+        case 'Shift':
+          filterRef.current.set({ type: 'lowpass' });
+          break;
+        default:
+          break;
+      }
+    },
+    document.body,
+    'keyup'
+  );
 
   return (
     <div

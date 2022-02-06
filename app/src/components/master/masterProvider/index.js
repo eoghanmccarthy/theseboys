@@ -1,16 +1,22 @@
-import React, { useEffect, useRef, createContext, useMemo } from 'react';
-import { Transport, Destination, Recorder, Clock, getTransport, getContext, start } from 'tone';
+import React, { useEffect, useRef, createContext } from 'react';
+import { Transport, Destination, Recorder, getTransport, getContext, start } from 'tone';
 
 export const MasterContext = createContext();
+import useEventListener from 'utils/hooks/useEventListener';
 
 import consoleLog from 'utils/errorHandlers/consoleLog';
 
 const MasterProvider = ({ children }) => {
-  const clock = useRef(
-    new Clock(time => {
-      //console.log(time)
-    })
-  );
+  useEffect(() => {
+    Transport.scheduleRepeat(time => {
+      const beat = Transport.position.substring(
+        Transport.position.indexOf(':') + 1,
+        Transport.position.indexOf(':') + 2
+      );
+      document.getElementById('beat').style.width = 100 / Transport.timeSignature + '%';
+      document.getElementById('beat').style.left = 25 * beat + '%';
+    }, Transport.timeSignature + 'n');
+  }, []);
 
   const recorder = useRef(new Recorder({ mimeType: 'video/webm' }));
 
@@ -20,10 +26,6 @@ const MasterProvider = ({ children }) => {
     }
 
     return () => {
-      if (clock.current) {
-        clock.current.dispose();
-      }
-
       if (recorder.current) {
         recorder.current.dispose();
       }
@@ -37,6 +39,24 @@ const MasterProvider = ({ children }) => {
       }
     };
   }, []);
+
+  useEventListener(e => {
+    const code = e.code;
+    switch (code) {
+      case 'Space':
+        e.preventDefault();
+        Transport.state === 'started' ? stop() : handlePlay();
+        break;
+      case 'KeyR':
+        handleRecord();
+        break;
+      case 'KeyM':
+        Destination.set({ mute: !Destination.mute });
+        break;
+      default:
+        break;
+    }
+  });
 
   const handlePlay = async e => {
     const target = e.currentTarget;
@@ -53,7 +73,6 @@ const MasterProvider = ({ children }) => {
     if (getTransport().state === 'stopped' && master.getAttribute('data-recorder') !== 'on') {
       // Start playback
       Transport.start();
-      clock.current.start();
 
       target.setAttribute('value', 'on');
       master.setAttribute('data-playback', 'started');
@@ -119,11 +138,11 @@ const MasterProvider = ({ children }) => {
     anchor.click();
   };
 
-  const values = useMemo(() => {
-    return { play: handlePlay, stop: handleStop, record: handleRecord };
-  }, []);
-
-  return <MasterContext.Provider value={values}>{children}</MasterContext.Provider>;
+  return (
+    <MasterContext.Provider value={{ play: handlePlay, stop: handleStop, record: handleRecord }}>
+      {children}
+    </MasterContext.Provider>
+  );
 };
 
 export default MasterProvider;

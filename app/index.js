@@ -10,7 +10,7 @@ import configureStore from './store/configureStore';
 
 import App from './src';
 
-import './styles.css';
+import './index.css';
 
 const initialState = {};
 
