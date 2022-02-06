@@ -9,24 +9,18 @@ import BeatTrack from '../../components/beatTrack';
 import { INSTRUMENTS } from 'src/redux/defaults';
 import { TRACK_DEFAULT } from '../../utils/constants';
 
-const SONGS = {
-  s001: { t001: 'i001', t002: 'i002', t003: 'i003', t004: 'i004', t005: 'i005', t006: 'i006' }
+const SONG = {
+  t001: 'i001',
+  t002: 'i002',
+  t003: 'i003',
+  t004: 'i004',
+  t005: 'i005',
+  t006: 'i006'
 };
 
-const config = [
-  { id: '', color: 'blue' },
-  { id: '', color: 'green' },
-  { id: '', color: 'red' },
-  { id: '', color: 'yellow' },
-  { id: '', color: 'cyan' },
-  { id: '', color: 'pink' },
-  { id: '', color: 'purple' },
-  { id: '', color: 'magenta' }
-];
-
-const Beats = () => {
+const Sounds = () => {
   const { play, stop, record } = useMasterContext('<Beats>');
-  const tracks = Object.entries(SONGS['s001']);
+  const tracks = Object.entries(SONG);
   const tracksRef = useRef(tracks.map(() => createRef()));
 
   return (
@@ -43,8 +37,7 @@ const Beats = () => {
                 key={trackId}
                 ref={tracksRef.current[i]}
                 trackId={trackId}
-                trackNumber={i + 1}
-                color={config[i].color}
+                trackIndex={i}
                 {...TRACK_DEFAULT}
                 {...track}
               />
@@ -57,4 +50,4 @@ const Beats = () => {
   );
 };
 
-export default Beats;
+export default Sounds;

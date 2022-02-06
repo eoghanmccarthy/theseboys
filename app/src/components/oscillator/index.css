@@ -1,0 +1,9 @@
+.oscillator {
+    background-color: blue;
+    opacity: 1;
+    transition: all 0.25s ease 0s;
+}
+
+.oscillator:hover {
+     opacity: 0.9;
+}

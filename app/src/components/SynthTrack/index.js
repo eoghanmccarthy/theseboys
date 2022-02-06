@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Channel, Destination, Sequence } from 'tone';
 
 import { isArray } from 'utils/helpers/typeCheck';
+import useEventListener from 'utils/hooks/useEventListener';
 
 import { channelTypes, instrumentTypes, notesTypes, stepsTypes } from '../../utils/types';
 
@@ -23,6 +24,22 @@ const SynthTrack = memo(
     ) => {
       const noteInterval = `${stepCount}n`;
       const noteIndices = newArray(stepCount);
+
+      useEventListener(e => {
+        if (parseInt(e.key) === trackNumber) {
+          if (e.shiftKey) {
+            const steps = document.querySelectorAll(`.t00${e.key}-step`);
+            if (!e.altKey) {
+              steps.forEach(step => step.setAttribute('value', 'on'));
+            } else {
+              steps.forEach(step => step.setAttribute('value', 'off'));
+            }
+          } else {
+            document.querySelector(`#${trackId}`)?.scrollIntoView();
+            document.querySelector(`#${trackId}-sample`)?.focus();
+          }
+        }
+      });
 
       const handleOnSequenceStep = (time, column) => {
         onSequenceStep(trackId, notes, stepCount, time, column, (notesToPlay, velocity) =>

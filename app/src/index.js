@@ -5,7 +5,8 @@ import './styles.css';
 
 import Home from './pages/home';
 import Studio from './pages/studio';
-import Beats from './pages/beats';
+import Sounds from './pages/sounds';
+import Oscillator from './pages/oscillator';
 import { MasterProvider } from 'components/master';
 
 const App = () => (
@@ -23,10 +24,19 @@ const App = () => (
       />
       <Route
         exact
-        path="/studio/beats"
+        path="/studio/sounds"
         element={
           <MasterProvider>
-            <Beats />
+            <Sounds />
+          </MasterProvider>
+        }
+      />
+      <Route
+        exact
+        path="/studio/oscillator"
+        element={
+          <MasterProvider>
+            <Oscillator />
           </MasterProvider>
         }
       />

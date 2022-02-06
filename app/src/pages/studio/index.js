@@ -22,7 +22,6 @@ const SONGS_CONFIG = {
 const Studio = () => {
   const { play, stop, record } = useMasterContext('<Studio>');
   const TRACKS = Object.entries(SONGS_CONFIG['s001']);
-  const TRACK_IDS = TRACKS.map(([trackId]) => trackId);
   const tracksRef = useRef(TRACKS.map(() => createRef()));
   const micRef = useRef(new UserMedia({ volume: 0 }));
   const selectedDevice = useRef();
@@ -68,31 +67,6 @@ const Studio = () => {
         break;
       case 'KeyM':
         Destination.set({ mute: !Destination.mute });
-        break;
-      case 'Digit1':
-      case 'Digit2':
-      case 'Digit3':
-      case 'Digit4':
-      case 'Digit5':
-      case 'Digit6':
-      case 'Digit7':
-      case 'Digit8':
-        //TODO: find better way to get number
-        const num = parseInt(code.charAt(code.length - 1));
-        if (e.shiftKey) {
-          const steps = document.querySelectorAll(`.t00${num}-step`);
-          if (!e.altKey) {
-            steps.forEach(step => step.setAttribute('value', 'on'));
-          } else {
-            steps.forEach(step => step.setAttribute('value', 'off'));
-          }
-        } else {
-          if (num <= TRACKS.length) {
-            const id = TRACK_IDS[num - 1];
-            document.querySelector(`#${id}`)?.scrollIntoView();
-            document.querySelector(`#${id}-sample`)?.focus();
-          }
-        }
         break;
       default:
         break;
