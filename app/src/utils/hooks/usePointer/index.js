@@ -7,15 +7,15 @@ const usePointer = (element = document.body) => {
     const isSupported = element && element.addEventListener;
     if (!isSupported) return;
 
-    const handleMouseDown = event => setIsDown(true);
-    const handleMouseUp = event => setIsDown(false);
+    const handleMouseDown = () => setIsDown(true);
+    const handleMouseUp = () => setIsDown(false);
 
-    element.addEventListener('mousedown', handleMouseDown);
-    element.addEventListener('mouseup', handleMouseUp);
+    element.addEventListener('pointerdown', handleMouseDown);
+    element.addEventListener('pointerup', handleMouseUp);
 
     return () => {
-      element.removeEventListener('mousedown', handleMouseDown);
-      element.removeEventListener('mouseup', handleMouseUp);
+      element.removeEventListener('pointerdown', handleMouseDown);
+      element.removeEventListener('pointerup', handleMouseUp);
     };
   }, [element]);
 

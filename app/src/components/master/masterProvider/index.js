@@ -4,8 +4,6 @@ import { Transport, Destination, Recorder, getTransport, getContext, start } fro
 export const MasterContext = createContext();
 import useEventListener from 'utils/hooks/useEventListener';
 
-import consoleLog from 'utils/errorHandlers/consoleLog';
-
 const MasterProvider = ({ children }) => {
   useEffect(() => {
     Transport.scheduleRepeat(time => {
@@ -66,19 +64,26 @@ const MasterProvider = ({ children }) => {
     }
 
     console.log('audio context is', getContext().state);
-
     const master = document.querySelector('#master');
     if (!master) return;
 
-    if (getTransport().state === 'stopped' && master.getAttribute('data-recorder') !== 'on') {
+    if (getTransport().state === 'stopped') {
       // Start playback
       Transport.start();
-
       target.setAttribute('value', 'on');
       master.setAttribute('data-playback', 'started');
-
       console.log('transport is', getTransport().state);
-      // Start recording if recorder status is stand-by
+      console.log(master.getAttribute('data-recorder'), recorder.current.state);
+      switch (master.getAttribute('data-recorder')) {
+        case 'stand-by':
+          recorder.current.start().then(() => {
+            master.setAttribute('data-recorder', 'on');
+            console.log('recorder is', recorder.current.state);
+          });
+          break;
+        default:
+          break;
+      }
       if (
         master.getAttribute('data-recorder') === 'stand-by' &&
         recorder.current.state === 'stopped'
@@ -102,12 +107,19 @@ const MasterProvider = ({ children }) => {
       Transport.stop();
       master.setAttribute('data-playback', 'stopped');
       play.setAttribute('value', 'off');
-      consoleLog('transport is', getTransport().state);
-    }
-
-    if (master.getAttribute('data-recorder') === 'stand-by') {
-      master.setAttribute('data-recorder', 'off');
-      master.querySelector('button.record')?.classList.remove('alert');
+      console.log('transport is', getTransport().state);
+    } else if (getTransport().state === 'stopped') {
+      switch (master.getAttribute('data-recorder')) {
+        case 'stand-by':
+          master.setAttribute('data-recorder', 'off');
+          break;
+        case 'on':
+          master.setAttribute('data-recorder', 'off');
+          handleStopRecorder();
+          break;
+        default:
+          break;
+      }
     }
   };
 
@@ -116,21 +128,26 @@ const MasterProvider = ({ children }) => {
     if (!master) return;
 
     if (getTransport().state === 'stopped') {
-      if (master.getAttribute('data-recorder') === 'off') {
-        master.setAttribute('data-recorder', 'stand-by');
-      } else {
-        // If recorder state is stand-by or on
-        master.setAttribute('data-recorder', 'off');
-        if (recorder.current.state === 'started') {
+      switch (master.getAttribute('data-recorder')) {
+        case 'off':
+          master.setAttribute('data-recorder', 'stand-by');
+          break;
+        case 'stand-by':
+          master.setAttribute('data-recorder', 'off');
+          break;
+        case 'on':
+          master.setAttribute('data-recorder', 'off');
           handleStopRecorder();
-        }
+          break;
+        default:
+          break;
       }
     }
   };
 
   const handleStopRecorder = async () => {
     const recording = await recorder.current.stop();
-    consoleLog('recorder is', recorder.current.state);
+    console.log('recorder is', recorder.current.state);
     const url = URL.createObjectURL(recording);
     const anchor = document.createElement('a');
     anchor.download = 'recording.webm';

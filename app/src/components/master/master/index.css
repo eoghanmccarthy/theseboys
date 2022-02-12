@@ -47,11 +47,19 @@
     fill: white;
 }
 
-#master #playback-controls .play[value = 'on'] svg > * {
+#master #playback-controls .playback.play[value = 'on'] svg > * {
     fill: blue;
 }
 
-#master #playback-controls .record[value = 'on'] svg > * {
+#master[data-recorder = 'stand-by'] #playback-controls .playback.record svg > * {
+    animation-name: record-standby;
+    animation-duration: .8s;
+    animation-delay: 0.2s;
+    animation-timing-function: steps(1, end);
+    animation-iteration-count: infinite;
+}
+
+#master[data-recorder = 'on'] #playback-controls .playback.record svg > * {
     fill: red;
 }
 
@@ -59,4 +67,9 @@
     position: absolute;
     height: 100%;
     background-color: var(--color-secondary);
+}
+
+@keyframes record-standby {
+    0%   {fill: red;}
+    50%  {fill: white;}
 }

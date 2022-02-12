@@ -1,9 +1,12 @@
-.oscillator {
+#oscillator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: blue;
     opacity: 1;
-    transition: all 0.25s ease 0s;
+    transition: all 0.25s ease;
 }
 
-.oscillator:hover {
+#oscillator:hover {
      opacity: 0.9;
 }
