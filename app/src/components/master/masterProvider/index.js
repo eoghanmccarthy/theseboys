@@ -41,13 +41,6 @@ const MasterProvider = ({ children }) => {
   useEventListener(e => {
     const code = e.code;
     switch (code) {
-      case 'Space':
-        e.preventDefault();
-        Transport.state === 'started' ? stop() : handlePlay();
-        break;
-      case 'KeyR':
-        handleRecord();
-        break;
       case 'KeyM':
         Destination.set({ mute: !Destination.mute });
         break;
@@ -84,19 +77,10 @@ const MasterProvider = ({ children }) => {
         default:
           break;
       }
-      if (
-        master.getAttribute('data-recorder') === 'stand-by' &&
-        recorder.current.state === 'stopped'
-      ) {
-        recorder.current.start().then(() => {
-          master.setAttribute('data-recorder', 'on');
-          console.log('recorder is', recorder.current.state);
-        });
-      }
     }
   };
 
-  const handleStop = e => {
+  const handleStop = () => {
     const master = document.querySelector('#master');
     if (!master) return;
 
