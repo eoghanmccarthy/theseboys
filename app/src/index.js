@@ -5,7 +5,7 @@ import './styles.css';
 
 import Home from './pages/home';
 import Studio from './pages/studio';
-import Sounds from './pages/sounds';
+import Box from './pages/box';
 import Oscillator from './pages/oscillator';
 import { MasterProvider } from 'components/master';
 
@@ -24,10 +24,10 @@ const App = () => (
       />
       <Route
         exact
-        path="/studio/sounds"
+        path="/studio/box"
         element={
           <MasterProvider>
-            <Sounds />
+            <Box />
           </MasterProvider>
         }
       />

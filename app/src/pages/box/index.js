@@ -3,8 +3,8 @@ import React, { Fragment, useRef, createRef } from 'react';
 import './index.css';
 
 import { Footer, Main } from 'components/layout';
-import { Master, useMasterContext } from 'components/master';
-import BeatTrack from '../../components/beatTrack';
+import { Master } from 'components/master';
+import BoxTrack from '../../components/boxTrack';
 
 import { INSTRUMENTS } from 'src/redux/defaults';
 import { TRACK_DEFAULT } from '../../utils/constants';
@@ -18,8 +18,7 @@ const SONG = {
   t006: 'i006'
 };
 
-const Sounds = () => {
-  const { play, stop, record } = useMasterContext('<Beats>');
+const Box = () => {
   const tracks = Object.entries(SONG);
   const tracksRef = useRef(tracks.map(() => createRef()));
 
@@ -33,7 +32,7 @@ const Sounds = () => {
             if (!track) return null;
 
             return (
-              <BeatTrack
+              <BoxTrack
                 key={trackId}
                 ref={tracksRef.current[i]}
                 trackId={trackId}
@@ -50,4 +49,4 @@ const Sounds = () => {
   );
 };
 
-export default Sounds;
+export default Box;

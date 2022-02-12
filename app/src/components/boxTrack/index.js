@@ -8,16 +8,15 @@ import { channelTypes, instrumentTypes, notesTypes } from '../../utils/types';
 
 import Step from '../step';
 
-const SoundTrack = memo(
+const BoxTrack = memo(
   forwardRef(({ trackId, trackIndex, channel, instrument, notes, effects, controls }, ref) => {
     const noteInterval = `16n`;
 
-    const synthRef = useSound(channel, instrument, effects);
+    const sound = useSound(channel, instrument, effects);
 
     useEventListener(e => {
       if (parseInt(e.key) === trackIndex + 1) {
         handleTrigger(notes, noteInterval);
-
         document.querySelector(`button#${trackId}`).classList.add('hit');
       }
     });
@@ -33,12 +32,12 @@ const SoundTrack = memo(
     );
 
     const handleTrigger = (notesToPlay, ...rest) => {
-      if (!synthRef.current) return;
+      if (!sound) return;
 
       if (instrument?.synth !== 'NoiseSynth') {
-        synthRef.current.triggerAttackRelease(notesToPlay[0], ...rest);
+        sound.triggerAttackRelease(notesToPlay[0], ...rest);
       } else {
-        synthRef.current.triggerAttackRelease(...rest);
+        sound.triggerAttackRelease(...rest);
       }
     };
 
@@ -46,9 +45,9 @@ const SoundTrack = memo(
   })
 );
 
-export default SoundTrack;
+export default BoxTrack;
 
-SoundTrack.propTypes = {
+BoxTrack.propTypes = {
   trackId: PropTypes.string.isRequired,
   trackIndex: PropTypes.number,
   instrument: instrumentTypes,

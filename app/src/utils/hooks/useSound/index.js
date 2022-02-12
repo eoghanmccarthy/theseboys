@@ -41,7 +41,7 @@ const useSound = (channel, instrument, effects = {}) => {
     };
   }, []);
 
-  return synthRef;
+  return synthRef.current;
 };
 
 export default useSound;

@@ -30,13 +30,13 @@ const Master = ({ volume, bpm }) => {
           onChange={val => Destination.set({ volume: fromPercent([VOL_MIN, VOL_MAX], val) })}
         />
         <ControllerGroup id={'playback-controls'}>
-          <Button className={'playback record'} value={'off'} onClick={e => record(e)}>
+          <Button className={'playback record'} title={'record'} value={'off'} onClick={record}>
             <CircleIcon />
           </Button>
-          <Button className={'playback play'} value={'off'} onClick={e => play(e)}>
+          <Button className={'playback play'} title={'play'} value={'off'} onClick={play}>
             <PlayIcon />
           </Button>
-          <Button className={'playback stop'} value={'on'} onClick={e => stop(e)}>
+          <Button className={'playback stop'} title={'stop'} value={'on'} onClick={stop}>
             <SquareIcon />
           </Button>
         </ControllerGroup>

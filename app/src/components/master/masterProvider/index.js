@@ -7,10 +7,8 @@ import useEventListener from 'utils/hooks/useEventListener';
 const MasterProvider = ({ children }) => {
   useEffect(() => {
     Transport.scheduleRepeat(time => {
-      const beat = Transport.position.substring(
-        Transport.position.indexOf(':') + 1,
-        Transport.position.indexOf(':') + 2
-      );
+      const beatIndex = Transport.position.indexOf(':');
+      const beat = Transport.position.substring(beatIndex + 1, beatIndex + 2);
       document.getElementById('beat').style.width = 100 / Transport.timeSignature + '%';
       document.getElementById('beat').style.left = 25 * beat + '%';
     }, Transport.timeSignature + 'n');
