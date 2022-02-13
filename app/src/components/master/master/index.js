@@ -16,10 +16,10 @@ const Master = ({ volume, bpm }) => {
 
   return (
     <section id={'master'} data-playback={'stopped'} data-recorder={'off'}>
-      <div style={{ position: 'relative' }}>
+      <div className={'master__status'}>
         <div id={'beat'} />
       </div>
-      <div className={'main'}>
+      <div className={'master__controls'}>
         <SliderControl
           id={'master-volume'}
           orient={'horizontal'}

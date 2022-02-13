@@ -69,7 +69,7 @@ const Oscillator = () => {
   );
 
   return (
-    <div
+    <section
       id={'oscillator'}
       onPointerDown={() => oscillatorRef.current.start()}
       onPointerUp={() => oscillatorRef.current.stop()}
@@ -94,9 +94,7 @@ const Oscillator = () => {
 
         oscillatorRef.current.set({ frequency, partialCount });
       }}
-    >
-      <div className={'values'} />
-    </div>
+    />
   );
 };
 

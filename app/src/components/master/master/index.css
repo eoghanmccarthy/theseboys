@@ -15,7 +15,11 @@
     padding: 0 var(--spacing-20);
 }
 
-#master .main {
+#master .master__status {
+    position: relative;
+}
+
+#master .master__controls {
     background-color: var(--color-secondary);
 }
 

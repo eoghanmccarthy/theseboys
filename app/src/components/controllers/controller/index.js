@@ -4,18 +4,28 @@ import cx from 'classnames';
 
 import './styles.css';
 
-const Controller = memo(({ children, id, orient = 'vertical', type = 'slider' }) => {
-  return (
-    <div id={id} className={cx('controller', { [orient]: orient, [`type-${type}`]: type })}>
-      {children}
-    </div>
-  );
-});
+const Controller = memo(
+  ({ children, id, orient = 'vertical', type = 'slider', theme = 'default' }) => {
+    return (
+      <div
+        id={id}
+        className={cx('controller', {
+          [orient]: orient,
+          [`type-${type}`]: type,
+          [`theme-${type}`]: theme
+        })}
+      >
+        {children}
+      </div>
+    );
+  }
+);
 
 export default Controller;
 
 Controller.propTypes = {
   id: PropTypes.string.isRequired,
   orient: PropTypes.oneOf(['vertical', 'horizontal']),
-  type: PropTypes.oneOf(['slider', 'button'])
+  type: PropTypes.oneOf(['slider', 'button']),
+  theme: PropTypes.oneOf(['default', 'light'])
 };
