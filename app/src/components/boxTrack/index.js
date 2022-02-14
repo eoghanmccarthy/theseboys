@@ -9,21 +9,21 @@ import { channelTypes, instrumentTypes, notesTypes } from '../../utils/types';
 import Step from '../step';
 
 const BoxTrack = memo(
-  forwardRef(({ trackId, trackIndex, channel, instrument, notes, effects, controls }, ref) => {
+  forwardRef(({ index, trackId, channel, instrument, notes, effects, controls }, ref) => {
     const noteInterval = `16n`;
 
-    const sound = useSound(channel, instrument, effects);
+    const { trigger } = useSound(channel, instrument, effects);
 
     useEventListener(e => {
-      if (parseInt(e.key) === trackIndex + 1) {
-        handleTrigger(notes, noteInterval);
+      if (parseInt(e.key) === index + 1) {
         document.querySelector(`button#${trackId}`).classList.add('hit');
+        handleTrigger();
       }
     });
 
     useEventListener(
       e => {
-        if (parseInt(e.key) === trackIndex + 1) {
+        if (parseInt(e.key) === index + 1) {
           document.querySelector(`button#${trackId}`).classList.remove('hit');
         }
       },
@@ -31,17 +31,11 @@ const BoxTrack = memo(
       'keyup'
     );
 
-    const handleTrigger = (notesToPlay, ...rest) => {
-      if (!sound) return;
-
-      if (instrument?.synth !== 'NoiseSynth') {
-        sound.triggerAttackRelease(notesToPlay[0], ...rest);
-      } else {
-        sound.triggerAttackRelease(...rest);
-      }
+    const handleTrigger = () => {
+      trigger(notes, noteInterval);
     };
 
-    return <Step id={trackId} onClick={() => handleTrigger(notes, noteInterval)} />;
+    return <Step id={trackId} onClick={handleTrigger} />;
   })
 );
 
@@ -49,7 +43,7 @@ export default BoxTrack;
 
 BoxTrack.propTypes = {
   trackId: PropTypes.string.isRequired,
-  trackIndex: PropTypes.number,
+  index: PropTypes.number.isRequired,
   instrument: instrumentTypes,
   channel: channelTypes,
   notes: notesTypes,

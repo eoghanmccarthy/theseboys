@@ -4,6 +4,10 @@ import { Channel, Destination } from 'tone';
 import { getSynth, getEffect } from 'utils/toneHelpers';
 
 const useSound = (channel, instrument, effects = {}) => {
+  if (!channel || !instrument || !effects) {
+    throw new Error('error');
+  }
+
   /* Channel */
   const channelRef = useRef(new Channel(channel ?? {}));
 
@@ -20,6 +24,22 @@ const useSound = (channel, instrument, effects = {}) => {
       Destination
     )
   );
+
+  const trigger = (notes, ...rest) => {
+    if (!synthRef.current) {
+      return;
+    }
+
+    let args;
+
+    if (synthRef.current.name !== 'NoiseSynth') {
+      args = [notes[0], ...rest];
+    } else {
+      args = [...rest];
+    }
+
+    synthRef.current.triggerAttackRelease(...args);
+  };
 
   useEffect(() => {
     return () => {
@@ -41,7 +61,12 @@ const useSound = (channel, instrument, effects = {}) => {
     };
   }, []);
 
-  return synthRef.current;
+  return {
+    channel: channel.current,
+    synth: synthRef.current,
+    effects: effectsChainRef.current,
+    trigger
+  };
 };
 
 export default useSound;

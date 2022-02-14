@@ -12,7 +12,7 @@ const Controller = memo(
         className={cx('controller', {
           [orient]: orient,
           [`type-${type}`]: type,
-          [`theme-${type}`]: theme
+          [`theme-${theme}`]: theme
         })}
       >
         {children}

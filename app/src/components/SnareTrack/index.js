@@ -17,10 +17,7 @@ import { TrackEffects, EffectsGroup } from '../trackEffects';
 
 const SnareTrack = memo(
   forwardRef(
-    (
-      { trackId, trackNumber, channel, instrument, notes, stepCount, steps, effects, controls },
-      ref
-    ) => {
+    ({ trackId, index, channel, instrument, notes, stepCount, steps, effects, controls }, ref) => {
       const noteInterval = `${stepCount}n`;
       const noteIndices = newArray(stepCount);
       const isNoise = instrument?.synth === 'NoiseSynth';
@@ -84,7 +81,7 @@ const SnareTrack = memo(
         <Track trackId={trackId}>
           <TrackControls
             trackId={trackId}
-            trackNumber={trackNumber}
+            trackNumber={index}
             channel={channelRef.current}
             play={() => onTriggerAttackRelease(notes, noteInterval)}
           />
@@ -123,7 +120,7 @@ export default SnareTrack;
 
 SnareTrack.propTypes = {
   trackId: PropTypes.string.isRequired,
-  trackNumber: PropTypes.number,
+  index: PropTypes.number,
   instrument: instrumentTypes,
   stepCount: PropTypes.number.isRequired,
   channel: channelTypes,

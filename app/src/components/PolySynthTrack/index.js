@@ -44,10 +44,7 @@ const notes = ['A3', 'C4', 'D4', 'E4', 'G4', 'A4'];
 
 const PolySynthTrack = memo(
   forwardRef(
-    (
-      { trackId, trackNumber, channel, instrument, notes, stepCount, steps, effects, controls },
-      ref
-    ) => {
+    ({ trackId, index, channel, instrument, notes, stepCount, steps, effects, controls }, ref) => {
       const noteInterval = `${stepCount}n`;
       const noteIndices = newArray(stepCount);
       const numRows = notes.length;
@@ -121,7 +118,7 @@ const PolySynthTrack = memo(
         <Track trackId={trackId}>
           <TrackControls
             trackId={trackId}
-            trackNumber={trackNumber}
+            trackNumber={index + 1}
             channel={channelRef.current}
             play={() => onTriggerAttackRelease(notes, noteInterval)}
           />
@@ -160,7 +157,7 @@ export default PolySynthTrack;
 
 PolySynthTrack.propTypes = {
   trackId: PropTypes.string.isRequired,
-  trackNumber: PropTypes.number,
+  index: PropTypes.number.isRequired,
   instrument: instrumentTypes,
   stepCount: PropTypes.number.isRequired,
   channel: channelTypes,

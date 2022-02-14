@@ -9,9 +9,9 @@ import { TRACK_DEFAULT } from '../../utils/constants';
 import { Footer, Main } from 'components/layout';
 import SnareTrack from '../../components/SnareTrack';
 import SynthTrack from 'components/SynthTrack';
-import PolySynthTrack from 'components/PolySynthTrack';
-import { Master, useMasterContext } from 'components/master';
-import { polySynthSamples } from '../../data';
+import PolyTrack from 'components/PolySynthTrack';
+import { Master } from 'components/master';
+import * as sounds from '../../data';
 import ShortcutsLegend from 'components/ShortcutsLegend';
 
 const SONGS_CONFIG = {
@@ -19,7 +19,6 @@ const SONGS_CONFIG = {
 };
 
 const Studio = () => {
-  const { play, stop, record } = useMasterContext('<Studio>');
   const TRACKS = Object.entries(SONGS_CONFIG['s001']);
   const tracksRef = useRef(TRACKS.map(() => createRef()));
   const micRef = useRef(new UserMedia({ volume: 0 }));
@@ -69,20 +68,14 @@ const Studio = () => {
             <SynthTrack
               key={trackId}
               ref={tracksRef.current[i]}
+              index={i}
               trackId={trackId}
-              trackNumber={i + 1}
               {...TRACK_DEFAULT}
               {...track}
             />
           );
         })}
-        <PolySynthTrack
-          trackId={'PolySynth'}
-          trackNumber={7}
-          {...TRACK_DEFAULT}
-          {...polySynthSamples[[0]]}
-        />
-        {/*<ShortcutsLegend />*/}
+        <PolyTrack index={6} trackId={'PolySynth'} {...TRACK_DEFAULT} {...sounds.poly[0]} />
       </Main>
       <Footer />
     </Fragment>

@@ -1,13 +1,12 @@
 import React, { memo, forwardRef, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Channel, Destination, Sequence } from 'tone';
+import { Sequence } from 'tone';
 
-import { isArray } from 'utils/helpers/typeCheck';
 import useEventListener from 'utils/hooks/useEventListener';
+import useSound from 'utils/hooks/useSound';
 
 import { channelTypes, instrumentTypes, notesTypes, stepsTypes } from '../../utils/types';
 
-import { getSynth, getEffect } from 'utils/toneHelpers';
 import { newArray, onSequenceStep } from 'utils/studioHelpers';
 
 import { ControlHandler } from '../controls';
@@ -18,15 +17,12 @@ import { TrackEffects, EffectsGroup } from '../trackEffects';
 
 const SynthTrack = memo(
   forwardRef(
-    (
-      { trackId, trackNumber, channel, instrument, notes, stepCount, steps, effects, controls },
-      ref
-    ) => {
+    ({ index, trackId, channel, instrument, notes, stepCount, steps, effects, controls }, ref) => {
       const noteInterval = `${stepCount}n`;
       const noteIndices = newArray(stepCount);
 
       useEventListener(e => {
-        if (parseInt(e.key) === trackNumber) {
+        if (parseInt(e.key) === index + 1) {
           if (e.shiftKey) {
             const steps = document.querySelectorAll(`.t00${e.key}-step`);
             if (!e.altKey) {
@@ -41,28 +37,13 @@ const SynthTrack = memo(
         }
       });
 
+      const sound = useSound(channel, instrument, effects);
+
       const handleOnSequenceStep = (time, column) => {
         onSequenceStep(trackId, notes, stepCount, time, column, (notesToPlay, velocity) =>
-          onTriggerAttackRelease(notesToPlay, noteInterval, time, velocity)
+          sound.trigger(notesToPlay, noteInterval, time, velocity)
         );
       };
-
-      /* Channel */
-      const channelRef = useRef(new Channel(channel ?? {}));
-
-      /* Effects */
-      const effectsChainRef = useRef(
-        Object.entries(effects ?? {}).map(([effect, options]) => getEffect(effect, options))
-      );
-
-      /* Synth */
-      const synthRef = useRef(
-        getSynth(instrument.synth, instrument.options).chain(
-          channelRef.current,
-          ...effectsChainRef.current,
-          Destination
-        )
-      );
 
       /* Sequencer */
       const sequenceRef = useRef(
@@ -71,47 +52,19 @@ const SynthTrack = memo(
 
       useEffect(() => {
         return () => {
-          if (Destination) {
-            Destination.dispose();
-          }
-
-          if (channelRef.current) {
-            channelRef.current.dispose();
-          }
-
-          if (synthRef.current) {
-            synthRef.current.dispose();
-          }
-
-          if (isArray(effectsChainRef.current)) {
-            effectsChainRef.current.forEach(effect => effect.dispose());
-          }
-
           if (sequenceRef.current) {
             sequenceRef.current.dispose();
           }
         };
       }, []);
 
-      const onTriggerAttackRelease = (notesToPlay, ...rest) => {
-        if (!synthRef.current) {
-          return;
-        }
-
-        if (instrument?.synth !== 'NoiseSynth') {
-          synthRef.current.triggerAttackRelease(notesToPlay[0], ...rest);
-        } else {
-          synthRef.current.triggerAttackRelease(...rest);
-        }
-      };
-
       return (
         <Track trackId={trackId}>
           <TrackControls
             trackId={trackId}
-            trackNumber={trackNumber}
-            channel={channelRef.current}
-            play={() => onTriggerAttackRelease(notes, noteInterval)}
+            trackNumber={index + 1}
+            channel={sound.channel}
+            play={() => sound.trigger(notes, noteInterval)}
           />
           <TrackSteps trackId={trackId} numSteps={stepCount} initialValue={steps} />
           <TrackEffects trackId={trackId}>
@@ -119,7 +72,7 @@ const SynthTrack = memo(
               return (
                 <EffectsGroup key={i} span={value.span} title={group}>
                   {value.effects.map((name, i) => {
-                    const node = effectsChainRef.current.find(effect => effect.name === name);
+                    const node = sound.effects.find(effect => effect.name === name);
 
                     if (!node) {
                       return null;
@@ -131,11 +84,7 @@ const SynthTrack = memo(
               );
             })}
             <EffectsGroup span={'17 / span 4'} title={'envelope'}>
-              <ControlHandler
-                trackId={trackId}
-                name={'Envelope'}
-                node={synthRef.current?.envelope}
-              />
+              <ControlHandler trackId={trackId} name={'Envelope'} node={sound.synth?.envelope} />
             </EffectsGroup>
           </TrackEffects>
         </Track>
@@ -148,7 +97,7 @@ export default SynthTrack;
 
 SynthTrack.propTypes = {
   trackId: PropTypes.string.isRequired,
-  trackNumber: PropTypes.number,
+  index: PropTypes.number.isRequired,
   instrument: instrumentTypes,
   stepCount: PropTypes.number.isRequired,
   channel: channelTypes,

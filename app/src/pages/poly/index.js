@@ -18,7 +18,7 @@ const SONG = {
   t006: 'i006'
 };
 
-const Box = () => {
+const Poly = () => {
   const tracks = Object.entries(SONG);
   const tracksRef = useRef(tracks.map(() => createRef()));
 
@@ -49,4 +49,4 @@ const Box = () => {
   );
 };
 
-export default Box;
+export default Poly;
