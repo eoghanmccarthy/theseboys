@@ -1,6 +1,6 @@
 import { Draw } from 'tone';
 import consoleLog from 'utils/errorHandlers/consoleLog';
-import { isArray, isString, isNumber, isFunction, isUndefined } from 'utils/helpers/typeCheck';
+import { isArray, isString, isNumber, isFunction, isUndefined } from 'utils/typeCheck';
 
 import { random } from 'utils/studioHelpers/random';
 

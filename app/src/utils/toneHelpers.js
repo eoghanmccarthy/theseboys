@@ -19,7 +19,7 @@ import {
   StereoWidener,
   Synth
 } from 'tone';
-import { isString } from 'utils/helpers/typeCheck';
+import { isString } from 'utils/typeCheck';
 
 export const getSynth = (name, options = {}) => {
   if (!isString(name)) {

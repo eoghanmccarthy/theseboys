@@ -1,5 +1,5 @@
 import React, { memo, forwardRef } from 'react';
-import { isString } from 'utils/helpers/typeCheck';
+import { isString } from 'utils/typeCheck';
 
 import BitCrusherControls from '../BitCrusherControls';
 import CompressorControls from '../CompressorControls';

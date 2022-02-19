@@ -1,7 +1,7 @@
 import React, { memo, useEffect, useRef } from 'react';
 import { Sequence } from 'tone';
 
-import { isArray, isString, isNumber } from 'utils/helpers/typeCheck';
+import { isArray, isString, isNumber } from 'utils/typeCheck';
 
 import './styles.css';
 

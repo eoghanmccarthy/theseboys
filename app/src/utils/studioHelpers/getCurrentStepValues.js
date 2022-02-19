@@ -1,5 +1,5 @@
 import consoleLog from 'utils/errorHandlers/consoleLog';
-import { isString } from 'utils/helpers/typeCheck';
+import { isString } from 'utils/typeCheck';
 
 export default trackId => {
   const errorLog = (...args) => {

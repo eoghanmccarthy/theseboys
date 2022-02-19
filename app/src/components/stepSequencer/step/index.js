@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { isString, isNumber, isUndefined } from 'utils/helpers/typeCheck';
+import { isString, isNumber, isUndefined } from 'utils/typeCheck';
 
 import './styles.css';
 
