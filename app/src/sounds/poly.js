@@ -39,8 +39,10 @@ const samples = [
   }
 ];
 
-export const tracks = [
-  {
+export const tracks = {
+  poly01: {
+    id: 'poly01',
+    type: 'poly',
     channel: {
       pan: 0.4,
       volume: 4,
@@ -51,6 +53,7 @@ export const tracks = [
     instrument: {
       synth: 'PolySynth',
       options: {
+        maxPolyphony: 6, // number of notes
         volume: -10,
         envelope: {
           attack: 0.01,
@@ -81,15 +84,12 @@ export const tracks = [
     },
     effects: {
       Reverb: { decay: 4, preDelay: 0.2, wet: 0.08 },
-      EQ3: {
-        low: 0,
-        mid: -10,
-        high: 4,
-        lowFrequency: 1320,
-        highFrequency: 5380
-      },
+      EQ3: { low: 0, mid: -10, high: 4, lowFrequency: 1320, highFrequency: 5380 },
       Distortion: { distortion: 0.6, oversample: '4x', wet: 0.72 },
-      Phaser: { frequency: 15, octaves: 5, stages: 10, Q: 10, baseFrequency: 100, wet: 0.0 }
+      Phaser: { frequency: 15, octaves: 5, stages: 10, Q: 10, baseFrequency: 100, wet: 0.0 },
+      // Chorus: { frequency: 4, delayTime: 2.5, depth: 0.5, wet: 0.6 },
+      Gate: { threshold: -40, smoothing: 0.2 },
+      Limiter: { threshold: 0 }
     },
     controls: {
       eq3: { span: '1 / span 5', effects: ['EQ3'] },
@@ -97,4 +97,4 @@ export const tracks = [
       phaser: { span: '8 / span 3', effects: ['Phaser'] }
     }
   }
-];
+};

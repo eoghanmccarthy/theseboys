@@ -1,10 +1,5 @@
 import { combineReducers } from 'redux';
 
-import { songs } from './redux';
-
-const createRootReducer = () =>
-  combineReducers({
-    songs
-  });
+const createRootReducer = () => combineReducers({});
 
 export default createRootReducer;

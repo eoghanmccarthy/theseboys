@@ -3,24 +3,30 @@ import { Transport, Destination, Meter, UserMedia } from 'tone';
 
 import './index.css';
 
-import { INSTRUMENTS } from 'src/redux/defaults';
 import { TRACK_DEFAULT } from '../../utils/constants';
 
 import { Footer, Main } from 'components/layout';
-import SnareTrack from '../../components/SnareTrack';
-import SynthTrack from 'components/SynthTrack';
-import PolyTrack from 'components/PolySynthTrack';
+import StudioTrack from 'components/studioTrack';
 import { Master } from 'components/master';
-import * as sounds from '../../data';
+import { sounds } from '../../sounds';
 import ShortcutsLegend from 'components/ShortcutsLegend';
 
-const SONGS_CONFIG = {
-  s001: { t001: 'i001', t002: 'i002', t003: 'i003', t004: 'i004', t005: 'i005', t006: 'i006' }
+const songs = {
+  s001: {
+    t001: 'kick01',
+    t002: 'kick02',
+    t003: 'snare01',
+    t004: 'snare02',
+    t005: 'hat01',
+    t006: 'hat02',
+    t007: 'poly01'
+  }
 };
 
 const Studio = () => {
-  const TRACKS = Object.entries(SONGS_CONFIG['s001']);
-  const tracksRef = useRef(TRACKS.map(() => createRef()));
+  const tracks = Object.entries(songs['s001']);
+  const tracksRef = useRef(tracks.map(() => createRef()));
+
   const micRef = useRef(new UserMedia({ volume: 0 }));
   const selectedDevice = useRef();
 
@@ -57,25 +63,32 @@ const Studio = () => {
     <Fragment>
       <Main id={'studio'}>
         <Master volume={0} bpm={120} />
-        {TRACKS.map(([trackId, instrumentId], i) => {
-          const track = INSTRUMENTS[instrumentId];
+        {tracks.map(([trackId, soundId], i) => {
+          const track = sounds[soundId];
 
-          if (!track) {
+          if (track) {
+            const props = {
+              key: trackId,
+              ref: tracksRef.current[i],
+              index: i,
+              trackId,
+              ...TRACK_DEFAULT,
+              ...track
+            };
+
+            switch (track.type) {
+              case 'kick':
+              case 'hat':
+              case 'poly':
+              case 'snare':
+                return <StudioTrack {...props} />;
+              default:
+                return null;
+            }
+          } else {
             return null;
           }
-
-          return (
-            <SynthTrack
-              key={trackId}
-              ref={tracksRef.current[i]}
-              index={i}
-              trackId={trackId}
-              {...TRACK_DEFAULT}
-              {...track}
-            />
-          );
         })}
-        <PolyTrack index={6} trackId={'PolySynth'} {...TRACK_DEFAULT} {...sounds.poly[0]} />
       </Main>
       <Footer />
     </Fragment>

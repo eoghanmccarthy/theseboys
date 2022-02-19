@@ -4,6 +4,8 @@ import { Channel, Destination } from 'tone';
 import { getSynth, getEffect } from 'utils/toneHelpers';
 
 const useSound = (channel, instrument, effects = {}) => {
+  console.log(channel, instrument, effects);
+
   if (!channel || !instrument || !effects) {
     throw new Error('error');
   }
@@ -32,10 +34,16 @@ const useSound = (channel, instrument, effects = {}) => {
 
     let args;
 
-    if (synthRef.current.name !== 'NoiseSynth') {
-      args = [notes[0], ...rest];
-    } else {
-      args = [...rest];
+    switch (synthRef.current.name) {
+      case 'NoiseSynth':
+        args = [...rest];
+        break;
+      case 'PolySynth':
+        args = [notes, ...rest];
+        break;
+      default:
+        args = [notes[0], ...rest];
+        break;
     }
 
     synthRef.current.triggerAttackRelease(...args);

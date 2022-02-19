@@ -3,7 +3,7 @@ import { isArray, isString, isNumber } from 'utils/helpers/typeCheck';
 
 import './styles.css';
 
-import StepSequencer from '../StepSequencer';
+import StepSequencer from '../stepSequencer';
 
 const TrackSteps = memo(({ trackId, numSteps = 16, initialValue }) => {
   if (!isString(trackId) || !isNumber(numSteps) || !isArray(initialValue)) {

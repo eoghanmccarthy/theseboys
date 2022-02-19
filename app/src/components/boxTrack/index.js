@@ -6,7 +6,7 @@ import useSound from 'utils/hooks/useSound';
 
 import { channelTypes, instrumentTypes, notesTypes } from '../../utils/types';
 
-import Step from '../step';
+import Step from '../boxTrackStep';
 
 const BoxTrack = memo(
   forwardRef(({ index, trackId, channel, instrument, notes, effects, controls }, ref) => {

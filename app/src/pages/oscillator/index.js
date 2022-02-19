@@ -1,21 +1,16 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
-import { Footer, Main } from 'components/layout';
-import { Master, useMasterContext } from 'components/master';
+import { Main } from 'components/layout';
+import { Master } from 'components/master';
 import Oscillator from '../../components/oscillator';
 
-const Sounds = () => {
-  const { play, stop, record } = useMasterContext('<Beats>');
-
+const Page = () => {
   return (
-    <Fragment>
-      <Main id={'studio'} className={'beats'}>
-        <Master volume={0} bpm={120} />
-        <Oscillator />
-      </Main>
-      <Footer />
-    </Fragment>
+    <Main id={'studio'} className={'beats'}>
+      <Master volume={0} bpm={120} />
+      <Oscillator />
+    </Main>
   );
 };
 
-export default Sounds;
+export default Page;

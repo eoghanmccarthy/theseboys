@@ -1,52 +1,50 @@
-import React, { Fragment, useRef, createRef } from 'react';
+import React, { useRef, createRef } from 'react';
 
 import './index.css';
 
-import { Footer, Main } from 'components/layout';
-import { Master } from 'components/master';
-import BoxTrack from '../../components/boxTrack';
-
-import { INSTRUMENTS } from 'src/redux/defaults';
 import { TRACK_DEFAULT } from '../../utils/constants';
 
-const SONG = {
-  t001: 'i001',
-  t002: 'i002',
-  t003: 'i003',
-  t004: 'i004',
-  t005: 'i005',
-  t006: 'i006'
+import { Main } from 'components/layout';
+import PolyTrack from 'components/polyTrack';
+import { Master } from 'components/master';
+import { sounds } from '../../sounds';
+
+const songs = {
+  t001: 'poly01'
 };
 
-const Poly = () => {
-  const tracks = Object.entries(SONG);
+const Studio = () => {
+  const tracks = Object.entries(songs);
   const tracksRef = useRef(tracks.map(() => createRef()));
 
   return (
-    <Fragment>
-      <Main id={'studio'} className={'beats'}>
-        <Master volume={0} bpm={120} />
-        <div className={'samples'}>
-          {tracks.map(([trackId, instrumentId], i) => {
-            const track = INSTRUMENTS[instrumentId];
-            if (!track) return null;
+    <Main id={'studio'} className={'beats'}>
+      <Master volume={0} bpm={120} />
+      {tracks.map(([trackId, soundId], i) => {
+        const track = sounds[soundId];
 
-            return (
-              <BoxTrack
-                key={trackId}
-                ref={tracksRef.current[i]}
-                index={i}
-                trackId={trackId}
-                {...TRACK_DEFAULT}
-                {...track}
-              />
-            );
-          })}
-        </div>
-      </Main>
-      <Footer />
-    </Fragment>
+        if (track) {
+          const props = {
+            key: trackId,
+            ref: tracksRef.current[i],
+            index: i,
+            trackId,
+            ...TRACK_DEFAULT,
+            ...track
+          };
+
+          switch (track.type) {
+            case 'poly':
+              return <PolyTrack {...props} />;
+            default:
+              return null;
+          }
+        } else {
+          return null;
+        }
+      })}
+    </Main>
   );
 };
 
-export default Poly;
+export default Studio;

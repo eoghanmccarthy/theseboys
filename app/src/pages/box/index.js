@@ -1,51 +1,58 @@
-import React, { Fragment, useRef, createRef } from 'react';
+import React, { useRef, createRef } from 'react';
 
 import './index.css';
 
-import { Footer, Main } from 'components/layout';
+import { Main } from 'components/layout';
 import { Master } from 'components/master';
 import BoxTrack from '../../components/boxTrack';
 
-import { INSTRUMENTS } from 'src/redux/defaults';
 import { TRACK_DEFAULT } from '../../utils/constants';
+import { sounds } from '../../sounds';
 
-const SONG = {
-  t001: 'i001',
-  t002: 'i002',
-  t003: 'i003',
-  t004: 'i004',
-  t005: 'i005',
-  t006: 'i006'
+const song = {
+  t001: 'kick01',
+  t002: 'kick02',
+  t003: 'snare01',
+  t004: 'snare02',
+  t005: 'hat01',
+  t006: 'hat02'
 };
 
 const Box = () => {
-  const tracks = Object.entries(SONG);
+  const tracks = Object.entries(song);
   const tracksRef = useRef(tracks.map(() => createRef()));
 
   return (
-    <Fragment>
-      <Main id={'studio'} className={'beats'}>
-        <Master volume={0} bpm={120} />
-        <div className={'samples'}>
-          {tracks.map(([trackId, instrumentId], i) => {
-            const track = INSTRUMENTS[instrumentId];
-            if (!track) return null;
+    <Main id={'studio'} className={'beats'}>
+      <Master volume={0} bpm={120} />
+      <div className={'samples'}>
+        {tracks.map(([trackId, soundId], i) => {
+          const track = sounds[soundId];
 
-            return (
-              <BoxTrack
-                key={trackId}
-                ref={tracksRef.current[i]}
-                index={i}
-                trackId={trackId}
-                {...TRACK_DEFAULT}
-                {...track}
-              />
-            );
-          })}
-        </div>
-      </Main>
-      <Footer />
-    </Fragment>
+          if (track) {
+            switch (track.type) {
+              case 'kick':
+              case 'hat':
+              case 'snare':
+                return (
+                  <BoxTrack
+                    key={trackId}
+                    ref={tracksRef.current[i]}
+                    index={i}
+                    trackId={trackId}
+                    {...TRACK_DEFAULT}
+                    {...track}
+                  />
+                );
+              default:
+                break;
+            }
+          } else {
+            return null;
+          }
+        })}
+      </div>
+    </Main>
   );
 };
 

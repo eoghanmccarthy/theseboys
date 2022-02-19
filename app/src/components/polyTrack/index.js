@@ -1,6 +1,8 @@
 import React, { memo, forwardRef, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Sequence } from 'tone';
+//Only instruments that extend the Monophonic class can be used with Tone.PolySynth
+//AMSynth, DuoSynth, FMSynth, MembraneSynth, MetalSynth, Synth
 
 import useEventListener from 'utils/hooks/useEventListener';
 import useSound from 'utils/hooks/useSound';
@@ -9,13 +11,21 @@ import { channelTypes, instrumentTypes, notesTypes, stepsTypes } from '../../uti
 
 import { newArray, onSequenceStep } from 'utils/studioHelpers';
 
-import { ControlHandler } from '../controls';
-import Track from '../Track';
-import TrackControls from '../TrackControls';
-import TrackSteps from '../TrackSteps';
-import { TrackEffects, EffectsGroup } from '../trackEffects';
+import Track from '../trackContainer';
+import TrackSteps from '../trackSteps';
 
-const SynthTrack = memo(
+//const notes = ['A4', 'D3', 'E3', 'G4', 'F#4'];
+const notes = ['A3', 'C4', 'D4', 'E4', 'G4', 'A4'];
+
+// const delay = useRef(
+//     new FeedbackDelay({
+//       delayTime: `${Math.floor(numCols / 2)}n`,
+//       feedback: 1 / 3,
+//       wet: 0.2
+//     })
+// );
+
+const PolyTrack = memo(
   forwardRef(
     ({ index, trackId, channel, instrument, notes, stepCount, steps, effects, controls }, ref) => {
       const noteInterval = `${stepCount}n`;
@@ -24,15 +34,12 @@ const SynthTrack = memo(
       useEventListener(e => {
         if (parseInt(e.key) === index + 1) {
           if (e.shiftKey) {
-            const steps = document.querySelectorAll(`.t00${e.key}-step`);
-            if (!e.altKey) {
-              steps.forEach(step => step.setAttribute('value', 'on'));
-            } else {
-              steps.forEach(step => step.setAttribute('value', 'off'));
-            }
-          } else {
-            document.querySelector(`#${trackId}`)?.scrollIntoView();
-            document.querySelector(`#${trackId}-sample`)?.focus();
+            // const steps = document.querySelectorAll(`.t00${e.key}-step`);
+            // if (!e.altKey) {
+            //   steps.forEach(step => step.setAttribute('value', 'on'));
+            // } else {
+            //   steps.forEach(step => step.setAttribute('value', 'off'));
+            // }
           }
         }
       });
@@ -60,42 +67,16 @@ const SynthTrack = memo(
 
       return (
         <Track trackId={trackId}>
-          <TrackControls
-            trackId={trackId}
-            trackNumber={index + 1}
-            channel={sound.channel}
-            play={() => sound.trigger(notes, noteInterval)}
-          />
           <TrackSteps trackId={trackId} numSteps={stepCount} initialValue={steps} />
-          <TrackEffects trackId={trackId}>
-            {Object.entries(controls ?? {}).map(([group, value], i) => {
-              return (
-                <EffectsGroup key={i} span={value.span} title={group}>
-                  {value.effects.map((name, i) => {
-                    const node = sound.effects.find(effect => effect.name === name);
-
-                    if (!node) {
-                      return null;
-                    }
-
-                    return <ControlHandler key={i} trackId={trackId} name={name} node={node} />;
-                  })}
-                </EffectsGroup>
-              );
-            })}
-            <EffectsGroup span={'17 / span 4'} title={'envelope'}>
-              <ControlHandler trackId={trackId} name={'Envelope'} node={sound.synth?.envelope} />
-            </EffectsGroup>
-          </TrackEffects>
         </Track>
       );
     }
   )
 );
 
-export default SynthTrack;
+export default PolyTrack;
 
-SynthTrack.propTypes = {
+PolyTrack.propTypes = {
   trackId: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
   instrument: instrumentTypes,
