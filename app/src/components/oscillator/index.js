@@ -68,7 +68,7 @@ const Oscillator = () => {
   );
 
   return (
-    <section
+    <div
       id={'oscillator'}
       onPointerDown={() => oscillatorRef.current.start()}
       onPointerUp={() => oscillatorRef.current.stop()}

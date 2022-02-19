@@ -1,7 +1,5 @@
 import React, { memo, useRef } from 'react';
 
-import './index.css';
-
 import { useEventListener } from 'hooks';
 
 const Step = memo(({ id, onClick }) => {
@@ -25,15 +23,15 @@ const Step = memo(({ id, onClick }) => {
 
   return (
     <button ref={ref} id={id} className={`step`} onClick={onClick}>
-      <svg
-        className={'step-icon'}
-        xmlns={'http://www.w3.org/2000/svg'}
-        viewBox={'0 0 30 30'}
-        width={'100%'}
-        height={'100%'}
-      >
-        <circle cx={'15'} cy={'15'} r={'0.5'} fill={'white'} />
-      </svg>
+      {/*<svg*/}
+      {/*  className={'step-icon'}*/}
+      {/*  xmlns={'http://www.w3.org/2000/svg'}*/}
+      {/*  viewBox={'0 0 30 30'}*/}
+      {/*  width={'100%'}*/}
+      {/*  height={'100%'}*/}
+      {/*>*/}
+      {/*  <circle cx={'15'} cy={'15'} r={'0.5'} fill={'white'} />*/}
+      {/*</svg>*/}
     </button>
   );
 });

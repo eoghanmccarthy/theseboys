@@ -1,13 +1,17 @@
 #studio {
     display: grid;
-    grid-row-gap: var(--track-gap);
+    grid-template-rows: min-content 1fr;
+    grid-row-gap: 0;
     width: 100%;
-    max-width: 1220px;
-    padding: 0 var(--spacing-40) var(--spacing-40);
-    margin: 0 auto;
+    padding: 0;
 }
 
 #studio .sequencer {
     padding: 0 var(--spacing-12);
     background-color: rgba(255,255,255,0.008);
+}
+
+#studio .sequencer .step {
+    /*padding: 0 var(--spacing-12);*/
+    /*background-color: rgba(255,255,255,0.008);*/
 }

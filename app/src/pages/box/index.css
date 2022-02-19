@@ -1,15 +1,4 @@
-#studio.beats {
-    display: grid;
-    grid-template-rows: min-content 1fr;
-    grid-row-gap: 0;
-    width: 100%;
-    max-width: 100%;
-    padding: 0;
-    margin: 0 auto;
-}
-
-.samples {
-    /*--color-step: #5ab400;*/
+#box {
     --color-step: yellow;
     --color-step-hover: var(--color-secondary);
     --color-step-hit: white;
@@ -17,21 +6,21 @@
     grid-template-columns: 1fr 1fr;
 }
 
-.samples .step {
+#box .step {
+    position: relative;
+    padding: 0;
+    border-width: 0;
+    cursor: pointer;
     background: var(--color-step);
     outline: none;
     transition: background .3s ease-out;
 }
 
-.samples .step:hover {
+#box .step:hover {
     background: var(--color-step-hover);
 }
 
-.samples .step.hit {
+#box .step.hit {
     background: var(--color-step-hit);
     transition: background .1s ease-in;
-}
-
-.samples .step .step-icon {
-    pointer-events: none;
 }

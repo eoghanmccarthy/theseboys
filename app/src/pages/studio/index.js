@@ -63,32 +63,34 @@ const Studio = () => {
     <Fragment>
       <Main id={'studio'}>
         <Master volume={0} bpm={120} />
-        {tracks.map(([trackId, soundId], i) => {
-          const track = sounds[soundId];
+        <section id={'tracks'}>
+          {tracks.map(([trackId, soundId], i) => {
+            const track = sounds[soundId];
 
-          if (track) {
-            const props = {
-              key: trackId,
-              ref: tracksRef.current[i],
-              index: i,
-              trackId,
-              ...TRACK_DEFAULT,
-              ...track
-            };
+            if (track) {
+              const props = {
+                key: trackId,
+                ref: tracksRef.current[i],
+                index: i,
+                trackId,
+                ...TRACK_DEFAULT,
+                ...track
+              };
 
-            switch (track.type) {
-              case 'kick':
-              case 'hat':
-              case 'poly':
-              case 'snare':
-                return <StudioTrack {...props} />;
-              default:
-                return null;
+              switch (track.type) {
+                case 'kick':
+                case 'hat':
+                case 'poly':
+                case 'snare':
+                  return <StudioTrack {...props} />;
+                default:
+                  return null;
+              }
+            } else {
+              return null;
             }
-          } else {
-            return null;
-          }
-        })}
+          })}
+        </section>
       </Main>
       <Footer />
     </Fragment>

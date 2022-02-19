@@ -1,7 +1,5 @@
 import React, { useRef, createRef } from 'react';
 
-import './index.css';
-
 import { TRACK_DEFAULT } from '../../utils/constants';
 
 import { Main } from 'components/layout';
@@ -27,7 +25,7 @@ const Studio = () => {
   const tracksRef = useRef(tracks.map(() => createRef()));
 
   return (
-    <Main id={'studio'} className={'beats'}>
+    <Main id={'studio'}>
       <Master volume={0} bpm={120} />
       {tracks.map(([trackId, soundId], i) => {
         const track = sounds[soundId];

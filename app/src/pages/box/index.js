@@ -23,9 +23,9 @@ const Box = () => {
   const tracksRef = useRef(tracks.map(() => createRef()));
 
   return (
-    <Main id={'studio'} className={'beats'}>
+    <Main id={'studio'}>
       <Master volume={0} bpm={120} />
-      <div className={'samples'}>
+      <section id={'box'}>
         {tracks.map(([trackId, soundId], i) => {
           const track = sounds[soundId];
 
@@ -51,7 +51,7 @@ const Box = () => {
             return null;
           }
         })}
-      </div>
+      </section>
     </Main>
   );
 };

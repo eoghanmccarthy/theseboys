@@ -6,7 +6,7 @@ import Oscillator from '../../components/oscillator';
 
 const Page = () => {
   return (
-    <Main id={'studio'} className={'beats'}>
+    <Main id={'studio'}>
       <Master volume={0} bpm={120} />
       <Oscillator />
     </Main>
