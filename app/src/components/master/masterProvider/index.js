@@ -2,7 +2,7 @@ import React, { useEffect, useRef, createContext } from 'react';
 import { Transport, Destination, Recorder, getTransport, getContext, start } from 'tone';
 
 export const MasterContext = createContext();
-import useEventListener from 'utils/hooks/useEventListener';
+import { useEventListener } from 'hooks';
 
 const MasterProvider = ({ children }) => {
   useEffect(() => {

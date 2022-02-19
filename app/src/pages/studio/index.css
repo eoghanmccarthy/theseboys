@@ -6,3 +6,8 @@
     padding: 0 var(--spacing-40) var(--spacing-40);
     margin: 0 auto;
 }
+
+#studio .sequencer {
+    padding: 0 var(--spacing-12);
+    background-color: rgba(255,255,255,0.008);
+}

@@ -16,7 +16,7 @@ module.exports = merge(base, {
       src: path.resolve(__dirname, 'src/'),
       assets: path.resolve(__dirname, 'assets/'),
       components: path.resolve(__dirname, 'src/components/'),
-      features: path.resolve(__dirname, 'src/features/'),
+      hooks: path.resolve(__dirname, 'src/hooks/'),
       pages: path.resolve(__dirname, 'src/pages/'),
       routes: path.resolve(__dirname, 'src/routes/'),
       utils: path.resolve(__dirname, 'src/utils/')

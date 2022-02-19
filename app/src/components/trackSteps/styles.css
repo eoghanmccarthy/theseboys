@@ -1,7 +1,0 @@
-.track-steps {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 var(--spacing-12);
-    background-color: rgba(255,255,255,0.008);
-}

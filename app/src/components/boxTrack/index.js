@@ -1,12 +1,11 @@
 import React, { memo, forwardRef } from 'react';
 import PropTypes from 'prop-types';
 
-import useEventListener from 'utils/hooks/useEventListener';
-import useSound from 'utils/hooks/useSound';
+import { useEventListener, useSound } from 'hooks';
 
 import { channelTypes, instrumentTypes, notesTypes } from '../../utils/types';
 
-import Step from '../boxTrackStep';
+import Step from './step';
 
 const BoxTrack = memo(
   forwardRef(({ index, trackId, channel, instrument, notes, effects, controls }, ref) => {

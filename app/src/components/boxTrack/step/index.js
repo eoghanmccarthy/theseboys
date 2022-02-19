@@ -2,7 +2,7 @@ import React, { memo, useRef } from 'react';
 
 import './index.css';
 
-import useEventListener from '../../utils/hooks/useEventListener';
+import { useEventListener } from 'hooks';
 
 const Step = memo(({ id, onClick }) => {
   const ref = useRef();

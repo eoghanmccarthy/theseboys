@@ -1,16 +1,11 @@
-import React, { memo, forwardRef, useRef, useEffect } from 'react';
+import React, { memo, forwardRef } from 'react';
 import PropTypes from 'prop-types';
-import { Sequence } from 'tone';
 //Only instruments that extend the Monophonic class can be used with Tone.PolySynth
 //AMSynth, DuoSynth, FMSynth, MembraneSynth, MetalSynth, Synth
 
-import useEventListener from 'utils/hooks/useEventListener';
-import useSound from 'utils/hooks/useSound';
+import { useEventListener, useSound } from 'hooks';
 
 import { channelTypes, instrumentTypes, notesTypes, stepsTypes } from '../../utils/types';
-
-import { newArray } from 'utils/studioHelpers';
-import { onSequenceStep } from '../stepSequencer/utils';
 
 import StepSequencer from '../stepSequencer';
 
@@ -28,8 +23,7 @@ const notes = ['A3', 'C4', 'D4', 'E4', 'G4', 'A4'];
 const PolyTrack = memo(
   forwardRef(
     ({ index, trackId, channel, instrument, notes, stepCount, steps, effects, controls }, ref) => {
-      const noteInterval = `${stepCount}n`;
-      const noteIndices = newArray(stepCount);
+      const sound = useSound(channel, instrument, effects);
 
       useEventListener(e => {
         if (parseInt(e.key) === index + 1) {
@@ -44,28 +38,15 @@ const PolyTrack = memo(
         }
       });
 
-      const sound = useSound(channel, instrument, effects);
-
-      const handleOnSequenceStep = (time, column) => {
-        onSequenceStep(trackId, notes, stepCount, time, column, (notesToPlay, velocity) =>
-          sound.trigger(notesToPlay, noteInterval, time, velocity)
-        );
-      };
-
-      /* Sequencer */
-      const sequenceRef = useRef(
-        new Sequence(handleOnSequenceStep, noteIndices, noteInterval).start(0)
+      return (
+        <StepSequencer
+          trackId={trackId}
+          notes={notes}
+          stepCount={stepCount}
+          steps={steps}
+          onStep={sound.trigger}
+        />
       );
-
-      useEffect(() => {
-        return () => {
-          if (sequenceRef.current) {
-            sequenceRef.current.dispose();
-          }
-        };
-      }, []);
-
-      return <StepSequencer trackId={trackId} numberOfSteps={stepCount} initialValue={steps} />;
     }
   )
 );

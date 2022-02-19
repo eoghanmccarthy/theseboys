@@ -4,8 +4,7 @@ import { Oscillator as Osc, Distortion, Destination, Filter, Tremolo } from 'ton
 import './index.css';
 
 import { interpolate } from 'utils/studioHelpers';
-import { usePointer } from '../../utils/hooks';
-import useEventListener from '../../utils/hooks/useEventListener';
+import { useEventListener, usePointer } from 'hooks';
 
 const Oscillator = () => {
   const pointer = usePointer();

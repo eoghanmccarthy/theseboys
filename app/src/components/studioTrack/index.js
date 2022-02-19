@@ -1,26 +1,20 @@
-import React, { memo, forwardRef, useRef, useEffect } from 'react';
+import React, { memo, forwardRef } from 'react';
 import PropTypes from 'prop-types';
-import { Sequence } from 'tone';
 
-import useEventListener from 'utils/hooks/useEventListener';
-import useSound from 'utils/hooks/useSound';
+import { useEventListener, useSound } from 'hooks';
 
 import { channelTypes, instrumentTypes, notesTypes, stepsTypes } from '../../utils/types';
-
-import { newArray } from 'utils/studioHelpers';
-import { onSequenceStep } from '../stepSequencer/utils';
 
 import { ControlHandler } from '../controls';
 import Track from '../trackContainer';
 import TrackControls from '../trackControls';
-import TrackSteps from '../trackSteps';
+import StepSequencer from '../stepSequencer';
 import { TrackEffects, EffectsGroup } from '../trackEffects';
 
 const StudioTrack = memo(
   forwardRef(
     ({ index, trackId, channel, instrument, notes, stepCount, steps, effects, controls }, ref) => {
-      const noteInterval = `${stepCount}n`;
-      const noteIndices = newArray(stepCount);
+      const sound = useSound(channel, instrument, effects);
 
       useEventListener(e => {
         if (parseInt(e.key) === index + 1) {
@@ -38,31 +32,16 @@ const StudioTrack = memo(
         }
       });
 
-      const sound = useSound(channel, instrument, effects);
-
-      const handleOnSequenceStep = (time, column) => {
-        onSequenceStep(trackId, notes, stepCount, time, column, (notesToPlay, velocity) =>
-          sound.trigger(notesToPlay, noteInterval, time, velocity)
-        );
-      };
-
-      /* Sequencer */
-      const sequenceRef = useRef(
-        new Sequence(handleOnSequenceStep, noteIndices, noteInterval).start(0)
-      );
-
-      useEffect(() => {
-        return () => {
-          if (sequenceRef.current) {
-            sequenceRef.current.dispose();
-          }
-        };
-      }, []);
-
       return (
         <Track trackId={trackId}>
           <TrackControls trackId={trackId} trackNumber={index + 1} channel={sound.channel} />
-          <TrackSteps trackId={trackId} numSteps={stepCount} initialValue={steps} />
+          <StepSequencer
+            trackId={trackId}
+            notes={notes}
+            stepCount={stepCount}
+            steps={steps}
+            onStep={sound.trigger}
+          />
           <TrackEffects trackId={trackId}>
             {Object.entries(controls ?? {}).map(([group, value], i) => {
               return (

@@ -1,14 +1,40 @@
-import React, { memo } from 'react';
+import React, { memo, useEffect, useRef } from 'react';
+import { Sequence } from 'tone';
+
 import { isArray, isString, isNumber } from 'utils/helpers/typeCheck';
 
 import './styles.css';
 
+import { onSequenceStep, newArray } from './utils';
+
 import Step from './step';
 
-const StepSequencer = memo(({ trackId, numberOfSteps = 16, initialValue }) => {
-  if (!isString(trackId) || !isNumber(numberOfSteps) || !isArray(initialValue)) {
+const StepSequencer = memo(({ trackId, notes, stepCount = 16, steps, onStep }) => {
+  if (!isString(trackId) || !isNumber(stepCount) || !isArray(steps)) {
     return null;
   }
+
+  const noteInterval = `${stepCount}n`;
+  const noteIndices = newArray(stepCount);
+
+  const handleOnSequenceStep = (time, column) => {
+    onSequenceStep(trackId, notes, stepCount, time, column, (notesToPlay, velocity) =>
+      onStep(notesToPlay, noteInterval, time, velocity)
+    );
+  };
+
+  /* Sequencer */
+  const sequenceRef = useRef(
+    new Sequence(handleOnSequenceStep, noteIndices, noteInterval).start(0)
+  );
+
+  useEffect(() => {
+    return () => {
+      if (sequenceRef.current) {
+        sequenceRef.current.dispose();
+      }
+    };
+  }, []);
 
   return (
     <div
@@ -17,7 +43,7 @@ const StepSequencer = memo(({ trackId, numberOfSteps = 16, initialValue }) => {
       data-random={'off'}
       data-random-value={'0.80'}
     >
-      {initialValue.map((rowData, rowIndex) => {
+      {steps.map((rowData, rowIndex) => {
         if (!isArray(rowData)) {
           return null;
         }
@@ -25,7 +51,7 @@ const StepSequencer = memo(({ trackId, numberOfSteps = 16, initialValue }) => {
         return (
           <div
             key={rowIndex}
-            style={{ gridTemplateColumns: `repeat(${numberOfSteps},1fr)` }}
+            style={{ gridTemplateColumns: `repeat(${stepCount},1fr)` }}
             className={`steps ${trackId}-steps-${rowIndex}`}
           >
             {rowData.map((stepValue, stepIndex) => {
