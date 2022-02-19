@@ -40,7 +40,7 @@ const TrackControls = memo(({ trackId, trackNumber, channel, play }) => {
           onClick={e => {
             const val = e.target.value;
             document
-              .querySelector(`#${trackId} .step-sequencer`)
+              .querySelector(`#${trackId}-sequencer`)
               .setAttribute('data-random', val === 'off' ? 'on' : 'off');
             e.target.setAttribute('value', val === 'off' ? 'on' : 'off');
             e.target.classList.toggle('alert');
@@ -58,9 +58,7 @@ const TrackControls = memo(({ trackId, trackNumber, channel, play }) => {
           toFixed={2}
           initialValue={0.8}
           onChange={val => {
-            document
-              .querySelector(`#${trackId} .step-sequencer`)
-              .setAttribute('data-random-value', val);
+            document.querySelector(`#${trackId}-sequencer`).setAttribute('data-random-value', val);
           }}
         />
       </ControllerGroup>

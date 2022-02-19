@@ -4,8 +4,6 @@ import { Channel, Destination } from 'tone';
 import { getSynth, getEffect } from 'utils/toneHelpers';
 
 const useSound = (channel, instrument, effects = {}) => {
-  console.log(channel, instrument, effects);
-
   if (!channel || !instrument || !effects) {
     throw new Error('error');
   }
@@ -70,7 +68,7 @@ const useSound = (channel, instrument, effects = {}) => {
   }, []);
 
   return {
-    channel: channel.current,
+    channel: channelRef.current,
     synth: synthRef.current,
     effects: effectsChainRef.current,
     trigger

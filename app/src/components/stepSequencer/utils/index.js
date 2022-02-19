@@ -2,9 +2,7 @@ import { Draw } from 'tone';
 import consoleLog from 'utils/errorHandlers/consoleLog';
 import { isArray, isString, isNumber, isFunction, isUndefined } from 'utils/helpers/typeCheck';
 
-import { drawSteps } from './drawSteps';
-import { isStepOn } from './isStepOn';
-import { random } from './random';
+import { random } from 'utils/studioHelpers/random';
 
 /**
  * @param {string} trackId
@@ -39,7 +37,7 @@ export const onSequenceStep = (trackId, notes = [], numSteps, time, step, onStep
   // const velocity = random(0.5, 1);
 
   for (let row = 0; row < numRows; row++) {
-    const sequencer = document.querySelector(`#${trackId} .step-sequencer`);
+    const sequencer = document.querySelector(`#${trackId}-sequencer`);
     if (isUndefined(sequencer)) {
       return;
     }
@@ -66,4 +64,65 @@ export const onSequenceStep = (trackId, notes = [], numSteps, time, step, onStep
   Draw.schedule(() => {
     drawSteps(trackId, numSteps, step);
   }, time);
+};
+
+/**
+ * @param {string} trackId
+ * @param {number} row
+ * @param {number} step
+ * @returns {boolean}
+ */
+const isStepOn = (trackId, row, step) => {
+  const errorLog = (...args) => {
+    consoleLog('isStepOn,', ...args);
+  };
+
+  if (!isString(trackId) || !isNumber(row) || !isNumber(step)) {
+    errorLog('invalid args', trackId, row, step);
+    return false;
+  }
+
+  const node = document.querySelector(`#${trackId}-sequencer .step.row-${row}-step-${step}`);
+
+  if (isUndefined(node)) {
+    errorLog('node undefined', node);
+    return false;
+  }
+
+  const value = node.getAttribute('value');
+
+  if (isUndefined(value)) {
+    errorLog('value undefined', value);
+    return false;
+  }
+
+  return value === 'on';
+};
+
+/**
+ * @param {string} trackId
+ * @param {number} stepTotal
+ * @param {number} step
+ */
+const drawSteps = (trackId, stepTotal, step) => {
+  const errorLog = (...args) => {
+    consoleLog('drawSteps,', ...args);
+  };
+
+  if (!isString(trackId) || !isNumber(stepTotal) || !isNumber(step)) {
+    errorLog('invalid args', trackId, stepTotal, step);
+    return;
+  }
+
+  const steps = document.getElementsByClassName(`step ${trackId}-step`);
+
+  for (let i = 0; i < steps.length; i++) {
+    const current = (i - step) % stepTotal === 0;
+
+    if (current) {
+      steps[i].setAttribute('data-status', 'current');
+    } else {
+      steps[i].setAttribute('data-status', 'idle');
+    }
+  }
 };

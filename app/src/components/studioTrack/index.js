@@ -7,7 +7,8 @@ import useSound from 'utils/hooks/useSound';
 
 import { channelTypes, instrumentTypes, notesTypes, stepsTypes } from '../../utils/types';
 
-import { newArray, onSequenceStep } from 'utils/studioHelpers';
+import { newArray } from 'utils/studioHelpers';
+import { onSequenceStep } from '../stepSequencer/utils';
 
 import { ControlHandler } from '../controls';
 import Track from '../trackContainer';

@@ -9,10 +9,10 @@ import useSound from 'utils/hooks/useSound';
 
 import { channelTypes, instrumentTypes, notesTypes, stepsTypes } from '../../utils/types';
 
-import { newArray, onSequenceStep } from 'utils/studioHelpers';
+import { newArray } from 'utils/studioHelpers';
+import { onSequenceStep } from '../stepSequencer/utils';
 
-import Track from '../trackContainer';
-import TrackSteps from '../trackSteps';
+import StepSequencer from '../stepSequencer';
 
 //const notes = ['A4', 'D3', 'E3', 'G4', 'F#4'];
 const notes = ['A3', 'C4', 'D4', 'E4', 'G4', 'A4'];
@@ -65,11 +65,7 @@ const PolyTrack = memo(
         };
       }, []);
 
-      return (
-        <Track trackId={trackId}>
-          <TrackSteps trackId={trackId} numSteps={stepCount} initialValue={steps} />
-        </Track>
-      );
+      return <StepSequencer trackId={trackId} numberOfSteps={stepCount} initialValue={steps} />;
     }
   )
 );

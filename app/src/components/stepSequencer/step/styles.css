@@ -1,4 +1,4 @@
-.step-sequencer .step {
+.sequencer .step {
     display: grid;
     align-content: center;
     justify-content: center;
@@ -10,12 +10,12 @@
     cursor: pointer;
 }
 
-.step-sequencer .step .step-zone {
+.sequencer .step .step-zone {
     width: 100%;
     fill: none;
 }
 
-.step-sequencer .step .step-icon {
+.sequencer .step .step-icon {
     position: absolute;
     top: 0;
     left: 0;
@@ -23,29 +23,29 @@
     transform-origin: center;
 }
 
-.step-sequencer .step[value = 'off'] .step-icon.off {
+.sequencer .step[value = 'off'] .step-icon.off {
     display: block;
     fill: var(--color-bluegrey-900);
 }
 
-.step-sequencer .step[value = 'off'] .step-icon.on {
+.sequencer .step[value = 'off'] .step-icon.on {
     display: none;
 }
 
-.step-sequencer .step[value = 'on'] .step-icon.off {
+.sequencer .step[value = 'on'] .step-icon.off {
     display: none;
 }
 
-.step-sequencer .step[value = 'on'] .step-icon.on {
+.sequencer .step[value = 'on'] .step-icon.on {
     display: block;
     fill: var(--color-secondary);
 }
 
-.step-sequencer .step[data-status = 'current'] .step-icon.off {
+.sequencer .step[data-status = 'current'] .step-icon.off {
     /*background: var(--color-grey-900);*/
     fill: var(--color-grey-900);
 }
 
-.step-sequencer .step[data-status = 'current'] .step-icon.on {
+.sequencer .step[data-status = 'current'] .step-icon.on {
     fill: blueviolet;
 }

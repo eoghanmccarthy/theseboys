@@ -13,6 +13,15 @@ const songs = {
   t001: 'poly01'
 };
 
+const steps = [
+  [1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1],
+  [0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
+  [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0]
+];
+
 const Studio = () => {
   const tracks = Object.entries(songs);
   const tracksRef = useRef(tracks.map(() => createRef()));
@@ -35,7 +44,7 @@ const Studio = () => {
 
           switch (track.type) {
             case 'poly':
-              return <PolyTrack {...props} />;
+              return <PolyTrack {...props} steps={steps} />;
             default:
               return null;
           }
