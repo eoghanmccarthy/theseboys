@@ -1,7 +1,7 @@
 .sequencer {
-    flex: 1;
     display: flex;
     flex-direction: column;
+    background-color: hsla(0,0%,100%,.008);
 }
 
 .sequencer > .steps {
@@ -9,4 +9,57 @@
     display: grid;
     touch-action: none;
     width: 100%;
+}
+
+.sequencer .step {
+    display: grid;
+    align-content: center;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+    padding: 0;
+    background: transparent;
+    border-width: 0;
+    cursor: pointer;
+}
+
+.sequencer .step[value = 'on'] {
+    background: var(--color-secondary);
+}
+
+.sequencer .step[value = 'on'][data-status = 'current'] {
+    background: blueviolet;
+}
+
+.sequencer .step svg {
+    width: 100%;
+    fill: none;
+}
+
+.sequencer .step .step-zone {
+    fill: none;
+}
+
+.sequencer .step .step-icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform-origin: center;
+}
+
+.sequencer .step[value = 'off'] .step-icon.off {
+    display: block;
+    fill: var(--color-bluegrey-900);
+}
+
+.sequencer .step[value = 'off'] .step-icon.on {
+    display: none;
+}
+
+.sequencer .step[value = 'on'] .step-icon.off {
+    display: none;
+}
+
+.sequencer .step[value = 'on'] .step-icon.on {
+    display: block;
 }

@@ -1,8 +1,6 @@
 import React, { memo } from 'react';
 import { isString, isNumber, isUndefined } from 'utils/typeCheck';
 
-import './styles.css';
-
 const Step = memo(({ trackId, stepValue, rowIndex, stepIndex }) => {
   if (!isString(trackId) || !isNumber(rowIndex) || !isNumber(stepIndex)) {
     return null;
@@ -22,7 +20,7 @@ const Step = memo(({ trackId, stepValue, rowIndex, stepIndex }) => {
       className={`step ${trackId}-step row-${rowIndex}-step-${stepIndex}`}
       value={stepValue ? 'on' : 'off'}
       data-status={'idle'}
-      onClick={e => handleClick(e)}
+      onClick={handleClick}
     >
       <svg className={'step-zone'} xmlns={'http://www.w3.org/2000/svg'} viewBox={'0 0 30 30'} />
       <svg className={'step-icon off'} xmlns={'http://www.w3.org/2000/svg'} viewBox={'0 0 30 30'}>
