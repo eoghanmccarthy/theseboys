@@ -1,0 +1,3 @@
+#studio .poly .sequencer {
+    height:  calc(100vh - var(--header-height));
+}

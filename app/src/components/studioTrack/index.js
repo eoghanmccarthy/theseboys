@@ -48,12 +48,11 @@ const StudioTrack = memo(
                 <EffectsGroup key={i} span={value.span} title={group}>
                   {value.effects.map((name, i) => {
                     const node = sound.effects.find(effect => effect.name === name);
-
-                    if (!node) {
+                    if (node) {
+                      return <ControlHandler key={i} trackId={trackId} name={name} node={node} />;
+                    } else {
                       return null;
                     }
-
-                    return <ControlHandler key={i} trackId={trackId} name={name} node={node} />;
                   })}
                 </EffectsGroup>
               );

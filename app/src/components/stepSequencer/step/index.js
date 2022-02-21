@@ -22,7 +22,6 @@ const Step = memo(({ trackId, stepValue, rowIndex, stepIndex }) => {
       data-status={'idle'}
       onClick={handleClick}
     >
-      <svg className={'step-zone'} xmlns={'http://www.w3.org/2000/svg'} viewBox={'0 0 30 30'} />
       <svg className={'step-icon off'} xmlns={'http://www.w3.org/2000/svg'} viewBox={'0 0 30 30'}>
         <circle cx={'15'} cy={'15'} r={'1'} />
         {/*<rect x={'0'} y={'0'} width={30} height={30} />*/}

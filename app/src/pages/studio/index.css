@@ -6,12 +6,11 @@
     padding: 0;
 }
 
-#studio .tracks .sequencer {
+#studio #tracks .sequencer {
     padding: 0 var(--spacing-12);
     background-color: rgba(255,255,255,0.008);
 }
 
-#studio .tracks .sequencer .step {
-    /*padding: 0 var(--spacing-12);*/
-    /*background-color: rgba(255,255,255,0.008);*/
+#studio #tracks .sequencer .step {
+    padding-top: 100%;
 }

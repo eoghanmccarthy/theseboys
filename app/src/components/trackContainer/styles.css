@@ -1,8 +1,10 @@
 .track {
     display: grid;
-    grid-template-rows: 72px auto min-content;
+    grid-template-rows: min-content auto min-content;
+    grid-template-areas:
+        "controls"
+        "sequencer"
+        "effects";
     width: 100%;
-    /*border-bottom-right-radius: var(--spacing-16);*/
-    /*border-bottom-left-radius: var(--spacing-16);*/
     overflow: hidden;
 }

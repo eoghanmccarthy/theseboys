@@ -1,4 +1,5 @@
 .track-effects {
+    grid-area: effects;
     display: grid;
     grid-template-columns: repeat(20, 1fr);
     padding: var(--spacing-20) var(--spacing-20) var(--spacing-16);

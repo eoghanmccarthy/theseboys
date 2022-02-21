@@ -7,7 +7,10 @@ import { useEventListener, useSound } from 'hooks';
 
 import { channelTypes, instrumentTypes, notesTypes, stepsTypes } from '../../utils/types';
 
+import Track from '../trackContainer';
 import StepSequencer from '../stepSequencer';
+import { TrackEffects, EffectsGroup } from '../trackEffects';
+import { ControlHandler } from '../controls/ControlHandler';
 
 //const notes = ['A4', 'D3', 'E3', 'G4', 'F#4'];
 const notes = ['A3', 'C4', 'D4', 'E4', 'G4', 'A4'];
@@ -39,13 +42,34 @@ const PolyTrack = memo(
       });
 
       return (
-        <StepSequencer
-          trackId={trackId}
-          notes={notes}
-          stepCount={stepCount}
-          steps={steps}
-          onStep={sound.trigger}
-        />
+        <Track trackId={trackId}>
+          <StepSequencer
+            trackId={trackId}
+            notes={notes}
+            stepCount={stepCount}
+            steps={steps}
+            onStep={sound.trigger}
+          />
+          <TrackEffects trackId={trackId}>
+            {Object.entries(controls ?? {}).map(([group, value], i) => {
+              return (
+                <EffectsGroup key={i} span={value.span} title={group}>
+                  {value.effects.map((name, i) => {
+                    const node = sound.effects.find(effect => effect.name === name);
+                    if (node) {
+                      return <ControlHandler key={i} trackId={trackId} name={name} node={node} />;
+                    } else {
+                      return null;
+                    }
+                  })}
+                </EffectsGroup>
+              );
+            })}
+            <EffectsGroup span={'17 / span 4'} title={'envelope'}>
+              <ControlHandler trackId={trackId} name={'Envelope'} node={sound.synth?.envelope} />
+            </EffectsGroup>
+          </TrackEffects>
+        </Track>
       );
     }
   )
