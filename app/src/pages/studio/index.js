@@ -11,20 +11,28 @@ import { Master } from 'components/master';
 import { sounds } from '../../sounds';
 import ShortcutsLegend from 'components/ShortcutsLegend';
 
-const songs = {
-  s001: {
-    t001: 'kick01',
-    t002: 'kick02',
-    t003: 'snare01',
-    t004: 'snare02',
-    t005: 'HAT01',
-    t006: 'HAT02',
-    t007: 'poly01'
+const song = {
+  t001: { sound: 'kick01' },
+  t002: { sound: 'kick02' },
+  t003: { sound: 'snare01' },
+  t004: { sound: 'snare02' },
+  t005: { sound: 'HAT01', steps: [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]] },
+  t006: { sound: 'HAT02' },
+  t007: {
+    sound: 'poly01',
+    steps: [
+      [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
+      [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0]
+    ]
   }
 };
 
 const Studio = () => {
-  const tracks = Object.entries(songs['s001']);
+  const tracks = Object.entries(song);
   const tracksRef = useRef(tracks.map(() => createRef()));
 
   const micRef = useRef(new UserMedia({ volume: 0 }));
@@ -64,8 +72,8 @@ const Studio = () => {
       <Main id={'studio'}>
         <Master volume={0} bpm={120} />
         <section id={'tracks'}>
-          {tracks.map(([trackId, soundId], i) => {
-            const track = sounds[soundId];
+          {tracks.map(([trackId, { sound, ...config }], i) => {
+            const track = sounds[sound];
 
             if (track) {
               const props = {
@@ -74,7 +82,8 @@ const Studio = () => {
                 index: i,
                 trackId,
                 ...TRACK_DEFAULT,
-                ...track
+                ...track,
+                ...config
               };
 
               switch (track.type) {

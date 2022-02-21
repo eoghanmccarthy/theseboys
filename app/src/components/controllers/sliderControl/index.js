@@ -69,7 +69,7 @@ const SliderControl = memo(
               if (val && !isInvalid(val)) {
                 e.target.value = val;
                 valueRef.current.innerHTML = val.toFixed(toFixed);
-                onChange(val, 0.25);
+                onChange(val, 0.1);
               }
             }}
           />

@@ -2,13 +2,14 @@
 //https://blog.landr.com/eq-kick-and-bass/
 //https://github.com/Tonejs/Tone.js/issues/416
 
+const sound = { notes: [], steps: [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]] };
+
 export const tracks = {
   HAT01: {
     id: 'HAT01',
     type: 'hat',
     name: '',
-    notes: [],
-    steps: [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]],
+    ...sound,
     instrument: {
       synth: 'NoiseSynth',
       options: {
@@ -47,7 +48,7 @@ export const tracks = {
     id: 'HAT02',
     type: 'hat',
     name: '',
-    notes: [],
+    ...sound,
     instrument: {
       synth: 'NoiseSynth',
       options: {

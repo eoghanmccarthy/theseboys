@@ -2,11 +2,14 @@
 //https://blog.landr.com/eq-kick-and-bass/
 //https://github.com/Tonejs/Tone.js/issues/416
 
+const sound = { notes: [], steps: [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]] };
+
 export const tracks = {
   snare01: {
     id: 'snare01',
     type: 'snare',
     name: '',
+    ...sound,
     notes: ['C1'],
     instrument: {
       synth: 'MetalSynth',
@@ -59,6 +62,7 @@ export const tracks = {
     id: 'snare02',
     type: 'snare',
     name: '',
+    ...sound,
     notes: ['C1'],
     instrument: {
       synth: 'MetalSynth',

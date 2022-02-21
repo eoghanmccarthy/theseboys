@@ -15,7 +15,7 @@ const Eq3Controls = memo(({ trackId, node }) => {
         min={DECIBEL_MIN}
         max={DECIBEL_MAX}
         initialValue={node.get().low ?? 0}
-        onChange={val => node.set({ low: val })}
+        onChange={(val, time) => node.low.rampTo(val, time)}
       />
       <SliderControl
         id={`${trackId}-eq3--mid`}
@@ -24,7 +24,7 @@ const Eq3Controls = memo(({ trackId, node }) => {
         min={DECIBEL_MIN}
         max={DECIBEL_MAX}
         initialValue={node.get().mid ?? 0}
-        onChange={val => node.set({ mid: val })}
+        onChange={(val, time) => node.mid.rampTo(val, time)}
       />
       <SliderControl
         id={`${trackId}-eq3--high`}
@@ -33,7 +33,7 @@ const Eq3Controls = memo(({ trackId, node }) => {
         min={DECIBEL_MIN}
         max={DECIBEL_MAX}
         initialValue={node.get().high ?? 0}
-        onChange={val => node.set({ high: val })}
+        onChange={(val, time) => node.high.rampTo(val, time)}
       />
       <SliderControl
         id={`${trackId}-eq3--low-frequency`}
@@ -42,7 +42,7 @@ const Eq3Controls = memo(({ trackId, node }) => {
         min={FREQUENCY_MIN}
         max={FREQUENCY_MAX}
         initialValue={node.get().lowFrequency ?? 1000}
-        onChange={val => node.set({ lowFrequency: val })}
+        onChange={(val, time) => node.lowFrequency.rampTo(val, time)}
       />
       <SliderControl
         id={`${trackId}-eq3--high-frequency`}
@@ -51,7 +51,7 @@ const Eq3Controls = memo(({ trackId, node }) => {
         min={FREQUENCY_MIN}
         max={FREQUENCY_MAX}
         initialValue={node.get().highFrequency ?? 1000}
-        onChange={val => node.set({ highFrequency: val })}
+        onChange={(val, time) => node.highFrequency.rampTo(val, time)}
       />
     </>
   );

@@ -2,11 +2,14 @@
 //https://blog.landr.com/eq-kick-and-bass/
 //https://github.com/Tonejs/Tone.js/issues/416
 
+const sound = { notes: [], steps: [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]] };
+
 export const tracks = {
   kick01: {
     id: 'kick01',
     type: 'kick',
     name: 'SUB KICK',
+    ...sound,
     notes: ['G1'],
     instrument: {
       synth: 'MembraneSynth',
@@ -65,6 +68,7 @@ export const tracks = {
     id: 'kick02',
     type: 'kick',
     name: 'MID KICK',
+    ...sound,
     notes: ['C1'],
     instrument: {
       synth: 'MembraneSynth',
