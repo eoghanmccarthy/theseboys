@@ -13,7 +13,7 @@ const useSound = (channel, instrument, effects = {}) => {
 
   /* Effects */
   const effectsChainRef = useRef(
-    Object.entries(effects ?? {}).map(([effect, options]) => getEffect(effect, options))
+    [...effects].map(([effect, options]) => getEffect(effect, options))
   );
 
   /* Synth */

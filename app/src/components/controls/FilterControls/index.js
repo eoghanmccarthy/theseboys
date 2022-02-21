@@ -14,7 +14,7 @@ const FilterControls = memo(({ trackId, node }) => {
       min={FREQUENCY_MIN}
       max={FREQUENCY_MAX}
       initialValue={node.get().frequency ?? 1000}
-      onChange={val => node.set({ frequency: val })}
+      onChange={(val, time = 0.0) => node.frequency.rampTo(val, time)}
     />
   );
 });

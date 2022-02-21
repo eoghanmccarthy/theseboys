@@ -17,8 +17,8 @@ const songs = {
     t002: 'kick02',
     t003: 'snare01',
     t004: 'snare02',
-    t005: 'hat01',
-    t006: 'hat02',
+    t005: 'HAT01',
+    t006: 'HAT02',
     t007: 'poly01'
   }
 };

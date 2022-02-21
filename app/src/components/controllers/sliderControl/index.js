@@ -12,39 +12,27 @@ const SliderControl = memo(
     step = 0.1,
     min = 0,
     max = 1,
-    initialValue,
+    initialValue: initial,
     toFixed = 0,
     onChange
   }) => {
     const controlRef = useRef(null);
     const valueRef = useRef(null);
 
+    const isInvalid = val => typeof val !== 'number' || val < min || val > max;
+
     useEffect(() => {
-      handleOnChange(initialValue);
-    }, [initialValue]);
-
-    const handleOnChange = (val, setInputValue = true) => {
-      if (
-        !controlRef.current ||
-        !valueRef.current ||
-        typeof val !== 'number' ||
-        val < min ||
-        val > max
-      )
-        return;
-
-      if (setInputValue) {
-        controlRef.current.value = `${val}`;
+      if (!isInvalid(initial)) {
+        controlRef.current.value = initial.toString();
+        valueRef.current.innerHTML = initial.toFixed(toFixed);
       }
-
-      valueRef.current.setAttribute('value', val.toFixed(toFixed));
-
-      onChange(val);
-    };
+    }, []);
 
     return (
       <Controller id={id} orient={orient}>
-        <label className={'label'}>{label}</label>
+        <label htmlFor={''} className={'label'}>
+          {label}
+        </label>
         <div className={'controls'}>
           <Slider
             ref={controlRef}
@@ -53,20 +41,35 @@ const SliderControl = memo(
             step={step}
             min={min}
             max={max}
-            onChange={e => handleOnChange(parseFloat(e.target.value), false)}
+            onChange={e => {
+              const val = parseFloat(e.target.value);
+
+              if (val && !isInvalid(val)) {
+                valueRef.current.innerHTML = val.toFixed(toFixed);
+                onChange(val, 0.1);
+              }
+            }}
             onKeyDown={e => {
+              let val;
+
               switch (e.key) {
                 case 'q':
-                  handleOnChange(min);
+                  val = max;
                   break;
-                case 'w':
-                  handleOnChange(max);
+                case 'a':
+                  val = min;
                   break;
-                case 'e':
-                  handleOnChange(initialValue);
+                case 's':
+                  val = initial;
                   break;
                 default:
                   break;
+              }
+
+              if (val && !isInvalid(val)) {
+                e.target.value = val;
+                valueRef.current.innerHTML = val.toFixed(toFixed);
+                onChange(val, 0.25);
               }
             }}
           />

@@ -24,26 +24,32 @@ export const tracks = {
         }
       }
     },
-    effects: {
-      Reverb: { decay: 0.2, preDelay: 0.2, wet: 0.05 },
-      Distortion: { distortion: 0.6, oversample: '4x', wet: 0.22 },
-      Compressor: {
-        threshold: -26,
-        knee: 20,
-        ratio: 4.2,
-        attack: 0.024,
-        release: 0.132
-      },
-      Limiter: { threshold: -48 },
-      EQ3: {
-        Q: 1,
-        low: -3,
-        mid: -48,
-        high: -60,
-        lowFrequency: 100,
-        highFrequency: 120
-      }
-    },
+    effects: new Map([
+      ['Reverb', { decay: 0.2, preDelay: 0.2, wet: 0.05 }],
+      ['Distortion', { distortion: 0.6, oversample: '4x', wet: 0.22 }],
+      [
+        'Compressor',
+        {
+          threshold: -26,
+          knee: 20,
+          ratio: 4.2,
+          attack: 0.024,
+          release: 0.132
+        }
+      ],
+      ['Limiter', { threshold: -48 }],
+      [
+        'EQ3',
+        {
+          Q: 1,
+          low: -3,
+          mid: -48,
+          high: -60,
+          lowFrequency: 100,
+          highFrequency: 120
+        }
+      ]
+    ]),
     controls: {
       equaliser: { span: '1 / span 5', effects: ['EQ3'] },
       compressor: { span: '6 / span 4', effects: ['Compressor'] },
@@ -76,24 +82,30 @@ export const tracks = {
         }
       }
     },
-    effects: {
-      Compressor: {
-        threshold: -21,
-        knee: 20,
-        ratio: 4.2,
-        attack: 0.024,
-        release: 0.132
-      },
-      Limiter: { threshold: -12 },
-      EQ3: {
-        Q: 1,
-        low: -3,
-        mid: -24,
-        high: -60,
-        lowFrequency: 160,
-        highFrequency: 420
-      }
-    },
+    effects: new Map([
+      [
+        'Compressor',
+        {
+          threshold: -21,
+          knee: 20,
+          ratio: 4.2,
+          attack: 0.024,
+          release: 0.132
+        }
+      ],
+      ['Limiter', { threshold: -12 }],
+      [
+        'EQ3',
+        {
+          Q: 1,
+          low: -3,
+          mid: -24,
+          high: -60,
+          lowFrequency: 160,
+          highFrequency: 420
+        }
+      ]
+    ]),
     controls: {
       eq3: { span: '1 / span 5', effects: ['EQ3'] },
       compressor: { span: '6 / span 4', effects: ['Compressor'] },
