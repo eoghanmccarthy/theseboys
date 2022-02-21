@@ -24,7 +24,7 @@ const songs = {
     ]
   },
   t002: {
-    include: false,
+    include: true,
     sound: 'poly01',
     notes: SCALE_A_MINOR.slice(0, 6),
     steps: [

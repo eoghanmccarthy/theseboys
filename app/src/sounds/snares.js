@@ -2,7 +2,9 @@
 //https://blog.landr.com/eq-kick-and-bass/
 //https://github.com/Tonejs/Tone.js/issues/416
 
-const sound = { notes: [], steps: [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]] };
+import { STEPS_DEFAULT } from '../utils/constants';
+
+const sound = { notes: [], steps: STEPS_DEFAULT };
 
 export const tracks = {
   snare01: {

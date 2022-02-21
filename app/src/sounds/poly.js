@@ -1,4 +1,4 @@
-import { SCALE_A_MINOR } from '../utils/constants';
+import { SCALE_A_MINOR, STEPS_DEFAULT } from '../utils/constants';
 
 const samples = [
   {
@@ -39,12 +39,12 @@ const samples = [
 const sound = {
   notes: SCALE_A_MINOR.slice(0, 6),
   steps: [
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    ...STEPS_DEFAULT,
+    ...STEPS_DEFAULT,
+    ...STEPS_DEFAULT,
+    ...STEPS_DEFAULT,
+    ...STEPS_DEFAULT,
+    ...STEPS_DEFAULT
   ]
 };
 

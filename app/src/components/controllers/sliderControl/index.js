@@ -1,5 +1,6 @@
 import React, { memo, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
+import { isNumber } from '../../../utils/typeCheck';
 
 import Slider from 'components/slider';
 import Controller from '../controller';
@@ -44,7 +45,7 @@ const SliderControl = memo(
             onChange={e => {
               const val = parseFloat(e.target.value);
 
-              if (val && !isInvalid(val)) {
+              if (!isInvalid(val)) {
                 valueRef.current.innerHTML = val.toFixed(toFixed);
                 onChange(val, 0.1);
               }
@@ -66,7 +67,7 @@ const SliderControl = memo(
                   break;
               }
 
-              if (val && !isInvalid(val)) {
+              if (!isInvalid(val)) {
                 e.target.value = val;
                 valueRef.current.innerHTML = val.toFixed(toFixed);
                 onChange(val, 0.1);
