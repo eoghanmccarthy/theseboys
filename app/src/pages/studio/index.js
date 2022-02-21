@@ -3,7 +3,7 @@ import { Transport, Destination, Meter, UserMedia } from 'tone';
 
 import './index.css';
 
-import { TRACK_DEFAULT } from '../../utils/constants';
+import { SCALE_A_MINOR, TRACK_DEFAULT } from '../../utils/constants';
 
 import { Footer, Main } from 'components/layout';
 import StudioTrack from 'components/studioTrack';
@@ -20,6 +20,7 @@ const song = {
   t006: { sound: 'HAT02' },
   t007: {
     sound: 'poly01',
+    notes: SCALE_A_MINOR.slice(0, 6),
     steps: [
       [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
@@ -47,10 +48,8 @@ const Studio = () => {
   //   navigator.mediaDevices.enumerateDevices().then(devices => {
   //     // print the device labels
   //     console.log(devices.map(device => device));
-  //     selectedDevice.current = devices[1].deviceId;
+  //     selectedDevice.current = devices[0].groupId;
   //   });
-  //
-  //   console.log(selectedDevice.current);
   //
   //   micRef.current
   //     .open()

@@ -36,6 +36,18 @@ const samples = [
   }
 ];
 
+const sound = {
+  notes: SCALE_A_MINOR.slice(0, 6),
+  steps: [
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  ]
+};
+
 export const tracks = {
   poly01: {
     id: 'poly01',
@@ -46,7 +58,7 @@ export const tracks = {
       mute: false
     },
     stepCount: 16,
-    ...samples[2],
+    ...sound,
     instrument: {
       synth: 'PolySynth',
       options: {

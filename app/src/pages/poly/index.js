@@ -11,6 +11,7 @@ import { sounds } from '../../sounds';
 
 const songs = {
   t001: {
+    include: true,
     sound: 'poly01',
     notes: SCALE_A_MINOR.slice(0, 6),
     steps: [
@@ -23,6 +24,7 @@ const songs = {
     ]
   },
   t002: {
+    include: false,
     sound: 'poly01',
     notes: SCALE_A_MINOR.slice(0, 6),
     steps: [
@@ -44,10 +46,10 @@ const Studio = () => {
     <Main id={'studio'}>
       <Master volume={0} bpm={120} />
       <div className={'poly'}>
-        {tracks.map(([trackId, { sound, ...config }], i) => {
+        {tracks.map(([trackId, { include, sound, ...config }], i) => {
           const track = sounds[sound];
 
-          if (track) {
+          if (track && include) {
             const props = {
               key: trackId,
               ref: tracksRef.current[i],
