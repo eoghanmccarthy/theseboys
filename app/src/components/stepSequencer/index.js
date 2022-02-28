@@ -8,6 +8,7 @@ import './styles.css';
 import { onSequenceStep, newArray } from './utils';
 
 import Step from './step';
+import { SliderControl } from '../controllers';
 
 const StepSequencer = memo(({ trackId, notes, stepCount = 16, steps, onStep }) => {
   if (!isString(trackId) || !isNumber(stepCount) || !isArray(steps)) {
@@ -37,37 +38,46 @@ const StepSequencer = memo(({ trackId, notes, stepCount = 16, steps, onStep }) =
   }, []);
 
   return (
-    <div
-      id={`${trackId}-sequencer`}
-      className={`sequencer`}
-      data-random={'off'}
-      data-random-value={'0.80'}
-    >
-      {steps.map((rowData, rowIndex) => {
-        if (!isArray(rowData)) {
-          return null;
-        }
+    <div id={`${trackId}-sequencer`} className={`sequencer`} data-randomize={0}>
+      <div className={'sequencer-randomizer'}>
+        <SliderControl
+          label={'RAN'}
+          step={1}
+          min={0}
+          max={100}
+          initialValue={0}
+          onChange={val => {
+            document.querySelector(`#${trackId}-sequencer`).setAttribute('data-randomize', val);
+          }}
+        />
+      </div>
+      <div className={'sequencer-steps'}>
+        {steps.map((rowData, rowIndex) => {
+          if (!isArray(rowData)) {
+            return null;
+          }
 
-        return (
-          <div
-            key={rowIndex}
-            style={{ gridTemplateColumns: `repeat(${stepCount},1fr)` }}
-            className={`steps ${trackId}-steps-${rowIndex}`}
-          >
-            {rowData.map((stepValue, stepIndex) => {
-              return (
-                <Step
-                  key={stepIndex}
-                  trackId={trackId}
-                  stepValue={stepValue}
-                  rowIndex={rowIndex}
-                  stepIndex={stepIndex}
-                />
-              );
-            })}
-          </div>
-        );
-      })}
+          return (
+            <div
+              key={rowIndex}
+              style={{ gridTemplateColumns: `repeat(${stepCount},1fr)` }}
+              className={`steps ${trackId}-steps-${rowIndex}`}
+            >
+              {rowData.map((stepValue, stepIndex) => {
+                return (
+                  <Step
+                    key={stepIndex}
+                    trackId={trackId}
+                    stepValue={stepValue}
+                    rowIndex={rowIndex}
+                    stepIndex={stepIndex}
+                  />
+                );
+              })}
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 });

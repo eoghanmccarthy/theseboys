@@ -1,6 +1,5 @@
 import React, { memo, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { isNumber } from '../../../utils/typeCheck';
 
 import Slider from 'components/slider';
 import Controller from '../controller';
@@ -47,7 +46,7 @@ const SliderControl = memo(
 
               if (!isInvalid(val)) {
                 valueRef.current.innerHTML = val.toFixed(toFixed);
-                onChange(val, 0.1);
+                onChange(val, '0.1');
               }
             }}
             onKeyDown={e => {
@@ -70,7 +69,7 @@ const SliderControl = memo(
               if (!isInvalid(val)) {
                 e.target.value = val;
                 valueRef.current.innerHTML = val.toFixed(toFixed);
-                onChange(val, 0.1);
+                onChange(val, '4n');
               }
             }}
           />

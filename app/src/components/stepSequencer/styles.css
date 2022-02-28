@@ -1,14 +1,24 @@
 .sequencer {
     grid-area: sequencer;
     display: flex;
-    flex-direction: column;
     background-color: hsla(0,0%,100%,.008);
 }
 
-.sequencer > .steps {
+.sequencer .sequencer-randomizer {
+    width: 72px;
+    background: orange;
+}
+
+.sequencer .sequencer-steps {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.sequencer .steps {
     flex: 1;
     display: grid;
-    touch-action: none;
+    /*touch-action: none;*/
     width: 100%;
 }
 
