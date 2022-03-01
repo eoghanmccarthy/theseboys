@@ -6,6 +6,7 @@ import { useEventListener, useSound } from 'hooks';
 import { channelTypes, instrumentTypes, notesTypes, stepsTypes } from '../../utils/types';
 
 import { ControlHandler } from '../controls';
+import EnvelopeControls from '../controls/EnvelopeControls';
 import Track from '../trackContainer';
 import TrackControls from '../trackControls';
 import StepSequencer from '../stepSequencer';
@@ -58,7 +59,11 @@ const StudioTrack = memo(
               );
             })}
             <EffectsGroup span={'17 / span 4'} title={'envelope'}>
-              <ControlHandler trackId={trackId} name={'Envelope'} node={sound.synth?.envelope} />
+              <EnvelopeControls
+                trackId={trackId}
+                initialValue={sound.synth?.envelope?.get()}
+                onChange={val => sound.synth.envelope.set(val)}
+              />
             </EffectsGroup>
           </TrackEffects>
         </Track>

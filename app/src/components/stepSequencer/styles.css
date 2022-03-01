@@ -6,6 +6,7 @@
 
 .sequencer .sequencer-randomizer {
     width: 72px;
+    padding: 16px 0;
     background: orange;
 }
 

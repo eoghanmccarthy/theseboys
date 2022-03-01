@@ -49,13 +49,13 @@ export const onSequenceStep = (trackId, notes = [], numSteps, time, step, onStep
     // Randomizes only steps whose value is on
     const isOn = isStepOn(trackId, row, step) && random(0, 1) >= parseInt(randomValue) / 100;
 
-    // Ignores step value, each step in each row is randomized
+    // Ignores step value, each step is randomized
     // const isOn = randomValue > 0
     //   ? random(0, 1) > fromPercent([RANDOMIZER_MIN, RANDOMIZER_MAX], 100 - parseInt(randomValue))
     //   : isStepOn(trackId, row, step);
 
     // Only step value
-    //const isOn = isStepOn(trackId, row, step)
+    // const isOn = isStepOn(trackId, row, step)
 
     if (isOn) {
       if (!notes.length) {

@@ -11,6 +11,7 @@ import Track from '../trackContainer';
 import StepSequencer from '../stepSequencer';
 import { TrackEffects, EffectsGroup } from '../trackEffects';
 import { ControlHandler } from '../controls/ControlHandler';
+import EnvelopeControls from '../controls/EnvelopeControls';
 
 //const notes = ['A4', 'D3', 'E3', 'G4', 'F#4'];
 const notes = ['A3', 'C4', 'D4', 'E4', 'G4', 'A4'];
@@ -66,7 +67,11 @@ const PolyTrack = memo(
               );
             })}
             <EffectsGroup span={'17 / span 4'} title={'envelope'}>
-              <ControlHandler trackId={trackId} name={'Envelope'} node={sound.synth?.envelope} />
+              <EnvelopeControls
+                trackId={trackId}
+                initialValue={sound.synth?.get().envelope}
+                onChange={val => sound.synth.set({ envelope: val })}
+              />
             </EffectsGroup>
           </TrackEffects>
         </Track>
